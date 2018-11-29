@@ -1,0 +1,669 @@
+---
+title: "Preprocessing of raw data"
+author: "Marc Becker"
+output:
+  html_notebook:
+    code_folding: none
+    fig_width: 10
+    highlight: haddock
+    number_sections: yes
+    toc: yes
+---
+
+# Load packages
+```{r, results='hide'}
+library(lwgeom)
+library(magrittr)
+library(tibble)
+library(sf)
+library(RSAGA)
+library(raster)
+library(rgdal)
+library(dplyr)
+library(GSIF)
+library(forcats)
+library(purrr)
+library(glue)
+library(sp)
+```
+
+# Default variables
+
+## Coordinate Reference System
+
+We set a default Coordinate Reference System (CRS), which is used for all raster files.
+
+```{r}
+crs_32630 <- CRS("+init=epsg:32630")
+```
+
+## Study Area
+
+We loaded the study area to get an extent for the raster files.
+
+```{r}
+study_area <- 
+  st_read("/data/patrick/raw/boundaries/basque-country/Study_area.shp", 
+          quiet = TRUE)
+```
+
+# Response preprocessing
+
+## Import disease data and store as tibble
+
+Raw data: Point shapefile in CRS 23030 with presense and absence observations of heterobasi and armillaria.
+
+```{r message=FALSE, include=FALSE}
+disease_data <-
+  st_read(
+    "/data/patrick/raw/pathogens/armillaria_and_heterobasidion/hete-armillaria.shp", 
+    quiet = TRUE) %>% st_transform(32630)
+```
+
+## Store coordinates in tibble
+```{r}
+disease_data %<>% dplyr::select(-one_of("X", "Y"))
+
+disease_data %<>% 
+  st_coordinates() %>% 
+  cbind(disease_data) 
+```
+
+## Wiggle coordinates
+
+Some coordinates are not unique, so we have to wiggle them a little bit
+
+```{r}
+set.seed(1234)
+disease_data$X <- disease_data$X + rnorm(nrow(disease_data))/10
+disease_data$Y <- disease_data$Y + rnorm(nrow(disease_data))/10
+```
+
+## Change column names to lowercase
+```{r}
+colnames(disease_data) <-
+  disease_data %>%
+  colnames() %>%
+  tolower()
+```
+
+## Split disease data set
+
+```{r}
+heterobasi_data <- filter(disease_data, heterobasi == 1 | (armillaria == 0 & heterobasi == 0))
+armillaria_data <- filter(disease_data, armillaria == 1 | (armillaria == 0 & heterobasi == 0))
+```
+
+## Remove unused response
+```{r}
+heterobasi_data %<>% dplyr::select(-one_of("armillaria"))
+armillaria_data %<>% dplyr::select(-one_of("heterobasi"))
+```
+
+# Predictor preprocessing
+
+## Set global variables
+
+Initialize RSAGA for geoprocessing.
+
+```{r}
+env <- rsaga.env()
+``` 
+
+## Elevation
+
+Raw data: Zipped 5m lidar DEM in CRS 3042 in `.tif` format.
+
+Workflow: Reprojection on CRS 32630. Extraction of the elevation values for each observation.
+
+Mod data: DEM with 5m resolution in `.tif` format in CRS 32630.
+
+```{r}
+unzip(
+  "/data/patrick/raw/DEM/MDT_LIDAR_2013_5m_ETRS89.zip", 
+  exdir = "/data/marc/mod/tmp")
+```
+
+```{r}
+raster("/data/marc/mod/tmp/mdt_2013_5m.tif") %>%
+  projectRaster(crs = crs_32630, method = 'bilinear') %>% 
+  writeRaster(filename = '/data/marc/mod/dem/dem_5m.tif', overwrite=TRUE)
+```
+
+```{r}
+heterobasi_data$elevation <- 
+  raster("/data/marc/mod/dem/dem_5m.tif") %>%
+  raster::extract(heterobasi_data)
+
+armillaria_data$elevation <- 
+  raster("/data/marc/mod/dem/dem_5m.tif") %>%
+  raster::extract(armillaria_data)
+```
+
+## Slope
+
+Raw data: Reprojected DEM with 5m resolution in `.tif` format in CRS 32630.
+
+Workflow: Calculation of the slope with the RSAGA package. 
+          Conversion of the resulting `.sgrd` to `.tif`. 
+          Extraction of the slope values for each record.
+
+Mod data: Slope raster in degrees with 5m resolution in `.tif` format in CRS 32630.
+
+```{r}
+rsaga.slope.asp.curv(in.dem = "/data/marc/mod/dem/dem_5m.tif",
+                     out.slope = "/data/marc/mod/tmp/slope_5m",
+                     unit.slope = "degrees", env = env)
+```
+
+```{r}
+rsaga.geoprocessor(lib = "io_gdal", module = 2, env = env,
+                   param = list(GRIDS = "/data/marc/mod/tmp/slope_5m.sgrd", 
+                                FILE = "/data/marc/mod/slope/slope_5m.tif"))
+```
+
+```{r}
+heterobasi_data$slope <- 
+  raster("/data/marc/mod/slope/slope_5m.tif") %>%
+  raster::extract(heterobasi_data)
+
+armillaria_data$slope <- 
+  raster("/data/marc/mod/slope/slope_5m.tif") %>%
+  raster::extract(armillaria_data)
+```
+
+## Soil
+
+Raw data: Soil raster with 250m resolution in `.tif`format in CRS 4326 (Hengl 2017, http://journals.plos.org/plosone/article?id=10.1371/journal.pone.0169748).
+
+Workflow: Reproject study area to CRS 4326. 
+          Crop soil raster with study area and reproject to CRS 23030. 
+          Extraction of the soil value for each record. 
+          Left join with soil database from GSIF package to get actual soil name. 
+          Remove unused columns and factor soil name. 
+          
+Output: Soil raster with 250 m resolution in `.tif` format in CRS 23030.
+        
+```{r}
+study_area_4326 <-
+  study_area %>% 
+  st_transform(4326) %>% 
+  as("Spatial")
+```
+
+```{r}
+raster("/data/patrick/raw/soil/ISRIC_world_soil_information/TAXNWRB_250m_ll.tif") %>%
+  crop(study_area_4326) %>% 
+  mask(study_area_4326) %>%
+  projectRaster(crs = crs_32630, method = 'ngb') %>% 
+  writeRaster('/data/marc/mod/soil/soil.tif', overwrite = TRUE)
+```
+
+```{r}
+heterobasi_data$soil <-
+  raster("/data/marc/mod/soil/soil.tif") %>%
+  raster::extract(heterobasi_data)
+
+armillaria_data$soil <-
+  raster("/data/marc/mod/soil/soil.tif") %>%
+  raster::extract(armillaria_data)
+
+data("soil.legends")
+soil_legend <- as_tibble(soil.legends$TAXNWRB)
+
+armillaria_data %<>%
+  left_join(soil_legend, by = c('soil' = 'Number')) %>%
+  dplyr::select(-one_of('Shortened_name', 'Group', 'COLOR', 'soil')) %>%
+  dplyr::rename(soil = Generic) %>%
+  mutate(soil = as.factor(soil))
+
+heterobasi_data %<>%
+  left_join(soil_legend, by = c('soil' = 'Number')) %>%
+  dplyr::select(-one_of('Shortened_name', 'Group', 'COLOR', 'soil')) %>%
+  dplyr::rename(soil = Generic) %>%
+  mutate(soil = as.factor(soil))
+```
+
+```{r}
+armillaria_data %<>% 
+  #st_as_sf() %>% 
+  mutate(soil = fct_recode(soil, 
+                           "soils with limitations to root growth" = "Leptosols",
+                           "soils with limitations to root growth" = "Cryosols",
+                           "soils with limitations to root growth" = "Vertisols",
+                           "soils with clay-enriched subsoil" = "Luvisols",
+                           "soils with clay-enriched subsoil" = "Lixisols",
+                           "soils with clay-enriched subsoil" = "Acrisols",
+                           "organic soil" = "Histosols",
+                           "pronounced accumulation of organic matter in the mineral topsoil" = "Kastanozems",
+                           "pronounced accumulation of organic matter in the mineral topsoil" = "Chernozems",
+                           "pronounced accumulation of organic matter in the mineral topsoil" = "Phaeozems",
+                           "accumulation of moderately soluble salts or non-saline substances" = "Gypsisols",
+                           "accumulation of moderately soluble salts or non-saline substances" = "Durisols",
+                           "accumulation of moderately soluble salts or non-saline substances" = "Calcisols",
+                           "soils distinguished by Fe/Al chemistry" = "Gleysols",
+                           "soils distinguished by Fe/Al chemistry" = "Podzols",
+                           "soils distinguished by Fe/Al chemistry" = "Plinthosols",
+                           "soils distinguished by Fe/Al chemistry" = "Planosols",
+                           "soils distinguished by Fe/Al chemistry" = "Nitisols",
+                           "soils with little or no profile differentiation" = "Fluvisols",
+                           "soils with little or no profile differentiation" = "Cambisols",
+                           "soils with little or no profile differentiation" = "Arenosols",
+                           "soils with little or no profile differentiation" = "Regosols",
+                           "soils distinguished by Fe/Al chemistry" = "Ferralsols"
+                           ))
+```
+
+```{r}
+heterobasi_data %<>% 
+  #st_as_sf() %>% 
+  mutate(soil = fct_recode(soil, 
+                           "soils with limitations to root growth" = "Leptosols",
+                           "soils with limitations to root growth" = "Cryosols",
+                           "soils with limitations to root growth" = "Vertisols",
+                           "soils with clay-enriched subsoil" = "Luvisols",
+                           "soils with clay-enriched subsoil" = "Lixisols",
+                           "soils with clay-enriched subsoil" = "Acrisols",
+                           "organic soil" = "Histosols",
+                           "pronounced accumulation of organic matter in the mineral topsoil" = "Kastanozems",
+                           "pronounced accumulation of organic matter in the mineral topsoil" = "Chernozems",
+                           "pronounced accumulation of organic matter in the mineral topsoil" = "Phaeozems",
+                           "accumulation of moderately soluble salts or non-saline substances" = "Gypsisols",
+                           "accumulation of moderately soluble salts or non-saline substances" = "Durisols",
+                           "accumulation of moderately soluble salts or non-saline substances" = "Calcisols",
+                           "soils distinguished by Fe/Al chemistry" = "Gleysols",
+                           "soils distinguished by Fe/Al chemistry" = "Podzols",
+                           "soils distinguished by Fe/Al chemistry" = "Plinthosols",
+                           "soils distinguished by Fe/Al chemistry" = "Planosols",
+                           "soils distinguished by Fe/Al chemistry" = "Nitisols",
+                           "soils with little or no profile differentiation" = "Fluvisols",
+                           "soils with little or no profile differentiation" = "Cambisols",
+                           "soils with little or no profile differentiation" = "Arenosols",
+                           "soils with little or no profile differentiation" = "Regosols",
+                           "soils distinguished by Fe/Al chemistry" = "Ferralsols"
+                           ))
+```
+
+## pH
+
+Raw data: pH raster of Europe with a resolution of 5000m in CRS 3035 in `adf` format.
+
+Workflow: Load `adf` raster file to workspace. 
+          Reproject study area to CRS 3035. 
+          Crop pH raster with study area and reproject to CRS 23030.
+
+Mod data: pH raster with a resolution of 5000 m in `.tif` format in CRS 23030.
+
+```{r}
+ph_raster <-
+  new("GDALReadOnlyDataset", "/data/patrick/raw/ph_europe/ph_cacl2") %>% 
+  asSGDF_GROD() %>% 
+  raster()
+
+crs(ph_raster) <- CRS("+init=epsg:3035")
+```
+
+```{r}
+study_area_3035 <-
+  st_read("/data/patrick/raw/boundaries/basque-country/Study_area.shp", 
+          quiet = TRUE) %>% 
+  st_transform(3035) %>% 
+  as("Spatial")
+
+ph_raster %>% 
+  crop(study_area_3035) %>% 
+  mask(study_area_3035) %>%
+  projectRaster(crs = crs_32630, method = 'bilinear') %>% 
+  writeRaster('/data/marc/mod/pH/ph.tif', overwrite = TRUE)
+```
+
+```{r}
+heterobasi_data$ph <- 
+  raster("/data/marc/mod/ph/ph.tif") %>%
+  raster::extract(heterobasi_data)
+
+armillaria_data$ph <- 
+  raster("/data/marc/mod/ph/ph.tif") %>%
+  raster::extract(armillaria_data)
+```
+
+## Lithology
+
+Raw data: Polygon shapefile with lithology units in CRS 25830. 
+
+Workflow: Read shapefile and reproject to CRS 32630. 
+          Extract column with lithology unit id.
+          Make lithology sf object valid and extract at each observation the lithology unit id. 
+          Aggregate lithology units to common lithology classes.
+
+Output: Aggregated lithology units.
+
+```{r}
+st_read("/data/patrick/raw/lithology/CT_LITOLOGICO_25000_ETRS89.shp", quiet = TRUE) %>%
+  st_set_crs(25830) %>%
+  st_transform(32630) %>%
+  dplyr::select(COD_LITOLO) -> lithology_sp
+```
+
+```{r}
+lithology_sp %<>% 
+  st_make_valid() %>% 
+  st_cast("POLYGON")
+```
+
+```{r}
+armillaria_data %<>% st_join(lithology_sp)
+heterobasi_data %<>% st_join(lithology_sp)
+```
+
+```{r}
+heterobasi_data %<>% 
+  dplyr::rename(lithology = COD_LITOLO) %>% 
+  mutate(lithology = as.factor(lithology)) %>% 
+  mutate(lithology = fct_recode(lithology, 
+                                "surface deposits" = "01", 
+                                "clastic sedimentary rock" = "02",
+                                "clastic sedimentary rock" = "03", 
+                                "biological sedimentary rock" = "04", 
+                                "clastic sedimentary rock" = "08", 
+                                "biological sedimentary rock" = "09",
+                                "biological sedimentary rock" = "10", 
+                                "chemical sedimentary rock" = "11",
+                                "chemical sedimentary rock" = "12", 
+                                "magmatic rock" = "13",
+                                "magmatic rock" = "14", 
+                                "chemical sedimentary rock" = "15", 
+                                "biological sedimentary rock" = "16", 
+                                "biological sedimentary rock" = "17",
+                                "chemical sedimentary rock" = "18",
+                                "clastic sedimentary rock" = "19", 
+                                "magmatic rock" = "20", 
+                                "magmatic rock" = "22",
+                                "magmatic rock" = "23",
+                                "magmatic rock" = "24"))
+
+armillaria_data %<>% 
+  dplyr::rename(lithology = COD_LITOLO) %>% 
+  mutate(lithology = as.factor(lithology)) %>% 
+  mutate(lithology = fct_recode(lithology, 
+                                "surface deposits" = "01", 
+                                "clastic sedimentary rock" = "02",
+                                "clastic sedimentary rock" = "03", 
+                                "biological sedimentary rock" = "04", 
+                                "clastic sedimentary rock" = "08", 
+                                "biological sedimentary rock" = "09",
+                                "biological sedimentary rock" = "10", 
+                                "chemical sedimentary rock" = "11",
+                                "chemical sedimentary rock" = "12", 
+                                "magmatic rock" = "13",
+                                "magmatic rock" = "14", 
+                                "chemical sedimentary rock" = "15", 
+                                "biological sedimentary rock" = "16", 
+                                "biological sedimentary rock" = "17",
+                                "chemical sedimentary rock" = "18",
+                                "clastic sedimentary rock" = "19", 
+                                "magmatic rock" = "20", 
+                                "magmatic rock" = "22",
+                                "magmatic rock" = "23",
+                                "magmatic rock" = "24"))
+```
+
+## Atlas Climatico
+
+Raw data: Zipped raster files of temperature, pisr and precipitation in `.txt` format in CRS 23030. 
+
+Workflow: Unzip files specified by pattern. 
+          Remove unused `.gif` and `.htm` files.
+          Reproject study area to CRS 23030 to crop and mask raster files.
+          Reproject raster files to CRS 32630.
+          Write raster files to disk.
+          Remove unused `.txt` files
+          
+Mod data: Temperature, pisr and precipitation rasters in `.tif` format in CRS 32630 for each month.
+          
+```{r}
+c("^mt.*_av.zip$") %>% # , "^rad.*_av.zip$", "^pl.*_av.zip$"
+  map(function(x) list.files(path = "/data/patrick/raw/atlas-climatico/cartografia", 
+                             pattern = x, 
+                             full.names = TRUE)) %>%
+  unlist() %>% 
+  walk(unzip, exdir = "/data/marc/mod/atlas_climatico")
+
+list.files("/data/marc/mod/atlas_climatico", 
+           pattern = "*.(gif|htm)$", 
+           full.names = TRUE) %>%
+  walk(file.remove)
+
+study_area_23030 <- 
+  st_read("/data/patrick/raw/boundaries/basque-country/Study_area.shp", 
+          quiet = TRUE) %>%
+  st_transform(23030) %>%
+  as("Spatial")
+
+txt_files <- list.files("/data/marc/mod/atlas_climatico", 
+                        pattern = ".txt$", 
+                        full.names = TRUE) 
+
+file_names <- map(txt_files, function(x) sub("txt", x, replacement = "tif")) %>%
+  unlist()
+
+map(txt_files, raster, crs = CRS("+init=epsg:23030")) %>%
+  map(crop, y = study_area_23030) %>%
+  map(mask, mask = study_area_23030) %>%
+  map(projectRaster, crs = crs_32630) %>%
+  walk2(file_names, writeRaster, overwrite = TRUE)
+
+walk(txt_files, file.remove)
+```
+
+## Temperature
+
+Raw data: Temperature rasters for month march to september in `.tif`´format in CRS 32630.
+
+Workflow: Get files by pattern and stack files.
+          Calculate mean temperature of month march to september and write raster to disk. 
+          Extract mean summer temperature at each observation.
+
+Modified data: Mean summer temperature raster in `.tif` format in CRS 32630.
+
+```{r}
+list.files("/data/marc/mod/atlas_climatico", 
+           "termo.*(marzo|abril|mayo|junio|julio|agosto|septiembre)_av.tif$", 
+           full.names = TRUE) %>%
+  stack() %>%
+  calc(function(x) {mean(x)/10}) %>%
+  writeRaster("/data/marc/mod/atlas_climatico/mean_temperature.tif",
+              overwrite = TRUE)
+``` 
+
+```{r}
+heterobasi_data$temperature <- 
+  raster("/data/marc/mod/atlas_climatico/mean_temperature.tif") %>%
+  raster::extract(heterobasi_data)
+
+armillaria_data$temperature <- 
+  raster("/data/marc/mod/atlas_climatico/mean_temperature.tif") %>%
+  raster::extract(armillaria_data)
+```
+
+## PISR
+
+Raw data: PISR rasters for month july to september in `.tif`´format in CRS 32630.
+
+Workflow: Get files by pattern and stack files.
+          Add pisr of july to september and convert to the relative fraction of its mean (mean = 8065.952 kW/m^2).
+          Write raster to disk and extract pisr at each observation.
+
+Modified data: PISR raster in `.tif` format in CRS 32630.
+
+```{r}
+psir_sum_raster <-
+  list.files("/data/marc/mod/atlas_climatico",
+             "radiacion.*(julio|agosto|septiembre)_av.tif$", 
+             full.names = TRUE) %>%
+  stack() %>%
+  sum()
+``` 
+
+```{r}
+psir_sum_raster %>% 
+  calc(function(x) {x/cellStats(psir_sum_raster, stat = mean, na.rm = TRUE)-1}) %>%
+  writeRaster("/data/marc/mod/atlas_climatico/pisr.tif",
+              overwrite = TRUE)
+```
+
+```{r}
+heterobasi_data$pisr <- 
+  raster("/data/marc/mod/atlas_climatico/pisr.tif") %>%
+  raster::extract(heterobasi_data)
+
+armillaria_data$pisr <- 
+  raster("/data/marc/mod/atlas_climatico/pisr.tif") %>%
+  raster::extract(armillaria_data)
+```
+
+## Precipitation
+
+Raw data: Precipitation rasters for month july and august in `.tif`´format in CRS 32630.
+
+Workflow: Get files by pattern and stack files.
+          Add precipitation of month july and august and write raster to disk.
+          Extract precipitation at each observation.
+
+Modified data: Total july and august precipitation raster in `.tif` format in CRS 32630.
+
+```{r}
+list.files("/data/marc/mod/atlas_climatico", 
+           "pluvio.*(julio|agosto)_av.tif$", 
+           full.names = TRUE) %>%
+  stack() %>%
+  calc(function(x) {sum(x)/10}) %>%
+  writeRaster("/data/marc/mod/atlas_climatico/sum_precipitation.tif",
+              overwrite = TRUE)
+``` 
+
+```{r}
+heterobasi_data$precipitation <-
+  raster("/data/marc/mod/atlas_climatico/sum_precipitation.tif") %>%
+  raster::extract(heterobasi_data)
+
+armillaria_data$precipitation <- 
+  raster("/data/marc/mod/atlas_climatico/sum_precipitation.tif") %>%
+  raster::extract(armillaria_data)
+```
+
+## Hail
+
+Raw data: Hail raster with a resolution of 200 m in `.tif` format in CRS 32630.
+
+Workflow: Extract hail probability at each observation.
+
+```{r}
+heterobasi_data$hail_probability <-
+  raster("/data/patrick/raw/hail/Prob_GAM_square_area.tif") %>% 
+  raster::extract(heterobasi_data)
+
+armillaria_data$hail_probability <-
+  raster("/data/patrick/raw/hail/Prob_GAM_square_area.tif") %>% 
+  raster::extract(armillaria_data)
+```
+
+# Tidy up
+
+```{r}
+rm(soil_legend, 
+   soil.legends, 
+   crs_32630, 
+   study_area, 
+   disease_data,
+   lithology_sp,
+   txt_files,
+   file_names,
+   psir_sum_raster,
+   study_area_23030)
+```
+
+# Remove samples with NAs
+
+Examine datasets for missing values. Remove sample 12 from heterobasi data set because lithology is missing 
+and remove sample 11, 13, 14, 15, 22, 23, 25, 26, 27 and 28 from armillaria data set because elevation and/or lithology is missing.
+
+```{r}
+heterobasi_data %>% filter_all(any_vars(is.na(.)))
+```
+
+```{r}
+
+armillaria_data %>% filter_all(any_vars(is.na(.)))
+```
+
+```{r}
+heterobasi_data %<>% na.omit()
+armillaria_data %<>% na.omit()
+```
+
+# Prepare data for analysis
+
+```{r}
+heterobasi_data %<>% 
+  as.data.frame() %>% 
+  dplyr::select(elevation, 
+         slope, 
+         soil, 
+         ph, 
+         lithology, 
+         temperature, 
+         pisr, 
+         precipitation, 
+         hail_probability,
+         x,
+         y,
+         heterobasi) %>% 
+  mutate(heterobasi = as.factor(heterobasi)) %>% 
+  droplevels()
+
+armillaria_data %<>% 
+  as.data.frame() %>% 
+  dplyr::select(elevation, 
+         slope, 
+         soil, 
+         ph, 
+         lithology, 
+         temperature, 
+         pisr, 
+         precipitation, 
+         hail_probability,
+         x,
+         y,
+         armillaria) %>%
+  mutate(armillaria = as.factor(armillaria)) %>% 
+  droplevels()
+```
+
+Rename to match variables names of paper 
+
+```{r}
+heterobasi_data %<>% 
+  rename(slope_degrees = slope,
+         temp = temperature,
+         p_sum = precipitation,
+         r_sum = pisr,
+         hail_prob = hail_probability,
+         )
+
+armillaria_data %<>% 
+  rename(slope_degrees = slope,
+         temp = temperature,
+         p_sum = precipitation,
+         r_sum = pisr,
+         hail_prob = hail_probability,
+         )
+```
+
+
+# Save data
+
+```{r}
+saveRDS(heterobasi_data, "/data/marc/mod/survey_data/heterobasi_data.rda")
+saveRDS(armillaria_data, "/data/marc/mod/survey_data/armillaria_data.rda")
+```
