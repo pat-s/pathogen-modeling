@@ -16,8 +16,6 @@ saveRDS(tune.ctrl, "/data/patrick/mod/pathogen-prediction/05-tuning/MBO-30n-20it
 
 # MBO xgboost -----------------------------------------------------------
 
-library(mlrMBO)
-
 ps_xgboost = readRDS("/data/patrick/mod/pathogen-prediction/04-param-sets/param-set-xgboost.rda")
 
 ctrl <- makeMBOControl(propose.points = 1L)
@@ -32,8 +30,6 @@ saveRDS(tune.ctrl, "/data/patrick/mod/pathogen-prediction/05-tuning/MBO-30n-20it
 
 # MBO svm -----------------------------------------------------------
 
-library(mlrMBO)
-
 ps_svm = readRDS("/data/patrick/mod/pathogen-prediction/04-param-sets/param-set-svm.rda")
 
 ctrl <- makeMBOControl(propose.points = 1L)
@@ -45,3 +41,17 @@ tune.ctrl <- makeTuneControlMBO(
 )
 
 saveRDS(tune.ctrl, "/data/patrick/mod/pathogen-prediction/05-tuning/MBO-30n-20it-1L-svm.rda")
+
+# MBO KNN -----------------------------------------------------------
+
+ps_knn = readRDS("/data/patrick/mod/pathogen-prediction/04-param-sets/param-set-svm.rda")
+
+ctrl <- makeMBOControl(propose.points = 1L)
+ctrl <- setMBOControlTermination(ctrl, iters = 20L)
+ctrl <- setMBOControlInfill(ctrl, crit = crit.ei)
+tune.ctrl <- makeTuneControlMBO(
+  mbo.control = ctrl,
+  mbo.design = generateDesign(n = 30, par.set = ps_knn)
+)
+
+saveRDS(tune.ctrl, "/data/patrick/mod/pathogen-prediction/05-tuning/MBO-30n-20it-1L-knn.rda")

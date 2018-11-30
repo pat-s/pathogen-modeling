@@ -7,4 +7,6 @@ Benchmarking classifiers (SVM, RF, XGBOOST) on four different pathogens:
 * Heterobasidion
 * Fusarium
 
+
+
 Hyperparameter tuning: Sequential model-based optimization (SMBO)

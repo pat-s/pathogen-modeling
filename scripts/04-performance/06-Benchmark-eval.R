@@ -1,4 +1,4 @@
-needs(mlr)
+needs(mlr, tibble)
 
 bmr_svm = readRDS("/data/patrick/mod/pathogen-prediction/06-benchmark/svm-all-pathogens.rda")
 
@@ -9,3 +9,5 @@ bmr_ranger_fusarium = readRDS("/data/patrick/mod/pathogen-prediction/06-benchmar
 
 bmr_all = mergeBenchmarkResults(list(bmr_svm, bmr_ranger_armillaria, bmr_ranger_diplodia,
                                      bmr_ranger_heterobasidion, bmr_ranger_fusarium))
+
+getBMRAggrPerformances(bmr_all, as.df = TRUE)

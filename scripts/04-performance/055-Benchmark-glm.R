@@ -1,4 +1,4 @@
-needs(mlr, mlrMBO, parallelMap, glue, purrr)
+needs(mlr, mlrMBO, parallelMap)
 configureMlr(on.learner.error = "warn", on.error.dump = TRUE)
 
 # Tasks -------------------------------------------------------------------
@@ -10,33 +10,33 @@ heterobasidion_task = readRDS("/data/patrick/mod/pathogen-prediction/01-tasks/he
 
 # Learners ----------------------------------------------------------------
 
-lrn_ranger = readRDS("/data/patrick/mod/pathogen-prediction/02-learners/learner-ranger.rda")
+# lrn_ranger = readRDS("/data/patrick/mod/pathogen-prediction/02-learners/learner-ranger.rda")
 # lrn_xgboost = readRDS("/data/patrick/mod/pathogen-prediction/02-learners/learner-xgboost.rda")
-# lrn_ksvm = readRDS("/data/patrick/mod/pathogen-prediction/02-learners/learner-ksvm.rda")
+lrn_glm = readRDS("/data/patrick/mod/pathogen-prediction/02-learners/learner-glm.rda")
 
 # Resampling --------------------------------------------------------------
 
-rdesc_inner = readRDS("/data/patrick/mod/pathogen-prediction/03-resampling/spcv-5iters-1rep.rda")
+# rdesc_inner = readRDS("/data/patrick/mod/pathogen-prediction/03-resampling/spcv-5iters-1rep.rda")
 rdesc_outer= readRDS("/data/patrick/mod/pathogen-prediction/03-resampling/sprepcv-5iters-100rep.rda")
 
 # Param-sets --------------------------------------------------------------
 
-ps_ranger = readRDS("/data/patrick/mod/pathogen-prediction/04-param-sets/param-set-ranger.rda")
+# ps_ranger = readRDS("/data/patrick/mod/pathogen-prediction/04-param-sets/param-set-ranger.rda")
 # ps_xg = readRDS("/data/patrick/mod/pathogen-prediction/04-param-sets/param-set-xgboost.rda")
-# ps_ksvm = readRDS("/data/patrick/mod/pathogen-prediction/04-param-sets/param-set-ksvm.rda")
+# ps_glm = readRDS("/data/patrick/mod/pathogen-prediction/04-param-sets/param-set-glm.rda")
 
 # Tuning ------------------------------------------------------------------
 
-tune_ctrl = readRDS("/data/patrick/mod/pathogen-prediction/05-tuning/MBO-30n-20it-1L-ranger.rda")
+# tune_ctrl = readRDS("/data/patrick/mod/pathogen-prediction/05-tuning/MBO-30n-20it-1L-glm.rda")
 
 # Wrappers ----------------------------------------------------------------
 
-wrapper_rf <- makeTuneWrapper(
-  lrn_ranger,
-  resampling = rdesc_inner, par.set = ps_ranger,
-  control = tune_ctrl, show.info = FALSE,
-  measures = list(brier)
-)
+# wrapper_rf <- makeTuneWrapper(
+#   lrn_ranger,
+#   resampling = inner, par.set = ps_ranger,
+#   control = tune_ctrl, show.info = FALSE,
+#   measures = list(brier)
+# )
 
 # wrapper_xg <- makeTuneWrapper(
 #   lrn_xgboost,
@@ -44,11 +44,12 @@ wrapper_rf <- makeTuneWrapper(
 #   control = tune_ctrl, show.info = FALSE,
 #   measures = list(brier)
 # )
-# 
-# wrapper_ksvm <- makeTuneWrapper(
-#   lrn_ksvm,
-#   resampling = inner, par.set = ps_ksvm,
-#   control = tune_ctrl, show.info = FALSE,
+#
+
+# wrapper_glm <- makeTuneWrapper(
+#   lrn_glm,
+#   resampling = rdesc_inner, par.set = ps_glm,
+#   control = tune_ctrl, show.info = TRUE,
 #   measures = list(brier)
 # )
 
@@ -56,20 +57,13 @@ wrapper_rf <- makeTuneWrapper(
 
 tasks = list(armillaria_task, heterobasidion_task, diplodia_task, fusarium_task)
 
-# we run into memory issues when we call `benchmark()` all at once for ranger.
-# -> doing it sequentially (by tasks)
+parallelStart(mode = "multicore", cpus = 30, level = "mlrMBO.feval",
+              mc.set.seed = TRUE)
+set.seed(12345, kind = "L'Ecuyer-CMRG")
 
-walk2(tasks, c("armillaria", "heterobasidion", "diplodia", "fusarium"), ~  {
-  
-  parallelStart(mode = "multicore", cpus = 30, level = "mlr.resample",
-                mc.set.seed = TRUE)
-  set.seed(12345, kind = "L'Ecuyer-CMRG")
-  
-  bmr <- benchmark(wrapper_rf, .x, models = FALSE,
-                   resampling = rdesc_outer,
-                   show.info = TRUE, measures = list(brier, timetrain))
-  
-  parallelStop()
-  saveRDS(bmr, glue("/data/patrick/mod/pathogen-prediction/06-benchmark/ranger-{.y}.rda"))
-  
-})
+bmr <- benchmark(lrn_glm, tasks, models = FALSE,
+                 resampling = rdesc_outer,
+                 show.info = TRUE, measures = list(brier, timetrain))
+
+parallelStop()
+saveRDS(bmr, "/data/patrick/mod/pathogen-prediction/06-benchmark/glm-all-pathogens.rda")

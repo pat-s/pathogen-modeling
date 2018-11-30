@@ -440,6 +440,7 @@ df_basque_pred <- df_basque
 df_basque_pred = st_set_geometry(df_basque_pred, NULL)
 df_basque_pred$x = NULL
 df_basque_pred$y = NULL
+df_basque_pred$index_1 = NULL
 
 df_basque_pred <- createDummyFeatures(
   df_basque_pred,

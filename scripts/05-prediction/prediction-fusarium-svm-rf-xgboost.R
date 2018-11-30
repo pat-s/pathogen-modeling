@@ -8,7 +8,7 @@ configureMlr(on.learner.error = "warn", on.error.dump = TRUE)
 
 # Task --------------------------------------------------------------------
 
-fusarium_task <- readRDS("/data/patrick/mod/pathogen-prediction/01-tasks/fusarium-task-dummy.rda")
+fusarium_task <- readRDS("/data/patrick/mod/pathogen-prediction/01-tasks/fusarium-task-dummy-prediction.rda")
 
 # Learner -----------------------------------------------------------------
 
@@ -64,7 +64,7 @@ models_tuned <- pmap(
 # Train all models ---------------------------------------------------------
 
 models_trained <- map(list("ranger", "xgboost", "svm"), ~{
-  if (!file.exists(glue("/data/patrick/mod/pathogen-prediction/07-prediction/trained-{.x}-fusarium.rda"))) {
+  if (!file.exists(glue("/data/patrick/mod/pathogen-prediction/07-prediction/trained-models/trained-{.x}-fusarium.rda"))) {
     tuned <- readRDS(glue("/data/patrick/mod/pathogen-prediction/05-tuning/{.x}-tuned-fusarium.rda"))
 
     lrn <- setHyperPars(makeLearner(glue("classif.{.x}"),
@@ -73,10 +73,10 @@ models_trained <- map(list("ranger", "xgboost", "svm"), ~{
     par.vals = tuned$x
     )
     model_fusarium <- train(lrn, fusarium_task)
-    saveRDS(model_fusarium, glue("/data/patrick/mod/pathogen-prediction/07-prediction/trained-{.x}-fusarium.rda"))
+    saveRDS(model_fusarium, glue("/data/patrick/mod/pathogen-prediction/07-prediction/trained-models/trained-{.x}-fusarium.rda"))
     model_fusarium
   } else {
-    model_fusarium <- readRDS(glue("/data/patrick/mod/pathogen-prediction/07-prediction/trained-{.x}-fusarium.rda"))
+    model_fusarium <- readRDS(glue("/data/patrick/mod/pathogen-prediction/07-prediction/trained-models/trained-{.x}-fusarium.rda"))
   }
 })
 
@@ -90,16 +90,16 @@ if (!file.exists("/data/patrick/mod/pathogen-prediction/07-prediction/prediction
 
 # Create predictions ---------------------------------------------------
 
-predictions <- map2(models_trained, list("ranger", "xgboost", "svm"), ~{
-  if (!file.exists(glue("/data/patrick/mod/pathogen-prediction/07-prediction/predictions-{.y}-fusarium.rda"))) {
+predictions <- map2(models_trained, list("ranger", "xgboost", "svm"), ~ {
+  if (!file.exists(glue("/data/patrick/mod/pathogen-prediction/07-prediction/predicted-values/predictions-{.y}-fusarium.rda"))) {
     if (.y == "xgboost") {
       pred_data <- pred_data[.x$learner.model$feature_names]
     }
     pred <- predict(.x, newdata = pred_data)
-    saveRDS(pred, glue("/data/patrick/mod/pathogen-prediction/07-prediction/predictions-{.y}-fusarium.rda"))
+    saveRDS(pred, glue("/data/patrick/mod/pathogen-prediction/07-prediction/predicted-values/predictions-{.y}-fusarium.rda"))
     pred
   } else {
-    predictions <- readRDS(glue("/data/patrick/mod/pathogen-prediction/07-prediction/predictions-{.y}-fusarium.rda"))
+    predictions <- readRDS(glue("/data/patrick/mod/pathogen-prediction/07-prediction/predicted-values/predictions-{.y}-fusarium.rda"))
   }
 })
 
@@ -142,7 +142,7 @@ walk2(predictions, list("ranger", "xgboost", "svm"), ~{
   raster_xg <- raster(pred_xy_xg)
   raster_xg <- projectRaster(raster_xg, crs = "+proj=longlat +ellps=WGS84 +datum=WGS84 +no_defs ")
 
-  writeRaster(raster_xg, glue("/data/patrick/mod/pathogen-prediction/07-prediction/fusarium-{.y}.tif"),
+  writeRaster(raster_xg, glue("/data/patrick/mod/pathogen-prediction/07-prediction/tiffs/fusarium-{.y}.tif"),
               overwrite = TRUE
   )
 

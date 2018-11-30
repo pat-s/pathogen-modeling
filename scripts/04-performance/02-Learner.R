@@ -31,3 +31,18 @@ lrn_svm <- makeLearner(
 )
 
 saveRDS(lrn_svm, "/data/patrick/mod/pathogen-prediction/02-learners/learner-svm.rda")
+
+# KNN ---------------------------------------------------------------------
+
+lrn_knn <- makeLearner("classif.kknn",
+  predict.type = "prob",
+  kernel = "rectangular"
+)
+
+# GLM ---------------------------------------------------------------------
+
+lrn_glm <- makeLearner("classif.binomial",
+  link = "logit",
+  predict.type = "prob",
+  fix.factors.prediction = TRUE
+)

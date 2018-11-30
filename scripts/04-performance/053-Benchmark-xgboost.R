@@ -4,9 +4,9 @@ configureMlr(on.learner.error = "warn", on.error.dump = TRUE)
 # Tasks -------------------------------------------------------------------
 
 armillaria_task = readRDS("/data/patrick/mod/pathogen-prediction/01-tasks/armillaria-task-dummy.rda")
-diplodia_task = readRDS("/data/patrick/mod/pathogen-prediction/01-tasks/diplodia-task.rda")
-fusarium_task = readRDS("/data/patrick/mod/pathogen-prediction/01-tasks/fusarium-task.rda")
-heterobasidion_task = readRDS("/data/patrick/mod/pathogen-prediction/01-tasks/heterobasidion-task.rda")
+diplodia_task = readRDS("/data/patrick/mod/pathogen-prediction/01-tasks/diplodia-task-dummy.rda")
+fusarium_task = readRDS("/data/patrick/mod/pathogen-prediction/01-tasks/fusarium-task-dummy.rda")
+heterobasidion_task = readRDS("/data/patrick/mod/pathogen-prediction/01-tasks/heterobasidion-task-dummy.rda")
 
 # Learners ----------------------------------------------------------------
 
@@ -44,7 +44,7 @@ wrapper_xg <- makeTuneWrapper(
   control = tune_ctrl, show.info = TRUE,
   measures = list(brier)
 )
-# 
+#
 # wrapper_ksvm <- makeTuneWrapper(
 #   lrn_ksvm,
 #   resampling = inner, par.set = ps_ksvm,
@@ -62,7 +62,7 @@ set.seed(12345, kind = "L'Ecuyer-CMRG")
 
 bmr <- benchmark(wrapper_xg, tasks, models = FALSE,
                  resampling = rdesc_outer,
-                 show.info = TRUE, measures = list(brier))
+                 show.info = TRUE, measures = list(brier, timetrain))
 
 parallelStop()
 saveRDS(bmr, "/data/patrick/mod/pathogen-prediction/06-benchmark/xgboost-all-pathogens.rda")

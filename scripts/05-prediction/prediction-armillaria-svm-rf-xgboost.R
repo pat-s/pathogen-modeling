@@ -64,7 +64,7 @@ models_tuned <- pmap(
 # Train all models ---------------------------------------------------------
 
 models_trained <- map(list("ranger", "xgboost", "svm"), ~{
-  if (!file.exists(glue("/data/patrick/mod/pathogen-prediction/07-prediction/trained-{.x}-armillaria.rda"))) {
+  if (!file.exists(glue("/data/patrick/mod/pathogen-prediction/07-prediction/trained-models/trained-{.x}-armillaria.rda"))) {
     tuned <- readRDS(glue("/data/patrick/mod/pathogen-prediction/05-tuning/{.x}-tuned-armillaria.rda"))
 
     lrn <- setHyperPars(makeLearner(glue("classif.{.x}"),
@@ -73,10 +73,10 @@ models_trained <- map(list("ranger", "xgboost", "svm"), ~{
     par.vals = tuned$x
     )
     model_armillaria <- train(lrn, armillaria_task)
-    saveRDS(model_armillaria, glue("/data/patrick/mod/pathogen-prediction/07-prediction/trained-{.x}-armillaria.rda"))
+    saveRDS(model_armillaria, glue("/data/patrick/mod/pathogen-prediction/07-prediction/trained-models/trained-{.x}-armillaria.rda"))
     model_armillaria
   } else {
-    model_armillaria <- readRDS(glue("/data/patrick/mod/pathogen-prediction/07-prediction/trained-{.x}-armillaria.rda"))
+    model_armillaria <- readRDS(glue("/data/patrick/mod/pathogen-prediction/07-prediction/trained-models/trained-{.x}-armillaria.rda"))
   }
 })
 
@@ -91,15 +91,15 @@ if (!file.exists("/data/patrick/mod/pathogen-prediction/07-prediction/prediction
 # Create predictions ---------------------------------------------------
 
 predictions <- map2(models_trained, list("ranger", "xgboost", "svm"), ~{
-  if (!file.exists(glue("/data/patrick/mod/pathogen-prediction/07-prediction/predictions-{.y}-armillaria.rda"))) {
+  if (!file.exists(glue("/data/patrick/mod/pathogen-prediction/07-prediction/predicted-values/predictions-{.y}-armillaria.rda"))) {
     if (.y == "xgboost") {
       pred_data <- pred_data[.x$learner.model$feature_names]
     }
     pred <- predict(.x, newdata = pred_data)
-    saveRDS(pred, glue("/data/patrick/mod/pathogen-prediction/07-prediction/predictions-{.y}-armillaria.rda"))
+    saveRDS(pred, glue("/data/patrick/mod/pathogen-prediction/07-prediction/predicted-values/predictions-{.y}-armillaria.rda"))
     pred
   } else {
-    predictions <- readRDS(glue("/data/patrick/mod/pathogen-prediction/07-prediction/predictions-{.y}-armillaria.rda"))
+    predictions <- readRDS(glue("/data/patrick/mod/pathogen-prediction/07-prediction/predicted-values/predictions-{.y}-armillaria.rda"))
   }
 })
 
@@ -142,7 +142,7 @@ walk2(predictions, list("ranger", "xgboost", "svm"), ~{
   raster_xg <- raster(pred_xy_xg)
   raster_xg <- projectRaster(raster_xg, crs = "+proj=longlat +ellps=WGS84 +datum=WGS84 +no_defs ")
 
-  writeRaster(raster_xg, glue("/data/patrick/mod/pathogen-prediction/07-prediction/armillaria-{.y}.tif"),
+  writeRaster(raster_xg, glue("/data/patrick/mod/pathogen-prediction/07-prediction/tiffs/armillaria-{.y}.tif"),
     overwrite = TRUE
   )
 

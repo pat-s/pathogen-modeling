@@ -32,3 +32,11 @@ ps = makeParamSet(
 )
 
 saveRDS(ps, "/data/patrick/mod/pathogen-prediction/04-param-sets/param-set-svm.rda")
+
+# KNN ---------------------------------------------------------------------
+
+ps <- makeParamSet(
+  makeIntegerParam("k", lower = 1, upper = 250),
+  makeIntegerParam("distance", lower = 1, upper = 300)
+)
+
