@@ -18,15 +18,9 @@ needs(mlr, tibble, dplyr, ggpubr, purrr)
 # Load benchmark results
 
 ```{r}
-bmr_svm = readRDS("/data/patrick/mod/pathogen-prediction/06-benchmark/svm-all-pathogens.rda")
-
-bmr_ranger_armillaria = readRDS("/data/patrick/mod/pathogen-prediction/06-benchmark/ranger-armillaria.rda")
-bmr_ranger_diplodia = readRDS("/data/patrick/mod/pathogen-prediction/06-benchmark/ranger-diplodia.rda")
-bmr_ranger_heterobasidion = readRDS("/data/patrick/mod/pathogen-prediction/06-benchmark/ranger-heterobasidion.rda")
-bmr_ranger_fusarium = readRDS("/data/patrick/mod/pathogen-prediction/06-benchmark/ranger-fusarium.rda")
-
-bmr_all = mergeBenchmarkResults(list(bmr_svm, bmr_ranger_armillaria, bmr_ranger_diplodia,
-                                     bmr_ranger_heterobasidion, bmr_ranger_fusarium))
+bmr_all = mergebmResults(list(bm_ranger, bm_svm, bm_xgboost,
+                                     bm_kknn, bm_glm, 
+                                  ))
 ```
 
 # Print benchmark results
@@ -47,7 +41,7 @@ plt = plotBMRBoxplots(bmr_all, measure = brier, pretty.names = FALSE,
   theme_pubr()
 
 levels(plt$data$task.id) = c("Armillaria", "Diplodia", "Fusarium", "Heterobasidion")
-levels(plt$data$learner.id) = c("SVM", "RF")
+levels(plt$data$learner.id) = c("SVM", "RF", "GLM")
 
 plt + ylab("Performance")
 ```
@@ -59,7 +53,7 @@ plt2 = plotBMRSummary(bmr_all) +
   theme_pubr()
 
 levels(plt2$data$task.id) = c("Armillaria", "Diplodia", "Fusarium", "Heterobasidion")
-levels(plt2$data$learner.id) = c("SVM", "RF")
+levels(plt2$data$learner.id) = c("SVM", "RF", "GLM")
 
 plt2
 ```
@@ -76,7 +70,7 @@ plt3 = plotBMRRanksAsBarChart(bmr_all, pos = "tile", order.lrn = getBMRLearnerId
   theme_pubr()
 
 levels(plt3$data$task.id) = c("Armillaria", "Diplodia", "Fusarium", "Heterobasidion")
-levels(plt3$data$learner.id) = c("SVM", "RF")
+levels(plt3$data$learner.id) = c("SVM", "RF", "GLM")
 
 plt3
 ```

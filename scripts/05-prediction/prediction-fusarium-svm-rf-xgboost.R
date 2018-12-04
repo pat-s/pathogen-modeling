@@ -15,12 +15,15 @@ fusarium_task <- readRDS("/data/patrick/mod/pathogen-prediction/01-tasks/fusariu
 lrn_ranger <- readRDS("/data/patrick/mod/pathogen-prediction/02-learners/learner-ranger.rda")
 lrn_xgboost <- readRDS("/data/patrick/mod/pathogen-prediction/02-learners/learner-xgboost.rda")
 lrn_svm <- readRDS("/data/patrick/mod/pathogen-prediction/02-learners/learner-svm.rda")
+lrn_binomial <- readRDS("/data/patrick/mod/pathogen-prediction/02-learners/learner-binomial.rda")
+lrn_kknn <- readRDS("/data/patrick/mod/pathogen-prediction/02-learners/learner-kknn.rda")
 
 # Param sets --------------------------------------------------------------
 
 ps_ranger <- readRDS("/data/patrick/mod/pathogen-prediction/04-param-sets/param-set-ranger.rda")
 ps_xg <- readRDS("/data/patrick/mod/pathogen-prediction/04-param-sets/param-set-xgboost.rda")
 ps_svm <- readRDS("/data/patrick/mod/pathogen-prediction/04-param-sets/param-set-svm.rda")
+ps_kknn <- readRDS("/data/patrick/mod/pathogen-prediction/04-param-sets/param-set-kknn.rda")
 
 # Resampling --------------------------------------------------------------
 
@@ -31,15 +34,16 @@ rdesc_inner <- readRDS("/data/patrick/mod/pathogen-prediction/03-resampling/spcv
 tune_ctrl_ranger <- readRDS("/data/patrick/mod/pathogen-prediction/05-tuning/MBO-30n-20it-1L-ranger.rda")
 tune_ctrl_xgboost <- readRDS("/data/patrick/mod/pathogen-prediction/05-tuning/MBO-30n-20it-1L-xgboost.rda")
 tune_ctrl_svm <- readRDS("/data/patrick/mod/pathogen-prediction/05-tuning/MBO-30n-20it-1L-svm.rda")
+tune_ctrl_kknn <- readRDS("/data/patrick/mod/pathogen-prediction/05-tuning/MBO-30n-20it-1L-kknn.rda")
 
 # Tune all models ---------------------------------------------------------
 
 models_tuned <- pmap(
   list(
-    models = list(lrn_ranger, lrn_xgboost, lrn_svm),
-    param_sets = list(ps_ranger, ps_xg, ps_svm),
-    names = list("ranger", "xgboost", "svm"),
-    tuning_ctrl = list(tune_ctrl_ranger, tune_ctrl_xgboost, tune_ctrl_svm)
+    models = list(lrn_ranger, lrn_xgboost, lrn_svm, lrn_kknn),
+    param_sets = list(ps_ranger, ps_xg, ps_svm, ps_kknn),
+    names = list("ranger", "xgboost", "svm", "kknn"),
+    tuning_ctrl = list(tune_ctrl_ranger, tune_ctrl_xgboost, tune_ctrl_svm, tune_ctrl_kknn)
   ),
   function(models, param_sets, names, tuning_ctrl) {
     if (!file.exists(glue("/data/patrick/mod/pathogen-prediction/05-tuning/{names}-tuned-fusarium.rda"))) {
@@ -63,15 +67,21 @@ models_tuned <- pmap(
 
 # Train all models ---------------------------------------------------------
 
-models_trained <- map(list("ranger", "xgboost", "svm"), ~{
+models_trained <- map(list("ranger", "xgboost", "svm", "binomial", "kknn"), ~ {
   if (!file.exists(glue("/data/patrick/mod/pathogen-prediction/07-prediction/trained-models/trained-{.x}-fusarium.rda"))) {
-    tuned <- readRDS(glue("/data/patrick/mod/pathogen-prediction/05-tuning/{.x}-tuned-fusarium.rda"))
 
-    lrn <- setHyperPars(makeLearner(glue("classif.{.x}"),
-                                    predict.type = "prob"
-    ),
-    par.vals = tuned$x
-    )
+    if (!.x == "binomial") {
+      tuned <- readRDS(glue("/data/patrick/mod/pathogen-prediction/05-tuning/{.x}-tuned-fusarium.rda"))
+
+
+      lrn <- setHyperPars(makeLearner(glue("classif.{.x}"),
+                                      predict.type = "prob"),
+                          par.vals = tuned$x
+      )
+    } else {
+      lrn <- setHyperPars(makeLearner(glue("classif.{.x}"),
+                                      predict.type = "prob"))
+    }
     model_fusarium <- train(lrn, fusarium_task)
     saveRDS(model_fusarium, glue("/data/patrick/mod/pathogen-prediction/07-prediction/trained-models/trained-{.x}-fusarium.rda"))
     model_fusarium
@@ -90,7 +100,7 @@ if (!file.exists("/data/patrick/mod/pathogen-prediction/07-prediction/prediction
 
 # Create predictions ---------------------------------------------------
 
-predictions <- map2(models_trained, list("ranger", "xgboost", "svm"), ~ {
+predictions <- map2(models_trained, list("ranger", "xgboost", "svm", "binomial", "kknn"), ~{
   if (!file.exists(glue("/data/patrick/mod/pathogen-prediction/07-prediction/predicted-values/predictions-{.y}-fusarium.rda"))) {
     if (.y == "xgboost") {
       pred_data <- pred_data[.x$learner.model$feature_names]
@@ -108,7 +118,7 @@ predictions <- map2(models_trained, list("ranger", "xgboost", "svm"), ~ {
 # this object contains the coordinates that we need to attach to the predictions
 df_basque <- readRDS("/data/patrick/mod/prediction/temporary/df_basque.rda")
 
-walk2(predictions, list("ranger", "xgboost", "svm"), ~{
+walk2(predictions, list("ranger", "xgboost", "svm", "binomial", "kknn"), ~{
 
   #' # Visualize all predictors
 
@@ -179,7 +189,7 @@ walk2(predictions, list("ranger", "xgboost", "svm"), ~{
     col.regions = viridis
   )
 
-  png(glue("/data/patrick/mod/pathogen-prediction/08-imgs/prediction_{.y}_fusarium.png"))
+  png(glue("/data/patrick/mod/pathogen-prediction/08-imgs/single/prediction_{.y}_fusarium.png"))
   plot(map_xgboost)
   dev.off()
 })

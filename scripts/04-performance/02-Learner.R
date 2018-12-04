@@ -5,16 +5,12 @@ lrn_rf <- makeLearner(
   predict.type = "prob"
 )
 
-saveRDS(lrn_rf, "/data/patrick/mod/pathogen-prediction/02-learners/learner-ranger.rda")
-
 # xgboost -----------------------------------------------------------------
 
-lrn_xg <- makeLearner(
+lrn_xgboost <- makeLearner(
   "classif.xgboost",
   predict.type = "prob"
 )
-
-saveRDS(lrn_xg, "/data/patrick/mod/pathogen-prediction/02-learners/learner-xgboost.rda")
 
 # SVM ---------------------------------------------------------------------
 
@@ -30,11 +26,9 @@ lrn_svm <- makeLearner(
   predict.type = "prob"
 )
 
-saveRDS(lrn_svm, "/data/patrick/mod/pathogen-prediction/02-learners/learner-svm.rda")
-
 # KNN ---------------------------------------------------------------------
 
-lrn_knn <- makeLearner("classif.kknn",
+lrn_kknn <- makeLearner("classif.kknn",
   predict.type = "prob",
   kernel = "rectangular"
 )
