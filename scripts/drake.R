@@ -1,90 +1,76 @@
-needs(drake, mlr, magrittr, mlrMBO, purrr, parallelMap, sf, dplyr)
+needs(drake, mlr, magrittr, mlrMBO, purrr, parallelMap, sf, dplyr, lwgeom,
+      forcats, tibble, rgdal, viridis, rasterVis, lattice, latticeExtra, glue)
 
 # preprocessing -----------------------------------------------------------
 
-task = code_to_plan("scripts/04-performance/01-Task.R")
+data = code_to_plan("scripts/05-prediction/data.R")
+pred_data = code_to_plan("scripts/05-prediction/create-prediction-data.R")
+task_pred = code_to_plan("scripts/05-prediction/01-Task.R")
+
+task_perf = code_to_plan("scripts/04-performance/01-Task.R")
 learners = code_to_plan("scripts/04-performance/02-Learner.R")
 resampling = code_to_plan("scripts/04-performance/03-Resampling.R")
 param_set = code_to_plan("scripts/04-performance/04-Param-set.R")
-tuning_ctrl = code_to_plan("scripts/04-performance/05-Tuning.R")
-tasks = drake_plan(tasks = list(armillaria_task_dummy,
-                               heterobasidion_task_dummy,
-                               diplodia_task_dummy,
-                               fusarium_task_dummy)
+tune_ctrl = code_to_plan("scripts/04-performance/tune_ctrl_mbo.R")
+tuning_wrapper = code_to_plan("scripts/04-performance/05-Tuning.R")
+
+all_preproc = bind_plans(list(data, pred_data, task, learners, resampling,
+                              param_set, tune_ctrl, tuning_wrapper))
+source("scripts/04-performance/functions.R")
+
+# benchmark ---------------------------------------------------------
+
+# combining all benchmark calls into a single plan
+# see https://ropenscilabs.github.io/drake-manual/plans.html#map_plan
+
+args_bm = tibble(task = rlang::syms("tasks"),
+                 learner = c(c("wrapper_rf",
+                               "wrapper_svm",
+                               # "wrapper_xgboost",
+                               "wrapper_kknn",
+                               "lrn_glm")),
+                 resampling = rlang::syms(rep("spcv_outer_fiveF_hundredR", 4)))
+args_bm$learner = rlang::syms(args_bm$learner)
+args_bm$id = paste0("bm_", stringr::str_split(args_bm$learner, "_", simplify = T)[, 2])
+
+all_bm = map_plan(args_bm, benchmark_custom, trace = FALSE)
+
+# prediction --------------------------------------------------------------
+
+args_pred = tibble(task = rlang::syms(c("armillaria_task_dummy",
+                            "heterobasidion_task_dummy",
+                            "diplodia_task_dummy_prediction",
+                            "fusarium_task_dummy_prediction")),
+                   learner = c("lrn_rf",
+                               "lrn_svm",
+                               # "wrapper_xgboost",
+                               "lrn_kknn",
+                               "lrn_glm"),
+                   resampling = rlang::syms(rep("spcv_inner_fiveF", 4)),
+                   param_set = rlang::syms(c("ps_rf",
+                                             "ps_svm",
+                                             # "ps_xgboost",
+                                             "ps_kknn",
+                                             "NULL")),
+                   tune_ctrl = rlang::syms(c("tune_ctrl_rf",
+                                             "tune_ctrl_svm",
+                                             # "tune_ctrl_xgboost",
+                                             "tune_ctrl_kknn",
+                                             "NULL")),
+                   pred_data = rep(rlang::syms("pred_data"), 4)
 )
+args_pred$id = paste0("prediction_", stringr::str_split(args_pred$learner, "_", simplify = T)[, 2])
+args_pred$learner = rlang::syms(args_pred$learner)
 
-all_preproc = bind_plans(list(task, learners, resampling, param_set, tuning_ctrl,
-                              tasks))
-source("scripts/04-performance/056-Benchmark-function.R")
+all_pred = map_plan(args_pred, prediction_custom, trace = FALSE)
 
-# RF ----------------------------------------------------------------------
+# Combine all -------------------------------------------------------------
 
-benchmark_rf = drake_plan(
-  bm_ranger = benchmark_custom(task = tasks,
-                               learner = wrapper_rf,
-                               resampling = spcv_outer_fiveF_hundredR)
-)
-all_rf = bind_plans(list(all_preproc, benchmark_rf))
-# make(all_rf)
+plan_pred = bind_plans(list(all_preproc, all_pred))
 
+plan = bind_plans(list(all_preproc, all_pred, all_bm, benchmark_eval))
 
-# svm ----------------------------------------------------------------------
-
-benchmark_svm = drake_plan(
-  bm_svm = benchmark_custom(task = tasks,
-                               learner = wrapper_svm,
-                               resampling = spcv_outer_fiveF_hundredR)
-)
-all_svm = bind_plans(list(all_preproc, benchmark_svm))
-# make(all_svm)
-
-# xgboost ----------------------------------------------------------------------
-
-benchmark_xgboost = drake_plan(
-  bm_xgboost = benchmark_custom(task = tasks,
-                               learner = wrapper_xgboost,
-                               resampling = spcv_outer_fiveF_hundredR)
-)
-all_xgboost = bind_plans(list(all_preproc, benchmark_xgboost))
-# make(all_xgboost)
-
-# kknn ----------------------------------------------------------------------
-
-benchmark_kknn = drake_plan(
-  bm_kknn = benchmark_custom(task = tasks,
-                               learner = wrapper_kknn,
-                               resampling = spcv_outer_fiveF_hundredR)
-)
-all_kknn = bind_plans(list(all_preproc, benchmark_kknn))
-# make(all_kknn)
-
-# glm ----------------------------------------------------------------------
-
-benchmark_glm = drake_plan(
-  bm_glm = benchmark_custom(task = tasks,
-                               learner = wrapper_glm,
-                               resampling = spcv_outer_fiveF_hundredR)
-)
-all_glm = bind_plans(list(all_preproc, benchmark_glm))
-# make(all_glm)
-
-
-# Benchmark eval ----------------------------------------------------------
-
-benchmark_eval = drake_plan(
-
-  report = rmarkdown::render(
-    knitr_in("scripts/04-performance/06-Benchmark-eval.Rmd"),
-    output_file = file_out("scripts/04-performance/06-Benchmark-eval.html"),
-    quiet = TRUE),
-  strings_in_dots = "literals"
-)
-
-all_bm = bind_plans(list(all_preproc, benchmark_rf, benchmark_svm,
-                         benchmark_xgboost, benchmark_kknn, benchmark_glm,
-                         benchmark_eval))
-
-# Config vis --------------------------------------------------------------
-
-config <- drake_config(all_bm)
+config <- drake_config(plan)
 vis_drake_graph(config)
+
+# make(plan, keep_going = TRUE, console_log_file=stdout())

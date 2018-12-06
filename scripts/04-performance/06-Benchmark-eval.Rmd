@@ -11,16 +11,16 @@ This report evaluates the classifiers Random Forest (RF), Support Vector Machine
 - _Fusarium mellea_
 - _Heterobasidion mellea_
 
-```{r}
-needs(mlr, tibble, dplyr, ggpubr, purrr)
+```{r setup, include=FALSE}
+loadd(bm_glm, bm_rf, bm_svm, bm_kknn)
 ```
 
 # Load benchmark results
 
 ```{r}
-bmr_all = mergebmResults(list(bm_ranger, bm_svm, bm_xgboost,
-                                     bm_kknn, bm_glm, 
-                                  ))
+bmr_all = mergebmResults(list(bm_rf, bm_svm, bm_xgboost,
+                              bm_kknn, bm_glm
+))
 ```
 
 # Print benchmark results
