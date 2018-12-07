@@ -31,6 +31,7 @@ vis_drake_graph(config, group = "stage", clusters = c("task", "learner",
 ```
 
 ![](drake.png)
+![](drake.html)
 
 If all required objects should be visualized (not recommended):
 
