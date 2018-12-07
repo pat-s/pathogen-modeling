@@ -7,12 +7,37 @@ Benchmarking classifiers (SVM, RF, XGBOOST) on four different pathogens:
 * Heterobasidion
 * Fusarium
 
-
-
 Hyperparameter tuning: Sequential model-based optimization (SMBO)
 
-
 This project is setup with a [drake workflow](https://github.com/ropensci/drake), ensuring reproducibility.
+The complete project can be run in any R installation by executing the following:
+
+```r
+install.packages(c("needs", "drake", "git2r"))
+git2r::clone("url")
+
+source("scripts/drake.R")
+make(plan)
+```
+
+The dependency graph (subjective grouping) can be visualized using
+
+```r
+vis_drake_graph(config, group = "stage", clusters = c("task", "learner",
+                                                      "mlr_settings",
+                                                      "benchmark",
+                                                      "prediction"),
+                targets_only = TRUE, show_output_files = FALSE)
+```
+
+![](drake.html)
+
+If all required objects should be visualized (not recommended):
+
+```r
+vis_drake_graph(config)
+```
+
 
 Options for deployment:
 
