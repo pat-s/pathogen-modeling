@@ -7,23 +7,33 @@ Benchmarking classifiers (SVM, RF, XGBOOST) on four different pathogens:
 * Heterobasidion
 * Fusarium
 
-Hyperparameter tuning: Sequential model-based optimization (SMBO)
+#### Hyperparameter tuning: 
+
+Sequential model-based optimization (SMBO)
+
+#### Data
+
+Stored at [Mendeley Data](http://dx.doi.org/10.17632/kmy95t22fy.1).
+Will be downloaded and processed when executing the project.
+
+#### Workflow
 
 This project is setup with a [drake workflow](https://github.com/ropensci/drake), ensuring reproducibility.
-The complete project can be run in any R installation by executing the following:
+The complete project can be run in any R installation by executing:
 
 ```r
-install.packages(c("needs", "drake", "git2r"))
-git2r::clone("url")
+if (!requireNamespace(c("needs", "drake", "git2r"))) install.packages(c("needs", "drake", "git2r"))
+git2r::clone("https://venus.geogr.uni-jena.de/bi28yuv/pathogen-modelling", ".")
 
 source("scripts/drake.R")
-make(plan)
+make(plan, keep_going = TRUE, console_log_file=stdout()) 
+# use more cores with make(plan, jobs = <number of cores>)
 ```
 
 The dependency graph (subjective grouping) can be visualized using
 
 ```r
-vis_drake_graph(config, group = "stage", clusters = c("task", "learner",
+vis_drake_graph(config, group = "stage", clusters = c("task", "learner", "data"
                                                       "mlr_settings",
                                                       "benchmark",
                                                       "prediction"),
@@ -31,26 +41,9 @@ vis_drake_graph(config, group = "stage", clusters = c("task", "learner",
 ```
 
 ![](drake.png)
-![](drake.html)
 
 If all required objects should be visualized (not recommended):
 
 ```r
 vis_drake_graph(config)
 ```
-
-
-Options for deployment:
-
-- [clustermq](https://github.com/mschubert/clustermq) uses [zmq](http://zeromq.org/) with the following schedulers: LSF, SGE, SLURM. See [here](https://github.com/mschubert/clustermq/wiki/Comparison-to-other-packages) for more info.
-
-HPC:
-
-Configuration: 
-- [warewulf](http://warewulf.lbl.gov): Installer not working, 404 errors when downloading source...)
-- [xCat](https://xcat-docs.readthedocs.io/en/stable/): No Debian support
-- [OSCAR](http://svn.oscar.openclustergroup.org/trac/oscar): Last updated 2011?
-- [oneSIS](http://onesis.org/): 5 commits in the last 2 years...
-- [openHPC](https://en.wikipedia.org/wiki/OpenHPC): centOS and Suse onlycore
-
-Monitoring tool: [Ganglia](http://ganglia.sourceforge.net/)
