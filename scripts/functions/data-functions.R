@@ -514,8 +514,7 @@ hail_preprocessing = function(path) {
   return(hail)
 }
 
-precipitation_preprocessing = function(path,
-                                       atlas_climatico) {
+precipitation_preprocessing = function(atlas_climatico) {
 
   # Atlas climatico is a prerequisite for the following task
   # However we do not want to do run it every time
@@ -531,7 +530,7 @@ precipitation_preprocessing = function(path,
   #'
   #' Modified data: Total july and august precipitation raster in `.tif` format in CRS 32630.
 
-  precip = list.files("/data/marc/mod/atlas_climatico",
+  precip = list.files("data/atlas-climatico/unzip",
                       "pluvio.*(julio|agosto)_av.tif$",
                       full.names = TRUE
   ) %>%
@@ -543,7 +542,7 @@ precipitation_preprocessing = function(path,
   return(precip)
 }
 
-pisr_preprocessing = function(path, atlas_climatico) {
+pisr_preprocessing = function(atlas_climatico) {
 
   # Atlas climatico is a prerequisite for the following task
   # However we do not want to do run it every time
@@ -558,9 +557,11 @@ pisr_preprocessing = function(path, atlas_climatico) {
   #'           Write raster to disk and extract pisr at each observation.
   #'
   #' Modified data: PISR raster in `.tif` format in CRS 32630.
+  #'
+
 
   psir_sum_raster <-
-    list.files(path,
+    list.files("data/atlas-climatico/unzip",
                "radiacion.*(julio|agosto|septiembre)_av.tif$",
                full.names = TRUE
     ) %>%
@@ -575,8 +576,7 @@ pisr_preprocessing = function(path, atlas_climatico) {
   return(psir_sum_raster)
 }
 
-temperature_preprocessing = function(path, data,
-                                     atlas_climatico) {
+temperature_preprocessing = function(atlas_climatico) {
 
   # Atlas climatico is a prerequisite for the following task
   # However we do not want to do run it every time
@@ -592,7 +592,7 @@ temperature_preprocessing = function(path, data,
   #'
   #' Modified data: Mean summer temperature raster in `.tif` format in CRS 32630.
 
-  temperature_mean = list.files("/data/marc/mod/atlas_climatico",
+  temperature_mean = list.files("data/atlas-climatico/unzip",
                                 "termo.*(marzo|abril|mayo|junio|julio|agosto|septiembre)_av.tif$",
                                 full.names = TRUE
   ) %>%
@@ -619,17 +619,21 @@ atlas_climatico_preprocessing = function(path,
   #'           Remove unused `.txt` files
   #'
   #' Mod data: Temperature, pisr and precipitation rasters in `.tif` format in CRS 32630 for each month.
+  #'
+  curl_download(path,
+                destfile = glue(tempdir(), "/atlas-climatico.zip"), quiet = FALSE)
+  unzip(glue(tempdir(), "/atlas-climatico.zip"), exdir = glue(tempdir(), "/atlas-climatico"))
 
   c("^mt.*_av.zip$") %>% # , "^rad.*_av.zip$", "^pl.*_av.zip$"
     map(function(x) list.files(
-      path = path,
+      path = "data/atlas-climatico",
       pattern = x,
       full.names = TRUE
     )) %>%
     unlist() %>%
-    walk(unzip, exdir = "/data/marc/mod/atlas_climatico")
+    walk(unzip, exdir = "data/atlas-climatico/unzip")
 
-  list.files("/data/marc/mod/atlas_climatico",
+  list.files("data/atlas-climatico/unzip",
              pattern = "*.(gif|htm)$",
              full.names = TRUE
   ) %>%
@@ -640,7 +644,7 @@ atlas_climatico_preprocessing = function(path,
     st_transform(23030) %>%
     as("Spatial")
 
-  txt_files <- list.files("/data/marc/mod/atlas_climatico",
+  txt_files <- list.files("data/atlas-climatico/unzip",
                           pattern = ".txt$",
                           full.names = TRUE
   )
@@ -669,7 +673,7 @@ lithology_preprocessing = function(path) {
   #'
   #' Output: Aggregated lithology units.
   #'
-  curl_download("https://data.mendeley.com/datasets/kmy95t22fy/1/files/f200186f-ff5e-47a3-a43f-a47e93708d0e/lithology.zip",
+  curl_download(path,
                 destfile = glue(tempdir(), "/lithology.zip"), quiet = FALSE)
   unzip(glue(tempdir(), "/lithology.zip"), exdir = glue(tempdir(), "/lithology"))
 
@@ -708,7 +712,10 @@ ph_preprocessing = function(path,
   ph_raster %<>%
     crop(study_area_3035) %>%
     mask(study_area_3035) %>%
-    projectRaster(crs = CRS("+init=epsg:32630"), method = "bilinear")
+    projectRaster(crs = CRS("+init=epsg:32630"), method = "bilinear") %>%
+    writeRaster("data/ph.tif", overwrite = TRUE)
+
+  dir_delete("data/ph")
 
   return(ph_raster)
 }
@@ -721,18 +728,15 @@ elevation_preprocessing = function(path) {
   #'
   #' Mod data: DEM with 5m resolution in `.tif` format in CRS 32630.
 
-  if (!file.exists("/data/marc/mod/tmp/mdt_2013_5m.tif")) {
-    unzip(
-      path,
-      exdir = "/data/marc/mod/tmp"
-    )
+  curl_download(path,
+                destfile = glue(tempdir(), "/dem.zip"), quiet = FALSE)
+  unzip(glue(tempdir(), "/dem.zip"), exdir = glue(tempdir(), "/dem"))
 
-    dem = raster("/data/marc/mod/tmp/mdt_2013_5m.tif") %>%
+  dem = raster("/data/dem.tif") %>%
       projectRaster(crs = CRS("+init=epsg:32630"), method = "bilinear") %>%
-      writeRaster("/data/marc/mod/tmp/mdt_2013_5m.tif", overwrite = TRUE)
-  } else {
-    dem = raster(file_in("/data/marc/mod/tmp/mdt_2013_5m.tif"))
-  }
+      writeRaster("/data/dem.tif", overwrite = TRUE)
+
+  dir_delete("data/dem")
 
   return(dem)
 }
@@ -752,12 +756,16 @@ soil_preprocessing = function(path,
   #'
   #' Output: Soil raster with 250 m resolution in `.tif` format in CRS 23030.
   #'
+
+  curl_download(path,
+                destfile = "data/soil.tif", quiet = FALSE)
+
   study_area_4326 <-
     study_area %>%
     st_transform(4326) %>%
     as("Spatial")
 
-  soil_ras = raster(path) %>%
+  soil_ras = raster("data/soil.tif") %>%
     crop(study_area_4326) %>%
     mask(study_area_4326) %>%
     projectRaster(crs = CRS("+init=epsg:32630"), method = "ngb")
@@ -866,11 +874,15 @@ mod_raw_data = function(data, drop_vars, response) {
   return(data)
 }
 
-preprocessing_custom <- function(data_in, slope, soil, temperature, ph, hail,
+preprocessing_custom <- function(path, slope, soil, temperature, ph, hail,
                                  precipitation, elevation, pisr, lithology,
                                  study_area = data_basque, response,
                                  drop_vars = NULL, age = FALSE) {
 
+  curl_download(path,
+                destfile = "data/raw-data.gpkg", quiet = FALSE)
+  data_in = st_read("data/raw-data.gpkg")
+  file_delete("data/raw-data.gpkg")
 
   data_in = mod_raw_data(data_in, drop_vars = drop_vars, response = response)
 
