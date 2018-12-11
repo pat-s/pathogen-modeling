@@ -32,7 +32,7 @@ fusarium_data = preprocessing_custom(file_in("/data/patrick/mod/survey_data/2009
 
 # Raw Data preprocessing ------------------------------------------------------------
 
-data_basque = st_read(),
+data_basque = st_read("/data/patrick/raw/boundaries/basque-country/study-area-square.gpkg",
                       quiet = TRUE)
 
 slope = slope_processing(path = "https://data.mendeley.com/datasets/kmy95t22fy/1/files/56f70601-331a-4d61-9ad0-ec58469e26f2/dem_5m.tif")

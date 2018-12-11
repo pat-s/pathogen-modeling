@@ -620,9 +620,9 @@ atlas_climatico_preprocessing = function(path,
   #'
   #' Mod data: Temperature, pisr and precipitation rasters in `.tif` format in CRS 32630 for each month.
   #'
-  curl_download(path,
-                destfile = glue(tempdir(), "/atlas-climatico.zip"), quiet = FALSE)
-  unzip(glue(tempdir(), "/atlas-climatico.zip"), exdir = glue(tempdir(), "/atlas-climatico"))
+  # curl_download(path,
+  #               destfile = glue(tempdir(), "/atlas-climatico.zip"), quiet = FALSE)
+  # unzip(glue(tempdir(), "/atlas-climatico.zip"), exdir = glue(tempdir(), "/atlas-climatico"))
 
   c("^mt.*_av.zip$") %>% # , "^rad.*_av.zip$", "^pl.*_av.zip$"
     map(function(x) list.files(
