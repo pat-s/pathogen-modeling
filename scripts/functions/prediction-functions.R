@@ -33,9 +33,6 @@ prediction_custom = function(task, learner, param_set, tune_ctrl, resampling, pr
 
   # Create predictions ---------------------------------------------------
 
-
-  browser()
-
   if (fit_armillaria$learner.model == "xgboost") {
     fit_armillaria <- fit_armillaria[.x$learner.model$feature_names]
   }

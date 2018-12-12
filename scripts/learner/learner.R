@@ -33,6 +33,26 @@ lrn_kknn <- makeLearner("classif.kknn",
   kernel = "rectangular"
 )
 
+# BRT ---------------------------------------------------------------------
+
+lrn_brt <- makeLearner("classif.gbm",
+                       predict.type = "prob",
+                       distribution = "bernoulli"
+)
+
+# GAM ---------------------------------------------------------------------
+
+lrn_gam <- makeLearner("classif.gam",
+                       family = "binomial",
+                       binomial.link = "logit",
+                       predict.type = "prob",
+                       method = "GCV.Cp",
+                       fix.factors.prediction = TRUE,
+                       formula = "diplo01 ~ s(temp, k = 15) + s(p_sum, k = 15) + s(r_sum, k = 15) +
+                       s(elevation, k = 15) + s(slope_degrees, k = 15) + s(hail_prob, k = 15) + s(age, k = 15) + s(ph, k = 15) +
+                       lithology + soil + year"
+)
+
 # GLM ---------------------------------------------------------------------
 
 lrn_glm <- makeLearner("classif.binomial",

@@ -4,3 +4,6 @@
 packrat/src/
 packrat/lib*/
 README.html
+.Rprofile
+data
+.drake

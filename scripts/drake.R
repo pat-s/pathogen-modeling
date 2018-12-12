@@ -1,4 +1,4 @@
-needs(drake, mlr, magrittr, mlrMBO, purrr, parallelMap, sf, dplyr, lwgeom,
+needs::needs(drake, mlr, magrittr, mlrMBO, purrr, parallelMap, sf, dplyr, lwgeom,
       forcats, tibble, rgdal, viridis, rasterVis, lattice, latticeExtra, glue,
       RSAGA, stringr, GSIF, sp, R.utils, curl, fs)
 
@@ -16,6 +16,7 @@ sourceDirectory("scripts/prediction/")
 sourceDirectory("scripts/reports/")
 
 sourceDirectory("scripts/functions/")
+source("https://raw.githubusercontent.com/mlr-org/mlr-extralearner/master/R/RLearner_classif_gam.R")
 
 # grouping for visualization
 data$stage = "data"
@@ -31,37 +32,14 @@ reports$stage = "reports"
 
 # Combine all -------------------------------------------------------------
 
-plan = bind_plans(list(data, task, learners, resampling, param_set,
-                       tune_ctrl, tuning_wrapper, benchmark, prediction,
-                       reports))
+plan = bind_plans(data, task, learners, resampling, param_set,
+                  tune_ctrl, tuning_wrapper, benchmark, prediction,
+                  reports)
 
 plan %<>% mutate(stage = as.factor(stage))
 
 config <- drake_config(plan)
 
-
-# Visualization -----------------------------------------------------------
-
-### no data grouping
-# vis_drake_graph(config, group = "stage", clusters = c("task", "learner",
-#                                                       "mlr_settings",
-#                                                       "benchmark",
-#                                                       "prediction"),
-#                 targets_only = TRUE, show_output_files = FALSE)
-#
-#
-# ### all grouping
-#
-# vis_drake_graph(config, group = "stage", clusters = c("data", "task", "learner",
-#                                                       "mlr_settings"),
-#                 targets_only = TRUE, show_output_files = FALSE)
-# sankey_drake_graph(config, group = "stage", clusters = c("data", "task", "learner",
-#                                                          "mlr_settings"),
-#                    targets_only = TRUE, show_output_files = FALSE)
-#
-# drake_ggraph(config, group = "stage", clusters = c("data", "task", "learner",
-#                                                           "mlr_settings"),
-#                     targets_only = TRUE, show_output_files = FALSE) + ggpubr::theme_pubr()
 
 # make(plan, keep_going = TRUE, console_log_file=stdout())
 

@@ -1,14 +1,16 @@
 task_custom <- function(data, name, target, dummy_features, dummy.factors = FALSE) {
 
-  coordinates <- data[, c("x", "y")]
 
-  data %<>%
-    mutate(!!quo_name(as.name(target)) := as.factor(!!as.name(target)))
-  print(class(data$armillaria))
+  coordinates <- data[, c("x", "y")]
 
   data %<>%
     st_as_sf(coords = c("x", "y")) %>%
     st_set_geometry(NULL)
+
+  # for some reason we need to remove the geom column twice?!
+  if (!is.null(data$geometry)) {
+    data$geometry = NULL
+  }
 
   if (isTRUE(dummy.factors)) {
     data %<>% createDummyFeatures(
@@ -47,50 +49,19 @@ task_custom_prediction <- function(data, name, target, dummy_features, dummy.fac
   return(task)
 }
 
-create_prediction_data <- function(temperature, precipitation, pisr, dem, soil, lithology, hail, ph, study_area) {
+create_prediction_data <- function(temperature, precipitation, pisr, slope,
+                                   elevation, soil, lithology, hail, ph,
+                                   study_area) {
 
   # Its a square around the Basque Country.
   # This prevents error for the subsequent raster `extract` calls that may result
   # in NAs if the rasters does not exceed the dimensions of the extracting area.
 
-  study_area1 <- study_area %>%
-    st_transform(32630) %>%
-    as("Spatial")
+  # study_area1 <- study_area %>%
+  #   st_transform(32630) %>%
+  #   as("Spatial")
 
-  #' ## Temperature (Mar - Sep)
-  #'
-  #' We load all images for the months March - September.
-  #' These are clipped in a rectangular box around the Basque Country.
-  #'
-  #'
-  # load only nov-april
-  #'
-  #'
-  #' We load in each raster and set the projection.
-  #' Next, we mask the values by the study area extent and rescale the temperature values to have proper degree Celsius values.
-  #'
-  #' Then a stack is created from all the rasters and the mean is computed across all layers.
-  #'
-  #'
-  # set up list with monthly tifs and rescale values
-  temperature %<>% map(~ {
-    tmp <- raster(.x, layer = 1)
-    # apply CRS
-    crs(tmp) <- "+proj=utm +zone=30 +datum=WGS84 +units=m +no_defs"
-    # subset and rescale
-    tmp %<>%
-      crop(study_area1) %>%
-      mask(study_area1) %>%
-      divide_by(10)
-    return(tmp)
-  })
 
-  rasters_temp_stack <- stack(temperature)
-  rasters_temp_mean <- stackApply(rasters_temp_stack,
-                                  indices = c(rep(1, 7)), fun = mean
-  )
-  #'
-  #'
   #' ## Prediction raster grid
   #'
   #' Now create a 200 x 200 point grid using a dummy raster that represents the study area shape.
@@ -100,176 +71,40 @@ create_prediction_data <- function(temperature, precipitation, pisr, dem, soil, 
   #' Runtime in ArcGIS: < 1 min.
   #' QGIS did not even start..
   #'
-  #'
-  # df_basque <- st_read("/data/patrick/mod/prediction/temporary/basque_litho.shp")
-  # df_basque$OBJECTID = NULL
-  # df_basque$layer = NULL
-  # df_basque$FID_df_bas = NULL
-  # df_basque$slp_dgr = NULL
-  # df_basque$FID_litho = NULL
-  #'
-  #'
-  #'
-  #'
-  df_basque <- as(rasters_temp_mean, "SpatialPixelsDataFrame")
-  df_basque = st_as_sf(df_basque)
-  # df_basque$index_1 <- NULL
-  #'
-  #'
-  #' And extract the information to the new data set.
-  #'
-  #'
-  df_basque$temp <- extract(rasters_temp_mean, df_basque)
-  #'
-  #'
+  pred_grid <- as(temperature, "SpatialPixelsDataFrame")
+  pred_grid = st_as_sf(pred_grid)
 
-  # Precipitation -----------------------------------------------------------
+  # Precipitation
 
-  #'
-  #' ## Precipitation (Mar - Sep)
-  #'
-  #' We load all images for the months July - September.
-  #' These are clipped in a rectangular box around the Basque Country.
-  #'
-  #'
-  # load only nov-april
-  #'
-  #'
-  #' We load in each raster and set the projection.
-  #' Next, we mask the values by the study area extent and rescale the precerature values to have mm/m² values.
-  #'
-  #' Then a stack is created from all the rasters and the mean is computed across all layers.
-  #'
-  #'
-  # set up list with monthly tifs and rescale values
-  precipitation %<>% map(~ {
-    tmp <- raster(.x, layer = 1)
-    # apply CRS
-    crs(tmp) <- "+proj=utm +zone=30 +datum=WGS84 +units=m +no_defs"
-    # subset and rescale
-    tmp %<>%
-      crop(study_area1) %>%
-      mask(study_area1) %>%
-      divide_by(10)
-    return(tmp)
-  })
+  pred_grid$precipitation <-
+    precipitation %>%
+    raster::extract(pred_grid)
 
-  rasters_prec_stack <- stack(precipitation)
-  rasters_prec_sum <- stackApply(rasters_prec_stack,
-                                 indices = c(rep(1, 3)), fun = sum
-  )
+  # Temperature
 
-  df_basque$p_sum <- extract(rasters_prec_sum, df_basque)
+  pred_grid %<>%
+    dplyr::rename(temp = layer)
 
-  # PISR --------------------------------------------------------------------
+  # PISR
 
-  #' ## PISR (Mar - Sep)
-  #' We load all images for the months July - September.
-  #' These are clipped in a rectangular box around the Basque Country.
-  #' We load in each raster and set the projection.
-  #' Next, we mask the values by the study area extent and rescale the sRaderature values to have mm/m² values.
-  #'
-  #' Then a stack is created from all the rasters and the mean is computed across all layers.
+  pred_grid$pisr <-
+    pisr %>%
+    raster::extract(pred_grid)
 
-  # set up list with monthly tifs and rescale values
-  pisr %<>% map(~ {
-    tmp <- raster(.x, layer = 1)
-    # apply CRS
-    crs(tmp) <- "+proj=utm +zone=30 +datum=WGS84 +units=m +no_defs"
-    # subset and rescale
-    tmp %<>%
-      crop(study_area1) %>%
-      mask(study_area1)
-    # divide_by(mean(.)) - 1
-    return(tmp)
-  })
+  # Slope
 
-  rasters_r_sum_stack <- stack(pisr)
-  rasters_r_sum <- stackApply(rasters_r_sum_stack,
-                              indices = c(rep(1, 3)), fun = sum
-  )
+  pred_grid$slope_degrees <-
+    slope %>%
+    raster::extract(pred_grid)
 
-  # trim outliers; we have around 50000 values with no information that affect the mean
-  # these are coming from the sea area where no information is available
-  rasters_r_sum <- calc(rasters_r_sum, fun = function(x) {
-    replace(x, x < 2000, NA)
-  })
+  # Lithology
 
-  # rescale to fraction its mean now and remove NA values when calc the mean
-  rasters_r_sum <- calc(rasters_r_sum, fun = function(x) {
-    x / mean(x, na.rm = TRUE) - 1
-  })
+  pred_grid %<>% st_join(lithology)
 
-  # again trim negative outliers
-  rasters_r_sum <- calc(rasters_r_sum, fun = function(x) {
-    replace(x, x < -0.1, -0.1)
-  })
-
-  df_basque$r_sum <- extract(rasters_r_sum, df_basque)
-
-
-  # Slope -------------------------------------------------------------------
-
-  #' ## Slope
-
-  #' We use a Digitial Elevation Model (DEM) to extract the slope (percent) using the `RSAGA` package.
-  #' The resulting `.sgrd` file is converted into `.tif`.
-
-  #' Object `disease_data` is converted from a `data.frame` into a spatial object
-  #' (`SpatialPointsDataFrame` (SPDF)) and projected to EPSG 32630.
-  #' The calculated slope values are read in as a raster object and extracted to the SPDF.
-  #' At the point of this analysis, the `raster `package was not able to deal with
-  #' objects of class `sf` so multiple class transformations between raster* objects and sf objects were needed.
-  #' This variable was also trimmed to a value of 70 for the upper end.
-  #' First we create a 200x200 point grid using one of the already existing raster files.
-
-  env <- rsaga.env(modules = "/usr/lib/x86_64-linux-gnu/saga/")
-  rsaga.slope.asp.curv(
-    in.dem = dem,
-    out.slope = "/data/patrick/mod/DEM/slope/slope_5m",
-    unit.slope = "degrees",
-    env = env
-  )
-
-  rsaga.geoprocessor(
-    lib = "io_gdal", module = 2, env = env,
-    param = list(
-      GRIDS = "/data/patrick/mod/DEM/slope/slope_5m.sgrd",
-      FILE = "/data/patrick/mod/DEM/slope/slope_5m.tif"
-    )
-  )
-
-  raster(dem) %>%
-    extract(df_basque) -> df_basque$slope_degrees
-
-  # Lithology ---------------------------------------------------------------
-
-  #' Read, reproject and select desired column of lithology ressource.
-
-  lithology %<>%
-    st_set_crs("+proj=utm +zone=30 +ellps=GRS80 +units=m +no_defs") %>%
-    st_transform(32630) %>%
-    dplyr::select(COD_LITOLO)
-
-  #' Make it a valid polygon.
-  #' See also `?st_is_valid()`.
-
-  litho_valid <- st_make_valid(lithology) %>%
-    st_cast("POLYGON")
-
-  #' Do the intersection.
-
-  df_basque %<>%
-    st_join(litho_valid)
-
-  #' Change lithology entries to descriptive names.
-  #' Aggregated classes are based on common lithology (sub-)classes.
-
-  df_basque %<>%
+  pred_grid %<>%
     dplyr::rename(lithology = COD_LITOLO) %>%
     mutate(lithology = as.factor(lithology)) %>%
     mutate(lithology = fct_recode(lithology,
-                                  NULL = "00", # water bodies
                                   "surface deposits" = "01",
                                   "clastic sedimentary rock" = "02",
                                   "clastic sedimentary rock" = "03",
@@ -284,111 +119,31 @@ create_prediction_data <- function(temperature, precipitation, pisr, dem, soil, 
                                   "chemical sedimentary rock" = "15",
                                   "biological sedimentary rock" = "16",
                                   "biological sedimentary rock" = "17",
-                                  "dolomites" = "18",
+                                  "chemical sedimentary rock" = "18",
                                   "clastic sedimentary rock" = "19",
                                   "magmatic rock" = "20",
                                   "magmatic rock" = "22",
                                   "magmatic rock" = "23",
-                                  NULL = "24" # riffs
+                                  "magmatic rock" = "24"
     ))
 
 
-  # Soil --------------------------------------------------------------------
+  # Soil
 
-  #' ## Soil
+  pred_grid$soil <-
+    soil %>%
+    raster::extract(pred_grid)
 
-  study_area2 <- study_area %>%
-    st_transform("+proj=longlat +datum=WGS84 +no_defs +ellps=WGS84 +towgs84=0,0,0") %>%
-    as("Spatial")
+  data("soil.legends")
+  soil_legend <- as_tibble(soil.legends$TAXNWRB)
 
-  soil %<>%
-    crop(study_area2) %>%
-    mask(study_area2) %>%
-    projectRaster(crs = "+proj=utm +zone=30 +datum=WGS84 +units=m +no_defs")
+  pred_grid %<>%
+    left_join(soil_legend, by = c("soil" = "Number")) %>%
+    dplyr::select(-one_of("Shortened_name", "Group", "COLOR", "soil")) %>%
+    dplyr::rename(soil = Generic) %>%
+    mutate(soil = as.factor(soil))
 
-  df_basque$soil <- extract(soil, df_basque)
-  # "Acrisols" = "0" should be NA actually, but the 2 obs will be removed anyways
-  # "Albeluvisol" = "Retisols"
-  # as they are located in the water
-  df_basque %<>%
-    st_as_sf() %>%
-    mutate(soil = as.factor(as.integer(soil))) %>%
-    mutate(soil = fct_recode(soil,
-                             "Acrisols" = "0", "Acrisols" = "1",
-                             "Acrisols" = "2", "Acrisols" = "3",
-                             "Acrisols" = "4", "Acrisols" = "5",
-                             "Acrisols" = "6",
-                             "Retisols" = "7", "Retisols" = "8",
-                             "Alisols" = "10", "Alisols" = "11",
-                             "Andosols" = "12", "Andosols" = "13",
-                             "Andosols" = "14", "Arenosols" = "15",
-                             "Arenosols" = "16", "Arenosols" = "17",
-                             "Arenosols" = "18", "Arenosols" = "19",
-                             "Arenosols" = "20",
-                             "Calcisols" = "21", "Calcisols" = "22",
-                             "Calcisols" = "23", "Calcisols" = "24",
-                             "Cambisols" = "25",
-                             "Cambisols" = "27", "Cambisols" = "26",
-                             "Cambisols" = "28", "Cambisols" = "29",
-                             "Cambisols" = "30", "Cambisols" = "31",
-                             "Cambisols" = "32", "Cambisols" = "33",
-                             "Cambisols" = "34", "Cambisols" = "35",
-                             "Chernozems" = "36", "Chernozems" = "37",
-                             "Chernozems" = "38", "Cryosols" = "39",
-                             "Cryosols" = "40", "Cryosols" = "41",
-                             "Durisols" = "42", "Ferralsols" = "43",
-                             "Ferralsols" = "44", "Ferralsols" = "45",
-                             "Ferralsols" = "46", "Ferralsols" = "47",
-                             "Fluvisols" = "48",
-                             "Fluvisols" = "49", "Fluvisols" = "50",
-                             "Fluvisols" = "51",
-                             "Fluvisols" = "52", "Gleysols" = "53",
-                             "Gleysols" = "54", "Gleysols" = "55",
-                             "Gleysols" = "56", "Gleysols" = "57",
-                             "Gleysols" = "58", "Gypsisols" = "59",
-                             "Gypsisols" = "60",
-                             "Histosols" = "61", "Histosols" = "62",
-                             "Histosols" = "63", "Histosols" = "64",
-                             "Histosols" = "65", "Kastanozems" = "66",
-                             "Kastanozems" = "67", "Leptosols" = "68",
-                             "Leptosols" = "69", "Leptosols" = "70",
-                             "Leptosols" = "71", "Leptosols" = "72",
-                             "Lixisols" = "73", "Lixisols" = "74",
-                             "Lixisols" = "75", "Luvisols" = "76",
-                             "Luvisols" = "77", "Luvisols" = "78",
-                             "Luvisols" = "79", "Luvisols" = "80",
-                             "Luvisols" = "81", "Luvisols" = "82",
-                             "Luvisols" = "83",
-                             "Luvisols" = "84", "Nitisols" = "85",
-                             "Nitisols" = "86",
-                             "Phaeozems" = "87", "Phaeozems" = "88",
-                             "Phaeozems" = "89",
-                             "Planosols" = "90", "Planosols" = "91",
-                             "Planosols" = "92",
-                             "Planosols" = "93", "Planosols" = "94",
-                             "Plinthosols" = "95", "Plinthosols" = "96",
-                             "Podzols" = "97",
-                             "Podzols" = "98", "Regosols" = "99",
-                             "Solonchaks" = "107", "Solonetz" = "110",
-                             "Umbrisols" = "113", "Umbrisols" = "114",
-                             "Vertisols" = "115", "Vertisols" = "116"
-    ))
-
-  # Source: 250m SoilGrids (worldwide) by T. Hengl -> http://journals.plos.org/plosone/article?id=10.1371/journal.pone.0169748
-  #
-  # Legend: http://gsif.r-forge.r-project.org/soil.legends.html
-  #
-  # data("soil.legends")
-  #
-  # soil.legends$TAXNWRB
-  #
-  # Aggregate soil classes.
-  #
-  # Reference: http://www.fao.org/3/a-i3794e.pdf
-  # http://www.fao.org/3/i3794en/I3794en.pdf
-
-  df_basque %<>%
-    st_as_sf() %>%
+  pred_grid %<>%
     mutate(soil = fct_recode(soil,
                              "soils with limitations to root growth" = "Leptosols",
                              "soils with limitations to root growth" = "Cryosols",
@@ -398,7 +153,7 @@ create_prediction_data <- function(temperature, precipitation, pisr, dem, soil, 
                              "soils with clay-enriched subsoil" = "Luvisols",
                              "soils with clay-enriched subsoil" = "Lixisols",
                              "soils with clay-enriched subsoil" = "Acrisols",
-                             "soils with clay-enriched subsoil" = "Retisols",
+                             # "soils with clay-enriched subsoil" = "Retisols",
                              "soils with clay-enriched subsoil" = "Alisols",
                              "organic soil" = "Histosols",
                              "pronounced accumulation of organic matter in the mineral topsoil" = "Kastanozems",
@@ -418,55 +173,37 @@ create_prediction_data <- function(temperature, precipitation, pisr, dem, soil, 
                              "soils with little or no profile differentiation" = "Cambisols",
                              "soils with little or no profile differentiation" = "Arenosols",
                              "soils with little or no profile differentiation" = "Regosols",
-                             "soils distinguished by Fe/Al chemistry" = "Ferralsols"
+                             "soils distinguished by Fe/Al chemistry" = "Ferralsols",
+                             "soils distinguished by Fe/Al chemistry" = "Stagnosols"
     ))
 
-  # Hail probability --------------------------------------------------------
+  # Hail
 
-  # Extract values to object `df_basque`.
+  pred_grid$hail_probability <-
+    hail %>%
+    raster::extract(pred_grid)
 
-  hail %>%
-    extract(df_basque) -> df_basque$hail_prob
+  # Elevation
 
-  # Elevation ---------------------------------------------------------------
+  pred_grid$elevation <-
+    elevation %>%
+    raster::extract(pred_grid)
 
-  raster(dem) %>%
-    extract(df_basque) -> df_basque$elevation
+  # ph
 
-  # ph ----------------------------------------------------------------------
-
-  #' Read in the study area polygon and crop the raster image to it.
-  #' For speed reasons, we first project the `pH` raster to the CRS of `study_area` and coerce it to the CRS of `df_basque` after the `crop()` call.
-
-  study_area3 <- study_area %>%
-    st_transform(3035) %>%
-    as("Spatial")
-
-  crs(ph) <- "+proj=laea +lat_0=52 +lon_0=10 +x_0=4321000 +y_0=3210000 +ellps=GRS80 +towgs84=0,0,0,0,0,0,0 +units=m +no_defs"
-
-  ph %<>%
-    crop(study_area3) %>%
-    mask(study_area3) %>%
-    projectRaster(crs = "+proj=utm +zone=30 +datum=WGS84 +units=m +no_defs")
-
-  #' Finally, extract values to `df_basque`.
-  extract(ph, df_basque) -> df_basque$ph
-
-  #' ## Remove NAs
-  df_basque %<>% na.omit()
-
-  # Predict -----------------------------------------------------------------
+  pred_grid$ph <-
+    ph %>%
+    raster::extract(pred_grid)
 
   #' Make prediction data.frame
 
-  df_basque_pred <- df_basque
-  df_basque_pred <- st_set_geometry(df_basque_pred, NULL)
-  df_basque_pred$x <- NULL
-  df_basque_pred$y <- NULL
-  df_basque_pred$index_1 <- NULL
+  pred_grid %<>%
+    st_set_geometry(NULL)
+  pred_grid$x <- NULL
+  pred_grid$y <- NULL
+  pred_grid$index_1 <- NULL
 
-  df_basque_pred <- createDummyFeatures(
-    df_basque_pred,
+  pred_grid %<>% createDummyFeatures(
     # target = "heterobasidion",
     cols = c(
       "lithology",
@@ -474,7 +211,7 @@ create_prediction_data <- function(temperature, precipitation, pisr, dem, soil, 
     )
   )
 
-  return(df_basque_pred)
+  return(pred_grid)
 }
 
 
@@ -507,7 +244,7 @@ hail_preprocessing = function(path) {
   #'
   #' Workflow: Extract hail probability at each observation.
   #'
-  curl_download("https://data.mendeley.com/datasets/kmy95t22fy/1/files/08fbf8e3-b74a-4a0a-8c02-108fbecd7623/Prob_GAM_square_area.tif",
+  curl_download(path,
                 destfile = "data/hail.tif", quiet = FALSE)
 
   hail <- raster("data/hail.tif")
@@ -620,11 +357,11 @@ atlas_climatico_preprocessing = function(path,
   #'
   #' Mod data: Temperature, pisr and precipitation rasters in `.tif` format in CRS 32630 for each month.
   #'
-  # curl_download(path,
-  #               destfile = glue(tempdir(), "/atlas-climatico.zip"), quiet = FALSE)
-  # unzip(glue(tempdir(), "/atlas-climatico.zip"), exdir = glue(tempdir(), "/atlas-climatico"))
+  curl_download(path,
+                destfile = glue(tempdir(), "/atlas-climatico.zip"), quiet = FALSE)
+  unzip(glue(tempdir(), "/atlas-climatico.zip"), exdir = glue(tempdir(), "/atlas-climatico"))
 
-  c("^mt.*_av.zip$") %>% # , "^rad.*_av.zip$", "^pl.*_av.zip$"
+  c("^mt.*_av.zip$", "^rad.*_av.zip$", "^pl.*_av.zip$") %>% # , "^rad.*_av.zip$", "^pl.*_av.zip$"
     map(function(x) list.files(
       path = "data/atlas-climatico",
       pattern = x,
@@ -693,12 +430,12 @@ lithology_preprocessing = function(path) {
 ph_preprocessing = function(path,
                             study_area) {
 
-  # curl_download("https://data.mendeley.com/datasets/kmy95t22fy/1/files/f200186f-ff5e-47a3-a43f-a47e93708d0e/ph.zip",
-  #               destfile = glue(tempdir(), "/ph.zip"), quiet = FALSE)
-  # unzip(glue(tempdir(), "/ph.zip"), exdir = glue(tempdir(), "/ph"))
+  curl_download(path,
+                destfile = glue(tempdir(), "/ph.zip"), quiet = FALSE)
+  unzip(glue(tempdir(), "/ph.zip"), exdir = glue(tempdir(), "/ph"))
 
   ph_raster <-
-    new("GDALReadOnlyDataset", path) %>%
+    new("GDALReadOnlyDataset", glue(tempdir(), "/ph")) %>%
     asSGDF_GROD() %>%
     raster()
 
@@ -715,8 +452,6 @@ ph_preprocessing = function(path,
     projectRaster(crs = CRS("+init=epsg:32630"), method = "bilinear") %>%
     writeRaster("data/ph.tif", overwrite = TRUE)
 
-  dir_delete("data/ph")
-
   return(ph_raster)
 }
 
@@ -730,11 +465,11 @@ elevation_preprocessing = function(path) {
 
   curl_download(path,
                 destfile = glue(tempdir(), "/dem.zip"), quiet = FALSE)
-  unzip(glue(tempdir(), "/dem.zip"), exdir = glue(tempdir(), "/dem"))
+  unzip(glue(tempdir(), "/dem.zip"), exdir = "data/dem")
 
-  dem = raster("/data/dem.tif") %>%
-      projectRaster(crs = CRS("+init=epsg:32630"), method = "bilinear") %>%
-      writeRaster("/data/dem.tif", overwrite = TRUE)
+  dem = raster("data/dem/mdt_2013_5m.tif") %>%
+    projectRaster(crs = CRS("+init=epsg:32630"), method = "bilinear") %>%
+    writeRaster("data/dem.tif", overwrite = TRUE)
 
   dir_delete("data/dem")
 
@@ -785,14 +520,16 @@ slope_processing = function(path) {
   #'           Extraction of the slope values for each record.
   #'
   #' Mod data: Slope raster in degrees with 5m resolution in `.tif` format in CRS 32630.
+  #'
 
-  curl_download("https://data.mendeley.com/datasets/kmy95t22fy/1/files/56f70601-331a-4d61-9ad0-ec58469e26f2/dem_5m.tif",
-                destfile = glue(tempdir(), "/dem.tif"), quiet = FALSE)
+  curl_download(path,
+                destfile = glue(tempdir(), "/dem.zip"), quiet = FALSE)
+  unzip(glue(tempdir(), "/dem.zip"), exdir = "data/dem")
 
   env = rsaga.env()
 
   rsaga.slope.asp.curv(
-    in.dem = glue(tempdir(), "/dem.tif"),
+    in.dem = "data/dem/mdt_2013_5m.tif",
     out.slope = glue(tempdir(), "/slope_5m"),
     unit.slope = "degrees", env = env
   )
@@ -817,8 +554,9 @@ mod_raw_data = function(data, drop_vars, response) {
   #'
   #' Raw data: Point shapefile in CRS 23030 with presense and absence observations of heterobasi and armillaria.
   #'
+  #'
+
   data %<>%
-    st_read(quiet = TRUE) %>%
     st_transform(32630)
 
   data %<>%
@@ -870,6 +608,8 @@ mod_raw_data = function(data, drop_vars, response) {
 
   }
 
+  # drop points with no coordinate information
+  data = data[!st_is_empty(data), ]
 
   return(data)
 }
@@ -879,10 +619,7 @@ preprocessing_custom <- function(path, slope, soil, temperature, ph, hail,
                                  study_area = data_basque, response,
                                  drop_vars = NULL, age = FALSE) {
 
-  curl_download(path,
-                destfile = "data/raw-data.gpkg", quiet = FALSE)
-  data_in = st_read("data/raw-data.gpkg")
-  file_delete("data/raw-data.gpkg")
+  data_in = st_read(path, quiet = TRUE)
 
   data_in = mod_raw_data(data_in, drop_vars = drop_vars, response = response)
 
@@ -992,7 +729,7 @@ preprocessing_custom <- function(path, slope, soil, temperature, ph, hail,
 
   # Precipitation
 
-  data_in$precipitation <-
+  data_in$precip <-
     precipitation_sum %>%
     raster::extract(data_in)
 
@@ -1012,9 +749,7 @@ preprocessing_custom <- function(path, slope, soil, temperature, ph, hail,
   # select vars
   data_in %<>%
     dplyr::select(!!response, temp, precip, hail_probability, ph, soil, lithology,
-           slope_degrees)
-
-  browser()
+                  slope_degrees, x, y)
 
   # Remove NAs
 

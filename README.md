@@ -85,11 +85,10 @@ Note that intermediate files have been gathered into the following categories:
 - prediction
 
 ```r
-vis_drake_graph(config, group = "stage", clusters = c("task", "learner", "data"
-                                                      "mlr_settings",
-                                                      "benchmark",
-                                                      "prediction"),
-                targets_only = TRUE, show_output_files = FALSE)
+vis_drake_graph(config, group = "stage", clusters = c("data", "task", "learner",
+                                                      "mlr_settings"),
+                targets_only = TRUE, show_output_files = FALSE,
+                navigationButtons = FALSE, file = "drake.png")
 ```
 
 ![](drake.png)

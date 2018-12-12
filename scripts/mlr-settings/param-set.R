@@ -33,3 +33,17 @@ ps_kknn <- makeParamSet(
   makeIntegerParam("k", lower = 1, upper = 250),
   makeIntegerParam("distance", lower = 1, upper = 300)
 )
+
+# BRT ---------------------------------------------------------------------
+
+ps_brt <- makeParamSet(
+  makeIntegerParam("n.trees", lower = 100, upper = 15000),
+  makeNumericParam("shrinkage", lower = 0, upper = 1.0),
+  makeIntegerParam("interaction.depth", lower = 1, upper = 20)
+)
+
+# GAM ---------------------------------------------------------------------
+
+ps_gam <- makeParamSet(
+  makeNumericVectorParam("sp", len = 8, lower = 0, upper = 500000)
+)
