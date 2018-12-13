@@ -5,7 +5,7 @@ prediction_custom = function(task, learner, param_set, tune_ctrl, resampling, pr
   browser()
   # Tune all models ---------------------------------------------------------
 
-  if (learner != rlang::syms("lrn_glm")) {
+  if (learner$id != "classif.binomial") {
     parallelStart(
       mode = "multicore", level = "mlrMBO.feval", cpus = 30,
       mc.set.seed = TRUE
@@ -21,22 +21,22 @@ prediction_custom = function(task, learner, param_set, tune_ctrl, resampling, pr
 
   # Train all models ---------------------------------------------------------
 
+  if (learner$id != "classif.binomial") {
   learner_tuned %<>% map2(~ setHyperPars(.x,
                                          par.vals = models_tuned[[.y]]$x
   ))
+  } else {
+    learner_tuned = learner
+  }
 
-  # append glm learner
-  learner_tuned = list(learned_tuned, learner[[5]])
-
-
-  fit_armillaria <- map(learner_tuned, ~ train(.x, armillaria_task))
+  fit <- map(learner_tuned, ~ train(.x, task))
 
   # Create predictions ---------------------------------------------------
 
-  if (fit_armillaria$learner.model == "xgboost") {
-    fit_armillaria <- fit_armillaria[.x$learner.model$feature_names]
+  if (fit$learner.model == "xgboost") {
+    fit <- fit[.x$learner.model$feature_names]
   }
-  predictions <- predict(.x, newdata = pred_data)
+  predictions <- predict(.x, newdata = prediction_data)
 
   # Create prediction maps ---------------------------------------------------
 

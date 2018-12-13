@@ -8,6 +8,12 @@ wrapper_xgboost = wrapper_custom(lrn_xgboost, ps_xgboost, spcv_inner_fiveF)
 
 wrapper_brt = wrapper_custom(lrn_brt, ps_brt, spcv_inner_fiveF)
 
-wrapper_gam = wrapper_custom(lrn_gam, ps_gam, spcv_inner_fiveF)
+wrapper_gam_diplodia_perf = wrapper_custom(lrn_gam_diplodia_perf, ps_gam, spcv_inner_fiveF)
+wrapper_gam_diplodia_perf = wrapper_custom(lrn_gam_diplodia_perf, ps_gam, spcv_inner_fiveF)
+wrapper_gam_diplodia_perf = wrapper_custom(lrn_gam_diplodia_perf, ps_gam, spcv_inner_fiveF)
+wrapper_gam_diplodia_perf = wrapper_custom(lrn_gam_diplodia_perf, ps_gam, spcv_inner_fiveF)
+wrapper_gam_diplodia_perf = wrapper_custom(lrn_gam_diplodia_perf, ps_gam, spcv_inner_fiveF)
+wrapper_gam_diplodia_perf = wrapper_custom(lrn_gam_diplodia_perf, ps_gam, spcv_inner_fiveF)
+wrapper_gam_diplodia_perf = wrapper_custom(lrn_gam_diplodia_perf, ps_gam, spcv_inner_fiveF)
 
 

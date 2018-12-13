@@ -36,9 +36,9 @@ task_custom_prediction <- function(data, name, target, dummy_features, dummy.fac
     dummy_features = dummy_features, dummy.factors = dummy.factors
   )
 
-  if (isTRUE(remove.vars)) {
+  if (all(c("year", "age") %in% colnames(task$env$data)) && isTRUE(remove.vars)) {
     df <- task$env$data %>%
-      select(-year, -age)
+      dplyr::select(-year, -age)
   }
 
   task <- makeClassifTask(
@@ -745,12 +745,36 @@ preprocessing_custom <- function(path, slope, soil, temperature, ph, hail,
     data_in = age_imp_preprocessing(data = data_in)
   }
 
+  # year
+  if ("date" %in% colnames(data_in)) {
+    # The two missing entries we added for observation `785` and `836` are based on statements from the person who collected the data.
+
+    data_in %<>%
+      mutate(year = fct_recode(date, "NA" = "-",
+                               "NA" = ""))
+
+    data_in$year %<>%
+      str_replace_all("-","/") %>%
+      str_extract_all('\\d+') %>%
+      vapply(function(x) paste(x[3], collapse = '/'), character(1))
+
+    data_in %<>%
+      mutate(year = replace(year, id == 785, 2009)) %>%
+      mutate(year = replace(year, id == 836, 2009)) %>%
+      mutate(year = as.factor(year))
+
+  }
 
   # select vars
-  data_in %<>%
-    dplyr::select(!!response, temp, precip, hail_probability, ph, soil, lithology,
-                  slope_degrees, x, y)
-
+  if (all(c("year", "age") %in% colnames(data_in))) {
+    data_in %<>%
+      dplyr::select(!!response, temp, precip, hail_probability, ph, soil, lithology,
+                    slope_degrees, pisr, x, y, year, age)
+  } else {
+    data_in %<>%
+      dplyr::select(!!response, temp, precip, hail_probability, ph, soil, lithology,
+                    slope_degrees, pisr, x, y)
+  }
   # Remove NAs
 
   #' # Remove samples with NAs

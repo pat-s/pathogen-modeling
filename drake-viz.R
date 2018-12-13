@@ -28,6 +28,11 @@ vis_drake_graph(config, group = "stage", clusters = c("task", "benchmark",
                                                       "prediction"),
                 targets_only = TRUE, show_output_files = FALSE,
                 selfcontained = TRUE)
+### no benchmark grouping
+vis_drake_graph(config, group = "stage", clusters = c("task", "data",
+                                                      "learner", "mlr_settings"),
+                targets_only = TRUE, show_output_files = FALSE,
+                selfcontained = TRUE)
 
 #
 #
@@ -38,7 +43,8 @@ vis_drake_graph(config, group = "stage", clusters = c("task", "benchmark",
 #                 targets_only = TRUE, show_output_files = FALSE,
 #                 navigationButtons = FALSE, file = "drake.png")
 vis_drake_graph(config, group = "stage", clusters = c("data", "task", "learner",
-                                                      "mlr_settings"),
+                                                      "mlr_settings",
+                                                      "prediction"),
                 targets_only = TRUE, show_output_files = FALSE)
 sankey_drake_graph(config, group = "stage", clusters = c("data", "task", "learner",
                                                          "mlr_settings"),

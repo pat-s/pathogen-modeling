@@ -1,100 +1,181 @@
+
 # LIFE Healthy Forest
 
 Benchmarking classifiers (SVM, RF, XGBOOST) on four different pathogens:
 
-* Armillaria
-* Diplodia
-* Heterobasidion
-* Fusarium
+  - Armillaria
+  - Diplodia
+  - Heterobasidion
+  - Fusarium
 
-## Hyperparameter tuning: 
+## Hyperparameter tuning:
 
 Sequential model-based optimization (SMBO)
 
 ## Data
 
-Stored at [Mendeley Data](http://dx.doi.org/10.17632/kmy95t22fy.1).
-Data will be downloaded and processed when executing the project.
-Local storage directory is "./data".
-After the intermediate R objects have been created, the data is deleted again to only function as a starting point and keep the directoy small.
-Only raster files need be kept as raster processes require a file stored on disk.
+Stored at [Mendeley Data](http://dx.doi.org/10.17632/kmy95t22fy.1). Data
+will be downloaded and processed when executing the project. Local
+storage directory is “./data”. After the intermediate R objects have
+been created, the data is deleted again to only function as a starting
+point and keep the directoy small. Only raster files need be kept as
+raster processes require a file stored on disk.
 
 ## Workflow
 
-This project is setup with a [drake workflow](https://github.com/ropensci/drake), ensuring reproducibility.
-Intermediate targets/objects will be stored in a hidden `.drake` directory.
+This project is setup with a [drake
+workflow](https://github.com/ropensci/drake), ensuring reproducibility.
+Intermediate targets/objects will be stored in a hidden `.drake`
+directory.
 
-The R library of this project is managed by [packrat](https://rstudio.github.io/packrat/).
-This makes sure that the exact same package versions are used when recreating the project.
-When calling `packrat::restore()`, all required packages will be installed with their specific version.
+The R library of this project is managed by
+[packrat](https://rstudio.github.io/packrat/). This makes sure that the
+exact same package versions are used when recreating the project. When
+calling `packrat::restore()`, all required packages will be installed
+with their specific version.
 
-Please note that this project was built with R version 3.5.1 on a Debian 9 operating system.
-The packrat packages from this project **are not compatible with R versions prior version 3.5.0.**
-For reproducibility, we recommend to replicate the analysis using the included Dockerfile.
-Instructions can be found [ħere](https://venus.geogr.uni-jena.de/bi28yuv/pathogen-modelling#docker).
-However, it should be possible to reproduce the analysis on any other operating system.
+Please note that this project was built with R version 3.5.1 on a Debian
+9 operating system. The packrat packages from this project **are not
+compatible with R versions prior version 3.5.0.** For reproducibility,
+we recommend to replicate the analysis using the included Dockerfile.
+Instructions can be found
+[ħere](https://venus.geogr.uni-jena.de/bi28yuv/pathogen-modelling#docker).
+However, it should be possible to reproduce the analysis on any other
+operating system.
 
-To clone the project, a working installation of `git` is required.
-Open a terminal in the directory of your choice and execute:
+To clone the project, a working installation of `git` is required. Open
+a terminal in the directory of your choice and execute:
 
-```sh
+``` sh
 git clone https://venus.geogr.uni-jena.de/bi28yuv/pathogen-modelling
 ```
 
 Then open a R session in this directory and run
 
-```r
+``` r
 packrat::restore()
 source("scripts/drake.R")
 make(plan, keep_going = TRUE, console_log_file=stdout()) 
 # use more cores with make(plan, jobs = <number of cores>)
 ```
 
+## Runtime
+
+Predicted total runtime
+
+``` r
+source("scripts/drake.R")
+predict_runtime(config, from_scratch = TRUE, targets_only = TRUE)
+```
+
+    ## Warning: Some targets were never actually timed, And no hypothetical time was specified in `known_times`. Assuming a runtime of 0 for these targets:
+    ##   lrn_brt
+    ##   lrn_gam_diplodia_perf
+    ##   lrn_gam_diplodia_pred
+    ##   lrn_gam_fusarium_perf
+    ##   lrn_gam_fusarium_pred
+    ##   lrn_gam_armillaria_perf
+    ##   lrn_gam_armillaria_pred
+    ##   lrn_gam_heterobasidion_perf
+    ##   lrn_gam_heterobasidion_pred
+    ##   ps_brt
+    ##   wrapper_brt
+    ##   benchmark_evaluation_report
+    ##   tune_ctrl_brt
+    ##   tune_ctrl_gam
+    ##   wrapper_gam_diplodia_perf
+    ##   bm_brt
+    ##   bm_gam
+    ##   prediction_rf
+    ##   prediction_svm
+    ##   prediction_kknn
+    ##   prediction_glm
+
+    ## [1] "48456.43s (~13.46 hours)"
+
+Acceleration by parallelization of `make()` call
+
+``` r
+config = drake_config()
+time <- c()
+for (jobs in 1:10){
+  time[jobs] <- predict_runtime(
+    config,
+    jobs = jobs,
+    from_scratch = TRUE,
+    known_times = build_times(targets_only = TRUE)$elapsed
+  )
+}
+
+library(ggplot2)
+ggplot(data.frame(time = time / 3600, jobs = ordered(1:10), group = 1)) +
+  geom_line(aes(x = jobs, y = time, group = group)) +
+  scale_y_continuous(breaks = 0:10 * 4, limits = c(0, 29)) +
+  ggpubr::theme_pubr() +
+  xlab("jobs argument of make()") +
+  ylab("Predicted runtime of make() (hours)")
+```
+
+![](README_files/figure-gfm/unnamed-chunk-3-1.png)<!-- -->
+
 ## Docker
 
-A Dockerfile is available in `docker/`.
-It was generated by the R package [`containerit`](https://github.com/o2r-project/containerit) and contains all packrat packages and system libraries with have been used to run the analysis (the file already exists, no need to do this). 
+A Dockerfile is available in `docker/`. It was generated by the R
+package [`containerit`](https://github.com/o2r-project/containerit) and
+contains all packrat packages and system libraries with have been used
+to run the analysis (the file already exists, no need to do this).
 
-```r
+``` r
 remotes::install_github("pat-s/containerit@packrat")
 library(containerit)
 container = dockerfile(".", packrat = TRUE)
 write(container, "docker/Dockerfile")
 ```
 
-A docker container can be built and started from this Dockerfile by executing `docker build -t image .` within the `./docker` directory.
+A docker container can be built and started from this Dockerfile by
+executing `docker build -t image .` within the `./docker` directory.
 
 Next, the analysis can be started by calling
 
-```r
+``` r
 source("scripts/drake.R")
-make(plan, keep_going = TRUE, console_log_file=stdout()) 
+make(plan, keep_going = TRUE, console_log_file = stdout()) 
 ```
 
 ## Dependency graphs
 
-The dependency graph of this analysis (subjective grouping) can be visualized with the following code.
+The dependency graph of this analysis (subjective grouping) can be
+visualized with the following code.
 
-Note that intermediate files have been gathered into the following categories:
+Note that intermediate files have been gathered into the following
+categories:
 
-- Data
-- Task
-- Learner
-- mlr_settings
-- benchmark
-- prediction
+  - Data
+  - Task
+  - Learner
+  - mlr\_settings
+  - benchmark
+  - prediction
 
-```r
+<!-- end list -->
+
+``` r
+# source("scripts/drake.R")
+# print(config)
+# vis_drake_graph(config)
 vis_drake_graph(config, group = "stage", clusters = c("data", "task", "learner",
-                                                      "mlr_settings"),
+                                                      "mlr_settings",
+                                                      "prediction"),
                 targets_only = TRUE, show_output_files = FALSE,
-                navigationButtons = FALSE, file = "drake.png")
+                navigationButtons = FALSE, selfcontained = TRUE,
+                file = "drake.png") +
+  ggpubr::theme_pubr()
 ```
 
 ![](drake.png)
 
 If all intermediate objects should be visualized (not recommended):
 
-```r
-vis_drake_graph(config)
+``` r
+vis_drake_graph(config) + ggpubr::theme_pubr()
 ```
