@@ -44,3 +44,10 @@ tasks <- list(
   diplodia_task_dummy,
   fusarium_task_dummy
 )
+
+tasks_pred <- list(
+  armillaria_task_dummy,
+  heterobasidion_task_dummy,
+  diplodia_task_dummy_prediction,
+  fusarium_task_dummy_prediction
+)

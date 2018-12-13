@@ -768,12 +768,16 @@ preprocessing_custom <- function(path, slope, soil, temperature, ph, hail,
   # select vars
   if (all(c("year", "age") %in% colnames(data_in))) {
     data_in %<>%
-      dplyr::select(!!response, temp, precip, hail_probability, ph, soil, lithology,
-                    slope_degrees, pisr, x, y, year, age)
+      dplyr::select(!!response, temp, precip,
+                    hail_probability, ph, soil,
+                    lithology, slope_degrees, pisr,
+                    x, y, year, age)
   } else {
     data_in %<>%
-      dplyr::select(!!response, temp, precip, hail_probability, ph, soil, lithology,
-                    slope_degrees, pisr, x, y)
+      dplyr::select(!!response, temp, precip,
+                    hail_probability, ph, soil,
+                    lithology, slope_degrees, pisr,
+                    x, y)
   }
   # Remove NAs
 

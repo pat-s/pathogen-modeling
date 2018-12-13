@@ -65,42 +65,39 @@ Predicted total runtime
 
 ``` r
 source("scripts/drake.R")
-predict_runtime(config, from_scratch = TRUE, targets_only = TRUE)
+predict_runtime(drake_config(), from_scratch = TRUE, targets_only = TRUE)
 ```
 
     ## Warning: Some targets were never actually timed, And no hypothetical time was specified in `known_times`. Assuming a runtime of 0 for these targets:
-    ##   lrn_brt
-    ##   lrn_gam_diplodia_perf
-    ##   lrn_gam_diplodia_pred
-    ##   lrn_gam_fusarium_perf
-    ##   lrn_gam_fusarium_pred
-    ##   lrn_gam_armillaria_perf
-    ##   lrn_gam_armillaria_pred
-    ##   lrn_gam_heterobasidion_perf
-    ##   lrn_gam_heterobasidion_pred
-    ##   ps_brt
-    ##   wrapper_brt
     ##   benchmark_evaluation_report
-    ##   tune_ctrl_brt
-    ##   tune_ctrl_gam
-    ##   wrapper_gam_diplodia_perf
+    ##   bm_kknn
+    ##   bm_rf
+    ##   bm_svm
+    ##   bm_xgboost
     ##   bm_brt
-    ##   bm_gam
+    ##   bm_gam_diplodia
+    ##   bm_gam_fusarium
+    ##   bm_gam_armillaria
+    ##   bm_gam_heterobasidion
     ##   prediction_rf
     ##   prediction_svm
+    ##   prediction_xgboost
     ##   prediction_kknn
     ##   prediction_glm
+    ##   prediction_gam_diplodia
+    ##   prediction_gam_fusarium
+    ##   prediction_gam_armillaria
+    ##   prediction_gam_heterobasidion
 
-    ## [1] "48456.43s (~13.46 hours)"
+    ## [1] "6951.184s (~1.93 hours)"
 
 Acceleration by parallelization of `make()` call
 
 ``` r
-config = drake_config()
 time <- c()
 for (jobs in 1:10){
   time[jobs] <- predict_runtime(
-    config,
+    drake_config(),
     jobs = jobs,
     from_scratch = TRUE,
     known_times = build_times(targets_only = TRUE)$elapsed
@@ -160,22 +157,18 @@ categories:
 <!-- end list -->
 
 ``` r
-# source("scripts/drake.R")
-# print(config)
-# vis_drake_graph(config)
-vis_drake_graph(config, group = "stage", clusters = c("data", "task", "learner",
-                                                      "mlr_settings",
-                                                      "prediction"),
+vis_drake_graph(drake_config(), group = "stage", clusters = c("data", "prediction",
+                                                              "mlr_settings"),
                 targets_only = TRUE, show_output_files = FALSE,
                 navigationButtons = FALSE, selfcontained = TRUE,
                 file = "drake.png") +
   ggpubr::theme_pubr()
 ```
 
-![](drake.png)
+![](./drake.png)
 
 If all intermediate objects should be visualized (not recommended):
 
 ``` r
-vis_drake_graph(config) + ggpubr::theme_pubr()
+vis_drake_graph(drake_config()) + ggpubr::theme_pubr()
 ```

@@ -60,17 +60,16 @@ Predicted total runtime
 
 ```{r}
 source("scripts/drake.R")
-predict_runtime(config, from_scratch = TRUE, targets_only = TRUE)
+predict_runtime(drake_config(), from_scratch = TRUE, targets_only = TRUE)
 ```
 
 Acceleration by parallelization of `make()` call
 
 ```{r warning=FALSE, message=FALSE}
-config = drake_config()
 time <- c()
 for (jobs in 1:10){
   time[jobs] <- predict_runtime(
-    config,
+    drake_config(),
     jobs = jobs,
     from_scratch = TRUE,
     known_times = build_times(targets_only = TRUE)$elapsed
@@ -121,22 +120,18 @@ Note that intermediate files have been gathered into the following categories:
 - prediction
 
 ```{r, results='hide'}
-# source("scripts/drake.R")
-# print(config)
-# vis_drake_graph(config)
-vis_drake_graph(config, group = "stage", clusters = c("data", "task", "learner",
-                                                      "mlr_settings",
-                                                      "prediction"),
+vis_drake_graph(drake_config(), group = "stage", clusters = c("data", "prediction",
+                                                              "mlr_settings"),
                 targets_only = TRUE, show_output_files = FALSE,
                 navigationButtons = FALSE, selfcontained = TRUE,
                 file = "drake.png") +
   ggpubr::theme_pubr()
 ```
 
-![](drake.png)
+![](./drake.png)
 
 If all intermediate objects should be visualized (not recommended):
 
 ```{r eval = FALSE}
-vis_drake_graph(config) + ggpubr::theme_pubr()
+vis_drake_graph(drake_config()) + ggpubr::theme_pubr()
 ```

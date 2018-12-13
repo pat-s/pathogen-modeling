@@ -2,6 +2,18 @@ prediction_custom = function(task, learner, param_set, tune_ctrl, resampling, pr
 
   configureMlr(on.learner.error = "warn", on.error.dump = TRUE)
 
+  if (grepl("diplodia", deparse(substitute(learner)))) {
+    task = diplodia_task_dummy_prediction
+  } else if (grepl("fusarium", deparse(substitute(learner)))) {
+    task = fusarium_task_dummy_prediction
+  } else if (grepl("armillaria", deparse(substitute(learner)))) {
+    task = armillaria_task_dummy_prediction
+  } else if (grepl("heterobasidion", deparse(substitute(learner)))) {
+    task = heterobasidion_task_dummy_prediction
+  }
+
+  walk(task, ~ {
+
   browser()
   # Tune all models ---------------------------------------------------------
 
@@ -12,7 +24,7 @@ prediction_custom = function(task, learner, param_set, tune_ctrl, resampling, pr
     )
     set.seed(12345)
     models_tuned <- tuneParams(learner,
-                               task = task, resampling = resampling,
+                               task = .x, resampling = resampling,
                                par.set = param_set, control = tune_ctrl,
                                show.info = TRUE, measure = list(brier)
     )
@@ -29,14 +41,14 @@ prediction_custom = function(task, learner, param_set, tune_ctrl, resampling, pr
     learner_tuned = learner
   }
 
-  fit <- map(learner_tuned, ~ train(.x, task))
+  fit <- train(learner_tuned, .x)
 
   # Create predictions ---------------------------------------------------
 
   if (fit$learner.model == "xgboost") {
     fit <- fit[.x$learner.model$feature_names]
   }
-  predictions <- predict(.x, newdata = prediction_data)
+  predictions <- predict(fit, newdata = prediction_data)
 
   # Create prediction maps ---------------------------------------------------
 
@@ -117,6 +129,7 @@ prediction_custom = function(task, learner, param_set, tune_ctrl, resampling, pr
     png(glue("/data/patrick/mod/pathogen-prediction/08-imgs/single/prediction_{.y}_armillaria.png"))
     plot(map_xgboost)
     dev.off()
+  })
   })
 
 }

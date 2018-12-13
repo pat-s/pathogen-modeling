@@ -1,6 +1,6 @@
 needs::needs(drake, mlr, magrittr, mlrMBO, purrr, parallelMap, sf, dplyr, lwgeom,
-      forcats, tibble, rgdal, viridis, rasterVis, lattice, latticeExtra, glue,
-      RSAGA, stringr, GSIF, sp, R.utils, curl, fs)
+             forcats, tibble, rgdal, viridis, rasterVis, lattice, latticeExtra, glue,
+             RSAGA, stringr, GSIF, sp, R.utils, curl, fs)
 
 # Plans -----------------------------------------------------------
 
@@ -38,8 +38,7 @@ plan = bind_plans(data, task, learners, resampling, param_set,
 
 plan %<>% mutate(stage = as.factor(stage))
 
-config <- drake_config(plan)
-
+config = drake_config(plan)
 
 # make(plan, keep_going = TRUE, console_log_file=stdout())
 

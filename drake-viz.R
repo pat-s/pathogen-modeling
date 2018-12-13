@@ -4,19 +4,18 @@ source("scripts/drake.R")
 
 ### no data grouping
 vis_drake_graph(config, group = "stage", clusters = c("task", "learner",
-                                                      "mlr_settings",
-                                                      "benchmark",
-                                                      "prediction"),
-                targets_only = TRUE, show_output_files = FALSE,
-                selfcontained = TRUE)
+                                              "mlr_settings",
+                                              "benchmark",
+                                              "prediction"),
+                targets_only = TRUE, show_output_files = FALSE)
 
-sankey_drake_graph(config, group = "stage", clusters = c("task", "learner",
+sankey_drake_graph(drake_config(), group = "stage", clusters = c("task", "learner",
                                                    "mlr_settings",
                                                    "benchmark",
                                                    "prediction"),
              targets_only = TRUE, show_output_files = FALSE)
 
-drake_ggraph(config, group = "stage", clusters = c("task", "learner",
+drake_ggraph(drake_config(), group = "stage", clusters = c("task", "learner",
                                                      "mlr_settings",
                                                      "benchmark",
                                                      "prediction"),
@@ -24,12 +23,12 @@ drake_ggraph(config, group = "stage", clusters = c("task", "learner",
   ggpubr::theme_pubr()
 
 ### no learner and mlr_settings grouping
-vis_drake_graph(config, group = "stage", clusters = c("task", "benchmark",
+vis_drake_graph(drake_config(), group = "stage", clusters = c("task", "benchmark",
                                                       "prediction"),
                 targets_only = TRUE, show_output_files = FALSE,
                 selfcontained = TRUE)
 ### no benchmark grouping
-vis_drake_graph(config, group = "stage", clusters = c("task", "data",
+vis_drake_graph(drake_config(), group = "stage", clusters = c("task", "data",
                                                       "learner", "mlr_settings"),
                 targets_only = TRUE, show_output_files = FALSE,
                 selfcontained = TRUE)
@@ -42,15 +41,15 @@ vis_drake_graph(config, group = "stage", clusters = c("task", "data",
 #                                                       "mlr_settings"),
 #                 targets_only = TRUE, show_output_files = FALSE,
 #                 navigationButtons = FALSE, file = "drake.png")
-vis_drake_graph(config, group = "stage", clusters = c("data", "task", "learner",
+vis_drake_graph(drake_config(), group = "stage", clusters = c("data", "task", "learner",
                                                       "mlr_settings",
                                                       "prediction"),
                 targets_only = TRUE, show_output_files = FALSE)
-sankey_drake_graph(config, group = "stage", clusters = c("data", "task", "learner",
+sankey_drake_graph(drake_config(), group = "stage", clusters = c("data", "task", "learner",
                                                          "mlr_settings"),
                    targets_only = TRUE, show_output_files = FALSE)
 
-drake_ggraph(config, group = "stage", clusters = c("data", "task", "learner",
+drake_ggraph(drake_config(), group = "stage", clusters = c("data", "task", "learner",
                                                           "mlr_settings"),
                     targets_only = TRUE, show_output_files = FALSE) + ggpubr::theme_pubr()
 
