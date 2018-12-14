@@ -4,18 +4,18 @@ needs::needs(drake, mlr, magrittr, mlrMBO, purrr, parallelMap, sf, dplyr, lwgeom
 
 # Plans -----------------------------------------------------------
 
-data = code_to_plan("scripts/data/data.R")
-task = code_to_plan("scripts/data/task.R")
-learners = code_to_plan("scripts/learner/learner.R")
-resampling = code_to_plan("scripts/mlr-settings/resampling.R")
-param_set = code_to_plan("scripts/mlr-settings/param-set.R")
-tune_ctrl = code_to_plan("scripts/mlr-settings/tune_ctrl_mbo.R")
-tuning_wrapper = code_to_plan("scripts/mlr-settings/tuning.R")
-sourceDirectory("scripts/benchmark/")
-sourceDirectory("scripts/prediction/")
-sourceDirectory("scripts/reports/")
+data = code_to_plan("code/data/data.R")
+task = code_to_plan("code/data/task.R")
+learners = code_to_plan("code/learner/learner.R")
+resampling = code_to_plan("code/mlr-settings/resampling.R")
+param_set = code_to_plan("code/mlr-settings/param-set.R")
+tune_ctrl = code_to_plan("code/mlr-settings/tune_ctrl_mbo.R")
+tuning_wrapper = code_to_plan("code/mlr-settings/tuning.R")
+sourceDirectory("code/benchmark/")
+sourceDirectory("code/prediction/")
+sourceDirectory("code/reports/")
 
-sourceDirectory("scripts/functions/")
+sourceDirectory("code/functions/")
 source("https://raw.githubusercontent.com/mlr-org/mlr-extralearner/master/R/RLearner_classif_gam.R")
 
 # grouping for visualization
@@ -32,6 +32,20 @@ reports$stage = "reports"
 
 # Combine all -------------------------------------------------------------
 
+plan_no_reports = bind_plans(data, task, learners, resampling, param_set,
+                             tune_ctrl, tuning_wrapper, benchmark, prediction)
+# For debugging target invalidation issues: https://github.com/ropensci/drake/issues/615
+plan_no_reports$command <- paste(
+  "{return(TRUE)\n {",
+  plan_no_reports$command,
+  "}}"
+)
+
+plan2 <- bind_plans(plan_no_reports, reports)
+
+
+
+
 plan = bind_plans(data, task, learners, resampling, param_set,
                   tune_ctrl, tuning_wrapper, benchmark, prediction,
                   reports)
@@ -39,6 +53,8 @@ plan = bind_plans(data, task, learners, resampling, param_set,
 plan %<>% mutate(stage = as.factor(stage))
 
 config = drake_config(plan)
+config2 = drake_config(plan2)
+
 
 # make(plan, keep_going = TRUE, console_log_file=stdout())
 

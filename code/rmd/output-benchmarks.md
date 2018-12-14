@@ -11,13 +11,12 @@ This report evaluates the classifiers Random Forest (RF), Support Vector Machine
 - _Fusarium mellea_
 - _Heterobasidion mellea_
 
-```{r setup, include=FALSE}
-loadd(bm_glm, bm_rf, bm_svm, bm_kknn)
-```
+
 
 # Load benchmark results
 
-```{r benchmark-eval-1}
+
+```r
 bmr_all = mergebmResults(list(bm_rf, bm_svm, bm_xgboost,
                               bm_kknn, bm_glm
 ))
@@ -25,14 +24,16 @@ bmr_all = mergebmResults(list(bm_rf, bm_svm, bm_xgboost,
 
 # Print benchmark results
 
-```{r benchmark-eval-2}
+
+```r
 getBMRAggrPerformances(bmr_all, as.df = TRUE) %>%
   arrange(task.id, desc(brier.test.mean))
 ```
 
 # Visualize
 
-```{r benchmark-eval-3}
+
+```r
 plt = plotBMRBoxplots(bmr_all, measure = brier, pretty.names = FALSE, 
   order.lrn = getBMRLearnerIds(bmr_all)) +
   # aes(color = learner.id) +
@@ -48,7 +49,8 @@ plt + ylab("Performance")
 
 ## Aggregated performances
 
-```{r benchmark-eval-4}
+
+```r
 plt2 = plotBMRSummary(bmr_all) + 
   theme_pubr()
 
@@ -60,12 +62,14 @@ plt2
 
 ## Calculating and visualizing ranks
 
-```{r benchmark-eval-5}
+
+```r
 m = convertBMRToRankMatrix(bmr_all, brier)
 as_tibble(m)
 ```
 
-```{r benchmark-eval-6}
+
+```r
 plt3 = plotBMRRanksAsBarChart(bmr_all, pos = "tile", order.lrn = getBMRLearnerIds(bmr_all)) +
   theme_pubr()
 

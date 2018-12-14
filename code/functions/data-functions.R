@@ -105,6 +105,7 @@ create_prediction_data <- function(temperature, precipitation, pisr, slope,
     dplyr::rename(lithology = COD_LITOLO) %>%
     mutate(lithology = as.factor(lithology)) %>%
     mutate(lithology = fct_recode(lithology,
+                                  NULL = "00", # water bodies
                                   "surface deposits" = "01",
                                   "clastic sedimentary rock" = "02",
                                   "clastic sedimentary rock" = "03",
@@ -211,6 +212,9 @@ create_prediction_data <- function(temperature, precipitation, pisr, slope,
     )
   )
 
+  pred_grid %<>%
+    na.omit()
+
   return(pred_grid)
 }
 
@@ -236,19 +240,14 @@ age_imp_preprocessing = function(data) {
   return(data)
 }
 
-hail_preprocessing = function(path) {
-
-  #' ## Hail
-  #'
-  #' Raw data: Hail raster with a resolution of 200 m in `.tif` format in CRS 32630.
-  #'
-  #' Workflow: Extract hail probability at each observation.
-  #'
+hail_download = function(path) {
   curl_download(path,
                 destfile = "data/hail.tif", quiet = FALSE)
 
   hail <- raster("data/hail.tif")
+
   return(hail)
+
 }
 
 precipitation_preprocessing = function(atlas_climatico) {
@@ -399,7 +398,21 @@ atlas_climatico_preprocessing = function(path,
 
 }
 
-lithology_preprocessing = function(path) {
+lithology_download = function(path) {
+  curl_download(path,
+                destfile = glue(tempdir(), "/lithology.zip"), quiet = FALSE)
+  unzip(glue(tempdir(), "/lithology.zip"), exdir = "data/lithology")
+
+  lithology = st_read("data/lithology/CT_LITOLOGICO_25000_ETRS89.shp", quiet = TRUE) %>%
+    st_set_crs(25830) %>%
+    st_transform(32630) %>%
+    dplyr::select(COD_LITOLO)
+
+  return(lithology)
+
+}
+
+lithology_preprocessing = function(lithology) {
 
   #' Raw data: Polygon shapefile with lithology units in CRS 25830.
   #'
@@ -410,20 +423,21 @@ lithology_preprocessing = function(path) {
   #'
   #' Output: Aggregated lithology units.
   #'
-  curl_download(path,
-                destfile = glue(tempdir(), "/lithology.zip"), quiet = FALSE)
-  unzip(glue(tempdir(), "/lithology.zip"), exdir = glue(tempdir(), "/lithology"))
+  #'
+  # curl_download(path,
+  #               destfile = glue(tempdir(), "/lithology.zip"), quiet = FALSE)
+  # unzip(glue(tempdir(), "/lithology.zip"), exdir = glue(tempdir(), "/lithology"))
+  #
+  # st_read(glue(tempdir(), "/lithology/CT_LITOLOGICO_25000_ETRS89.shp"), quiet = TRUE) %>%
+  #   st_set_crs(25830) %>%
+  #   st_transform(32630) %>%
+  #   dplyr::select(COD_LITOLO) -> lithology_sp
 
-  st_read(glue(tempdir(), "/lithology/CT_LITOLOGICO_25000_ETRS89.shp"), quiet = TRUE) %>%
-    st_set_crs(25830) %>%
-    st_transform(32630) %>%
-    dplyr::select(COD_LITOLO) -> lithology_sp
-
-  lithology_sp %<>%
+  lithology %<>%
     st_make_valid() %>%
     st_cast("POLYGON")
 
-  return(lithology_sp)
+  return(lithology)
 
 }
 

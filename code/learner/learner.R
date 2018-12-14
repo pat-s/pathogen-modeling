@@ -23,7 +23,8 @@ lrn_xgboost <- makeLearner(
 
 lrn_svm <- makeLearner(
   "classif.svm",
-  predict.type = "prob"
+  predict.type = "prob",
+  scale = FALSE
 )
 
 # KNN ---------------------------------------------------------------------

@@ -1,25 +1,63 @@
 
 # LIFE Healthy Forest
 
-Benchmarking classifiers (SVM, RF, XGBOOST) on four different pathogens:
+This study was funded by the [EU LIFE Healthy Forest (LIFE14
+ENV/ES/000179)](http://ec.europa.eu/environment/life/project/Projects/index.cfm?fuseaction=search.dspPage&n_proj_id=5219)
+project.
+
+The setup of this benchmark study is described below. In total, 140
+performance estimates have been calculated.
+
+#### Classifiers (7)
+
+  - BRT (Boosted Regression Trees)
+  - GAM (Generalized Additive Model)
+  - GLM (Generalized Linear Model)
+  - KNN (k-nearest Neighbor)
+  - SVM (Support Vector Machine)
+  - RF (Random Forest)
+  - XGBOOST (Extreme Gradient Boosting)
+
+#### Datasets (4)
 
   - Armillaria
   - Diplodia
-  - Heterobasidion
   - Fusarium
+  - Heterobasidion
+
+#### Resampling structures (5)
+
+<performance estimation>/<hyperparameter tuning>
+
+  - Spatial/non-spatial
+  - Spatial/Spatial
+  - Spatial/No tuning
+  - Non-spatial/Non-spatial
+  - Non-spatial/No tuning
 
 ## Hyperparameter tuning:
 
 Sequential model-based optimization (SMBO)
 
+Initial design: 30 settings Maximum iterations: 100
+
+## Performance measure
+
+Brier score
+
+## Prediction
+
+Probability of occurence for the specific pathogen across the whole
+Basque country on a 200 x 200 m spatial resolution.
+
 ## Data
 
 Stored at [Mendeley Data](http://dx.doi.org/10.17632/kmy95t22fy.1). Data
-will be downloaded and processed when executing the project. Local
-storage directory is “./data”. After the intermediate R objects have
-been created, the data is deleted again to only function as a starting
-point and keep the directoy small. Only raster files need be kept as
-raster processes require a file stored on disk.
+**(\~ 4 GB)** will be downloaded and processed when executing the
+project. Local storage directory is “./data”. After the intermediate R
+objects have been created, the data is deleted again to only function as
+a starting point and keep the directoy small. Only raster files need be
+kept as raster processes require a file stored on disk.
 
 ## Workflow
 
@@ -54,7 +92,7 @@ Then open a R session in this directory and run
 
 ``` r
 packrat::restore()
-source("scripts/drake.R")
+source("code/drake.R")
 make(plan, keep_going = TRUE, console_log_file=stdout()) 
 # use more cores with make(plan, jobs = <number of cores>)
 ```
@@ -64,32 +102,11 @@ make(plan, keep_going = TRUE, console_log_file=stdout())
 Predicted total runtime
 
 ``` r
-source("scripts/drake.R")
+source("code/drake.R")
 predict_runtime(drake_config(), from_scratch = TRUE, targets_only = TRUE)
 ```
 
-    ## Warning: Some targets were never actually timed, And no hypothetical time was specified in `known_times`. Assuming a runtime of 0 for these targets:
-    ##   benchmark_evaluation_report
-    ##   bm_kknn
-    ##   bm_rf
-    ##   bm_svm
-    ##   bm_xgboost
-    ##   bm_brt
-    ##   bm_gam_diplodia
-    ##   bm_gam_fusarium
-    ##   bm_gam_armillaria
-    ##   bm_gam_heterobasidion
-    ##   prediction_rf
-    ##   prediction_svm
-    ##   prediction_xgboost
-    ##   prediction_kknn
-    ##   prediction_glm
-    ##   prediction_gam_diplodia
-    ##   prediction_gam_fusarium
-    ##   prediction_gam_armillaria
-    ##   prediction_gam_heterobasidion
-
-    ## [1] "6951.184s (~1.93 hours)"
+    ## [1] "0.009s"
 
 Acceleration by parallelization of `make()` call
 
@@ -135,7 +152,7 @@ executing `docker build -t image .` within the `./docker` directory.
 Next, the analysis can be started by calling
 
 ``` r
-source("scripts/drake.R")
+source("code/drake.R")
 make(plan, keep_going = TRUE, console_log_file = stdout()) 
 ```
 

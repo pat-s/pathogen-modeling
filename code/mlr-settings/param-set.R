@@ -21,9 +21,9 @@ ps_xgboost = makeParamSet(
 # SVM ---------------------------------------------------------------------
 
 ps_svm = makeParamSet(
-  makeNumericParam("cost", lower = -5, upper = 15,
+  makeNumericParam("cost", lower = -5, upper = 12,
                    trafo = function(x) 2 ^ x),
-  makeNumericParam("gamma", lower = -15, upper = 3,
+  makeNumericParam("gamma", lower = -12, upper = 3,
                    trafo = function(x) 2 ^ x)
 )
 
