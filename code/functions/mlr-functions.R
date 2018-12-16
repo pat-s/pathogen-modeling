@@ -18,7 +18,7 @@ tune_ctrl_mbo_30n_20it = function(param_set) {
   )
 }
 
-tune_ctrl_mbo_30n_20it = function(param_set) {
+tune_ctrl_mbo_30n_70it = function(param_set) {
   makeTuneControlMBO(
     mbo.control = makeMBOControl(propose.points = 1L) %>%
       setMBOControlTermination(iters = 70L) %>%

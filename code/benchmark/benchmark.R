@@ -1,31 +1,133 @@
 # combining all benchmark calls into a single plan
 # see https://ropenscilabs.github.io/drake-manual/plans.html#map_plan
 
-args_bm = tibble(task = rlang::syms("tasks"),
-                 learner = c(c("wrapper_rf",
-                               "wrapper_svm",
-                               "wrapper_xgboost",
-                               "wrapper_brt",
-                               "wrapper_kknn",
-                               "lrn_glm",
-                               "lrn_gam_diplodia_perf",
-                               "lrn_gam_fusarium_perf",
-                               "lrn_gam_armillaria_perf",
-                               "lrn_gam_heterobasidion_perf"
-                               )),
-                 resampling = rlang::syms(rep("spcv_outer_fiveF_hundredR", 10)))
-args_bm$learner = rlang::syms(args_bm$learner)
-args_bm$id = suppressWarnings(paste0("bm_", str_split(args_bm$learner, "_",
-                                                      simplify = TRUE)[, 2]))
-args_bm[7, "id"] = "bm_gam_diplodia"
-args_bm[8, "id"] = "bm_gam_fusarium"
-args_bm[9, "id"] = "bm_gam_armillaria"
-args_bm[10, "id"] = "bm_gam_heterobasidion"
+# sp/sp -------------------------------------------------------------------
 
-benchmark = map_plan(args_bm, benchmark_custom, trace = FALSE)
+args_bm_sp_sp = tibble(task = rlang::syms("tasks"),
+                       learner = c(c("wrapper_rf_sp",
+                                     "wrapper_svm_sp",
+                                     "wrapper_xgboost_sp",
+                                     "wrapper_brt_sp",
+                                     "wrapper_kknn_sp",
+                                     "wrapper_gam_diplodia_perf_sp",
+                                     "wrapper_gam_fusarium_perf_sp",
+                                     "wrapper_gam_armillaria_perf_sp",
+                                     "wrapper_gam_heterobasidion_perf_sp"
+                       )),
+                       resampling = rlang::syms(rep("spcv_outer_fiveF_hundredR", 9)))
+args_bm_sp_sp$learner = rlang::syms(args_bm_sp_sp$learner)
+args_bm_sp_sp$id = suppressWarnings(paste0("bm_sp_sp_", str_split(args_bm_sp_sp$learner, "_",
+                                                                  simplify = TRUE)[, 2]))
+args_bm_sp_sp[6, "id"] = "bm_sp_sp_gam_diplodia_sp"
+args_bm_sp_sp[7, "id"] = "bm_sp_sp_gam_fusarium_sp"
+args_bm_sp_sp[8, "id"] = "bm_sp_sp_gam_armillaria_sp"
+args_bm_sp_sp[9, "id"] = "bm_sp_sp_gam_heterobasidion_sp"
+
+
+# sp/nsp ------------------------------------------------------------------
+
+args_bm_sp_nsp = tibble(task = rlang::syms("tasks"),
+                        learner = c(c("wrapper_rf_nsp",
+                                      "wrapper_svm_nsp",
+                                      "wrapper_xgboost_nsp",
+                                      "wrapper_brt_nsp",
+                                      "wrapper_kknn_nsp",
+                                      "wrapper_gam_diplodia_perf_nsp",
+                                      "wrapper_gam_fusarium_perf_nsp",
+                                      "wrapper_gam_armillaria_perf_nsp",
+                                      "wrapper_gam_heterobasidion_perf_nsp"
+                        )),
+                        resampling = rlang::syms(rep("spcv_outer_fiveF_hundredR", 9)))
+args_bm_sp_nsp$learner = rlang::syms(args_bm_sp_nsp$learner)
+args_bm_sp_nsp$id = suppressWarnings(paste0("bm_sp_nsp_", str_split(args_bm_sp_nsp$learner, "_",
+                                                                    simplify = TRUE)[, 2]))
+args_bm_sp_nsp[6, "id"] = "bm_sp_nsp_gam_diplodia"
+args_bm_sp_nsp[7, "id"] = "bm_sp_nsp_gam_fusarium"
+args_bm_sp_nsp[8, "id"] = "bm_sp_nsp_gam_armillaria"
+args_bm_sp_nsp[9, "id"] = "bm_sp_nsp_gam_heterobasidion"
+
+
+# sp/non ------------------------------------------------------------------
+
+args_bm_sp_non = tibble(task = rlang::syms("tasks"),
+                        learner = c(c("lrn_rf",
+                                      "lrn_svm",
+                                      "lrn_xgboost",
+                                      "lrn_brt",
+                                      "lrn_kknn",
+                                      "lrn_glm",
+                                      "lrn_gam_diplodia_perf_non",
+                                      "lrn_gam_fusarium_perf_non",
+                                      "lrn_gam_armillaria_perf_non",
+                                      "lrn_gam_heterobasidion_perf_non"
+                        )),
+                        resampling = rlang::syms(rep("spcv_outer_fiveF_hundredR", 10)))
+args_bm_sp_non$learner = rlang::syms(args_bm_sp_non$learner)
+args_bm_sp_non$id = suppressWarnings(paste0("bm_sp_non_", str_split(args_bm_sp_non$learner, "_",
+                                                                    simplify = TRUE)[, 2]))
+args_bm_sp_non[7, "id"] = "bm_sp_non_gam_diplodia"
+args_bm_sp_non[8, "id"] = "bm_sp_non_gam_fusarium"
+args_bm_sp_non[9, "id"] = "bm_sp_non_gam_armillaria"
+args_bm_sp_non[10, "id"] = "bm_sp_non_gam_heterobasidion"
+
+# nsp/nsp ------------------------------------------------------------------
+
+args_bm_nsp_nsp = tibble(task = rlang::syms("tasks"),
+                         learner = c(c("wrapper_rf_nsp",
+                                       "wrapper_svm_nsp",
+                                       "wrapper_xgboost_nsp",
+                                       "wrapper_brt_nsp",
+                                       "wrapper_kknn_nsp",
+                                       "wrapper_gam_diplodia_perf_nsp",
+                                       "wrapper_gam_fusarium_perf_nsp",
+                                       "wrapper_gam_armillaria_perf_nsp",
+                                       "wrapper_gam_heterobasidion_perf_nsp"
+                         )),
+                         resampling = rlang::syms(rep("cv_outer_fiveF_hundredR", 9)))
+args_bm_nsp_nsp$learner = rlang::syms(args_bm_nsp_nsp$learner)
+args_bm_nsp_nsp$id = suppressWarnings(paste0("bm_nsp_nsp_", str_split(args_bm_nsp_nsp$learner, "_",
+                                                                      simplify = TRUE)[, 2]))
+args_bm_nsp_nsp[6, "id"] = "bm_nsp_nsp_gam_diplodia"
+args_bm_nsp_nsp[7, "id"] = "bm_nsp_nsp_gam_fusarium"
+args_bm_nsp_nsp[8, "id"] = "bm_nsp_nsp_gam_armillaria"
+args_bm_nsp_nsp[9, "id"] = "bm_nsp_nsp_gam_heterobasidion"
+
+# nsp/non ------------------------------------------------------------------
+
+args_bm_nsp_non = tibble(task = rlang::syms("tasks"),
+                         learner = c(c("lrn_rf",
+                                       "lrn_svm",
+                                       "lrn_xgboost",
+                                       "lrn_brt",
+                                       "lrn_kknn",
+                                       "lrn_glm",
+                                       "lrn_gam_diplodia_perf_non",
+                                       "lrn_gam_fusarium_perf_non",
+                                       "lrn_gam_armillaria_perf_non",
+                                       "lrn_gam_heterobasidion_perf_non"
+                         )),
+                         resampling = rlang::syms(rep("cv_outer_fiveF_hundredR", 10)))
+args_bm_nsp_non$learner = rlang::syms(args_bm_nsp_non$learner)
+args_bm_nsp_non$id = suppressWarnings(paste0("bm_nsp_non_", str_split(args_bm_nsp_non$learner, "_",
+                                                                      simplify = TRUE)[, 2]))
+args_bm_nsp_non[7, "id"] = "bm_nsp_non_gam_diplodia"
+args_bm_nsp_non[8, "id"] = "bm_nsp_non_gam_fusarium"
+args_bm_nsp_non[9, "id"] = "bm_nsp_non_gam_armillaria"
+args_bm_nsp_non[10, "id"] = "bm_nsp_non_gam_heterobasidion"
+
+# combine -----------------------------------------------------------------
+
+benchmark_sp_sp = map_plan(args_bm_sp_sp, benchmark_custom, trace = FALSE)
+benchmark_sp_nsp = map_plan(args_bm_sp_nsp, benchmark_custom, trace = FALSE)
+benchmark_sp_non = map_plan(args_bm_sp_non, benchmark_custom, trace = FALSE)
+benchmark_nsp_nsp = map_plan(args_bm_nsp_nsp, benchmark_custom, trace = FALSE)
+benchmark_nsp_non = map_plan(args_bm_nsp_non, benchmark_custom, trace = FALSE)
+
+benchmark = bind_plans(benchmark_sp_sp, benchmark_sp_nsp, benchmark_sp_non,
+                            benchmark_nsp_nsp, benchmark_nsp_non)
 
 # we need to wrap kknn in try() because some workers will fail which will cause
 # whole target to fail
-benchmark[5, 2] = "try(benchmark_custom(tasks, wrapper_kknn, spcv_outer_fiveF_hundredR))"
+# benchmark[5, 2] = "try(benchmark_custom(tasks, wrapper_kknn, spcv_outer_fiveF_hundredR))"
 
-rm(args_bm)
+rm(args_bm_sp_non, args_bm_sp_nsp, args_bm_sp_sp, args_bm_nsp_nsp, args_bm_nsp_non)

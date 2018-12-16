@@ -241,10 +241,15 @@ age_imp_preprocessing = function(data) {
 }
 
 hail_download = function(path) {
-  curl_download(path,
-                destfile = "data/hail.tif", quiet = FALSE)
 
-  hail <- raster("data/hail.tif")
+  dir_create("data/hail")
+
+  if (!file.exists("data/hail/hail.tif")) {
+    curl_download(path,
+                  destfile = "data/hail/hail.tif", quiet = FALSE)
+  }
+
+  hail <- raster("data/hail/hail.tif")
 
   return(hail)
 
@@ -340,6 +345,27 @@ temperature_preprocessing = function(atlas_climatico) {
   return(temperature_mean)
 }
 
+atlas_climatico_download = function(path) {
+
+  dir_create("data/atlas-climatico")
+
+  if (!file.exists("data/atlas-climatico/mn_de.zip")) {
+    curl_download(path,
+                  destfile = glue(tempdir(), "/atlas-climatico.zip"), quiet = FALSE)
+    unzip(glue(tempdir(), "/atlas-climatico.zip"), exdir = "data/atlas-climatico")
+  }
+
+  files = c("^mt.*_av.zip$", "^rad.*_av.zip$", "^pl.*_av.zip$") %>% # , "^rad.*_av.zip$", "^pl.*_av.zip$"
+    map(function(x) list.files(
+      path = "data/atlas-climatico",
+      pattern = x,
+      full.names = TRUE
+    ))
+
+  return(files)
+
+}
+
 atlas_climatico_preprocessing = function(path,
                                          study_area) {
 
@@ -356,16 +382,8 @@ atlas_climatico_preprocessing = function(path,
   #'
   #' Mod data: Temperature, pisr and precipitation rasters in `.tif` format in CRS 32630 for each month.
   #'
-  curl_download(path,
-                destfile = glue(tempdir(), "/atlas-climatico.zip"), quiet = FALSE)
-  unzip(glue(tempdir(), "/atlas-climatico.zip"), exdir = glue(tempdir(), "/atlas-climatico"))
 
-  c("^mt.*_av.zip$", "^rad.*_av.zip$", "^pl.*_av.zip$") %>% # , "^rad.*_av.zip$", "^pl.*_av.zip$"
-    map(function(x) list.files(
-      path = "data/atlas-climatico",
-      pattern = x,
-      full.names = TRUE
-    )) %>%
+  path %>%
     unlist() %>%
     walk(unzip, exdir = "data/atlas-climatico/unzip")
 
@@ -399,9 +417,14 @@ atlas_climatico_preprocessing = function(path,
 }
 
 lithology_download = function(path) {
-  curl_download(path,
-                destfile = glue(tempdir(), "/lithology.zip"), quiet = FALSE)
-  unzip(glue(tempdir(), "/lithology.zip"), exdir = "data/lithology")
+
+  dir_create("data/lithology")
+
+  if (!file.exists("data/lithology/CT_LITOLOGICO_25000_ETRS89.shp")) {
+    curl_download(path,
+                  destfile = glue(tempdir(), "/lithology.zip"), quiet = FALSE)
+    unzip(glue(tempdir(), "/lithology.zip"), exdir = "data/lithology")
+  }
 
   lithology = st_read("data/lithology/CT_LITOLOGICO_25000_ETRS89.shp", quiet = TRUE) %>%
     st_set_crs(25830) %>%
@@ -441,32 +464,42 @@ lithology_preprocessing = function(lithology) {
 
 }
 
-ph_preprocessing = function(path,
-                            study_area) {
+ph_download = function(path) {
 
-  curl_download(path,
-                destfile = glue(tempdir(), "/ph.zip"), quiet = FALSE)
-  unzip(glue(tempdir(), "/ph.zip"), exdir = glue(tempdir(), "/ph"))
+  dir_create("data/ph")
+
+  if (!file.exists("data/ph/dblbnd.adf")) {
+    curl_download(path,
+                  destfile = glue(tempdir(), "/ph.zip"), quiet = FALSE)
+    unzip(glue(tempdir(), "/ph.zip"), exdir = "data/ph")
+  }
 
   ph_raster <-
-    new("GDALReadOnlyDataset", glue(tempdir(), "/ph")) %>%
+    new("GDALReadOnlyDataset", "data/ph") %>%
     asSGDF_GROD() %>%
     raster()
 
-  crs(ph_raster) <- CRS("+init=epsg:3035")
+  return(ph_raster)
+
+}
+
+ph_preprocessing = function(path,
+                            study_area) {
+
+  crs(path) <- CRS("+init=epsg:3035")
 
   study_area_3035 <-
     study_area %>%
     st_transform(3035) %>%
     as("Spatial")
 
-  ph_raster %<>%
+  path %<>%
     crop(study_area_3035) %>%
     mask(study_area_3035) %>%
     projectRaster(crs = CRS("+init=epsg:32630"), method = "bilinear") %>%
-    writeRaster("data/ph.tif", overwrite = TRUE)
+    writeRaster("data/ph/ph.tif", overwrite = TRUE)
 
-  return(ph_raster)
+  return(path)
 }
 
 elevation_preprocessing = function(path) {
@@ -477,17 +510,23 @@ elevation_preprocessing = function(path) {
   #'
   #' Mod data: DEM with 5m resolution in `.tif` format in CRS 32630.
 
-  curl_download(path,
-                destfile = glue(tempdir(), "/dem.zip"), quiet = FALSE)
-  unzip(glue(tempdir(), "/dem.zip"), exdir = "data/dem")
-
-  dem = raster("data/dem/mdt_2013_5m.tif") %>%
+  dem = raster(path) %>%
     projectRaster(crs = CRS("+init=epsg:32630"), method = "bilinear") %>%
-    writeRaster("data/dem.tif", overwrite = TRUE)
-
-  dir_delete("data/dem")
+    writeRaster("data/dem/dem.tif", overwrite = TRUE)
 
   return(dem)
+}
+
+soil_download = function(path) {
+
+  dir_create("data/soil")
+
+  curl_download(path,
+                destfile = "data/soil/soil.tif", quiet = FALSE)
+
+  soil = raster("data/soil/soil.tif")
+
+  return(soil)
 }
 
 soil_preprocessing = function(path,
@@ -506,20 +545,34 @@ soil_preprocessing = function(path,
   #' Output: Soil raster with 250 m resolution in `.tif` format in CRS 23030.
   #'
 
-  curl_download(path,
-                destfile = "data/soil.tif", quiet = FALSE)
-
   study_area_4326 <-
     study_area %>%
     st_transform(4326) %>%
     as("Spatial")
 
-  soil_ras = raster("data/soil.tif") %>%
+  soil_ras = path %>%
     crop(study_area_4326) %>%
     mask(study_area_4326) %>%
     projectRaster(crs = CRS("+init=epsg:32630"), method = "ngb")
 
   return(soil_ras)
+
+}
+
+dem_download = function(path) {
+
+  dir_create("data/dem")
+
+  if (!file.exists("data/dem/mdt_2013_5m.tif")) {
+    curl_download(path,
+                  destfile = glue(tempdir(), "/dem.zip"), quiet = FALSE)
+    unzip(glue(tempdir(), "/dem.zip"), exdir = "data/dem")
+  }
+
+  dem = raster("data/dem/mdt_2013_5m.tif") # just to detect errors
+  dem = "data/dem/mdt_2013_5m.tif"
+
+  return(dem)
 
 }
 
@@ -535,10 +588,7 @@ slope_processing = function(path) {
   #'
   #' Mod data: Slope raster in degrees with 5m resolution in `.tif` format in CRS 32630.
   #'
-
-  curl_download(path,
-                destfile = glue(tempdir(), "/dem.zip"), quiet = FALSE)
-  unzip(glue(tempdir(), "/dem.zip"), exdir = "data/dem")
+  dir_create("data/slope")
 
   env = rsaga.env()
 
@@ -552,11 +602,11 @@ slope_processing = function(path) {
     lib = "io_gdal", module = 2, env = env,
     param = list(
       GRIDS = glue(tempdir(), "/slope_5m.sgrd"),
-      FILE = "data/slope_5m.tif"
+      FILE = "data/slope/slope_5m.tif"
     )
   )
 
-  slope = raster("data/slope_5m.tif")
+  slope = raster("data/slope/slope_5m.tif")
 
   return(slope)
 

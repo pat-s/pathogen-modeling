@@ -12,9 +12,8 @@ This report evaluates the classifiers Random Forest (RF), Support Vector Machine
 - _Heterobasidion mellea_
 
 ```{r setup, include=FALSE}
-loadd(bm_glm, bm_rf, bm_svm, bm_kknn)
-drake::loadd(bm_glm, bm_rf, bm_svm, bm_kknn)
-knitr::opts_chunk$set(eval = FALSE)
+drake::loadd(bm_sp_sp_rf, bm_sp_sp_svm, bm_sp_sp_kknn)
+# knitr::opts_chunk$set(eval = FALSE)
 ```
 
 # Load benchmark results
