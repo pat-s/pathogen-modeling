@@ -678,8 +678,8 @@ mod_raw_data = function(data, drop_vars, response) {
   return(data)
 }
 
-preprocessing_custom <- function(path, slope, soil, temperature, ph, hail,
-                                 precipitation, elevation, pisr, lithology,
+preprocessing_custom <- function(path, slope, soil, temperature_mean, ph, hail,
+                                 precipitation_sum, elevation, pisr, lithology,
                                  study_area = data_basque, response,
                                  drop_vars = NULL, age = FALSE) {
 
@@ -707,8 +707,8 @@ preprocessing_custom <- function(path, slope, soil, temperature, ph, hail,
     soil %>%
     raster::extract(data_in)
 
-  data("soil.legends")
-  soil_legend <- as_tibble(soil.legends$TAXNWRB)
+  # data("soil.legends")
+  soil_legend <- as_tibble(GSIF::soil.legends$TAXNWRB)
 
   data_in %<>%
     left_join(soil_legend, by = c("soil" = "Number")) %>%

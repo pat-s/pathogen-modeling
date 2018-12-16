@@ -123,7 +123,7 @@ benchmark_sp_non = map_plan(args_bm_sp_non, benchmark_custom, trace = FALSE)
 benchmark_nsp_nsp = map_plan(args_bm_nsp_nsp, benchmark_custom, trace = FALSE)
 benchmark_nsp_non = map_plan(args_bm_nsp_non, benchmark_custom, trace = FALSE)
 
-benchmark = bind_plans(benchmark_sp_sp, benchmark_sp_nsp, benchmark_sp_non,
+benchmark_plan = bind_plans(benchmark_sp_sp, benchmark_sp_nsp, benchmark_sp_non,
                             benchmark_nsp_nsp, benchmark_nsp_non)
 
 # we need to wrap kknn in try() because some workers will fail which will cause

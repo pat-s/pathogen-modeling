@@ -28,7 +28,7 @@ In total, 140 performance estimates have been calculated.
 
 #### Resampling structures (5)
 
-<performance estimation>/<hyperparameter tuning>
+(performance estimation / hyperparameter tuning)
 
 - Spatial/non-spatial
 - Spatial/Spatial
@@ -36,12 +36,16 @@ In total, 140 performance estimates have been calculated.
 - Non-spatial/Non-spatial
 - Non-spatial/No tuning
 
-## Hyperparameter tuning: 
+## Hyperparameter tuning
 
 Sequential model-based optimization (SMBO)
 
 Initial design: 30 settings
 Maximum iterations: 100
+
+## Resampling
+
+Nested cross-validation with five folds in both levels and 100 repetitions (performance level).
 
 ## Performance measure
 
@@ -51,13 +55,15 @@ Brier score
 
 Probability of occurence for the specific pathogen across the whole Basque country on a 200 x 200 m spatial resolution.
 
+#### External library requirements
+
+- SAGA GIS (for creating the input variable `slope_degrees`)
+
 ## Data
 
 Stored at [Mendeley Data](http://dx.doi.org/10.17632/kmy95t22fy.1).
-Data **(~ 4 GB)** will be downloaded and processed when executing the project.
+Data **(~ 4 GB)** will be downloaded into `data/` and processed when executing the project.
 Local storage directory is "./data".
-After the intermediate R objects have been created, the data is deleted again to only function as a starting point and keep the directoy small.
-Only raster files need be kept as raster processes require a file stored on disk.
 
 ## Workflow
 
@@ -70,36 +76,36 @@ When calling `packrat::restore()`, all required packages will be installed with 
 
 Please note that this project was built with R version 3.5.1 on a Debian 9 operating system.
 The packrat packages from this project **are not compatible with R versions prior version 3.5.0.**
-For reproducibility, we recommend to replicate the analysis using the included Dockerfile.
-Instructions can be found [ħere](https://venus.geogr.uni-jena.de/bi28yuv/pathogen-modelling#docker).
-However, it should be possible to reproduce the analysis on any other operating system.
+For reproducibility, it is recommended to replicate the analysis using the included Dockerfile.
+Instructions can be found [ħere](https://github.com/pat-s/pathogen-modeling#docker).
+(In general, it should be possible to reproduce the analysis on any other operating system.)
 
 To clone the project, a working installation of `git` is required.
 Open a terminal in the directory of your choice and execute:
 
 ```sh
-git clone https://venus.geogr.uni-jena.de/bi28yuv/pathogen-modelling
+git clone git@github.com:pat-s/pathogen-modeling.git
 ```
 
-Then open a R session in this directory and run
+Then start R in this directory and run
 
 ```{r eval = FALSE}
 packrat::restore()
 source("code/drake.R")
-make(plan, keep_going = TRUE, console_log_file=stdout()) 
+make(plan, keep_going = TRUE, console_log_file = stdout()) 
 # use more cores with make(plan, jobs = <number of cores>)
 ```
 
 ## Runtime
 
-Predicted total runtime
+Predicted total runtime (based on all target runtimes ever built and stored in the internal `config` file)
 
 ```{r}
 source("code/drake.R")
-predict_runtime(drake_config(), from_scratch = TRUE, targets_only = TRUE)
+predict_runtime(config, from_scratch = TRUE, targets_only = TRUE)
 ```
 
-Acceleration by parallelization of `make()` call
+Acceleration when parallelizing the `make()` call
 
 ```{r warning=FALSE, message=FALSE}
 time <- c()
@@ -144,20 +150,26 @@ make(plan, keep_going = TRUE, console_log_file = stdout())
 
 ## Dependency graphs
 
-The dependency graph of this analysis (subjective grouping) can be visualized with the following code.
+The dependency graph of this analysis can be visualized with the following code.
+The grouping via the `"stage"` variable is subjective.
 
-Note that intermediate files have been gathered into the following categories:
+The following groups exist:
 
-- Data
-- Task
-- Learner
+- data
+- learner
 - mlr_settings
 - benchmark
 - prediction
 
+```{r, echo=FALSE}
+glue::glue("Status: {date()}")
+```
+
+
 ```{r, results='hide'}
-vis_drake_graph(drake_config(), group = "stage", clusters = c("data", "prediction",
-                                                              "mlr_settings"),
+vis_drake_graph(config, group = "stage", clusters = c("data", "prediction", "learner",
+                                                      "mlr_settings", "benchmark",
+                                                      "prediction"),
                 targets_only = TRUE, show_output_files = FALSE,
                 navigationButtons = FALSE, selfcontained = TRUE,
                 file = "drake.png") +
@@ -166,8 +178,15 @@ vis_drake_graph(drake_config(), group = "stage", clusters = c("data", "predictio
 
 ![](./drake.png)
 
+All outdated targets:
+
+```{r}
+outdated(config)
+```
+
+
 If all intermediate objects should be visualized (not recommended):
 
 ```{r eval = FALSE}
-vis_drake_graph(drake_config()) + ggpubr::theme_pubr()
+vis_drake_graph(config) + ggpubr::theme_pubr()
 ```

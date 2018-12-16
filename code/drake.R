@@ -4,7 +4,7 @@ needs::needs(drake, mlr, magrittr, mlrMBO, purrr, parallelMap, sf, dplyr, lwgeom
 
 # Plans -----------------------------------------------------------
 
-data = code_to_plan("code/data/data.R")
+data_plan = code_to_plan("code/data/data.R")
 task = code_to_plan("code/data/task.R")
 learners = code_to_plan("code/learner/learner.R")
 resampling = code_to_plan("code/mlr-settings/resampling.R")
@@ -19,21 +19,21 @@ sourceDirectory("code/functions/")
 source("https://raw.githubusercontent.com/mlr-org/mlr-extralearner/master/R/RLearner_classif_gam.R")
 
 # grouping for visualization
-data$stage = "data"
+data_plan$stage = "data"
 task$stage = "data"
 learners$stage = "learner"
 resampling$stage = "mlr_settings"
 param_set$stage = "mlr_settings"
 tune_ctrl$stage = "mlr_settings"
 tuning_wrapper$stage = "learner"
-benchmark$stage = "benchmark"
+benchmark_plan$stage = "benchmark"
 prediction$stage = "prediction"
 reports$stage = "reports"
 
 # Combine all -------------------------------------------------------------
 
-plan_no_reports = bind_plans(data, task, learners, resampling, param_set,
-                             tune_ctrl, tuning_wrapper, benchmark, prediction)
+plan_no_reports = bind_plans(data_plan, task, learners, resampling, param_set,
+                             tune_ctrl, tuning_wrapper, benchmark_plan, prediction)
 # For debugging target invalidation issues: https://github.com/ropensci/drake/issues/615
 plan_no_reports$command <- paste(
   "{return(TRUE)\n {",
@@ -46,8 +46,8 @@ plan2 <- bind_plans(plan_no_reports, reports)
 
 
 
-plan = bind_plans(data, task, learners, resampling, param_set,
-                  tune_ctrl, tuning_wrapper, benchmark, prediction,
+plan = bind_plans(data_plan, task, learners, resampling, param_set,
+                  tune_ctrl, tuning_wrapper, benchmark_plan, prediction,
                   reports)
 
 plan %<>% mutate(stage = as.factor(stage))
