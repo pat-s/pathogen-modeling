@@ -165,25 +165,21 @@ The following groups exist:
 glue::glue("Status: {date()}")
 ```
 
-
 ```{r, results='hide'}
-vis_drake_graph(config, group = "stage", clusters = c("data", "prediction", "learner",
-                                                      "mlr_settings", "benchmark",
+
+vis_drake_graph(config, group = "stage", clusters = c("data", "task", "learner",
+                                                      "mlr_settings",
                                                       "prediction"),
                 targets_only = TRUE, show_output_files = FALSE,
-                navigationButtons = FALSE, selfcontained = TRUE,
-                file = "drake.png") +
-  ggpubr::theme_pubr()
+                navigationButtons = FALSE
+                )
 ```
-
-![](./drake.png)
 
 All outdated targets:
 
 ```{r}
 outdated(config)
 ```
-
 
 If all intermediate objects should be visualized (not recommended):
 

@@ -49,9 +49,16 @@ lrn_gam_diplodia_perf <- makeLearner("classif.gam",
                                      predict.type = "prob",
                                      method = "GCV.Cp",
                                      fix.factors.prediction = TRUE,
-                                     formula = "diplo01 ~ s(temp, k = 15) + s(p_sum, k = 15) + s(pisr, k = 15) +
-                                                s(elevation, k = 15) + s(slope_degrees, k = 15) + s(hail_prob, k = 15) +
-                                                s(age, k = 15) + s(ph, k = 15) + lithology + soil + year"
+                                     formula = "diplo01 ~ s(temp, k = 15) + s(precip, k = 15) + s(pisr, k = 15) +
+                                                 s(slope_degrees, k = 15) + s(hail_probability, k = 15) +
+                                                s(age, k = 15) + s(ph, k = 15) + year +
+                                                lithology.surface.deposits + lithology.clastic.sedimentary.rock +
+                                                lithology.chemical.sedimentary.rock + lithology.magmatic.rock +
+                                                soil.soils.with.clay.enriched.subsoil +
+                                                soil.soils.with.little.or.no.profile.differentiation +
+                                                soil.pronounced.accumulation.of.organic.matter.in.the.mineral.topsoil +
+                                                soil.soils.with.limitations.to.root.growth"
+
 )
 
 # "pred" without variable and "year"
@@ -61,9 +68,14 @@ lrn_gam_diplodia_pred <- makeLearner("classif.gam",
                                      predict.type = "prob",
                                      method = "GCV.Cp",
                                      fix.factors.prediction = TRUE,
-                                     formula = "diplo01 ~ s(temp, k = 15) + s(p_sum, k = 15) + s(pisr, k = 15) +
-                                                s(elevation, k = 15) + s(slope_degrees, k = 15) + s(hail_prob, k = 15) +
-                                                s(age, k = 15) + s(ph, k = 15) + lithology + soil"
+                                     formula = "diplo01 ~ s(temp, k = 15) + s(precip, k = 15) + s(pisr, k = 15) +
+                                                 s(slope_degrees, k = 15) + s(hail_probability, k = 15) + s(ph, k = 15) +
+                                                lithology.surface.deposits + lithology.clastic.sedimentary.rock +
+                                                lithology.chemical.sedimentary.rock + lithology.magmatic.rock +
+                                                soil.soils.with.clay.enriched.subsoil +
+                                                soil.soils.with.little.or.no.profile.differentiation +
+                                                soil.pronounced.accumulation.of.organic.matter.in.the.mineral.topsoil +
+                                                soil.soils.with.limitations.to.root.growth"
 )
 
 lrn_gam_fusarium_perf <- makeLearner("classif.gam",
@@ -72,9 +84,15 @@ lrn_gam_fusarium_perf <- makeLearner("classif.gam",
                                      predict.type = "prob",
                                      method = "GCV.Cp",
                                      fix.factors.prediction = TRUE,
-                                     formula = "fus01 ~ s(temp, k = 15) + s(p_sum, k = 15) + s(pisr, k = 15) +
-                                                s(elevation, k = 15) + s(slope_degrees, k = 15) + s(hail_prob, k = 15) +
-                                                s(age, k = 15) + s(ph, k = 15) + lithology + soil + year"
+                                     formula = "fus01 ~ s(temp, k = 15) + s(precip, k = 15) + s(pisr, k = 15) +
+                                                 s(slope_degrees, k = 15) + s(hail_probability, k = 15) +
+                                                s(age, k = 15) + s(ph, k = 15) + year +
+                                                lithology.surface.deposits + lithology.clastic.sedimentary.rock +
+                                                lithology.chemical.sedimentary.rock + lithology.magmatic.rock +
+                                                soil.soils.with.clay.enriched.subsoil +
+                                                soil.soils.with.little.or.no.profile.differentiation +
+                                                soil.pronounced.accumulation.of.organic.matter.in.the.mineral.topsoil +
+                                                soil.soils.with.limitations.to.root.growth"
 )
 
 # "pred" without variable and "year"
@@ -84,9 +102,14 @@ lrn_gam_fusarium_pred <- makeLearner("classif.gam",
                                      predict.type = "prob",
                                      method = "GCV.Cp",
                                      fix.factors.prediction = TRUE,
-                                     formula = "fus01 ~ s(temp, k = 15) + s(p_sum, k = 15) + s(pisr, k = 15) +
-                                                s(elevation, k = 15) + s(slope_degrees, k = 15) + s(hail_prob, k = 15) +
-                                                s(age, k = 15) + s(ph, k = 15) + lithology + soil"
+                                     formula = "fus01 ~ s(temp, k = 15) + s(precip, k = 15) + s(pisr, k = 15) +
+                                                 s(slope_degrees, k = 15) + s(hail_probability, k = 15) + s(ph, k = 15) +
+                                                lithology.surface.deposits + lithology.clastic.sedimentary.rock +
+                                                lithology.chemical.sedimentary.rock + lithology.magmatic.rock +
+                                                soil.soils.with.clay.enriched.subsoil +
+                                                soil.soils.with.little.or.no.profile.differentiation +
+                                                soil.pronounced.accumulation.of.organic.matter.in.the.mineral.topsoil +
+                                                soil.soils.with.limitations.to.root.growth"
 )
 
 lrn_gam_armillaria_perf <- makeLearner("classif.gam",
@@ -95,9 +118,14 @@ lrn_gam_armillaria_perf <- makeLearner("classif.gam",
                                      predict.type = "prob",
                                      method = "GCV.Cp",
                                      fix.factors.prediction = TRUE,
-                                     formula = "armillaria ~ s(temp, k = 15) + s(p_sum, k = 15) + s(pisr, k = 15) +
-                                                s(elevation, k = 15) + s(slope_degrees, k = 15) + s(hail_prob, k = 15) +
-                                                s(age, k = 15) + s(ph, k = 15) + lithology + soil + year"
+                                     formula = "armillaria ~ s(temp, k = 15) + s(precip, k = 15) + s(pisr, k = 15) +
+                                                 s(slope_degrees, k = 15) + s(hail_probability, k = 15) + s(ph, k = 15) +
+                                                lithology.surface.deposits + lithology.clastic.sedimentary.rock +
+                                                lithology.chemical.sedimentary.rock + lithology.magmatic.rock +
+                                                soil.soils.with.clay.enriched.subsoil +
+                                                soil.soils.with.little.or.no.profile.differentiation +
+                                                soil.pronounced.accumulation.of.organic.matter.in.the.mineral.topsoil +
+                                                soil.soils.with.limitations.to.root.growth"
 )
 
 # "pred" without variable and "year"
@@ -107,9 +135,14 @@ lrn_gam_armillaria_pred <- makeLearner("classif.gam",
                                      predict.type = "prob",
                                      method = "GCV.Cp",
                                      fix.factors.prediction = TRUE,
-                                     formula = "armillaria ~ s(temp, k = 15) + s(p_sum, k = 15) + s(pisr, k = 15) +
-                                                s(elevation, k = 15) + s(slope_degrees, k = 15) + s(hail_prob, k = 15) +
-                                                s(age, k = 15) + s(ph, k = 15) + lithology + soil"
+                                     formula = "armillaria ~ s(temp, k = 15) + s(precip, k = 15) + s(pisr, k = 15) +
+                                                 s(slope_degrees, k = 15) + s(hail_probability, k = 15) + s(ph, k = 15) +
+                                                lithology.surface.deposits + lithology.clastic.sedimentary.rock +
+                                                lithology.chemical.sedimentary.rock + lithology.magmatic.rock +
+                                                soil.soils.with.clay.enriched.subsoil +
+                                                soil.soils.with.little.or.no.profile.differentiation +
+                                                soil.pronounced.accumulation.of.organic.matter.in.the.mineral.topsoil +
+                                                soil.soils.with.limitations.to.root.growth"
 )
 
 lrn_gam_heterobasidion_perf <- makeLearner("classif.gam",
@@ -118,9 +151,14 @@ lrn_gam_heterobasidion_perf <- makeLearner("classif.gam",
                                        predict.type = "prob",
                                        method = "GCV.Cp",
                                        fix.factors.prediction = TRUE,
-                                       formula = "heterobasi ~ s(temp, k = 15) + s(p_sum, k = 15) + s(pisr, k = 15) +
-                                                s(elevation, k = 15) + s(slope_degrees, k = 15) + s(hail_prob, k = 15) +
-                                                s(age, k = 15) + s(ph, k = 15) + lithology + soil + year"
+                                       formula = "heterobasi ~ s(temp, k = 15) + s(precip, k = 15) + s(pisr, k = 15) +
+                                                 s(slope_degrees, k = 15) + s(hail_probability, k = 15) + s(ph, k = 15) +
+                                                lithology.surface.deposits + lithology.clastic.sedimentary.rock +
+                                                lithology.chemical.sedimentary.rock + lithology.magmatic.rock +
+                                                soil.soils.with.clay.enriched.subsoil +
+                                                soil.soils.with.little.or.no.profile.differentiation +
+                                                soil.pronounced.accumulation.of.organic.matter.in.the.mineral.topsoil +
+                                                soil.soils.with.limitations.to.root.growth"
 )
 
 # "pred" without variable and "year"
@@ -130,9 +168,14 @@ lrn_gam_heterobasidion_pred <- makeLearner("classif.gam",
                                        predict.type = "prob",
                                        method = "GCV.Cp",
                                        fix.factors.prediction = TRUE,
-                                       formula = "heterobasi ~ s(temp, k = 15) + s(p_sum, k = 15) + s(pisr, k = 15) +
-                                                s(elevation, k = 15) + s(slope_degrees, k = 15) + s(hail_prob, k = 15) +
-                                                s(age, k = 15) + s(ph, k = 15) + lithology + soil"
+                                       formula = "heterobasi ~ s(temp, k = 15) + s(precip, k = 15) + s(pisr, k = 15) +
+                                                 s(slope_degrees, k = 15) + s(hail_probability, k = 15) + s(ph, k = 15) +
+                                                lithology.surface.deposits + lithology.clastic.sedimentary.rock +
+                                                lithology.chemical.sedimentary.rock + lithology.magmatic.rock +
+                                                soil.soils.with.clay.enriched.subsoil +
+                                                soil.soils.with.little.or.no.profile.differentiation +
+                                                soil.pronounced.accumulation.of.organic.matter.in.the.mineral.topsoil +
+                                                soil.soils.with.limitations.to.root.growth"
 )
 
 
@@ -142,10 +185,16 @@ lrn_gam_diplodia_perf_non <- makeLearner("classif.gam",
                                      predict.type = "prob",
                                      method = "GCV.Cp",
                                      fix.factors.prediction = TRUE,
-                                     formula = "diplo01 ~ s(temp, k = 15) + s(p_sum, k = 15) + s(pisr, k = 15) +
-                                                s(elevation, k = 15) + s(slope_degrees, k = 15) + s(hail_prob, k = 15) +
-                                                s(age, k = 15) + s(ph, k = 15) + lithology + soil + year",
-                                     sp = rep(0, 8)
+                                     formula = "diplo01 ~ s(temp, k = 15) + s(precip, k = 15) + s(pisr, k = 15) +
+                                                 s(slope_degrees, k = 15) + s(hail_probability, k = 15) +
+                                                s(age, k = 15) + s(ph, k = 15) + year +
+                                                lithology.surface.deposits + lithology.clastic.sedimentary.rock +
+                                                lithology.chemical.sedimentary.rock + lithology.magmatic.rock +
+                                                soil.soils.with.clay.enriched.subsoil +
+                                                soil.soils.with.little.or.no.profile.differentiation +
+                                                soil.pronounced.accumulation.of.organic.matter.in.the.mineral.topsoil +
+                                                soil.soils.with.limitations.to.root.growth",
+                                     sp = rep(0, 7)
 )
 
 
@@ -155,10 +204,16 @@ lrn_gam_fusarium_perf_non <- makeLearner("classif.gam",
                                      predict.type = "prob",
                                      method = "GCV.Cp",
                                      fix.factors.prediction = TRUE,
-                                     formula = "fus01 ~ s(temp, k = 15) + s(p_sum, k = 15) + s(pisr, k = 15) +
-                                                s(elevation, k = 15) + s(slope_degrees, k = 15) + s(hail_prob, k = 15) +
-                                                s(age, k = 15) + s(ph, k = 15) + lithology + soil + year",
-                                     sp = rep(0, 8)
+                                     formula = "fus01 ~ s(temp, k = 15) + s(precip, k = 15) + s(pisr, k = 15) +
+                                                 s(slope_degrees, k = 15) + s(hail_probability, k = 15) +
+                                                s(age, k = 15) + s(ph, k = 15) + year +
+                                                lithology.surface.deposits + lithology.clastic.sedimentary.rock +
+                                                lithology.chemical.sedimentary.rock + lithology.magmatic.rock +
+                                                soil.soils.with.clay.enriched.subsoil +
+                                                soil.soils.with.little.or.no.profile.differentiation +
+                                                soil.pronounced.accumulation.of.organic.matter.in.the.mineral.topsoil +
+                                                soil.soils.with.limitations.to.root.growth",
+                                     sp = rep(0, 7)
 )
 
 
@@ -169,10 +224,15 @@ lrn_gam_armillaria_perf_non <- makeLearner("classif.gam",
                                        predict.type = "prob",
                                        method = "GCV.Cp",
                                        fix.factors.prediction = TRUE,
-                                       formula = "armillaria ~ s(temp, k = 15) + s(p_sum, k = 15) + s(pisr, k = 15) +
-                                                s(elevation, k = 15) + s(slope_degrees, k = 15) + s(hail_prob, k = 15) +
-                                                s(age, k = 15) + s(ph, k = 15) + lithology + soil + year",
-                                       sp = rep(0, 8)
+                                       formula = "armillaria ~ s(temp, k = 15) + s(precip, k = 15) + s(pisr, k = 15) +
+                                                 s(slope_degrees, k = 15) + s(hail_probability, k = 15) + s(ph, k = 15) +
+                                                lithology.surface.deposits + lithology.clastic.sedimentary.rock +
+                                                lithology.chemical.sedimentary.rock + lithology.magmatic.rock +
+                                                soil.soils.with.clay.enriched.subsoil +
+                                                soil.soils.with.little.or.no.profile.differentiation +
+                                                soil.pronounced.accumulation.of.organic.matter.in.the.mineral.topsoil +
+                                                soil.soils.with.limitations.to.root.growth",
+                                       sp = rep(0, 7)
 )
 
 
@@ -182,10 +242,15 @@ lrn_gam_heterobasidion_perf_non <- makeLearner("classif.gam",
                                            predict.type = "prob",
                                            method = "GCV.Cp",
                                            fix.factors.prediction = TRUE,
-                                           formula = "heterobasi ~ s(temp, k = 15) + s(p_sum, k = 15) + s(pisr, k = 15) +
-                                                s(elevation, k = 15) + s(slope_degrees, k = 15) + s(hail_prob, k = 15) +
-                                                s(age, k = 15) + s(ph, k = 15) + lithology + soil + year",
-                                           sp = rep(0, 8)
+                                           formula = "heterobasi ~ s(temp, k = 15) + s(precip, k = 15) + s(pisr, k = 15) +
+                                                 s(slope_degrees, k = 15) + s(hail_probability, k = 15) + s(ph, k = 15) +
+                                                lithology.surface.deposits + lithology.clastic.sedimentary.rock +
+                                                lithology.chemical.sedimentary.rock + lithology.magmatic.rock +
+                                                soil.soils.with.clay.enriched.subsoil +
+                                                soil.soils.with.little.or.no.profile.differentiation +
+                                                soil.pronounced.accumulation.of.organic.matter.in.the.mineral.topsoil +
+                                                soil.soils.with.limitations.to.root.growth",
+                                           sp = rep(0, 7)
 )
 
 # GLM ---------------------------------------------------------------------

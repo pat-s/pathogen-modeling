@@ -18,10 +18,10 @@ args_bm_sp_sp = tibble(task = rlang::syms("tasks"),
 args_bm_sp_sp$learner = rlang::syms(args_bm_sp_sp$learner)
 args_bm_sp_sp$id = suppressWarnings(paste0("bm_sp_sp_", str_split(args_bm_sp_sp$learner, "_",
                                                                   simplify = TRUE)[, 2]))
-args_bm_sp_sp[6, "id"] = "bm_sp_sp_gam_diplodia_sp"
-args_bm_sp_sp[7, "id"] = "bm_sp_sp_gam_fusarium_sp"
-args_bm_sp_sp[8, "id"] = "bm_sp_sp_gam_armillaria_sp"
-args_bm_sp_sp[9, "id"] = "bm_sp_sp_gam_heterobasidion_sp"
+args_bm_sp_sp[6, "id"] = "bm_sp_sp_gam_diplodia"
+args_bm_sp_sp[7, "id"] = "bm_sp_sp_gam_fusarium"
+args_bm_sp_sp[8, "id"] = "bm_sp_sp_gam_armillaria"
+args_bm_sp_sp[9, "id"] = "bm_sp_sp_gam_heterobasidion"
 
 
 # sp/nsp ------------------------------------------------------------------
@@ -128,6 +128,6 @@ benchmark_plan = bind_plans(benchmark_sp_sp, benchmark_sp_nsp, benchmark_sp_non,
 
 # we need to wrap kknn in try() because some workers will fail which will cause
 # whole target to fail
-# benchmark[5, 2] = "try(benchmark_custom(tasks, wrapper_kknn, spcv_outer_fiveF_hundredR))"
+benchmark_plan[5, 2] = "try(benchmark_custom(tasks, wrapper_kknn_sp, spcv_outer_fiveF_hundredR))"
 
 rm(args_bm_sp_non, args_bm_sp_nsp, args_bm_sp_sp, args_bm_nsp_nsp, args_bm_nsp_non)

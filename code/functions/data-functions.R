@@ -135,8 +135,7 @@ create_prediction_data <- function(temperature, precipitation, pisr, slope,
     soil %>%
     raster::extract(pred_grid)
 
-  data("soil.legends")
-  soil_legend <- as_tibble(soil.legends$TAXNWRB)
+  soil_legend <- as_tibble(GSIF::soil.legends$TAXNWRB)
 
   pred_grid %<>%
     left_join(soil_legend, by = c("soil" = "Number")) %>%

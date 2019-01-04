@@ -44,6 +44,9 @@ ps_brt <- makeParamSet(
 
 # GAM ---------------------------------------------------------------------
 
-ps_gam <- makeParamSet(
-  makeNumericVectorParam("sp", len = 8, lower = 0, upper = 500000)
+ps_gam_armillaria_heterobasidion <- makeParamSet(
+  makeNumericVectorParam("sp", len = 6, lower = 0, upper = 500000)
+)
+ps_gam_diplodia_fusarium <- makeParamSet(
+  makeNumericVectorParam("sp", len = 7, lower = 0, upper = 500000)
 )

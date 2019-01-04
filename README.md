@@ -99,14 +99,10 @@ predict_runtime(config, from_scratch = TRUE, targets_only = TRUE)
 ```
 
     ## Warning: Some targets were never actually timed, And no hypothetical time was specified in `known_times`. Assuming a runtime of 0 for these targets:
-    ##   lrn_xgboost
-    ##   lrn_kknn
-    ##   lrn_brt
     ##   lrn_gam_diplodia_perf
     ##   lrn_gam_diplodia_pred
     ##   lrn_gam_fusarium_perf
     ##   lrn_gam_fusarium_pred
-    ##   lrn_gam_armillaria_perf
     ##   lrn_gam_armillaria_pred
     ##   lrn_gam_heterobasidion_perf
     ##   lrn_gam_heterobasidion_pred
@@ -115,22 +111,26 @@ predict_runtime(config, from_scratch = TRUE, targets_only = TRUE)
     ##   lrn_gam_armillaria_perf_non
     ##   lrn_gam_heterobasidion_perf_non
     ##   cv_inner_fiveF
-    ##   ps_xgboost
-    ##   ps_kknn
-    ##   ps_brt
-    ##   ps_gam
-    ##   tune_ctrl_kknn_100
-    ##   tune_ctrl_xgboost_100
-    ##   tune_ctrl_brt_100
-    ##   tune_ctrl_gam_100
-    ##   wrapper_xgboost_sp
-    ##   wrapper_brt_sp
-    ##   wrapper_kknn_sp
+    ##   ps_gam_diplodia_fusarium
+    ##   tune_ctrl_gam_100_diplodia_fusarium
     ##   wrapper_gam_diplodia_perf_sp
     ##   wrapper_gam_fusarium_perf_sp
+    ##   wrapper_gam_heterobasidion_perf_sp
+    ##   wrapper_rf_nsp
+    ##   wrapper_svm_nsp
+    ##   wrapper_xgboost_nsp
+    ##   wrapper_brt_nsp
+    ##   wrapper_kknn_nsp
+    ##   wrapper_gam_diplodia_perf_nsp
+    ##   wrapper_gam_fusarium_perf_nsp
+    ##   wrapper_gam_armillaria_perf_nsp
+    ##   wrapper_gam_heterobasidion_perf_nsp
+    ##   benchmark_evaluation_report
+    ##   bm_sp_sp_xgboost
+    ##   bm_sp_sp_gam_diplodia
     ##   ...
 
-    ## [1] "85798.748s (~23.83 hours)"
+    ## [1] "768755.099s (~1.27 weeks)"
 
 Acceleration when parallelizing the `make()` call
 
@@ -192,19 +192,18 @@ The following groups exist:
 
 <!-- -->
 
-    ## Status: Mon Dec 17 00:26:58 2018
+    ## Status: Fri Jan  4 15:14:43 2019
 
 ``` r
-vis_drake_graph(config, group = "stage", clusters = c("data", "prediction", "learner",
-                                                      "mlr_settings", "benchmark",
+vis_drake_graph(config, group = "stage", clusters = c("data", "task", "learner",
+                                                      "mlr_settings",
                                                       "prediction"),
                 targets_only = TRUE, show_output_files = FALSE,
-                navigationButtons = FALSE, selfcontained = TRUE,
-                file = "drake.png") +
-  ggpubr::theme_pubr()
+                navigationButtons = FALSE
+                )
 ```
 
-![](./drake.png)
+![](README_files/figure-markdown_github/unnamed-chunk-7-1.png)
 
 All outdated targets:
 
@@ -251,65 +250,46 @@ outdated(config)
     ## [37] "bm_sp_nsp_rf"                       
     ## [38] "bm_sp_nsp_svm"                      
     ## [39] "bm_sp_nsp_xgboost"                  
-    ## [40] "bm_sp_sp_brt"                       
-    ## [41] "bm_sp_sp_gam_armillaria_sp"         
-    ## [42] "bm_sp_sp_gam_diplodia_sp"           
-    ## [43] "bm_sp_sp_gam_fusarium_sp"           
-    ## [44] "bm_sp_sp_gam_heterobasidion_sp"     
-    ## [45] "bm_sp_sp_kknn"                      
-    ## [46] "bm_sp_sp_rf"                        
-    ## [47] "bm_sp_sp_svm"                       
-    ## [48] "bm_sp_sp_xgboost"                   
-    ## [49] "cv_inner_fiveF"                     
-    ## [50] "lrn_brt"                            
-    ## [51] "lrn_gam_armillaria_perf"            
-    ## [52] "lrn_gam_armillaria_perf_non"        
-    ## [53] "lrn_gam_armillaria_pred"            
-    ## [54] "lrn_gam_diplodia_perf"              
-    ## [55] "lrn_gam_diplodia_perf_non"          
-    ## [56] "lrn_gam_diplodia_pred"              
-    ## [57] "lrn_gam_fusarium_perf"              
-    ## [58] "lrn_gam_fusarium_perf_non"          
-    ## [59] "lrn_gam_fusarium_pred"              
-    ## [60] "lrn_gam_heterobasidion_perf"        
-    ## [61] "lrn_gam_heterobasidion_perf_non"    
-    ## [62] "lrn_gam_heterobasidion_pred"        
-    ## [63] "lrn_kknn"                           
-    ## [64] "lrn_xgboost"                        
-    ## [65] "pred_data"                          
-    ## [66] "prediction_gam_armillaria"          
-    ## [67] "prediction_gam_diplodia"            
-    ## [68] "prediction_gam_fusarium"            
-    ## [69] "prediction_gam_heterobasidion"      
-    ## [70] "prediction_glm"                     
-    ## [71] "prediction_kknn"                    
-    ## [72] "prediction_rf"                      
-    ## [73] "prediction_svm"                     
-    ## [74] "prediction_xgboost"                 
-    ## [75] "ps_brt"                             
-    ## [76] "ps_gam"                             
-    ## [77] "ps_kknn"                            
-    ## [78] "ps_xgboost"                         
-    ## [79] "tune_ctrl_brt_100"                  
-    ## [80] "tune_ctrl_gam_100"                  
-    ## [81] "tune_ctrl_kknn_100"                 
-    ## [82] "tune_ctrl_xgboost_100"              
-    ## [83] "wrapper_brt_nsp"                    
-    ## [84] "wrapper_brt_sp"                     
-    ## [85] "wrapper_gam_armillaria_perf_nsp"    
-    ## [86] "wrapper_gam_armillaria_perf_sp"     
-    ## [87] "wrapper_gam_diplodia_perf_nsp"      
-    ## [88] "wrapper_gam_diplodia_perf_sp"       
-    ## [89] "wrapper_gam_fusarium_perf_nsp"      
-    ## [90] "wrapper_gam_fusarium_perf_sp"       
-    ## [91] "wrapper_gam_heterobasidion_perf_nsp"
-    ## [92] "wrapper_gam_heterobasidion_perf_sp" 
-    ## [93] "wrapper_kknn_nsp"                   
-    ## [94] "wrapper_kknn_sp"                    
-    ## [95] "wrapper_rf_nsp"                     
-    ## [96] "wrapper_svm_nsp"                    
-    ## [97] "wrapper_xgboost_nsp"                
-    ## [98] "wrapper_xgboost_sp"
+    ## [40] "bm_sp_sp_gam_armillaria"            
+    ## [41] "bm_sp_sp_gam_diplodia"              
+    ## [42] "bm_sp_sp_gam_fusarium"              
+    ## [43] "bm_sp_sp_gam_heterobasidion"        
+    ## [44] "bm_sp_sp_xgboost"                   
+    ## [45] "cv_inner_fiveF"                     
+    ## [46] "lrn_gam_armillaria_perf_non"        
+    ## [47] "lrn_gam_armillaria_pred"            
+    ## [48] "lrn_gam_diplodia_perf"              
+    ## [49] "lrn_gam_diplodia_perf_non"          
+    ## [50] "lrn_gam_diplodia_pred"              
+    ## [51] "lrn_gam_fusarium_perf"              
+    ## [52] "lrn_gam_fusarium_perf_non"          
+    ## [53] "lrn_gam_fusarium_pred"              
+    ## [54] "lrn_gam_heterobasidion_perf"        
+    ## [55] "lrn_gam_heterobasidion_perf_non"    
+    ## [56] "lrn_gam_heterobasidion_pred"        
+    ## [57] "prediction_gam_armillaria"          
+    ## [58] "prediction_gam_diplodia"            
+    ## [59] "prediction_gam_fusarium"            
+    ## [60] "prediction_gam_heterobasidion"      
+    ## [61] "prediction_glm"                     
+    ## [62] "prediction_kknn"                    
+    ## [63] "prediction_rf"                      
+    ## [64] "prediction_svm"                     
+    ## [65] "prediction_xgboost"                 
+    ## [66] "ps_gam_diplodia_fusarium"           
+    ## [67] "tune_ctrl_gam_100_diplodia_fusarium"
+    ## [68] "wrapper_brt_nsp"                    
+    ## [69] "wrapper_gam_armillaria_perf_nsp"    
+    ## [70] "wrapper_gam_diplodia_perf_nsp"      
+    ## [71] "wrapper_gam_diplodia_perf_sp"       
+    ## [72] "wrapper_gam_fusarium_perf_nsp"      
+    ## [73] "wrapper_gam_fusarium_perf_sp"       
+    ## [74] "wrapper_gam_heterobasidion_perf_nsp"
+    ## [75] "wrapper_gam_heterobasidion_perf_sp" 
+    ## [76] "wrapper_kknn_nsp"                   
+    ## [77] "wrapper_rf_nsp"                     
+    ## [78] "wrapper_svm_nsp"                    
+    ## [79] "wrapper_xgboost_nsp"
 
 If all intermediate objects should be visualized (not recommended):
 

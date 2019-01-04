@@ -1,6 +1,6 @@
 needs::needs(drake, mlr, magrittr, mlrMBO, purrr, parallelMap, sf, dplyr, lwgeom,
              forcats, tibble, rgdal, viridis, rasterVis, lattice, latticeExtra, glue,
-             RSAGA, stringr, GSIF, sp, R.utils, curl, fs)
+             RSAGA, stringr, GSIF, sp, R.utils, curl, fs, rgenoud)
 
 # Plans -----------------------------------------------------------
 
