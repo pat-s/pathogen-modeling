@@ -115,6 +115,11 @@ args_bm_nsp_non[8, "id"] = "bm_nsp_non_gam_fusarium"
 args_bm_nsp_non[9, "id"] = "bm_nsp_non_gam_armillaria"
 args_bm_nsp_non[10, "id"] = "bm_nsp_non_gam_heterobasidion"
 
+args_bm_nsp_non[7, "t"] = "bm_nsp_non_gam_diplodia"
+args_bm_nsp_non[8, "id"] = "bm_nsp_non_gam_fusarium"
+args_bm_nsp_non[9, "id"] = "bm_nsp_non_gam_armillaria"
+args_bm_nsp_non[10, "id"] = "bm_nsp_non_gam_heterobasidion"
+
 # combine -----------------------------------------------------------------
 
 benchmark_sp_sp = map_plan(args_bm_sp_sp, benchmark_custom, trace = FALSE)
@@ -129,5 +134,9 @@ benchmark_plan = bind_plans(benchmark_sp_sp, benchmark_sp_nsp, benchmark_sp_non,
 # we need to wrap kknn in try() because some workers will fail which will cause
 # whole target to fail
 benchmark_plan[5, 2] = "try(benchmark_custom(tasks, wrapper_kknn_sp, spcv_outer_fiveF_hundredR))"
+
+# gam adjustments
+benchmark_plan[8, 2] = "try(benchmark_custom(task = armillaria_task_dummy, learner = wrapper_gam_armillaria_perf_sp, resampling = spcv_outer_fiveF_hundredR))"
+#benchmark_plan[8, 2] = "try(benchmark_custom(task = armillaria_task_dummy, learner = wrapper_gam_armillaria_perf_sp, resampling = spcv_outer_fiveF_hundredR))"
 
 rm(args_bm_sp_non, args_bm_sp_nsp, args_bm_sp_sp, args_bm_nsp_nsp, args_bm_nsp_non)

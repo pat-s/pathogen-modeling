@@ -50,6 +50,10 @@ Performance measure
 
 Brier score
 
+Pathogens "Diplodia" and "Fusarium" have the additional variables "age" and "year" during benchmarking compared to "Armillaria" and "Heterobasidion" for which these variables were not available.
+
+Both variables are not used for prediction as they would not be known in a predictive situation.
+
 Prediction
 ----------
 
@@ -192,7 +196,7 @@ The following groups exist:
 
 <!-- -->
 
-    ## Status: Fri Jan  4 15:14:43 2019
+    ## Status: Fri Jan  4 16:41:39 2019
 
 ``` r
 vis_drake_graph(config, group = "stage", clusters = c("data", "task", "learner",
