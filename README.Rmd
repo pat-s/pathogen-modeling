@@ -106,7 +106,7 @@ Predicted total runtime (based on all target runtimes ever built and stored in t
 
 ```{r}
 source("code/drake.R")
-predict_runtime(config, from_scratch = TRUE, targets_only = TRUE)
+predict_runtime(config, from_scratch = TRUE)
 ```
 
 Acceleration when parallelizing the `make()` call

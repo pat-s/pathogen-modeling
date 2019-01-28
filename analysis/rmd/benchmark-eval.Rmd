@@ -1,0 +1,79 @@
+---
+title: "Evaluating classifiers on pathogens"
+#output: html_notebook
+author: "Patrick Schratz, FSU Jena"
+---
+
+This report evaluates the performance of the algorithms 
+
+* _Boosted Regression Trees_ (BRT), 
+* _Random Forest_ (RF), 
+* _Support Vector Machine_ (SVM) 
+* _Extreme Gradient Boosting_ (xgboost) 
+* _Generalized Linear Model_ (GLM) 
+* _Generalized Additive Model_ (GAM) 
+
+on four different pathogens:
+
+- _Armillaria mellea_
+- _Diplodia sapinea_
+- _Fusarium mellea_
+- _Heterobasidion mellea_
+
+```{r setup, include=FALSE}
+drake::loadd(bm_sp_sp_all)
+# knitr::opts_chunk$set(eval = FALSE)
+```
+
+# Print benchmark results
+
+```{r benchmark-eval-2}
+getBMRAggrPerformances(bm_sp_sp_all, as.df = TRUE) %>%
+  arrange(task.id, desc(brier.test.mean))
+```
+
+# Visualize
+
+```{r benchmark-eval-3}
+plt = plotBMRBoxplots(bm_sp_sp_all, measure = brier, pretty.names = FALSE, 
+  order.lrn = getBMRLearnerIds(bm_sp_sp_all)) +
+  # aes(color = learner.id) +
+  # scale_color_viridis_d() +
+  theme(strip.text.x = element_text(size = 8)) + 
+  theme_pubr()
+
+levels(plt$data$task.id) = c("Armillaria", "Diplodia", "Fusarium", "Heterobasidion")
+levels(plt$data$learner.id) = c("RF", "SVM", "KNN", "BRT", "GLM", "GAM")
+
+plt + ylab("Performance")
+```
+
+## Aggregated performances
+
+```{r benchmark-eval-4}
+plt2 = plotBMRSummary(bm_sp_sp_all) + 
+  theme_pubr()
+
+levels(plt2$data$task.id) = c("Armillaria", "Diplodia", "Fusarium", "Heterobasidion")
+levels(plt$data$learner.id) = c("RF", "SVM", "KNN", "BRT", "GLM", "GAM")
+
+plt2
+```
+
+## Calculating and visualizing ranks
+
+```{r benchmark-eval-5}
+m = convertBMRToRankMatrix(bm_sp_sp_all, brier)
+as_tibble(m)
+```
+
+```{r benchmark-eval-6}
+plt3 = plotBMRRanksAsBarChart(bm_sp_sp_all, pos = "tile", order.lrn = getBMRLearnerIds(bm_sp_sp_all)) +
+  theme_pubr()
+
+levels(plt3$data$task.id) = c("Armillaria", "Diplodia", "Fusarium", "Heterobasidion")
+levels(plt$data$learner.id) = c("RF", "SVM", "KNN", "BRT", "GLM", "GAM")
+
+plt3
+```
+

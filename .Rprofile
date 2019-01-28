@@ -2,4 +2,4 @@
 source("packrat/init.R")
 #### -- End Packrat Autoloader -- ####
 
-# startup::startup(debug = F)
+startup::startup(debug = F)

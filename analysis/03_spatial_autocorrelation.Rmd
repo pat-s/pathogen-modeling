@@ -1,0 +1,192 @@
+---
+title: "03_spatial_autocorrelation"
+output: html_document
+---
+
+# Load packages
+
+```{r}
+library(mgcv)
+library(gstat)
+library(dplyr)
+library(MASS)
+library(pgirmess)
+```
+
+# Load data
+
+```{r}
+armillaria_data <- readRDS("/data/marc/mod/survey_data/armillaria_data.rda")
+```
+
+# GLM
+
+## Model
+
+```{r}
+model_glm <-
+  glm(armillaria ~ elevation + slope + soil + ph + lithology + temperature + pisr + precipitation + hail_probability,
+    family = binomial(link = "logit"), data = armillaria_data
+  )
+```
+
+## Variogram
+
+```{r}
+glm_resid <-
+  armillaria_data %>%
+  dplyr::select(x, y) %>%
+  cbind(resid = residuals(model_glm)) %>%
+  na.omit()
+```
+
+```{r}
+variogram(resid ~ 1, data = glm_resid, locations = ~ x + y, cutoff = 20000) %>%
+  plot()
+```
+
+Results: Standardized residuals show spatial autocorrelation within a range of ~ 5000m
+
+# glmmPQL example
+
+## Preperation
+
+Define the same group factor for all observations otherwise glmmPQL does not work.
+According to Dormann et al. 2017 Appendix (http://www.ecography.org/sites/ecography.org/files/appendix/e5171.pdf) this produces identical results like official spatial GLMMs.
+
+```{r}
+armillaria_data <-
+  factor(rep("a", nrow(armillaria_data))) %>%
+  as_tibble() %>%
+  dplyr::select(group = value) %>%
+  bind_cols(armillaria_data)
+```
+
+## Model 
+
+glmmPQL model with spatial correlation structure
+
+```{r}
+model_glmmPQL <- glmmPQL(armillaria ~ elevation + slope + soil + ph + lithology + temperature + pisr + precipitation + hail_probability,
+  random = ~ 1 | group,
+  family = binomial(link = "logit"),
+  data = armillaria_data,
+  correlation = corExp(form = ~ x + y)
+)
+```
+
+
+glmmPQL model without spatial correlation structure
+
+```{r}
+model_glmmPQL_2 <- glmmPQL(armillaria ~ elevation + slope + soil + ph + lithology + temperature + pisr + precipitation + hail_probability,
+  random = ~ 1 | group,
+  family = binomial(link = "logit"),
+  data = armillaria_data,
+)
+```
+
+glmmPQL model with spatial correlation structure and manually set range and nugget
+
+```{r}
+model_glmmPQL_3 <- glmmPQL(armillaria ~ elevation + slope + soil + ph + lithology + temperature + pisr + precipitation + hail_probability,
+  random = ~ 1 | group,
+  family = binomial(link = "logit"),
+  data = armillaria_data,
+  correlation = corExp(10000, form = ~ x + y, nugget = TRUE)
+)
+```
+## Residuals
+
+```{r}
+glmmPQL_resid <-
+  armillaria_data %>%
+  dplyr::select(x, y) %>%
+  cbind(resid = residuals(model_glmmPQL, type = "normalized"))
+```
+
+```{r}
+glmmPQL_2_resid <-
+  armillaria_data %>%
+  dplyr::select(x, y) %>%
+  cbind(resid = residuals(model_glmmPQL_2, type = "normalized"))
+```
+
+```{r}
+glmmPQL_3_resid <-
+  armillaria_data %>%
+  dplyr::select(x, y) %>%
+  cbind(resid = residuals(model_glmmPQL_3, type = "normalized"))
+```
+
+## Variogram
+
+Variogram of the normalized residuals of the glmmPQL model without spatial 
+correlation structure. Cut off is set at 20000 m.
+
+
+```{r}
+variogram(resid ~ 1, data = glmmPQL_2_resid, locations = ~ x + y, cutoff = 20000) %>%
+  plot(vgm(0.8, "Exp", 10000, nugget = 0.4))
+```
+
+Variogram of the normalized residuals of the glmmPQL model with spatial 
+correlation structure and automatically fitted variogram parameters. Cut off is set at 20000 m.
+
+```{r}
+variogram(resid ~ 1, data = glmmPQL_resid, locations = ~ x + y, cutoff = 20000) %>%
+  plot()
+```
+
+Variogram of the normalized residuals of the glmmPQL model with spatial 
+correlation structure and manually variogram parameters. Cut off is set at 20000 m.
+
+```{r}
+variogram(resid ~ 1, data = glmmPQL_3_resid, locations = ~ x + y, cutoff = 20000) %>%
+  plot()
+```
+
+##Correlogram
+
+Correlogram of the normalized residuals of the glmmPQL model without spatial 
+correlation structure.
+
+```{r}
+correlog(coords = glmmPQL_2_resid[, 1:2], z = glmmPQL_2_resid[, 3], method = "Moran") %>%
+  plot()
+```
+
+Correlogram of the normalized residuals of the glmmPQL model with spatial 
+correlation structure and manually set variogram parameters.
+
+```{r}
+correlog(coords = glmmPQL_3_resid[, 1:2], z = glmmPQL_3_resid[, 3], method = "Moran") %>%
+  plot()
+```
+
+
+
+
+# gamm example
+
+## Model 1
+
+Convergence error: singular convergence
+
+```{r}
+model_gam_1 <- gamm(armillaria ~ s(elevation) + s(slope) + soil + s(ph) + lithology + s(temperature) + s(pisr) + s(precipitation) + (hail_probability),
+  family = binomial(link = "logit"), data = armillaria_data
+)
+```
+
+## Model 2
+
+Convergence error: false convergence
+
+```{r}
+model_gam_2 <- gamm(armillaria ~ s(elevation) + s(slope) + soil + s(ph) + lithology + s(temperature) + s(pisr) + s(precipitation) + (hail_probability),
+  family = binomial(link = "logit"), data = armillaria_data, correlation = corExp(form = ~ x + y)
+)
+```
+
+

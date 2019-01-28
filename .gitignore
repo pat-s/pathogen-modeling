@@ -7,3 +7,4 @@ README.html
 .Rprofile
 data
 .drake
+.httr-oauth
