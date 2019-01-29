@@ -2,74 +2,37 @@
 output: github_document
 ---
 
-# LIFE Healthy Forest
+[![Last-changedate](https://img.shields.io/badge/last%20change-`r gsub('-', '--', Sys.Date())`-brightgreen.svg)](https://github.com/pat-s/pathogen-modeling/commits/master) [![minimal R version](https://img.shields.io/badge/R%3E%3D-3.5.0-brightgreen.svg)](https://cran.r-project.org/)   [![Licence](https://img.shields.io/github/license/mashape/apistatus.svg)](http://choosealicense.com/licenses/mit/)  
+<!-- [![Travis-CI Build Status](https://travis-ci.org/pat-s/pathogen-modeling.png?branch=master)](https://travis-ci.org/pat-s/pathogen-modeling)  -->
 
-This study was funded by the [EU LIFE Healthy Forest (LIFE14 ENV/ES/000179)](http://ec.europa.eu/environment/life/project/Projects/index.cfm?fuseaction=search.dspPage&n_proj_id=5219) project.
+### Compendium URL
 
-The setup of this benchmark study is described below. 
-In total, 140 performance estimates have been calculated.
+### Authors
 
-#### Classifiers (7)
+**Patrick Schratz** (patrick.schratz@gmail.com) [![](https://orcid.org/sites/default/files/images/orcid_16x16.png)](http://orcid.org/0000-0003-0748-6624)    
+Jannes Muenchow [![](https://orcid.org/sites/default/files/images/orcid_16x16.png)](http://orcid.org/0000-0001-7834-4717)   
+Eugenia Iturritxa [![](https://orcid.org/sites/default/files/images/orcid_16x16.png)](http://orcid.org/0000-0002-0577-3315)   
+Jakob Richter [![](https://orcid.org/sites/default/files/images/orcid_16x16.png)](http://orcid.org/0000-0003-4481-5554)  
+Alexander Brenning [![](https://orcid.org/sites/default/files/images/orcid_16x16.png)](http://orcid.org/0000-0001-6640-679X) 
 
-- BRT (Boosted Regression Trees)
-- GAM (Generalized Additive Model)
-- GLM (Generalized Linear Model)
-- KNN (k-nearest Neighbor)
-- SVM (Support Vector Machine)
-- RF (Random Forest)
-- XGBOOST (Extreme Gradient Boosting)
+### Contents
 
-#### Datasets (4)
+This repository contains the research compendium of our work on comparing algorithms among different resampling settings. 
+The compendium contains all data, code, and text associated with this section of the publication:
 
-- Armillaria
-- Diplodia
-- Fusarium
-- Heterobasidion
+### How to use
 
-#### Resampling structures (5)
+#### Read the code, access the data
 
-(performance estimation / hyperparameter tuning)
+See the [`analysis`](https://github.com/pat-s/pathogen-modeling/tree/master/analysis) directory on GitHub for the source code that generated the figures and statistical results contained in the manuscript.
+See the [`data`](https://github.com/pat-s/pathogen-modeling/tree/master/analysis/data) directory for instructions how to access the raw data discussed in the manuscript. 
 
-- Spatial/non-spatial
-- Spatial/Spatial
-- Spatial/No tuning
-- Non-spatial/Non-spatial
-- Non-spatial/No tuning
+#### Install the R package
 
-## Hyperparameter tuning
+[![Build Status](https://travis-ci.org/pat-s/pathogen-modeling.svg?branch=master)](https://travis-ci.org/pat-s/pathogen-modeling)
 
-Sequential model-based optimization (SMBO)
-
-Initial design: 30 settings
-Maximum iterations: 100
-
-## Resampling
-
-Nested cross-validation with five folds in both levels and 100 repetitions (performance level).
-
-## Performance measure
-
-Brier score
-
-Pathogens "Diplodia" and "Fusarium" have the additional variables "age" and "year" during benchmarking compared to "Armillaria" and "Heterobasidion" for which these variables were not available.
-
-Both variables are not used for prediction as they would not be known in a predictive situation.
-
-## Prediction
-
-Probability of occurence for the specific pathogen across the whole Basque country on a 200 x 200 m spatial resolution.
-
-#### External library requirements
-
-- SAGA GIS (for creating the input variable `slope_degrees`)
-
-## Data
-
-Stored at [Mendeley Data](http://dx.doi.org/10.17632/kmy95t22fy.1).
-Data **(~ 4 GB)** will be downloaded into `data/` and processed when executing the project.
-Local storage directory is "./data".
-
-## Workflow
+This repository is organized as an R package, providing functions and raw data to reproduce and extend the analysis reported in the publication. 
+Note that this package has been written explicitly for this project and may not be suitable for more general use. 
 
 This project is setup with a [drake workflow](https://github.com/ropensci/drake), ensuring reproducibility.
 Intermediate targets/objects will be stored in a hidden `.drake` directory.
@@ -93,9 +56,9 @@ git clone git@github.com:pat-s/pathogen-modeling.git
 
 Then start R in this directory and run
 
-```{r eval = FALSE}
+```{r README-4, eval = FALSE}
 packrat::restore()
-source("code/drake.R")
+source("analysis/drake.R")
 make(plan, keep_going = TRUE, console_log_file = stdout()) 
 # use more cores with make(plan, jobs = <number of cores>)
 ```
@@ -104,31 +67,31 @@ make(plan, keep_going = TRUE, console_log_file = stdout())
 
 Predicted total runtime (based on all target runtimes ever built and stored in the internal `config` file)
 
-```{r}
-source("code/drake.R")
+```{r README-5}
+source("analysis/drake.R")
 predict_runtime(config, from_scratch = TRUE)
 ```
 
 Acceleration when parallelizing the `make()` call
 
-```{r warning=FALSE, message=FALSE}
+```{r README-6, warning=FALSE, message=FALSE}
 time <- c()
 for (jobs in 1:10){
-  time[jobs] <- predict_runtime(
-    drake_config(),
-    jobs = jobs,
-    from_scratch = TRUE,
-    known_times = build_times(targets_only = TRUE)$elapsed
-  )
+time[jobs] <- predict_runtime(
+drake_config(),
+jobs = jobs,
+from_scratch = TRUE,
+known_times = build_times(targets_only = TRUE)$elapsed
+)
 }
 
 library(ggplot2)
 ggplot(data.frame(time = time / 3600, jobs = ordered(1:10), group = 1)) +
-  geom_line(aes(x = jobs, y = time, group = group)) +
-  scale_y_continuous(breaks = 0:10 * 4, limits = c(0, 29)) +
-  ggpubr::theme_pubr() +
-  xlab("jobs argument of make()") +
-  ylab("Predicted runtime of make() (hours)")
+geom_line(aes(x = jobs, y = time, group = group)) +
+scale_y_continuous(breaks = 0:10 * 4, limits = c(0, 29)) +
+ggpubr::theme_pubr() +
+xlab("jobs argument of make()") +
+ylab("Predicted runtime of make() (hours)")
 ```
 
 ## Docker
@@ -136,7 +99,7 @@ ggplot(data.frame(time = time / 3600, jobs = ordered(1:10), group = 1)) +
 A Dockerfile is available in `docker/`.
 It was generated by the R package [`containerit`](https://github.com/o2r-project/containerit) and contains all packrat packages and system libraries with have been used to run the analysis (the file already exists, no need to do this). 
 
-```{r eval = FALSE}
+```{r README-7, eval = FALSE}
 remotes::install_github("pat-s/containerit@packrat")
 library(containerit)
 container = dockerfile(".", packrat = TRUE)
@@ -147,46 +110,23 @@ A docker container can be built and started from this Dockerfile by executing `d
 
 Next, the analysis can be started by calling
 
-```{r eval = FALSE}
-source("code/drake.R")
+```{r README-8, eval = FALSE}
+source("analysis/drake.R")
 make(plan, keep_going = TRUE, console_log_file = stdout()) 
 ```
 
-## Dependency graphs
+### Licenses
 
-The dependency graph of this analysis can be visualized with the following code.
-The grouping via the `"stage"` variable is subjective.
+Text: CC-BY-4.0 http://creativecommons.org/licenses/by/4.0/
 
-The following groups exist:
+Code: MIT http://opensource.org/licenses/MIT year: 2015, copyright holder: Patrick Schratz
 
-- data
-- learner
-- mlr_settings
-- benchmark
-- prediction
+Data: CC0 http://creativecommons.org/publicdomain/zero/1.0/ 
 
-```{r, echo=FALSE}
-glue::glue("Status: {date()}")
-```
+### Notes and resources 
 
-```{r, results='hide'}
+* The [issues tracker](https://github.com/pat-s/pathogen-modeling/issues) is the place to report problems or ask questions  
 
-vis_drake_graph(config, group = "stage", clusters = c("data", "task", "learner",
-                                                      "mlr_settings",
-                                                      "prediction"),
-                targets_only = TRUE, show_output_files = FALSE,
-                navigationButtons = FALSE
-                )
-```
+* See the repository [history](https://github.com/pat-s/pathogen-modeling/commits/master) for a fine-grained view of progress and changes.
 
-All outdated targets:
-
-```{r}
-outdated(config)
-```
-
-If all intermediate objects should be visualized (not recommended):
-
-```{r eval = FALSE}
-vis_drake_graph(config) + ggpubr::theme_pubr()
-```
+* The organisation of this compendium is based on the work of [Carl Boettiger](http://www.carlboettiger.info/) and [Ben Marwick](https://github.com/benmarwick).

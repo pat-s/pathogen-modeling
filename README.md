@@ -1,17 +1,16 @@
+
 [![Last-changedate](https://img.shields.io/badge/last%20change-2019--01--29-brightgreen.svg)](https://github.com/pat-s/pathogen-modeling/commits/master) [![minimal R version](https://img.shields.io/badge/R%3E%3D-3.5.0-brightgreen.svg)](https://cran.r-project.org/) [![Licence](https://img.shields.io/github/license/mashape/apistatus.svg)](http://choosealicense.com/licenses/mit/)
-<!-- [![Travis-CI Build Status](https://travis-ci.org/pat-s/pathogen-modeling.png?branch=master)](https://travis-ci.org/pat-s/pathogen-modeling)  --> [![ORCiD](https://img.shields.io/badge/ORCiD-0000-0003-0748-6624-green.svg)](http://orcid.org/0000-0003-0748-6624)
+<!-- [![Travis-CI Build Status](https://travis-ci.org/pat-s/pathogen-modeling.png?branch=master)](https://travis-ci.org/pat-s/pathogen-modeling)  -->
 
 ### Compendium URL
-
-<http://dx.doi.org/10.6084/m9.figshare.1297059>
 
 ### Authors
 
 **Patrick Schratz** (<patrick.schratz@gmail.com>) [![](https://orcid.org/sites/default/files/images/orcid_16x16.png)](http://orcid.org/0000-0003-0748-6624)
-Jannes Muenchow (<jannes.muenchow@uni-jena.de>) [![](https://orcid.org/sites/default/files/images/orcid_16x16.png)](http://orcid.org/0000-0001-7834-4717)
-Eugenia Iturritxa () [![](https://orcid.org/sites/default/files/images/orcid_16x16.png)](http://orcid.org/0000-0002-0577-3315)
-Jakob Richter () [![](https://orcid.org/sites/default/files/images/orcid_16x16.png)](http://orcid.org/0000-0003-4481-5554)
-Alexander Brenning () [![](https://orcid.org/sites/default/files/images/orcid_16x16.png)](http://orcid.org/0000-0001-6640-679X)
+Jannes Muenchow [![](https://orcid.org/sites/default/files/images/orcid_16x16.png)](http://orcid.org/0000-0001-7834-4717)
+Eugenia Iturritxa [![](https://orcid.org/sites/default/files/images/orcid_16x16.png)](http://orcid.org/0000-0002-0577-3315)
+Jakob Richter [![](https://orcid.org/sites/default/files/images/orcid_16x16.png)](http://orcid.org/0000-0003-4481-5554)
+Alexander Brenning [![](https://orcid.org/sites/default/files/images/orcid_16x16.png)](http://orcid.org/0000-0001-6640-679X)
 
 ### Contents
 
@@ -21,27 +20,13 @@ This repository contains the research compendium of our work on comparing algori
 
 #### Read the code, access the data
 
-See the [`analysis`](https://github.com/pat-s/pathogen-modeling/tree/master/analysis) directory on GitHub for the source code that generated the figures and statistical results contained in the manuscript. See the [`data`](https://github.com/pat-s/pathogen-modeling/tree/master/vignettes/data) directory for instructions how to access the raw data discussed in the manuscript.
+See the [`analysis`](https://github.com/pat-s/pathogen-modeling/tree/master/analysis) directory on GitHub for the source code that generated the figures and statistical results contained in the manuscript. See the [`data`](https://github.com/pat-s/pathogen-modeling/tree/master/analysis/data) directory for instructions how to access the raw data discussed in the manuscript.
 
 #### Install the R package
 
 [![Build Status](https://travis-ci.org/pat-s/pathogen-modeling.svg?branch=master)](https://travis-ci.org/pat-s/pathogen-modeling)
 
-This repository is organized as an R package, providing functions and raw data to reproduce and extend the analysis reported in the publication. Note that this package has been written explicitly for this project and may not be suitable for more general use. To download the package source as you see it on GitHub, for offline browsing, use this line at the shell prompt:
-
-``` r
-git clone https://github.com/pat-s/pathogen-modeling.git
-```
-
-Or to install, build and use the package within R, use this line at the R prompt:
-
-``` r
-remotes::install_github("pat-s/pathogen-modeling", build_vignettes = TRUE)
-```
-
-Then you can read the text & figures using this line at the R prompt:
-
-This R package has several depedencies that are listed below, some of which need to be installed manually if using this package from your local R installation.
+This repository is organized as an R package, providing functions and raw data to reproduce and extend the analysis reported in the publication. Note that this package has been written explicitly for this project and may not be suitable for more general use.
 
 This project is setup with a [drake workflow](https://github.com/ropensci/drake), ensuring reproducibility. Intermediate targets/objects will be stored in a hidden `.drake` directory.
 
@@ -113,21 +98,21 @@ Acceleration when parallelizing the `make()` call
 ``` r
 time <- c()
 for (jobs in 1:10){
-  time[jobs] <- predict_runtime(
-    drake_config(),
-    jobs = jobs,
-    from_scratch = TRUE,
-    known_times = build_times(targets_only = TRUE)$elapsed
-  )
+time[jobs] <- predict_runtime(
+drake_config(),
+jobs = jobs,
+from_scratch = TRUE,
+known_times = build_times(targets_only = TRUE)$elapsed
+)
 }
 
 library(ggplot2)
 ggplot(data.frame(time = time / 3600, jobs = ordered(1:10), group = 1)) +
-  geom_line(aes(x = jobs, y = time, group = group)) +
-  scale_y_continuous(breaks = 0:10 * 4, limits = c(0, 29)) +
-  ggpubr::theme_pubr() +
-  xlab("jobs argument of make()") +
-  ylab("Predicted runtime of make() (hours)")
+geom_line(aes(x = jobs, y = time, group = group)) +
+scale_y_continuous(breaks = 0:10 * 4, limits = c(0, 29)) +
+ggpubr::theme_pubr() +
+xlab("jobs argument of make()") +
+ylab("Predicted runtime of make() (hours)")
 ```
 
 ![](README_files/figure-markdown_github/README-6-1.png)
@@ -153,7 +138,7 @@ source("analysis/drake.R")
 make(plan, keep_going = TRUE, console_log_file = stdout()) 
 ```
 
-### Licenses:
+### Licenses
 
 Text: CC-BY-4.0 <http://creativecommons.org/licenses/by/4.0/>
 
