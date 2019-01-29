@@ -1,0 +1,7 @@
+^LICENSE\.md$
+^pathogen\.Rproj$
+^\.Rproj\.user$
+^packrat/
+^\.Rprofile$
+analysis
+^Dockerfile$

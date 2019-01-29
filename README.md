@@ -1,75 +1,47 @@
+[![Last-changedate](https://img.shields.io/badge/last%20change-2019--01--29-brightgreen.svg)](https://github.com/pat-s/pathogen-modeling/commits/master) [![minimal R version](https://img.shields.io/badge/R%3E%3D-3.5.0-brightgreen.svg)](https://cran.r-project.org/) [![Licence](https://img.shields.io/github/license/mashape/apistatus.svg)](http://choosealicense.com/licenses/mit/)
+<!-- [![Travis-CI Build Status](https://travis-ci.org/pat-s/pathogen-modeling.png?branch=master)](https://travis-ci.org/pat-s/pathogen-modeling)  --> [![ORCiD](https://img.shields.io/badge/ORCiD-0000-0003-0748-6624-green.svg)](http://orcid.org/0000-0003-0748-6624)
 
-LIFE Healthy Forest
-===================
+### Compendium URL
 
-This study was funded by the [EU LIFE Healthy Forest (LIFE14 ENV/ES/000179)](http://ec.europa.eu/environment/life/project/Projects/index.cfm?fuseaction=search.dspPage&n_proj_id=5219) project.
+<http://dx.doi.org/10.6084/m9.figshare.1297059>
 
-The setup of this benchmark study is described below. In total, 140 performance estimates have been calculated.
+### Authors
 
-#### Classifiers (7)
+**Patrick Schratz** (<patrick.schratz@gmail.com>) [![](https://orcid.org/sites/default/files/images/orcid_16x16.png)](http://orcid.org/0000-0003-0748-6624)
+Jannes Muenchow (<jannes.muenchow@uni-jena.de>) [![](https://orcid.org/sites/default/files/images/orcid_16x16.png)](http://orcid.org/0000-0001-7834-4717)
+Eugenia Iturritxa () [![](https://orcid.org/sites/default/files/images/orcid_16x16.png)](http://orcid.org/0000-0002-0577-3315)
+Jakob Richter () [![](https://orcid.org/sites/default/files/images/orcid_16x16.png)](http://orcid.org/0000-0003-4481-5554)
+Alexander Brenning () [![](https://orcid.org/sites/default/files/images/orcid_16x16.png)](http://orcid.org/0000-0001-6640-679X)
 
--   BRT (Boosted Regression Trees)
--   GAM (Generalized Additive Model)
--   GLM (Generalized Linear Model)
--   KNN (k-nearest Neighbor)
--   SVM (Support Vector Machine)
--   RF (Random Forest)
--   XGBOOST (Extreme Gradient Boosting)
+### Contents
 
-#### Datasets (4)
+This repository contains the research compendium of our work on comparing algorithms among different resampling settings. The compendium contains all data, code, and text associated with this section of the publication:
 
--   Armillaria
--   Diplodia
--   Fusarium
--   Heterobasidion
+### How to use
 
-#### Resampling structures (5)
+#### Read the code, access the data
 
-(performance estimation / hyperparameter tuning)
+See the [`analysis`](https://github.com/pat-s/pathogen-modeling/tree/master/analysis) directory on GitHub for the source code that generated the figures and statistical results contained in the manuscript. See the [`data`](https://github.com/pat-s/pathogen-modeling/tree/master/vignettes/data) directory for instructions how to access the raw data discussed in the manuscript.
 
--   Spatial/non-spatial
--   Spatial/Spatial
--   Spatial/No tuning
--   Non-spatial/Non-spatial
--   Non-spatial/No tuning
+#### Install the R package
 
-Hyperparameter tuning
----------------------
+[![Build Status](https://travis-ci.org/pat-s/pathogen-modeling.svg?branch=master)](https://travis-ci.org/pat-s/pathogen-modeling)
 
-Sequential model-based optimization (SMBO)
+This repository is organized as an R package, providing functions and raw data to reproduce and extend the analysis reported in the publication. Note that this package has been written explicitly for this project and may not be suitable for more general use. To download the package source as you see it on GitHub, for offline browsing, use this line at the shell prompt:
 
-Initial design: 30 settings Maximum iterations: 100
+``` r
+git clone https://github.com/pat-s/pathogen-modeling.git
+```
 
-Resampling
-----------
+Or to install, build and use the package within R, use this line at the R prompt:
 
-Nested cross-validation with five folds in both levels and 100 repetitions (performance level).
+``` r
+remotes::install_github("pat-s/pathogen-modeling", build_vignettes = TRUE)
+```
 
-Performance measure
--------------------
+Then you can read the text & figures using this line at the R prompt:
 
-Brier score
-
-Pathogens "Diplodia" and "Fusarium" have the additional variables "age" and "year" during benchmarking compared to "Armillaria" and "Heterobasidion" for which these variables were not available.
-
-Both variables are not used for prediction as they would not be known in a predictive situation.
-
-Prediction
-----------
-
-Probability of occurence for the specific pathogen across the whole Basque country on a 200 x 200 m spatial resolution.
-
-#### External library requirements
-
--   SAGA GIS (for creating the input variable `slope_degrees`)
-
-Data
-----
-
-Stored at [Mendeley Data](http://dx.doi.org/10.17632/kmy95t22fy.1). Data **(~ 4 GB)** will be downloaded into `data/` and processed when executing the project. Local storage directory is "./data".
-
-Workflow
---------
+This R package has several depedencies that are listed below, some of which need to be installed manually if using this package from your local R installation.
 
 This project is setup with a [drake workflow](https://github.com/ropensci/drake), ensuring reproducibility. Intermediate targets/objects will be stored in a hidden `.drake` directory.
 
@@ -87,7 +59,7 @@ Then start R in this directory and run
 
 ``` r
 packrat::restore()
-source("code/drake.R")
+source("analysis/drake.R")
 make(plan, keep_going = TRUE, console_log_file = stdout()) 
 # use more cores with make(plan, jobs = <number of cores>)
 ```
@@ -98,43 +70,43 @@ Runtime
 Predicted total runtime (based on all target runtimes ever built and stored in the internal `config` file)
 
 ``` r
-source("code/drake.R")
-predict_runtime(config, from_scratch = TRUE, targets_only = TRUE)
+source("analysis/drake.R")
+predict_runtime(config, from_scratch = TRUE)
 ```
 
     ## Warning: Some targets were never actually timed, And no hypothetical time was specified in `known_times`. Assuming a runtime of 0 for these targets:
-    ##   lrn_gam_diplodia_perf
     ##   lrn_gam_diplodia_pred
-    ##   lrn_gam_fusarium_perf
     ##   lrn_gam_fusarium_pred
     ##   lrn_gam_armillaria_pred
-    ##   lrn_gam_heterobasidion_perf
     ##   lrn_gam_heterobasidion_pred
     ##   lrn_gam_diplodia_perf_non
     ##   lrn_gam_fusarium_perf_non
     ##   lrn_gam_armillaria_perf_non
     ##   lrn_gam_heterobasidion_perf_non
-    ##   cv_inner_fiveF
-    ##   ps_gam_diplodia_fusarium
-    ##   tune_ctrl_gam_100_diplodia_fusarium
-    ##   wrapper_gam_diplodia_perf_sp
-    ##   wrapper_gam_fusarium_perf_sp
-    ##   wrapper_gam_heterobasidion_perf_sp
-    ##   wrapper_rf_nsp
-    ##   wrapper_svm_nsp
     ##   wrapper_xgboost_nsp
-    ##   wrapper_brt_nsp
-    ##   wrapper_kknn_nsp
-    ##   wrapper_gam_diplodia_perf_nsp
-    ##   wrapper_gam_fusarium_perf_nsp
-    ##   wrapper_gam_armillaria_perf_nsp
-    ##   wrapper_gam_heterobasidion_perf_nsp
-    ##   benchmark_evaluation_report
+    ##   prediction_kknn
     ##   bm_sp_sp_xgboost
-    ##   bm_sp_sp_gam_diplodia
+    ##   prediction_xgboost
+    ##   bm_sp_nsp_gam_armillaria
+    ##   bm_sp_nsp_gam_fusarium
+    ##   bm_sp_non_gam_armillaria
+    ##   bm_sp_non_gam_diplodia
+    ##   bm_sp_non_gam_fusarium
+    ##   bm_sp_non_gam_heterobasidion
+    ##   bm_nsp_nsp_gam_armillaria
+    ##   bm_nsp_nsp_gam_diplodia
+    ##   bm_nsp_nsp_gam_fusarium
+    ##   bm_nsp_nsp_gam_heterobasidion
+    ##   bm_nsp_non_gam_armillaria
+    ##   bm_nsp_non_gam_diplodia
+    ##   bm_nsp_non_gam_fusarium
+    ##   bm_nsp_non_gam_heterobasidion
+    ##   bm_sp_nsp_xgboost
+    ##   bm_sp_nsp_brt
+    ##   bm_sp_non_xgboost
     ##   ...
 
-    ## [1] "768755.099s (~1.27 weeks)"
+    ## [1] "1968029.341s (~3.25 weeks)"
 
 Acceleration when parallelizing the `make()` call
 
@@ -158,7 +130,7 @@ ggplot(data.frame(time = time / 3600, jobs = ordered(1:10), group = 1)) +
   ylab("Predicted runtime of make() (hours)")
 ```
 
-![](README_files/figure-markdown_github/unnamed-chunk-3-1.png)
+![](README_files/figure-markdown_github/README-6-1.png)
 
 Docker
 ------
@@ -177,126 +149,22 @@ A docker container can be built and started from this Dockerfile by executing `d
 Next, the analysis can be started by calling
 
 ``` r
-source("code/drake.R")
+source("analysis/drake.R")
 make(plan, keep_going = TRUE, console_log_file = stdout()) 
 ```
 
-Dependency graphs
------------------
+### Licenses:
 
-The dependency graph of this analysis can be visualized with the following code. The grouping via the `"stage"` variable is subjective.
+Text: CC-BY-4.0 <http://creativecommons.org/licenses/by/4.0/>
 
-The following groups exist:
+Code: MIT <http://opensource.org/licenses/MIT> year: 2015, copyright holder: Patrick Schratz
 
--   data
--   learner
--   mlr\_settings
--   benchmark
--   prediction
+Data: CC0 <http://creativecommons.org/publicdomain/zero/1.0/>
 
-<!-- -->
+### Notes and resources
 
-    ## Status: Fri Jan  4 16:41:39 2019
+-   The [issues tracker](https://github.com/pat-s/pathogen-modeling/issues) is the place to report problems or ask questions
 
-``` r
-vis_drake_graph(config, group = "stage", clusters = c("data", "task", "learner",
-                                                      "mlr_settings",
-                                                      "prediction"),
-                targets_only = TRUE, show_output_files = FALSE,
-                navigationButtons = FALSE
-                )
-```
+-   See the repository [history](https://github.com/pat-s/pathogen-modeling/commits/master) for a fine-grained view of progress and changes.
 
-![](README_files/figure-markdown_github/unnamed-chunk-7-1.png)
-
-All outdated targets:
-
-``` r
-outdated(config)
-```
-
-    ##  [1] "benchmark_evaluation_report"        
-    ##  [2] "bm_nsp_non_brt"                     
-    ##  [3] "bm_nsp_non_gam_armillaria"          
-    ##  [4] "bm_nsp_non_gam_diplodia"            
-    ##  [5] "bm_nsp_non_gam_fusarium"            
-    ##  [6] "bm_nsp_non_gam_heterobasidion"      
-    ##  [7] "bm_nsp_non_glm"                     
-    ##  [8] "bm_nsp_non_kknn"                    
-    ##  [9] "bm_nsp_non_rf"                      
-    ## [10] "bm_nsp_non_svm"                     
-    ## [11] "bm_nsp_non_xgboost"                 
-    ## [12] "bm_nsp_nsp_brt"                     
-    ## [13] "bm_nsp_nsp_gam_armillaria"          
-    ## [14] "bm_nsp_nsp_gam_diplodia"            
-    ## [15] "bm_nsp_nsp_gam_fusarium"            
-    ## [16] "bm_nsp_nsp_gam_heterobasidion"      
-    ## [17] "bm_nsp_nsp_kknn"                    
-    ## [18] "bm_nsp_nsp_rf"                      
-    ## [19] "bm_nsp_nsp_svm"                     
-    ## [20] "bm_nsp_nsp_xgboost"                 
-    ## [21] "bm_sp_non_brt"                      
-    ## [22] "bm_sp_non_gam_armillaria"           
-    ## [23] "bm_sp_non_gam_diplodia"             
-    ## [24] "bm_sp_non_gam_fusarium"             
-    ## [25] "bm_sp_non_gam_heterobasidion"       
-    ## [26] "bm_sp_non_glm"                      
-    ## [27] "bm_sp_non_kknn"                     
-    ## [28] "bm_sp_non_rf"                       
-    ## [29] "bm_sp_non_svm"                      
-    ## [30] "bm_sp_non_xgboost"                  
-    ## [31] "bm_sp_nsp_brt"                      
-    ## [32] "bm_sp_nsp_gam_armillaria"           
-    ## [33] "bm_sp_nsp_gam_diplodia"             
-    ## [34] "bm_sp_nsp_gam_fusarium"             
-    ## [35] "bm_sp_nsp_gam_heterobasidion"       
-    ## [36] "bm_sp_nsp_kknn"                     
-    ## [37] "bm_sp_nsp_rf"                       
-    ## [38] "bm_sp_nsp_svm"                      
-    ## [39] "bm_sp_nsp_xgboost"                  
-    ## [40] "bm_sp_sp_gam_armillaria"            
-    ## [41] "bm_sp_sp_gam_diplodia"              
-    ## [42] "bm_sp_sp_gam_fusarium"              
-    ## [43] "bm_sp_sp_gam_heterobasidion"        
-    ## [44] "bm_sp_sp_xgboost"                   
-    ## [45] "cv_inner_fiveF"                     
-    ## [46] "lrn_gam_armillaria_perf_non"        
-    ## [47] "lrn_gam_armillaria_pred"            
-    ## [48] "lrn_gam_diplodia_perf"              
-    ## [49] "lrn_gam_diplodia_perf_non"          
-    ## [50] "lrn_gam_diplodia_pred"              
-    ## [51] "lrn_gam_fusarium_perf"              
-    ## [52] "lrn_gam_fusarium_perf_non"          
-    ## [53] "lrn_gam_fusarium_pred"              
-    ## [54] "lrn_gam_heterobasidion_perf"        
-    ## [55] "lrn_gam_heterobasidion_perf_non"    
-    ## [56] "lrn_gam_heterobasidion_pred"        
-    ## [57] "prediction_gam_armillaria"          
-    ## [58] "prediction_gam_diplodia"            
-    ## [59] "prediction_gam_fusarium"            
-    ## [60] "prediction_gam_heterobasidion"      
-    ## [61] "prediction_glm"                     
-    ## [62] "prediction_kknn"                    
-    ## [63] "prediction_rf"                      
-    ## [64] "prediction_svm"                     
-    ## [65] "prediction_xgboost"                 
-    ## [66] "ps_gam_diplodia_fusarium"           
-    ## [67] "tune_ctrl_gam_100_diplodia_fusarium"
-    ## [68] "wrapper_brt_nsp"                    
-    ## [69] "wrapper_gam_armillaria_perf_nsp"    
-    ## [70] "wrapper_gam_diplodia_perf_nsp"      
-    ## [71] "wrapper_gam_diplodia_perf_sp"       
-    ## [72] "wrapper_gam_fusarium_perf_nsp"      
-    ## [73] "wrapper_gam_fusarium_perf_sp"       
-    ## [74] "wrapper_gam_heterobasidion_perf_nsp"
-    ## [75] "wrapper_gam_heterobasidion_perf_sp" 
-    ## [76] "wrapper_kknn_nsp"                   
-    ## [77] "wrapper_rf_nsp"                     
-    ## [78] "wrapper_svm_nsp"                    
-    ## [79] "wrapper_xgboost_nsp"
-
-If all intermediate objects should be visualized (not recommended):
-
-``` r
-vis_drake_graph(config) + ggpubr::theme_pubr()
-```
+-   The organisation of this compendium is based on the work of [Carl Boettiger](http://www.carlboettiger.info/) and [Ben Marwick](https://github.com/benmarwick).

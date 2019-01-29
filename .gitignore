@@ -1,10 +1,7 @@
-.Rhistory
-.RData
 .Rproj.user
-packrat/src/
 packrat/lib*/
-README.html
-.Rprofile
-data
+packrat/src/
+.RData
+analysis/data/raw_data
+analysis/data/derived_data
 .drake
-.httr-oauth

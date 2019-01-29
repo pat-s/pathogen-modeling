@@ -1,0 +1,17 @@
+Package: pathogen.modeling
+Title: Benchmarking of algorithms on different resampling stratgies
+Version: 0.0.0.9000
+Authors@R:
+    person(given = "Patrick",
+           family = "Schratz",
+           role = c("aut", "cre"),
+           email = "patrick.schratz@gmail.com")
+Description: What the package does (one paragraph)
+License: MIT + file LICENSE
+ByteCompile: true
+Encoding: UTF-8
+LazyData: true
+Imports: bookdown
+Suggests: 
+    testthat
+RoxygenNote: 6.1.1

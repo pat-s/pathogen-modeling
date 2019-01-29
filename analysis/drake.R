@@ -16,7 +16,7 @@ sourceDirectory("analysis/benchmark/")
 sourceDirectory("analysis/prediction/")
 sourceDirectory("analysis/reports/")
 
-sourceDirectory("analysis/drake-functions/")
+sourceDirectory("R/")
 source("https://raw.githubusercontent.com/mlr-org/mlr-extralearner/master/R/RLearner_classif_gam.R")
 
 # grouping for visualization

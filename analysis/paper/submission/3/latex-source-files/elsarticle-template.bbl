@@ -1,0 +1,940 @@
+\begin{thebibliography}{95}
+\expandafter\ifx\csname natexlab\endcsname\relax\def\natexlab#1{#1}\fi
+\providecommand{\url}[1]{\texttt{#1}}
+\providecommand{\href}[2]{#2}
+\providecommand{\path}[1]{#1}
+\providecommand{\DOIprefix}{doi:}
+\providecommand{\ArXivprefix}{arXiv:}
+\providecommand{\URLprefix}{URL: }
+\providecommand{\Pubmedprefix}{pmid:}
+\providecommand{\doi}[1]{\href{http://dx.doi.org/#1}{\path{#1}}}
+\providecommand{\Pubmed}[1]{\href{pmid:#1}{\path{#1}}}
+\providecommand{\bibinfo}[2]{#2}
+\ifx\xfnm\relax \def\xfnm[#1]{\unskip,\space#1}\fi
+%Type = Article
+\bibitem[{Adler et~al.(2017)Adler, Gefeller \& Uter}]{Alder2017}
+\bibinfo{author}{Adler, W.}, \bibinfo{author}{Gefeller, O.}, \&
+  \bibinfo{author}{Uter, W.} (\bibinfo{year}{2017}).
+\newblock \bibinfo{title}{Positive reactions to pairs of allergens associated
+  with polysensitization: Analysis of {{IVDK}} data with machine-learning
+  techniques}.
+\newblock {\it \bibinfo{journal}{Contact Dermatitis}\/},  {\it
+  \bibinfo{volume}{76}\/}, \bibinfo{pages}{247--251}.
+  \DOIprefix\doi{10/gdq9ms}.
+%Type = Article
+\bibitem[{Baasch et~al.(2010)Baasch, Tyre, Millspaugh, Hygnstrom \&
+  Vercauteren}]{Baasch2010}
+\bibinfo{author}{Baasch, D.~M.}, \bibinfo{author}{Tyre, A.~J.},
+  \bibinfo{author}{Millspaugh, J.~J.}, \bibinfo{author}{Hygnstrom, S.~E.}, \&
+  \bibinfo{author}{Vercauteren, K.~C.} (\bibinfo{year}{2010}).
+\newblock \bibinfo{title}{An evaluation of three statistical methods used to
+  model resource selection}.
+\newblock {\it \bibinfo{journal}{Ecological Modelling}\/},  {\it
+  \bibinfo{volume}{221}\/}, \bibinfo{pages}{565--574}.
+  \DOIprefix\doi{10/bxkrb6}.
+%Type = Article
+\bibitem[{Bahn \& McGill(2012)}]{Bahn2012}
+\bibinfo{author}{Bahn, V.}, \& \bibinfo{author}{McGill, B.~J.}
+  (\bibinfo{year}{2012}).
+\newblock \bibinfo{title}{Testing the predictive performance of distribution
+  models}.
+\newblock {\it \bibinfo{journal}{Oikos}\/},  {\it \bibinfo{volume}{122}\/},
+  \bibinfo{pages}{321--331}. \DOIprefix\doi{10/f4qs6h}.
+%Type = Article
+\bibitem[{Bengio(2000)}]{Bengio2000}
+\bibinfo{author}{Bengio, Y.} (\bibinfo{year}{2000}).
+\newblock \bibinfo{title}{Gradient-{{Based Optimization}} of
+  {{Hyperparameters}}}.
+\newblock {\it \bibinfo{journal}{Neural Computation}\/},  {\it
+  \bibinfo{volume}{12}\/}, \bibinfo{pages}{1889--1900}.
+  \DOIprefix\doi{10/d42j94}.
+%Type = Article
+\bibitem[{Bergstra \& Bengio(2012)}]{Bergstra2012}
+\bibinfo{author}{Bergstra, J.}, \& \bibinfo{author}{Bengio, Y.}
+  (\bibinfo{year}{2012}).
+\newblock \bibinfo{title}{Random {{Search}} for {{Hyper}}-parameter
+  {{Optimization}}}.
+\newblock {\it \bibinfo{journal}{J. Mach. Learn. Res.}\/},  {\it
+  \bibinfo{volume}{13}\/}, \bibinfo{pages}{281--305}.
+%Type = Article
+\bibitem[{Biau \& Scornet(2016)}]{Biau2016}
+\bibinfo{author}{Biau, G.}, \& \bibinfo{author}{Scornet, E.}
+  (\bibinfo{year}{2016}).
+\newblock \bibinfo{title}{A random forest guided tour}.
+\newblock {\it \bibinfo{journal}{TEST}\/},  {\it \bibinfo{volume}{25}\/},
+  \bibinfo{pages}{197--227}. \DOIprefix\doi{10/gdqdv3}.
+%Type = Inproceedings
+\bibitem[{Birattari et~al.(2002)Birattari, St\"utzle, Paquete \&
+  Varrentrapp}]{Birattari2002}
+\bibinfo{author}{Birattari, M.}, \bibinfo{author}{St\"utzle, T.},
+  \bibinfo{author}{Paquete, L.}, \& \bibinfo{author}{Varrentrapp, K.}
+  (\bibinfo{year}{2002}).
+\newblock \bibinfo{title}{A racing algorithm for configuring metaheuristics}.
+\newblock In {\it \bibinfo{booktitle}{Proceedings of the 4th {{Annual
+  Conference}} on {{Genetic}} and {{Evolutionary Computation}}}\/} (pp.
+  \bibinfo{pages}{11--18}).
+\newblock \bibinfo{organization}{{Morgan Kaufmann Publishers Inc.}}
+%Type = Article
+\bibitem[{Bischl et~al.(2016)Bischl, Lang, Kotthoff, Schiffner, Richter,
+  Studerus, Casalicchio \& Jones}]{bischlMlrMachineLearning2016}
+\bibinfo{author}{Bischl, B.}, \bibinfo{author}{Lang, M.},
+  \bibinfo{author}{Kotthoff, L.}, \bibinfo{author}{Schiffner, J.},
+  \bibinfo{author}{Richter, J.}, \bibinfo{author}{Studerus, E.},
+  \bibinfo{author}{Casalicchio, G.}, \& \bibinfo{author}{Jones, Z.~M.}
+  (\bibinfo{year}{2016}).
+\newblock \bibinfo{title}{mlr: Machine learning in {R}}.
+\newblock {\it \bibinfo{journal}{Journal of Machine Learning Research}\/},
+  {\it \bibinfo{volume}{17}\/}, \bibinfo{pages}{1--5}.
+%Type = Article
+\bibitem[{Bischl et~al.(2017)Bischl, Richter, Bossek, Horn, Thomas \&
+  Lang}]{mlrMBO}
+\bibinfo{author}{Bischl, B.}, \bibinfo{author}{Richter, J.},
+  \bibinfo{author}{Bossek, J.}, \bibinfo{author}{Horn, D.},
+  \bibinfo{author}{Thomas, J.}, \& \bibinfo{author}{Lang, M.}
+  (\bibinfo{year}{2017}).
+\newblock \bibinfo{title}{{{mlrMBO}}: {{A Modular Framework}} for
+  {{Model}}-{{Based Optimization}} of {{Expensive Black}}-{{Box Functions}}}.
+\newblock {\it \bibinfo{journal}{ArXiv e-prints}\/}, .
+  \href{http://arxiv.org/abs/1703.03373}{\tt arXiv:1703.03373}.
+%Type = Article
+\bibitem[{Breiman(2001)}]{Breiman2001}
+\bibinfo{author}{Breiman, L.} (\bibinfo{year}{2001}).
+\newblock \bibinfo{title}{Random {{Forests}}}.
+\newblock {\it \bibinfo{journal}{Machine Learning}\/},  {\it
+  \bibinfo{volume}{45}\/}, \bibinfo{pages}{5--32}. \DOIprefix\doi{10/d8zjwq}.
+%Type = Article
+\bibitem[{Brenning(2005)}]{Brenning2005}
+\bibinfo{author}{Brenning, A.} (\bibinfo{year}{2005}).
+\newblock \bibinfo{title}{Spatial prediction models for landslide hazards:
+  Review, comparison and evaluation}.
+\newblock {\it \bibinfo{journal}{Natural Hazards and Earth System Science}\/},
+  {\it \bibinfo{volume}{5}\/}, \bibinfo{pages}{853--862}.
+  \DOIprefix\doi{10/cjqtg8}.
+%Type = Inproceedings
+\bibitem[{Brenning(2012)}]{sperrorest}
+\bibinfo{author}{Brenning, A.} (\bibinfo{year}{2012}).
+\newblock \bibinfo{title}{Spatial cross-validation and bootstrap for the
+  assessment of prediction rules in remote sensing: {{The R}} package
+  sperrorest}.
+\newblock In {\it \bibinfo{booktitle}{2012 {{IEEE International Geoscience}}
+  and {{Remote Sensing Symposium}}}\/}.
+\newblock \bibinfo{publisher}{{IEEE}}.
+\newblock \DOIprefix\doi{10.1109/igarss.2012.6352393} \bibinfo{note}{{R}
+  package version 2.1.0}.
+%Type = Article
+\bibitem[{Brenning \& Lausen(2008)}]{Brenning2008}
+\bibinfo{author}{Brenning, A.}, \& \bibinfo{author}{Lausen, B.}
+  (\bibinfo{year}{2008}).
+\newblock \bibinfo{title}{Estimating error rates in the classification of
+  paired organs}.
+\newblock {\it \bibinfo{journal}{Statistics in Medicine}\/},  {\it
+  \bibinfo{volume}{27}\/}, \bibinfo{pages}{4515--4531}.
+  \DOIprefix\doi{10/dq5s7q}.
+\newblock \bibinfo{note}{00017}.
+%Type = Article
+\bibitem[{Brenning et~al.(2015)Brenning, Schwinn, {Ruiz-P\'aez} \&
+  Muenchow}]{brenning_landslide_2015}
+\bibinfo{author}{Brenning, A.}, \bibinfo{author}{Schwinn, M.},
+  \bibinfo{author}{{Ruiz-P\'aez}, A.~P.}, \& \bibinfo{author}{Muenchow, J.}
+  (\bibinfo{year}{2015}).
+\newblock \bibinfo{title}{Landslide susceptibility near highways is increased
+  by 1 order of magnitude in the {{Andes}} of southern {{Ecuador}}, {{Loja}}
+  province}.
+\newblock {\it \bibinfo{journal}{Natural Hazards and Earth System Sciences}\/},
+   {\it \bibinfo{volume}{15}\/}, \bibinfo{pages}{45--57}.
+  \DOIprefix\doi{10/f6zrvm}.
+\newblock \bibinfo{note}{00023}.
+%Type = Article
+\bibitem[{Brier(1950)}]{Brier1950}
+\bibinfo{author}{Brier, G.~W.} (\bibinfo{year}{1950}).
+\newblock \bibinfo{title}{Verification of forecasts expressed in terms of
+  probability}.
+\newblock {\it \bibinfo{journal}{Monthly Weather Review}\/},  {\it
+  \bibinfo{volume}{78}\/}, \bibinfo{pages}{1--3}. \DOIprefix\doi{10/fp62r6}.
+%Type = Article
+\bibitem[{Brochu et~al.(2010)Brochu, Cora \& {de Freitas}}]{Brochu2010}
+\bibinfo{author}{Brochu, E.}, \bibinfo{author}{Cora, V.~M.}, \&
+  \bibinfo{author}{{de Freitas}, N.} (\bibinfo{year}{2010}).
+\newblock \bibinfo{title}{A tutorial on {{Bayesian}} optimization of expensive
+  cost functions, with application to active user modeling and hierarchical
+  reinforcement learning}.
+\newblock {\it \bibinfo{journal}{CoRR}\/},  {\it
+  \bibinfo{volume}{abs/1012.2599}\/}.
+%Type = Article
+\bibitem[{Brungard et~al.(2015)Brungard, Boettinger, Duniway, Wills \&
+  Edwards}]{brungardMachineLearningPredicting2015}
+\bibinfo{author}{Brungard, C.~W.}, \bibinfo{author}{Boettinger, J.~L.},
+  \bibinfo{author}{Duniway, M.~C.}, \bibinfo{author}{Wills, S.~A.}, \&
+  \bibinfo{author}{Edwards, T.~C.} (\bibinfo{year}{2015}).
+\newblock \bibinfo{title}{Machine learning for predicting soil classes in three
+  semi-arid landscapes}.
+\newblock {\it \bibinfo{journal}{Geoderma}\/},  {\it
+  \bibinfo{volume}{239-240}\/}, \bibinfo{pages}{68--83}.
+  \DOIprefix\doi{10.1016/j.geoderma.2014.09.019}.
+%Type = Article
+\bibitem[{Bui et~al.(2015)Bui, Tuan, Klempe, Pradhan \& Revhaug}]{Bui2015}
+\bibinfo{author}{Bui, D.~T.}, \bibinfo{author}{Tuan, T.~A.},
+  \bibinfo{author}{Klempe, H.}, \bibinfo{author}{Pradhan, B.}, \&
+  \bibinfo{author}{Revhaug, I.} (\bibinfo{year}{2015}).
+\newblock \bibinfo{title}{Spatial prediction models for shallow landslide
+  hazards: A comparative assessment of the efficacy of support vector machines,
+  artificial neural networks, kernel logistic regression, and logistic model
+  tree}.
+\newblock {\it \bibinfo{journal}{Landslides}\/},  {\it \bibinfo{volume}{13}\/},
+  \bibinfo{pages}{361--378}. \DOIprefix\doi{10/f8nfwf}.
+%Type = Article
+\bibitem[{Burman et~al.(1994)Burman, Chow \& Nolan}]{Burman1994}
+\bibinfo{author}{Burman, P.}, \bibinfo{author}{Chow, E.}, \&
+  \bibinfo{author}{Nolan, D.} (\bibinfo{year}{1994}).
+\newblock \bibinfo{title}{A cross-validatory method for dependent data}.
+\newblock {\it \bibinfo{journal}{Biometrika}\/},  {\it \bibinfo{volume}{81}\/},
+  \bibinfo{pages}{351--358}. \DOIprefix\doi{10/fbfnmd}.
+%Type = Article
+\bibitem[{Byrne(2016)}]{Byrne2016}
+\bibinfo{author}{Byrne, S.} (\bibinfo{year}{2016}).
+\newblock \bibinfo{title}{A note on the use of empirical {{AUC}} for evaluating
+  probabilistic forecasts}.
+\newblock {\it \bibinfo{journal}{Electronic Journal of Statistics}\/},  {\it
+  \bibinfo{volume}{10}\/}, \bibinfo{pages}{380--393}.
+  \DOIprefix\doi{10/gdq9mw}.
+%Type = Article
+\bibitem[{Cliff \& Ord(1970)}]{Cliff1970}
+\bibinfo{author}{Cliff, A.~D.}, \& \bibinfo{author}{Ord, K.}
+  (\bibinfo{year}{1970}).
+\newblock \bibinfo{title}{Spatial autocorrelation: {{A Review}} of existing and
+  new measures with applications}.
+\newblock {\it \bibinfo{journal}{Economic Geography}\/},  {\it
+  \bibinfo{volume}{46}\/}, \bibinfo{pages}{269}. \DOIprefix\doi{10/d93r2k}.
+%Type = Article
+\bibitem[{Dormann(2007)}]{Dormann2007b}
+\bibinfo{author}{Dormann, C.~F.} (\bibinfo{year}{2007}).
+\newblock \bibinfo{title}{Effects of incorporating spatial autocorrelation into
+  the analysis of species distribution data}.
+\newblock {\it \bibinfo{journal}{Global Ecology and Biogeography}\/},  {\it
+  \bibinfo{volume}{16}\/}, \bibinfo{pages}{129--138}.
+  \DOIprefix\doi{10/czthw3}.
+%Type = Article
+\bibitem[{Dormann et~al.(2007)Dormann, McPherson, Ara\'ujo, Bivand, Bolliger,
+  Carl, Davies, Hirzel, Jetz, Kissling, K\"uhn, Ohlem\"uller, {Peres-Neto},
+  Reineking, Schr\"oder, Schurr \& Wilson}]{Dormann2007}
+\bibinfo{author}{Dormann, C.~F.}, \bibinfo{author}{McPherson, J.~M.},
+  \bibinfo{author}{Ara\'ujo, M.~B.}, \bibinfo{author}{Bivand, R.},
+  \bibinfo{author}{Bolliger, J.}, \bibinfo{author}{Carl, G.},
+  \bibinfo{author}{Davies, R.~G.}, \bibinfo{author}{Hirzel, A.},
+  \bibinfo{author}{Jetz, W.}, \bibinfo{author}{Kissling, W.~D.},
+  \bibinfo{author}{K\"uhn, I.}, \bibinfo{author}{Ohlem\"uller, R.},
+  \bibinfo{author}{{Peres-Neto}, P.~R.}, \bibinfo{author}{Reineking, B.},
+  \bibinfo{author}{Schr\"oder, B.}, \bibinfo{author}{Schurr, F.~M.}, \&
+  \bibinfo{author}{Wilson, R.} (\bibinfo{year}{2007}).
+\newblock \bibinfo{title}{Methods to account for spatial autocorrelation in the
+  analysis of species distributional data: A review}.
+\newblock {\it \bibinfo{journal}{Ecography}\/},  {\it \bibinfo{volume}{30}\/},
+  \bibinfo{pages}{609--628}. \DOIprefix\doi{10/bnfhck}.
+%Type = Article
+\bibitem[{Duarte \& Wainer(2017)}]{Duarte2017}
+\bibinfo{author}{Duarte, E.}, \& \bibinfo{author}{Wainer, J.}
+  (\bibinfo{year}{2017}).
+\newblock \bibinfo{title}{Empirical comparison of cross-validation and internal
+  metrics for tuning {{SVM}} hyperparameters}.
+\newblock {\it \bibinfo{journal}{Pattern Recognition Letters}\/},  {\it
+  \bibinfo{volume}{88}\/}, \bibinfo{pages}{6--11}. \DOIprefix\doi{10/f9xpcm}.
+%Type = Article
+\bibitem[{Dudani(1976)}]{Dudani1976}
+\bibinfo{author}{Dudani, S.~A.} (\bibinfo{year}{1976}).
+\newblock \bibinfo{title}{The distance-weighted k-{{Nearest}}-{{Neighbor}}
+  rule}.
+\newblock {\it \bibinfo{journal}{IEEE Transactions on Systems, Man, and
+  Cybernetics}\/},  {\it \bibinfo{volume}{SMC-6}\/}, \bibinfo{pages}{325--327}.
+  \DOIprefix\doi{10/bjz668}.
+%Type = Article
+\bibitem[{Efron(1983)}]{Efron1983}
+\bibinfo{author}{Efron, B.} (\bibinfo{year}{1983}).
+\newblock \bibinfo{title}{Estimating the error rate of a prediction rule:
+  {{Improvement}} on cross-validation}.
+\newblock {\it \bibinfo{journal}{Journal of the American Statistical
+  Association}\/},  {\it \bibinfo{volume}{78}\/}, \bibinfo{pages}{316}.
+  \DOIprefix\doi{10/dsdfkt}.
+%Type = Article
+\bibitem[{Elith et~al.(2008)Elith, Leathwick \& Hastie}]{Elith2008}
+\bibinfo{author}{Elith, J.}, \bibinfo{author}{Leathwick, J.~R.}, \&
+  \bibinfo{author}{Hastie, T.} (\bibinfo{year}{2008}).
+\newblock \bibinfo{title}{A working guide to boosted regression trees}.
+\newblock {\it \bibinfo{journal}{Journal of Animal Ecology}\/},  {\it
+  \bibinfo{volume}{77}\/}, \bibinfo{pages}{802--813}.
+  \DOIprefix\doi{10/fn6m6v}.
+%Type = Book
+\bibitem[{European~Commission(2010)}]{ph}
+\bibinfo{author}{European~Commission, J. R.~C.} (\bibinfo{year}{2010}).
+\newblock {\it \bibinfo{title}{'{{Map}} of {{Soil pH}} in {{Europe}}', {{Land
+  Resources Management Unit}}, {{Institute}} for {{Environment}} \&
+  {{Sustainability}}}\/}.
+\newblock \bibinfo{note}{00000}.
+%Type = Article
+\bibitem[{Ganley et~al.(2009)Ganley, Watt, Manning \& Iturritxa}]{Ganley2009}
+\bibinfo{author}{Ganley, R.~J.}, \bibinfo{author}{Watt, M.~S.},
+  \bibinfo{author}{Manning, L.}, \& \bibinfo{author}{Iturritxa, E.}
+  (\bibinfo{year}{2009}).
+\newblock \bibinfo{title}{A global climatic risk assessment of pitch canker
+  disease}.
+\newblock {\it \bibinfo{journal}{Canadian Journal of Forest Research}\/},  {\it
+  \bibinfo{volume}{39}\/}, \bibinfo{pages}{2246--2256}.
+  \DOIprefix\doi{10/bmj3nk}.
+%Type = Article
+\bibitem[{Ganuza \& Almendros(2003)}]{Ganuza2003}
+\bibinfo{author}{Ganuza, A.}, \& \bibinfo{author}{Almendros, G.}
+  (\bibinfo{year}{2003}).
+\newblock \bibinfo{title}{Organic carbon storage in soils of the {{Basque
+  Country}} ({{Spain}}): {{The}} effect of climate, vegetation type and edaphic
+  variables}.
+\newblock {\it \bibinfo{journal}{Biol. Fertil. Soils}\/},  {\it
+  \bibinfo{volume}{37}\/}, \bibinfo{pages}{154--162}.
+  \DOIprefix\doi{10/dqjnk3}.
+%Type = Article
+\bibitem[{Gei\ss et~al.(2017)Gei\ss, Pelizari, Schrade, Brenning \&
+  Taubenb\"ock}]{Geiss2017}
+\bibinfo{author}{Gei\ss, C.}, \bibinfo{author}{Pelizari, P.~A.},
+  \bibinfo{author}{Schrade, H.}, \bibinfo{author}{Brenning, A.}, \&
+  \bibinfo{author}{Taubenb\"ock, H.} (\bibinfo{year}{2017}).
+\newblock \bibinfo{title}{On the effect of spatially non-disjoint training and
+  test samples on estimated model generalization capabilities in supervised
+  classification with spatial features}.
+\newblock {\it \bibinfo{journal}{IEEE Geoscience and Remote Sensing
+  Letters}\/},  {\it \bibinfo{volume}{14}\/}, \bibinfo{pages}{2008--2012}.
+  \DOIprefix\doi{10/gdq9m2}.
+%Type = Book
+\bibitem[{{GeoEuskadi}(1999)}]{lithology}
+\bibinfo{author}{{GeoEuskadi}} (\bibinfo{year}{1999}).
+\newblock {\it \bibinfo{title}{Litologia y Permeabilidad}\/}.
+%Type = Article
+\bibitem[{Gneiting \& Raftery(2007)}]{Gneiting2007}
+\bibinfo{author}{Gneiting, T.}, \& \bibinfo{author}{Raftery, A.~E.}
+  (\bibinfo{year}{2007}).
+\newblock \bibinfo{title}{Strictly proper scoring rules, prediction, and
+  estimation}.
+\newblock {\it \bibinfo{journal}{Journal of the American Statistical
+  Association}\/},  {\it \bibinfo{volume}{102}\/}, \bibinfo{pages}{359--378}.
+  \DOIprefix\doi{10/c6758w}.
+%Type = Incollection
+\bibitem[{Goetz et~al.(2015)Goetz, Cabrera, Brenning, Heiss \&
+  Leopold}]{Goetz2015}
+\bibinfo{author}{Goetz, J.~N.}, \bibinfo{author}{Cabrera, R.},
+  \bibinfo{author}{Brenning, A.}, \bibinfo{author}{Heiss, G.}, \&
+  \bibinfo{author}{Leopold, P.} (\bibinfo{year}{2015}).
+\newblock \bibinfo{title}{Modelling landslide susceptibility for a large
+  geographical area using weights of evidence in lower {{Austria}},
+  {{Austria}}}.
+\newblock In {\it \bibinfo{booktitle}{Engineering {{Geology}} for {{Society}}
+  and {{Territory}} - {{Volume}} 2}\/} (pp. \bibinfo{pages}{927--930}).
+\newblock \bibinfo{publisher}{{Springer International Publishing}}.
+\newblock \DOIprefix\doi{10.1007/978-3-319-09057-3_160}.
+%Type = Article
+\bibitem[{Gordon et~al.(1984)Gordon, Breiman, Friedman, Olshen \&
+  Stone}]{Gordon1984}
+\bibinfo{author}{Gordon, A.~D.}, \bibinfo{author}{Breiman, L.},
+  \bibinfo{author}{Friedman, J.~H.}, \bibinfo{author}{Olshen, R.~A.}, \&
+  \bibinfo{author}{Stone, C.~J.} (\bibinfo{year}{1984}).
+\newblock \bibinfo{title}{Classification and {{Regression Trees}}.}
+\newblock {\it \bibinfo{journal}{Biometrics}\/},  {\it \bibinfo{volume}{40}\/},
+  \bibinfo{pages}{874}. \DOIprefix\doi{10/b6z2qx}.
+%Type = Incollection
+\bibitem[{Grotzinger \& Jordan(2016)}]{Grotzinger2016}
+\bibinfo{author}{Grotzinger, J.}, \& \bibinfo{author}{Jordan, T.}
+  (\bibinfo{year}{2016}).
+\newblock \bibinfo{title}{Sedimente und {{Sedimentgesteine}}}.
+\newblock In {\it \bibinfo{booktitle}{Press/{{Siever Allgemeine Geologie}}}\/}
+  (pp. \bibinfo{pages}{113--144}).
+\newblock \bibinfo{publisher}{{Springer Berlin Heidelberg}}.
+\newblock \DOIprefix\doi{10.1007/978-3-662-48342-8_5} \bibinfo{note}{00001}.
+%Type = Article
+\bibitem[{Halvorsen et~al.(2016)Halvorsen, Mazzoni, Dirksen, N\ae{}sset,
+  Gobakken \& Ohlson}]{Halvorsen2016}
+\bibinfo{author}{Halvorsen, R.}, \bibinfo{author}{Mazzoni, S.},
+  \bibinfo{author}{Dirksen, J.~W.}, \bibinfo{author}{N\ae{}sset, E.},
+  \bibinfo{author}{Gobakken, T.}, \& \bibinfo{author}{Ohlson, M.}
+  (\bibinfo{year}{2016}).
+\newblock \bibinfo{title}{How important are choice of model selection method
+  and spatial autocorrelation of presence data for distribution modelling by
+  {{MaxEnt}}?}
+\newblock {\it \bibinfo{journal}{Ecological Modelling}\/},  {\it
+  \bibinfo{volume}{328}\/}, \bibinfo{pages}{108--118}.
+  \DOIprefix\doi{10/gcz75b}.
+%Type = Article
+\bibitem[{Heim et~al.(2018)Heim, Wright, Chang, Carnegie, Pegg, Lancaster,
+  Falster \& Oldeland}]{heimDetectingMyrtleRust2018}
+\bibinfo{author}{Heim, R. H.~J.}, \bibinfo{author}{Wright, I.~J.},
+  \bibinfo{author}{Chang, H.-C.}, \bibinfo{author}{Carnegie, A.~J.},
+  \bibinfo{author}{Pegg, G.~S.}, \bibinfo{author}{Lancaster, E.~K.},
+  \bibinfo{author}{Falster, D.~S.}, \& \bibinfo{author}{Oldeland, J.}
+  (\bibinfo{year}{2018}).
+\newblock \bibinfo{title}{Detecting myrtle rust ({{Austropuccinia}} psidii) on
+  lemon myrtle trees using spectral signatures and machine learning}.
+\newblock {\it \bibinfo{journal}{Plant Pathology}\/},  {\it
+  \bibinfo{volume}{67}\/}, \bibinfo{pages}{1114--1121}.
+  \DOIprefix\doi{10.1111/ppa.12830}.
+%Type = Article
+\bibitem[{Hengl et~al.(2017)Hengl, {de Jesus}, Heuvelink, Gonzalez, Kilibarda,
+  Blagoti\'c, Shangguan, Wright, Geng, {Bauer-Marschallinger}, Guevara, Vargas,
+  MacMillan, Batjes, Leenaars, Ribeiro, Wheeler, Mantel \& Kempen}]{Hengl2017}
+\bibinfo{author}{Hengl, T.}, \bibinfo{author}{{de Jesus}, J.~M.},
+  \bibinfo{author}{Heuvelink, G. B.~M.}, \bibinfo{author}{Gonzalez, M.~R.},
+  \bibinfo{author}{Kilibarda, M.}, \bibinfo{author}{Blagoti\'c, A.},
+  \bibinfo{author}{Shangguan, W.}, \bibinfo{author}{Wright, M.~N.},
+  \bibinfo{author}{Geng, X.}, \bibinfo{author}{{Bauer-Marschallinger}, B.},
+  \bibinfo{author}{Guevara, M.~A.}, \bibinfo{author}{Vargas, R.},
+  \bibinfo{author}{MacMillan, R.~A.}, \bibinfo{author}{Batjes, N.~H.},
+  \bibinfo{author}{Leenaars, J. G.~B.}, \bibinfo{author}{Ribeiro, E.},
+  \bibinfo{author}{Wheeler, I.}, \bibinfo{author}{Mantel, S.}, \&
+  \bibinfo{author}{Kempen, B.} (\bibinfo{year}{2017}).
+\newblock \bibinfo{title}{{{SoilGrids250m}}: {{Global}} gridded soil
+  information based on machine learning}.
+\newblock {\it \bibinfo{journal}{PLOS ONE}\/},  {\it \bibinfo{volume}{12}\/},
+  \bibinfo{pages}{e0169748}. \DOIprefix\doi{10/f9qc5p}.
+%Type = Incollection
+\bibitem[{Hutter et~al.(2011)Hutter, Hoos \& {Leyton-Brown}}]{Hutter2011}
+\bibinfo{author}{Hutter, F.}, \bibinfo{author}{Hoos, H.~H.}, \&
+  \bibinfo{author}{{Leyton-Brown}, K.} (\bibinfo{year}{2011}).
+\newblock \bibinfo{title}{Sequential model-based optimization for general
+  algorithm configuration}.
+\newblock In {\it \bibinfo{booktitle}{Lecture {{Notes}} in {{Computer
+  Science}}}\/} (pp. \bibinfo{pages}{507--523}).
+\newblock \bibinfo{publisher}{{Springer Berlin Heidelberg}}.
+\newblock \DOIprefix\doi{10.1007/978-3-642-25566-3_40} \bibinfo{note}{00678}.
+%Type = Incollection
+\bibitem[{{IPCC}(2013)}]{ipccSummaryPolicymakers2013}
+\bibinfo{author}{{IPCC}} (\bibinfo{year}{2013}).
+\newblock \bibinfo{title}{Summary for {{Policymakers}}}.
+\newblock In \bibinfo{editor}{T.~Stocker}, \bibinfo{editor}{D.~Qin},
+  \bibinfo{editor}{G.-K. Plattner}, \bibinfo{editor}{M.~Tignor},
+  \bibinfo{editor}{S.~Allen}, \bibinfo{editor}{J.~Boschung},
+  \bibinfo{editor}{A.~Nauels}, \bibinfo{editor}{Y.~Xia},
+  \bibinfo{editor}{V.~Bex}, \& \bibinfo{editor}{P.~Midgley} (Eds.), {\it
+  \bibinfo{booktitle}{Climate {{Change}} 2013: {{The Physical Science Basis}}.
+  {{Contribution}} of {{Working Group I}} to the {{Fifth Assessment Report}} of
+  the {{Intergovernmental Panel}} on {{Climate Change}}}\/} \bibinfo{type}{book
+  section} \bibinfo{chapter}{SPM}. (pp. \bibinfo{pages}{1--30}).
+\newblock \bibinfo{address}{Cambridge, United Kingdom and New York, NY, USA}:
+  \bibinfo{publisher}{{Cambridge University Press}}.
+\newblock \DOIprefix\doi{10.1017/CBO9781107415324.004} \bibinfo{note}{00014}.
+%Type = Article
+\bibitem[{Iturritxa et~al.(2014)Iturritxa, Mesanza \& Brenning}]{Iturritxa2014}
+\bibinfo{author}{Iturritxa, E.}, \bibinfo{author}{Mesanza, N.}, \&
+  \bibinfo{author}{Brenning, A.} (\bibinfo{year}{2014}).
+\newblock \bibinfo{title}{Spatial analysis of the risk of major forest diseases
+  in {{Monterey}} pine plantations}.
+\newblock {\it \bibinfo{journal}{Plant Pathology}\/},  {\it
+  \bibinfo{volume}{64}\/}, \bibinfo{pages}{880--889}.
+  \DOIprefix\doi{10/gdq9pb}.
+%Type = Book
+\bibitem[{James et~al.(2013)James, Witten, Hastie \& Tibshirani}]{James2013}
+\bibinfo{author}{James, G.}, \bibinfo{author}{Witten, D.},
+  \bibinfo{author}{Hastie, T.}, \& \bibinfo{author}{Tibshirani, R.}
+  (\bibinfo{year}{2013}).
+\newblock {\it \bibinfo{title}{An {{Introduction}} to {{Statistical
+  Learning}}}\/}.
+\newblock \bibinfo{publisher}{{Springer New York}}.
+\newblock \DOIprefix\doi{10.1007/978-1-4614-7138-7} \bibinfo{note}{02966}.
+%Type = Article
+\bibitem[{Jarnevich et~al.(2017)Jarnevich, Talbert, Morisette, Aldridge, Brown,
+  Kumar, Manier, Talbert \& Holcombe}]{Jarnevich2017}
+\bibinfo{author}{Jarnevich, C.~S.}, \bibinfo{author}{Talbert, M.},
+  \bibinfo{author}{Morisette, J.}, \bibinfo{author}{Aldridge, C.},
+  \bibinfo{author}{Brown, C.~S.}, \bibinfo{author}{Kumar, S.},
+  \bibinfo{author}{Manier, D.}, \bibinfo{author}{Talbert, C.}, \&
+  \bibinfo{author}{Holcombe, T.} (\bibinfo{year}{2017}).
+\newblock \bibinfo{title}{Minimizing effects of methodological decisions on
+  interpretation and prediction in species distribution studies: {{An}} example
+  with background selection}.
+\newblock {\it \bibinfo{journal}{Ecological Modelling}\/},  {\it
+  \bibinfo{volume}{363}\/}, \bibinfo{pages}{48--56}. \DOIprefix\doi{10/gcg2ff}.
+%Type = Article
+\bibitem[{Jones et~al.(1998)Jones, Schonlau \& Welch}]{Jones1998}
+\bibinfo{author}{Jones, D.~R.}, \bibinfo{author}{Schonlau, M.}, \&
+  \bibinfo{author}{Welch, W.~J.} (\bibinfo{year}{1998}).
+\newblock \bibinfo{title}{Efficient global optimization of expensive black-box
+  functions}.
+\newblock {\it \bibinfo{journal}{Journal of Global Optimization}\/},  {\it
+  \bibinfo{volume}{13}\/}, \bibinfo{pages}{455--492}.
+  \DOIprefix\doi{10/fg68nc}.
+%Type = Article
+\bibitem[{Karatzoglou et~al.(2004)Karatzoglou, Smola, Hornik \&
+  Zeileis}]{kernlab}
+\bibinfo{author}{Karatzoglou, A.}, \bibinfo{author}{Smola, A.},
+  \bibinfo{author}{Hornik, K.}, \& \bibinfo{author}{Zeileis, A.}
+  (\bibinfo{year}{2004}).
+\newblock \bibinfo{title}{Kernlab -- {{An S4 Package}} for {{Kernel Methods}}
+  in {{R}}}.
+\newblock {\it \bibinfo{journal}{Journal of Statistical Software}\/},  {\it
+  \bibinfo{volume}{11}\/}, \bibinfo{pages}{1--20}. \DOIprefix\doi{10/gdq9pc}.
+\newblock \bibinfo{note}{R package version 0.9-25}.
+%Type = Inproceedings
+\bibitem[{Kohavi et~al.(1995)}]{Kohavi1995}
+\bibinfo{author}{Kohavi, R.} et~al. (\bibinfo{year}{1995}).
+\newblock \bibinfo{title}{A study of cross-validation and bootstrap for
+  accuracy estimation and model selection}.
+\newblock In {\it \bibinfo{booktitle}{Ijcai}\/} (pp.
+  \bibinfo{pages}{1137--1145}).
+\newblock \bibinfo{organization}{{Stanford, CA}} volume~\bibinfo{volume}{14}.
+%Type = Book
+\bibitem[{Kuhn \& Johnson(2013)}]{Kuhn2013}
+\bibinfo{author}{Kuhn, M.}, \& \bibinfo{author}{Johnson, K.}
+  (\bibinfo{year}{2013}).
+\newblock {\it \bibinfo{title}{Applied {{Predictive Modeling}}}\/}.
+\newblock \bibinfo{publisher}{{Springer New York}}.
+\newblock \DOIprefix\doi{10.1007/978-1-4614-6849-3} \bibinfo{note}{01181}.
+%Type = Article
+\bibitem[{Legendre(1993)}]{Legendre1993}
+\bibinfo{author}{Legendre, P.} (\bibinfo{year}{1993}).
+\newblock \bibinfo{title}{Spatial autocorrelation: {{Trouble}} or new
+  paradigm?}
+\newblock {\it \bibinfo{journal}{Ecology}\/},  {\it \bibinfo{volume}{74}\/},
+  \bibinfo{pages}{1659--1673}. \DOIprefix\doi{10/fsm4n5}.
+%Type = Article
+\bibitem[{Legendre \& Fortin(1989)}]{Legendre1989}
+\bibinfo{author}{Legendre, P.}, \& \bibinfo{author}{Fortin, M.~J.}
+  (\bibinfo{year}{1989}).
+\newblock \bibinfo{title}{Spatial pattern and ecological analysis}.
+\newblock {\it \bibinfo{journal}{Vegetatio}\/},  {\it \bibinfo{volume}{80}\/},
+  \bibinfo{pages}{107--138}. \DOIprefix\doi{10/ccpkqj}.
+%Type = Article
+\bibitem[{Loehle(2018)}]{loehleDisequilibriumRelaxationTimes2018}
+\bibinfo{author}{Loehle, C.} (\bibinfo{year}{2018}).
+\newblock \bibinfo{title}{Disequilibrium and relaxation times for species
+  responses to climate change}.
+\newblock {\it \bibinfo{journal}{Ecological Modelling}\/},  {\it
+  \bibinfo{volume}{384}\/}, \bibinfo{pages}{23--29}. \DOIprefix\doi{10/gdvmpx}.
+\newblock \bibinfo{note}{00000}.
+%Type = Incollection
+\bibitem[{Malkomes et~al.(2016)Malkomes, Schaff \& Garnett}]{Malkomes2016}
+\bibinfo{author}{Malkomes, G.}, \bibinfo{author}{Schaff, C.}, \&
+  \bibinfo{author}{Garnett, R.} (\bibinfo{year}{2016}).
+\newblock \bibinfo{title}{Bayesian optimization for automated model selection}.
+\newblock In \bibinfo{editor}{D.~D. Lee}, \bibinfo{editor}{M.~Sugiyama},
+  \bibinfo{editor}{U.~V. Luxburg}, \bibinfo{editor}{I.~Guyon}, \&
+  \bibinfo{editor}{R.~Garnett} (Eds.), {\it \bibinfo{booktitle}{Advances in
+  {{Neural Information Processing Systems}} 29}\/} (pp.
+  \bibinfo{pages}{2900--2908}).
+\newblock \bibinfo{publisher}{{Curran Associates, Inc.}}
+%Type = Article
+\bibitem[{Mets et~al.(2017)Mets, Armenteras \& D\'avalos}]{Mets2017}
+\bibinfo{author}{Mets, K.~D.}, \bibinfo{author}{Armenteras, D.}, \&
+  \bibinfo{author}{D\'avalos, L.~M.} (\bibinfo{year}{2017}).
+\newblock \bibinfo{title}{Spatial autocorrelation reduces model precision and
+  predictive power in deforestation analyses}.
+\newblock {\it \bibinfo{journal}{Ecosphere}\/},  {\it \bibinfo{volume}{8}\/},
+  \bibinfo{pages}{e01824}. \DOIprefix\doi{10.1002/ecs2.1824}.
+\newblock \bibinfo{note}{00002}.
+%Type = Article
+\bibitem[{Meyer et~al.(2018)Meyer, Reudenbach, Hengl, Katurji \&
+  Nauss}]{Meyer2018}
+\bibinfo{author}{Meyer, H.}, \bibinfo{author}{Reudenbach, C.},
+  \bibinfo{author}{Hengl, T.}, \bibinfo{author}{Katurji, M.}, \&
+  \bibinfo{author}{Nauss, T.} (\bibinfo{year}{2018}).
+\newblock \bibinfo{title}{Improving performance of spatio-temporal machine
+  learning models using forward feature selection and target-oriented
+  validation}.
+\newblock {\it \bibinfo{journal}{Environmental Modelling \& Software}\/},  {\it
+  \bibinfo{volume}{101}\/}, \bibinfo{pages}{1--9}.
+  \DOIprefix\doi{10.1016/j.envsoft.2017.12.001}.
+\newblock \bibinfo{note}{00004}.
+%Type = Article
+\bibitem[{Micheletti et~al.(2013)Micheletti, Foresti, Robert, Leuenberger,
+  Pedrazzini, Jaboyedoff \& Kanevski}]{Micheletti2013}
+\bibinfo{author}{Micheletti, N.}, \bibinfo{author}{Foresti, L.},
+  \bibinfo{author}{Robert, S.}, \bibinfo{author}{Leuenberger, M.},
+  \bibinfo{author}{Pedrazzini, A.}, \bibinfo{author}{Jaboyedoff, M.}, \&
+  \bibinfo{author}{Kanevski, M.} (\bibinfo{year}{2013}).
+\newblock \bibinfo{title}{Machine learning feature selection methods for
+  landslide susceptibility mapping}.
+\newblock {\it \bibinfo{journal}{Mathematical Geosciences}\/},  {\it
+  \bibinfo{volume}{46}\/}, \bibinfo{pages}{33--57}. \DOIprefix\doi{10/gdq9pf}.
+%Type = Article
+\bibitem[{Muenchow et~al.(2018)Muenchow, Dieker, Kluge, Kessler \& von
+  Wehrden}]{muenchowReviewEcologicalGradient2018}
+\bibinfo{author}{Muenchow, J.}, \bibinfo{author}{Dieker, P.},
+  \bibinfo{author}{Kluge, J.}, \bibinfo{author}{Kessler, M.}, \&
+  \bibinfo{author}{von Wehrden, H.} (\bibinfo{year}{2018}).
+\newblock \bibinfo{title}{A review of ecological gradient research in the
+  {{Tropics}}: Identifying research gaps, future directions, and conservation
+  priorities}.
+\newblock {\it \bibinfo{journal}{Biodiversity and Conservation}\/},  {\it
+  \bibinfo{volume}{27}\/}, \bibinfo{pages}{273--285}.
+  \DOIprefix\doi{10/gcthf9}.
+\newblock \bibinfo{note}{00001}.
+%Type = Article
+\bibitem[{Muenchow et~al.(2013)Muenchow, Feilhauer, Br\"auning, Rodr\'iguez,
+  Bayer, Rodr\'iguez \& Wehrden}]{muenchow_coupling_2013}
+\bibinfo{author}{Muenchow, J.}, \bibinfo{author}{Feilhauer, H.},
+  \bibinfo{author}{Br\"auning, A.}, \bibinfo{author}{Rodr\'iguez, E.~F.},
+  \bibinfo{author}{Bayer, F.}, \bibinfo{author}{Rodr\'iguez, R.~A.}, \&
+  \bibinfo{author}{Wehrden, H.} (\bibinfo{year}{2013}).
+\newblock \bibinfo{title}{Coupling ordination techniques and {{GAM}} to
+  spatially predict vegetation assemblages along a climatic gradient in an
+  {{ENSO}}-affected region of extremely high climate variability}.
+\newblock {\it \bibinfo{journal}{Journal of vegetation science}\/},  {\it
+  \bibinfo{volume}{24}\/}, \bibinfo{pages}{1154--1166}.
+\newblock \bibinfo{note}{00015}.
+%Type = Book
+\bibitem[{M\'ugica et~al.(2016)M\'ugica, Murillo, Ikazuriaga, Pe\~na,
+  Rodr\'iguez \& D\'iaz}]{Mugica2016}
+\bibinfo{author}{M\'ugica, J. R.~M.}, \bibinfo{author}{Murillo, J.~A.},
+  \bibinfo{author}{Ikazuriaga, I.~A.}, \bibinfo{author}{Pe\~na, B.~n.~E.},
+  \bibinfo{author}{Rodr\'iguez, A.~F.}, \& \bibinfo{author}{D\'iaz, J.~M.}
+  (\bibinfo{year}{2016}).
+\newblock {\it \bibinfo{title}{Libro Blanco Del Sector de La Madera: Actividad
+  Forestal e Industria de Transformaci\'on de La Madera. {{Evoluci\'on}}
+  Reciente y Perspectivas En {{Euskadi}}}\/}.
+\newblock \bibinfo{publisher}{{Eusko Jaurlaritzaren Argitalpen Zerbitzu
+  Nagusia, Servicio Central de Publicaciones del Gobierno VAsco, C/
+  Donostia-San Sebasti\'an 1, 01010 Vitoria-Gasteiz}}.
+\newblock \bibinfo{note}{00000}.
+%Type = Article
+\bibitem[{Murase et~al.(2009)Murase, Nagashima, Yonezaki, Matsukura \&
+  Kitakado}]{muraseApplicationGeneralizedAdditive2009}
+\bibinfo{author}{Murase, H.}, \bibinfo{author}{Nagashima, H.},
+  \bibinfo{author}{Yonezaki, S.}, \bibinfo{author}{Matsukura, R.}, \&
+  \bibinfo{author}{Kitakado, T.} (\bibinfo{year}{2009}).
+\newblock \bibinfo{title}{Application of a generalized additive model ({{GAM}})
+  to reveal relationships between environmental factors and distributions of
+  pelagic fish and krill: A case study in {{Sendai Bay}}, {{Japan}}}.
+\newblock {\it \bibinfo{journal}{ICES Journal of Marine Science}\/},  {\it
+  \bibinfo{volume}{66}\/}, \bibinfo{pages}{1417--1424}.
+  \DOIprefix\doi{10/bvgptw}.
+\newblock \bibinfo{note}{00065}.
+%Type = Article
+\bibitem[{Naghibi et~al.(2016)Naghibi, Pourghasemi \& Dixon}]{Naghibi2016}
+\bibinfo{author}{Naghibi, S.~A.}, \bibinfo{author}{Pourghasemi, H.~R.}, \&
+  \bibinfo{author}{Dixon, B.} (\bibinfo{year}{2016}).
+\newblock \bibinfo{title}{{{GIS}}-based groundwater potential mapping using
+  boosted regression tree, classification and regression tree, and random
+  forest machine learning models in {{Iran}}}.
+\newblock {\it \bibinfo{journal}{Environmental monitoring and assessment}\/},
+  {\it \bibinfo{volume}{188}\/}, \bibinfo{pages}{44}.
+%Type = Book
+\bibitem[{Ninyerola et~al.(2005)Ninyerola, Pons \& Roure}]{Ninyerola2005}
+\bibinfo{author}{Ninyerola, M.}, \bibinfo{author}{Pons, X.}, \&
+  \bibinfo{author}{Roure, J.} (\bibinfo{year}{2005}).
+\newblock {\it \bibinfo{title}{Atlas {{Clim\'atico}} Digital de Lapen\'insula
+  Ib\'erica. {{Metodolog\'ia}} y Aplicaciones En Bioclimatolog\'ia y
+  Geobot\'anica.}\/}.
+\newblock \bibinfo{publisher}{{Universidad Aut\'onoma de Barcelona,
+  Bellaterra}}.
+\newblock \bibinfo{note}{00000}.
+%Type = Article
+\bibitem[{Pe\~na \& Brenning(2015)}]{Pena2015}
+\bibinfo{author}{Pe\~na, M.}, \& \bibinfo{author}{Brenning, A.}
+  (\bibinfo{year}{2015}).
+\newblock \bibinfo{title}{Assessing fruit-tree crop classification from
+  {{Landsat}}-8 time series for the {{Maipo Valley}}, {{Chile}}}.
+\newblock {\it \bibinfo{journal}{Remote Sensing of Environment}\/},  {\it
+  \bibinfo{volume}{171}\/}, \bibinfo{pages}{234--244}.
+  \DOIprefix\doi{10/f745cg}.
+%Type = Article
+\bibitem[{Pourghasemi \& Rahmati(2018)}]{Pourghasemi2018}
+\bibinfo{author}{Pourghasemi, H.~R.}, \& \bibinfo{author}{Rahmati, O.}
+  (\bibinfo{year}{2018}).
+\newblock \bibinfo{title}{Prediction of the landslide susceptibility: {{Which}}
+  algorithm, which precision?}
+\newblock {\it \bibinfo{journal}{CATENA}\/},  {\it \bibinfo{volume}{162}\/},
+  \bibinfo{pages}{177--192}. \DOIprefix\doi{10/gcwqtx}.
+%Type = Article
+\bibitem[{Probst et~al.(2018{\natexlab{a}})Probst, Bischl \&
+  Boulesteix}]{Probst2018a}
+\bibinfo{author}{Probst, P.}, \bibinfo{author}{Bischl, B.}, \&
+  \bibinfo{author}{Boulesteix, A.-L.} (\bibinfo{year}{2018}{\natexlab{a}}).
+\newblock \bibinfo{title}{Tunability: {{Importance}} of {{Hyperparameters}} of
+  {{Machine Learning Algorithms}}}.
+\newblock {\it \bibinfo{journal}{ArXiv e-prints}\/}, .
+  \href{http://arxiv.org/abs/1802.09596}{\tt arXiv:1802.09596}.
+\newblock \bibinfo{note}{00001}.
+%Type = Article
+\bibitem[{Probst et~al.(2018{\natexlab{b}})Probst, Wright \&
+  Boulesteix}]{Probst2018b}
+\bibinfo{author}{Probst, P.}, \bibinfo{author}{Wright, M.}, \&
+  \bibinfo{author}{Boulesteix, A.-L.} (\bibinfo{year}{2018}{\natexlab{b}}).
+\newblock \bibinfo{title}{Hyperparameters and {{Tuning Strategies}} for
+  {{Random Forest}}}.
+\newblock {\it \bibinfo{journal}{ArXiv e-prints}\/}, .
+  \href{http://arxiv.org/abs/1804.03515}{\tt arXiv:1804.03515}.
+%Type = Article
+\bibitem[{Quillfeldt et~al.(2017)Quillfeldt, Engler, Silk \&
+  Phillips}]{Quillfeldt2017}
+\bibinfo{author}{Quillfeldt, P.}, \bibinfo{author}{Engler, J.~O.},
+  \bibinfo{author}{Silk, J.~R.}, \& \bibinfo{author}{Phillips, R.~A.}
+  (\bibinfo{year}{2017}).
+\newblock \bibinfo{title}{Influence of device accuracy and choice of algorithm
+  for species distribution modelling of seabirds: A case study using
+  black-browed albatrosses}.
+\newblock {\it \bibinfo{journal}{Journal of Avian Biology}\/}, .
+  \DOIprefix\doi{10/gct5qg}.
+%Type = Book
+\bibitem[{{R Core Team}(2017)}]{R_core}
+\bibinfo{author}{{R Core Team}} (\bibinfo{year}{2017}).
+\newblock {\it \bibinfo{title}{R: {{A Language}} and {{Environment}} for
+  {{Statistical Computing}}}\/}.
+\newblock \bibinfo{address}{Vienna, Austria}.
+\newblock \bibinfo{note}{88058 R version 3.4.4}.
+%Type = Article
+\bibitem[{Racine(2000)}]{Racine2000}
+\bibinfo{author}{Racine, J.} (\bibinfo{year}{2000}).
+\newblock \bibinfo{title}{Consistent cross-validatory model-selection for
+  dependent data: Hv-block cross-validation}.
+\newblock {\it \bibinfo{journal}{Journal of Econometrics}\/},  {\it
+  \bibinfo{volume}{99}\/}, \bibinfo{pages}{39--61}. \DOIprefix\doi{10/d45q6z}.
+%Type = Article
+\bibitem[{Richter(2017)}]{mlrhyperopt}
+\bibinfo{author}{Richter, J.} (\bibinfo{year}{2017}).
+\newblock \bibinfo{title}{{{mlrHyperopt}}: {{Easy}} hyperparameter optimization
+  with mlr and {{mlrMBO}}}, .
+\newblock \bibinfo{note}{R package version 0.1.1}.
+%Type = Book
+\bibitem[{Ridgeway(2017)}]{gbm}
+\bibinfo{author}{Ridgeway, G.} (\bibinfo{year}{2017}).
+\newblock {\it \bibinfo{title}{gbm: Generalized Boosted Regression Models}\/}.
+\newblock \bibinfo{note}{R package version 2.1.3}.
+%Type = Article
+\bibitem[{Roberts et~al.(2017)Roberts, Bahn, Ciuti, Boyce, Elith,
+  {Guillera-Arroita}, Hauenstein, {Lahoz-Monfort}, Schr\"oder, Thuiller,
+  Warton, Wintle, Hartig \& Dormann}]{Roberts2017}
+\bibinfo{author}{Roberts, D.~R.}, \bibinfo{author}{Bahn, V.},
+  \bibinfo{author}{Ciuti, S.}, \bibinfo{author}{Boyce, M.~S.},
+  \bibinfo{author}{Elith, J.}, \bibinfo{author}{{Guillera-Arroita}, G.},
+  \bibinfo{author}{Hauenstein, S.}, \bibinfo{author}{{Lahoz-Monfort}, J.~J.},
+  \bibinfo{author}{Schr\"oder, B.}, \bibinfo{author}{Thuiller, W.},
+  \bibinfo{author}{Warton, D.~I.}, \bibinfo{author}{Wintle, B.~A.},
+  \bibinfo{author}{Hartig, F.}, \& \bibinfo{author}{Dormann, C.~F.}
+  (\bibinfo{year}{2017}).
+\newblock \bibinfo{title}{Cross-validation strategies for data with temporal,
+  spatial, hierarchical, or phylogenetic structure}.
+\newblock {\it \bibinfo{journal}{Ecography}\/},  {\it \bibinfo{volume}{40}\/},
+  \bibinfo{pages}{913--929}. \DOIprefix\doi{10/gc4h8p}.
+%Type = Article
+\bibitem[{{Rojas-Dominguez} et~al.(2018){Rojas-Dominguez}, Padierna, Valadez,
+  {Puga-Soberanes} \& Fraire}]{Rojas_Dominguez2018}
+\bibinfo{author}{{Rojas-Dominguez}, A.}, \bibinfo{author}{Padierna, L.~C.},
+  \bibinfo{author}{Valadez, J. M.~C.}, \bibinfo{author}{{Puga-Soberanes},
+  H.~J.}, \& \bibinfo{author}{Fraire, H.~J.} (\bibinfo{year}{2018}).
+\newblock \bibinfo{title}{Optimal hyper-parameter tuning of {{SVM}} classifiers
+  with application to medical diagnosis}.
+\newblock {\it \bibinfo{journal}{IEEE Access}\/},  {\it \bibinfo{volume}{6}\/},
+  \bibinfo{pages}{7164--7176}. \DOIprefix\doi{10/gdq9pm}.
+%Type = Inproceedings
+\bibitem[{Ru\ss \& Brenning(2010)}]{Russ2010a}
+\bibinfo{author}{Ru\ss, G.}, \& \bibinfo{author}{Brenning, A.}
+  (\bibinfo{year}{2010}).
+\newblock \bibinfo{title}{Spatial variable importance assessment for yield
+  prediction in precision agriculture}.
+\newblock In {\it \bibinfo{booktitle}{Advances in {{Intelligent Data Analysis
+  IX}}}\/} Lecture {{Notes}} in {{Computer Science}} (pp.
+  \bibinfo{pages}{184--195}).
+\newblock \bibinfo{publisher}{{Springer, Berlin, Heidelberg}}.
+\newblock \DOIprefix\doi{10.1007/978-3-642-13062-5_18} \bibinfo{note}{00010}.
+%Type = Book
+\bibitem[{Schliep \& Hechenbichler(2016)}]{kknn}
+\bibinfo{author}{Schliep, K.}, \& \bibinfo{author}{Hechenbichler, K.}
+  (\bibinfo{year}{2016}).
+\newblock {\it \bibinfo{title}{kknn: Weighted k-Nearest Neighbors}\/}.
+\newblock \bibinfo{note}{R package version 1.3.1}.
+%Type = Phdthesis
+\bibitem[{Schratz(2016)}]{Schratz2016}
+\bibinfo{author}{Schratz, P.} (\bibinfo{year}{2016}).
+\newblock {\it \bibinfo{title}{Modeling the Spatial Distribution of Hail Damage
+  in Pine Plantations of Northern {{Spain}} as a Major Risk Factor for Forest
+  Disease}\/}.
+\newblock Ph.D. thesis Friedrich-Schiller-University Jena.
+\newblock \DOIprefix\doi{https://doi.org/10.5281/zenodo.814262}
+  \bibinfo{note}{00000 (unpublished)}.
+%Type = Article
+\bibitem[{Schratz \& Iturritxa(2018)}]{schratzSupplementaryDataECOMOD182262018}
+\bibinfo{author}{Schratz, P.}, \& \bibinfo{author}{Iturritxa, E.}
+  (\bibinfo{year}{2018}).
+\newblock \bibinfo{title}{Supplementary data for {{ECOMOD}}-18-226}.
+\newblock {\it \bibinfo{journal}{Mendeley datasets}\/}, .
+  \DOIprefix\doi{10/gdvmxg}.
+\newblock \bibinfo{note}{00000}.
+%Type = Article
+\bibitem[{Shao(1993)}]{Shao1993}
+\bibinfo{author}{Shao, J.} (\bibinfo{year}{1993}).
+\newblock \bibinfo{title}{Linear model selection by cross-validation}.
+\newblock {\it \bibinfo{journal}{Journal of the American Statistical
+  Association}\/},  {\it \bibinfo{volume}{88}\/}, \bibinfo{pages}{486}.
+  \DOIprefix\doi{10/d47xdw}.
+%Type = Article
+\bibitem[{Smoli\'nski \& Radtke(2016)}]{Smolinski2016}
+\bibinfo{author}{Smoli\'nski, S.}, \& \bibinfo{author}{Radtke, K.}
+  (\bibinfo{year}{2016}).
+\newblock \bibinfo{title}{Spatial prediction of demersal fish diversity in the
+  {{Baltic Sea}}: {{Comparison}} of machine learning and regression-based
+  techniques}.
+\newblock {\it \bibinfo{journal}{ICES Journal of Marine Science: Journal du
+  Conseil}\/},  (p. \bibinfo{pages}{fsw136}). \DOIprefix\doi{10/gdq9pp}.
+%Type = Article
+\bibitem[{Srivastava et~al.(2018)Srivastava, Griess \&
+  Padalia}]{srivastavaMappingInvasionPotential2018}
+\bibinfo{author}{Srivastava, V.}, \bibinfo{author}{Griess, V.~C.}, \&
+  \bibinfo{author}{Padalia, H.} (\bibinfo{year}{2018}).
+\newblock \bibinfo{title}{Mapping invasion potential using ensemble modelling.
+  {{A}} case study on {{Yushania}} maling in the {{Darjeeling Himalayas}}}.
+\newblock {\it \bibinfo{journal}{Ecological Modelling}\/},  {\it
+  \bibinfo{volume}{385}\/}, \bibinfo{pages}{35--44}. \DOIprefix\doi{10/gdvmrg}.
+\newblock \bibinfo{note}{00000}.
+%Type = Article
+\bibitem[{Steger et~al.(2016)Steger, Brenning, Bell, Petschko \&
+  Glade}]{Steger2016}
+\bibinfo{author}{Steger, S.}, \bibinfo{author}{Brenning, A.},
+  \bibinfo{author}{Bell, R.}, \bibinfo{author}{Petschko, H.}, \&
+  \bibinfo{author}{Glade, T.} (\bibinfo{year}{2016}).
+\newblock \bibinfo{title}{Exploring discrepancies between quantitative
+  validation results and the geomorphic plausibility of statistical landslide
+  susceptibility maps}.
+\newblock {\it \bibinfo{journal}{Geomorphology}\/},  {\it
+  \bibinfo{volume}{262}\/}, \bibinfo{pages}{8--23}. \DOIprefix\doi{10/f8p6vn}.
+%Type = Incollection
+\bibitem[{{Stelmaszczuk-G\'orska} et~al.(2017){Stelmaszczuk-G\'orska}, Thiel \&
+  Schmullius}]{Stelmaszczuk2017}
+\bibinfo{author}{{Stelmaszczuk-G\'orska}, M.}, \bibinfo{author}{Thiel, C.}, \&
+  \bibinfo{author}{Schmullius, C.} (\bibinfo{year}{2017}).
+\newblock \bibinfo{title}{Remote sensing for aboveground biomass estimation in
+  boreal forests}.
+\newblock In {\it \bibinfo{booktitle}{Earth {{Observation}} for {{Land}} and
+  {{Emergency Monitoring}}}\/} (pp. \bibinfo{pages}{33--55}).
+\newblock \bibinfo{publisher}{{John Wiley \& Sons, Ltd}}.
+\newblock \DOIprefix\doi{10.1002/9781118793787.ch3}.
+%Type = Article
+\bibitem[{Telford \& Birks(2005)}]{Telford2005}
+\bibinfo{author}{Telford, R.}, \& \bibinfo{author}{Birks, H.}
+  (\bibinfo{year}{2005}).
+\newblock \bibinfo{title}{The secret assumption of transfer functions: Problems
+  with spatial autocorrelation in evaluating model performance}.
+\newblock {\it \bibinfo{journal}{Quaternary Science Reviews}\/},  {\it
+  \bibinfo{volume}{24}\/}, \bibinfo{pages}{2173--2179}.
+  \DOIprefix\doi{10.1016/j.quascirev.2005.05.001}.
+\newblock \bibinfo{note}{00196}.
+%Type = Article
+\bibitem[{Telford \& Birks(2009)}]{Telford2009}
+\bibinfo{author}{Telford, R.}, \& \bibinfo{author}{Birks, H.}
+  (\bibinfo{year}{2009}).
+\newblock \bibinfo{title}{Evaluation of transfer functions in spatially
+  structured environments}.
+\newblock {\it \bibinfo{journal}{Quaternary Science Reviews}\/},  {\it
+  \bibinfo{volume}{28}\/}, \bibinfo{pages}{1309--1316}.
+  \DOIprefix\doi{10/b87tzq}.
+%Type = Incollection
+\bibitem[{Vapnik(1998)}]{Vapnik1998}
+\bibinfo{author}{Vapnik, V.} (\bibinfo{year}{1998}).
+\newblock \bibinfo{title}{The support vector method of function estimation}.
+\newblock In {\it \bibinfo{booktitle}{Nonlinear {{Modeling}}}\/} (pp.
+  \bibinfo{pages}{55--85}).
+\newblock \bibinfo{publisher}{{Springer US}}.
+\newblock \DOIprefix\doi{10.1007/978-1-4615-5703-6_3}.
+%Type = Article
+\bibitem[{Vorpahl et~al.(2012)Vorpahl, Elsenbeer, M\"arker \&
+  Schr\"oder}]{Vorpahl2012}
+\bibinfo{author}{Vorpahl, P.}, \bibinfo{author}{Elsenbeer, H.},
+  \bibinfo{author}{M\"arker, M.}, \& \bibinfo{author}{Schr\"oder, B.}
+  (\bibinfo{year}{2012}).
+\newblock \bibinfo{title}{How can statistical models help to determine driving
+  factors of landslides?}
+\newblock {\it \bibinfo{journal}{Ecological Modelling}\/},  {\it
+  \bibinfo{volume}{239}\/}, \bibinfo{pages}{27--39}. \DOIprefix\doi{10/fxvs2d}.
+%Type = Article
+\bibitem[{Voyant et~al.(2017)Voyant, Notton, Kalogirou, Nivet, Paoli, Motte \&
+  Fouilloy}]{Voyant2017}
+\bibinfo{author}{Voyant, C.}, \bibinfo{author}{Notton, G.},
+  \bibinfo{author}{Kalogirou, S.}, \bibinfo{author}{Nivet, M.-L.},
+  \bibinfo{author}{Paoli, C.}, \bibinfo{author}{Motte, F.}, \&
+  \bibinfo{author}{Fouilloy, A.} (\bibinfo{year}{2017}).
+\newblock \bibinfo{title}{Machine learning methods for solar radiation
+  forecasting: {{A}} review}.
+\newblock {\it \bibinfo{journal}{Renewable Energy}\/},  {\it
+  \bibinfo{volume}{105}\/}, \bibinfo{pages}{569--582}.
+  \DOIprefix\doi{10/gdq9px}.
+%Type = Article
+\bibitem[{Watanabe \& Ortega(2014)}]{watanabeDynamicEmergyAccounting2014}
+\bibinfo{author}{Watanabe, M. D.~B.}, \& \bibinfo{author}{Ortega, E.}
+  (\bibinfo{year}{2014}).
+\newblock \bibinfo{title}{Dynamic emergy accounting of water and carbon
+  ecosystem services: {{A}} model to simulate the impacts of land-use change}.
+\newblock {\it \bibinfo{journal}{Ecological Modelling}\/},  {\it
+  \bibinfo{volume}{271}\/}, \bibinfo{pages}{113--131}.
+  \DOIprefix\doi{10/f5kfvw}.
+\newblock \bibinfo{note}{00057}.
+%Type = Article
+\bibitem[{Wenger \& Olden(2012)}]{Wenger2012}
+\bibinfo{author}{Wenger, S.~J.}, \& \bibinfo{author}{Olden, J.~D.}
+  (\bibinfo{year}{2012}).
+\newblock \bibinfo{title}{Assessing transferability of ecological models: An
+  underappreciated aspect of statistical validation}.
+\newblock {\it \bibinfo{journal}{Methods in Ecology and Evolution}\/},  {\it
+  \bibinfo{volume}{3}\/}, \bibinfo{pages}{260--267}. \DOIprefix\doi{10/fzm72c}.
+%Type = Article
+\bibitem[{Wieland et~al.(2017)Wieland, Kerkow, Fr\"uh, Kampen \&
+  Walther}]{Wieland2017}
+\bibinfo{author}{Wieland, R.}, \bibinfo{author}{Kerkow, A.},
+  \bibinfo{author}{Fr\"uh, L.}, \bibinfo{author}{Kampen, H.}, \&
+  \bibinfo{author}{Walther, D.} (\bibinfo{year}{2017}).
+\newblock \bibinfo{title}{Automated feature selection for a machine learning
+  approach toward modeling a mosquito distribution}.
+\newblock {\it \bibinfo{journal}{Ecological Modelling}\/},  {\it
+  \bibinfo{volume}{352}\/}, \bibinfo{pages}{108--112}.
+  \DOIprefix\doi{10/f96529}.
+%Type = Article
+\bibitem[{Wingfield et~al.(2008)Wingfield, Hammerbacher, Ganley, Steenkamp,
+  Gordon, Wingfield \& Coutinho}]{Wingfield2008}
+\bibinfo{author}{Wingfield, M.~J.}, \bibinfo{author}{Hammerbacher, A.},
+  \bibinfo{author}{Ganley, R.~J.}, \bibinfo{author}{Steenkamp, E.~T.},
+  \bibinfo{author}{Gordon, T.~R.}, \bibinfo{author}{Wingfield, B.~D.}, \&
+  \bibinfo{author}{Coutinho, T.~A.} (\bibinfo{year}{2008}).
+\newblock \bibinfo{title}{Pitch canker caused by {{Fusarium}} circinatum
+  \textendash{} a growing threat to pine plantations and forests worldwide}.
+\newblock {\it \bibinfo{journal}{Australasian Plant Pathology}\/},  {\it
+  \bibinfo{volume}{37}\/}, \bibinfo{pages}{319}. \DOIprefix\doi{10/b4dz77}.
+%Type = Article
+\bibitem[{Wollan et~al.(2008)Wollan, Bakkestuen, Kauserud, Gulden \&
+  Halvorsen}]{Wollan2008}
+\bibinfo{author}{Wollan, A.~K.}, \bibinfo{author}{Bakkestuen, V.},
+  \bibinfo{author}{Kauserud, H.}, \bibinfo{author}{Gulden, G.}, \&
+  \bibinfo{author}{Halvorsen, R.} (\bibinfo{year}{2008}).
+\newblock \bibinfo{title}{Modelling and predicting fungal distribution patterns
+  using herbarium data}.
+\newblock {\it \bibinfo{journal}{Journal of Biogeography}\/},  {\it
+  \bibinfo{volume}{35}\/}, \bibinfo{pages}{2298--2310}.
+  \DOIprefix\doi{10/d9vqb5}.
+%Type = Book
+\bibitem[{Wood(2017)}]{mgcv}
+\bibinfo{author}{Wood, S.} (\bibinfo{year}{2017}).
+\newblock {\it \bibinfo{title}{Generalized {{Additive Models}}: {{An
+  Introduction}} with {{R}}}\/}.
+\newblock \bibinfo{publisher}{{Chapman and Hall/CRC}}.
+\newblock \bibinfo{note}{07117}.
+%Type = Article
+\bibitem[{Wright \& Ziegler(2017)}]{ranger}
+\bibinfo{author}{Wright, M.~N.}, \& \bibinfo{author}{Ziegler, A.}
+  (\bibinfo{year}{2017}).
+\newblock \bibinfo{title}{ranger: A fast implementation of random forests for
+  high dimensional data in c++ and r}.
+\newblock {\it \bibinfo{journal}{Journal of Statistical Software}\/},  {\it
+  \bibinfo{volume}{77}\/}, \bibinfo{pages}{1--17}. \DOIprefix\doi{10/b8q3}.
+%Type = Article
+\bibitem[{Yang et~al.(2017)Yang, Kim, Park, Song \& Kim}]{Yang2017}
+\bibinfo{author}{Yang, E.-S.}, \bibinfo{author}{Kim, J.~D.},
+  \bibinfo{author}{Park, C.-Y.}, \bibinfo{author}{Song, H.-J.}, \&
+  \bibinfo{author}{Kim, Y.-S.} (\bibinfo{year}{2017}).
+\newblock \bibinfo{title}{Hyperparameter tuning for hidden unit conditional
+  random fields}.
+\newblock {\it \bibinfo{journal}{Engineering Computations}\/},  {\it
+  \bibinfo{volume}{34}\/}, \bibinfo{pages}{2054--2062}.
+  \DOIprefix\doi{10/gbtm2n}.
+%Type = Article
+\bibitem[{Youssef et~al.(2015)Youssef, Pourghasemi, Pourtaghi \&
+  {Al-Katheeri}}]{Youssef2015}
+\bibinfo{author}{Youssef, A.~M.}, \bibinfo{author}{Pourghasemi, H.~R.},
+  \bibinfo{author}{Pourtaghi, Z.~S.}, \& \bibinfo{author}{{Al-Katheeri}, M.~M.}
+  (\bibinfo{year}{2015}).
+\newblock \bibinfo{title}{Erratum to: {{Landslide}} susceptibility mapping
+  using random forest, boosted regression tree, classification and regression
+  tree, and general linear models and comparison of their performance at {{Wadi
+  Tayyah Basin}}, {{Asir Region}}, {{Saudi Arabia}}}.
+\newblock {\it \bibinfo{journal}{Landslides}\/},  {\it \bibinfo{volume}{13}\/},
+  \bibinfo{pages}{1315--1318}. \DOIprefix\doi{10/gdq9p2}.
+
+\end{thebibliography}

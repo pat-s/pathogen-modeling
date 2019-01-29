@@ -1,0 +1,26 @@
+INFO: latexindent version 3.4.1, 2018-01-18, a script to indent .tex files
+      latexindent lives here: /usr/share/texmf-dist/scripts/latexindent/
+      Mon Apr  2 21:01:00 2018
+      Filename: elsarticle-template.tex
+INFO: Processing switches:
+      -w|--overwrite: Overwrite mode active, will make a back up of elsarticle-template.tex first
+INFO: Directory for backup files and indent.log: .
+INFO: YAML settings read: defaultSettings.yaml
+      Reading defaultSettings.yaml from /usr/share/texmf-dist/scripts/latexindent/defaultSettings.yaml
+INFO: YAML settings read: indentconfig.yaml or .indentconfig.yaml
+      Home directory is /home/pjs (didn't find either indentconfig.yaml or .indentconfig.yaml)
+      To specify user settings you would put indentconfig.yaml here: /home/pjs/indentconfig.yaml
+      Alternatively, you can use the hidden file .indentconfig.yaml as: /home/pjs/.indentconfig.yaml
+INFO: Backup procedure (-w flag active):
+      copying elsarticle-template.tex to ./elsarticle-template.bak0
+      Backup file: ./elsarticle-template.bak0
+      elsarticle-template.tex will be overwritten after indentation
+INFO: Phase 1: searching for objects
+INFO: Phase 2: finding surrounding indentation
+INFO: Phase 3: indenting objects
+INFO: Phase 4: final indentation check
+INFO: Output routine:
+      Overwriting file elsarticle-template.tex
+      --------------
+INFO: Please direct all communication/issues to:
+      https://github.com/cmhughes/latexindent.pl

@@ -1,5 +1,9 @@
+# get the base image, the rocker/verse has R, RStudio and pandoc
 FROM rocker/r-ver:3.5.1
-LABEL maintainer="Patrick Schratz"
+
+# required
+MAINTAINER Patrick Schratz <patrick.schratz@gmail.com>
+
 RUN export DEBIAN_FRONTEND=noninteractive; apt-get -y update \
   && apt-get install -y gdal-bin \
 	git-core \
@@ -22,3 +26,4 @@ RUN ["install2.r", "acepack", "aqp", "assertthat", "backports", "base64enc", "BB
 RUN ["installGithub.r", "colorout", "lwgeom", "stevedore"]
 WORKDIR /payload/
 CMD ["R"]
+
