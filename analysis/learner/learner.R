@@ -221,7 +221,7 @@ lrn_gam_armillaria_perf_non <- makeLearner("classif.gam",
                                                 soil.soils.with.little.or.no.profile.differentiation +
                                                 soil.pronounced.accumulation.of.organic.matter.in.the.mineral.topsoil +
                                                 soil.soils.with.limitations.to.root.growth",
-                                       sp = rep(0, 7)
+                                       sp = rep(0, 6)
 )
 
 
@@ -238,7 +238,7 @@ lrn_gam_heterobasidion_perf_non <- makeLearner("classif.gam",
                                                 soil.soils.with.little.or.no.profile.differentiation +
                                                 soil.pronounced.accumulation.of.organic.matter.in.the.mineral.topsoil +
                                                 soil.soils.with.limitations.to.root.growth",
-                                           sp = rep(0, 7)
+                                           sp = rep(0, 6)
 )
 
 # GLM ---------------------------------------------------------------------

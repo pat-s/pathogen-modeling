@@ -115,7 +115,7 @@ args_bm_nsp_non[8, "id"] = "bm_nsp_non_gam_fusarium"
 args_bm_nsp_non[9, "id"] = "bm_nsp_non_gam_armillaria"
 args_bm_nsp_non[10, "id"] = "bm_nsp_non_gam_heterobasidion"
 
-args_bm_nsp_non[7, "t"] = "bm_nsp_non_gam_diplodia"
+args_bm_nsp_non[7, "id"] = "bm_nsp_non_gam_diplodia"
 args_bm_nsp_non[8, "id"] = "bm_nsp_non_gam_fusarium"
 args_bm_nsp_non[9, "id"] = "bm_nsp_non_gam_armillaria"
 args_bm_nsp_non[10, "id"] = "bm_nsp_non_gam_heterobasidion"
@@ -154,7 +154,7 @@ benchmark_plan[18, 2] = "try(benchmark_custom(task = heterobasidion_task_dummy, 
 benchmark_plan[25, 2] = "try(benchmark_custom(task = diplodia_task_dummy, learner = lrn_gam_diplodia_perf_non, resampling = spcv_outer_fiveF_hundredR))"
 benchmark_plan[26, 2] = "try(benchmark_custom(task = fusarium_task_dummy, learner = lrn_gam_fusarium_perf_non, resampling = spcv_outer_fiveF_hundredR))"
 benchmark_plan[27, 2] = "try(benchmark_custom(task = armillaria_task_dummy, learner = lrn_gam_armillaria_perf_non, resampling = spcv_outer_fiveF_hundredR))"
-benchmark_plan[28, 2] = "try(benchmark_custom(task = heterobasidion_task_dummy, learner = lrn_gam_heterobasidion_task_perf_non, resampling = spcv_outer_fiveF_hundredR))"
+benchmark_plan[28, 2] = "try(benchmark_custom(task = heterobasidion_task_dummy, learner = lrn_gam_heterobasidion_perf_non, resampling = spcv_outer_fiveF_hundredR))"
 # nsp nsp
 benchmark_plan[34, 2] = "try(benchmark_custom(task = diplodia_task_dummy, learner = wrapper_gam_diplodia_perf_nsp, resampling = cv_outer_fiveF_hundredR))"
 benchmark_plan[35, 2] = "try(benchmark_custom(task = fusarium_task_dummy, learner = wrapper_gam_fusarium_perf_nsp, resampling = cv_outer_fiveF_hundredR))"
@@ -164,6 +164,6 @@ benchmark_plan[37, 2] = "try(benchmark_custom(task = heterobasidion_task_dummy, 
 benchmark_plan[44, 2] = "try(benchmark_custom(task = diplodia_task_dummy, learner = lrn_gam_diplodia_perf_non, resampling = cv_outer_fiveF_hundredR))"
 benchmark_plan[45, 2] = "try(benchmark_custom(task = fusarium_task_dummy, learner = lrn_gam_fusarium_perf_non, resampling = cv_outer_fiveF_hundredR))"
 benchmark_plan[46, 2] = "try(benchmark_custom(task = armillaria_task_dummy, learner = lrn_gam_armillaria_perf_non, resampling = cv_outer_fiveF_hundredR))"
-benchmark_plan[47, 2] = "try(benchmark_custom(task = heterobasidion_task_dummy, learner = lrn_gam_heterobasidion_task_perf_non, resampling = cv_outer_fiveF_hundredR))"
+benchmark_plan[47, 2] = "try(benchmark_custom(task = heterobasidion_task_dummy, learner = lrn_gam_heterobasidion_perf_non, resampling = cv_outer_fiveF_hundredR))"
 
 rm(args_bm_sp_non, args_bm_sp_nsp, args_bm_sp_sp, args_bm_nsp_nsp, args_bm_nsp_non)

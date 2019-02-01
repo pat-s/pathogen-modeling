@@ -119,7 +119,7 @@ make(plan, keep_going = TRUE, console_log_file = stdout())
 
 Text: CC-BY-4.0 http://creativecommons.org/licenses/by/4.0/
 
-Code: MIT http://opensource.org/licenses/MIT year: 2015, copyright holder: Patrick Schratz
+Code: MIT http://opensource.org/licenses/MIT year: 2019, copyright holder: Patrick Schratz
 
 Data: CC0 http://creativecommons.org/publicdomain/zero/1.0/ 
 

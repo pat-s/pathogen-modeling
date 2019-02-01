@@ -5,3 +5,4 @@ packrat/src/
 analysis/data/raw_data
 analysis/data/derived_data
 .drake
+data

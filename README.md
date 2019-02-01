@@ -1,5 +1,5 @@
 
-[![Last-changedate](https://img.shields.io/badge/last%20change-2019--01--29-brightgreen.svg)](https://github.com/pat-s/pathogen-modeling/commits/master) [![minimal R version](https://img.shields.io/badge/R%3E%3D-3.5.0-brightgreen.svg)](https://cran.r-project.org/) [![Licence](https://img.shields.io/github/license/mashape/apistatus.svg)](http://choosealicense.com/licenses/mit/)
+[![Last-changedate](https://img.shields.io/badge/last%20change-2019--02--01-brightgreen.svg)](https://github.com/pat-s/pathogen-modeling/commits/master) [![minimal R version](https://img.shields.io/badge/R%3E%3D-3.5.0-brightgreen.svg)](https://cran.r-project.org/) [![Licence](https://img.shields.io/github/license/mashape/apistatus.svg)](http://choosealicense.com/licenses/mit/)
 <!-- [![Travis-CI Build Status](https://travis-ci.org/pat-s/pathogen-modeling.png?branch=master)](https://travis-ci.org/pat-s/pathogen-modeling)  -->
 
 ### Compendium URL
@@ -64,34 +64,34 @@ predict_runtime(config, from_scratch = TRUE)
     ##   lrn_gam_fusarium_pred
     ##   lrn_gam_armillaria_pred
     ##   lrn_gam_heterobasidion_pred
-    ##   lrn_gam_diplodia_perf_non
-    ##   lrn_gam_fusarium_perf_non
-    ##   lrn_gam_armillaria_perf_non
-    ##   lrn_gam_heterobasidion_perf_non
     ##   wrapper_xgboost_nsp
+    ##   prediction_glm
     ##   prediction_kknn
     ##   bm_sp_sp_xgboost
     ##   prediction_xgboost
-    ##   bm_sp_nsp_gam_armillaria
-    ##   bm_sp_nsp_gam_fusarium
-    ##   bm_sp_non_gam_armillaria
-    ##   bm_sp_non_gam_diplodia
-    ##   bm_sp_non_gam_fusarium
-    ##   bm_sp_non_gam_heterobasidion
     ##   bm_nsp_nsp_gam_armillaria
     ##   bm_nsp_nsp_gam_diplodia
     ##   bm_nsp_nsp_gam_fusarium
     ##   bm_nsp_nsp_gam_heterobasidion
-    ##   bm_nsp_non_gam_armillaria
-    ##   bm_nsp_non_gam_diplodia
-    ##   bm_nsp_non_gam_fusarium
-    ##   bm_nsp_non_gam_heterobasidion
     ##   bm_sp_nsp_xgboost
     ##   bm_sp_nsp_brt
     ##   bm_sp_non_xgboost
+    ##   bm_nsp_nsp_rf
+    ##   bm_nsp_nsp_xgboost
+    ##   bm_nsp_nsp_brt
+    ##   bm_nsp_nsp_kknn
+    ##   bm_nsp_non_xgboost
+    ##   prediction_gam_diplodia
+    ##   prediction_gam_fusarium
+    ##   prediction_gam_armillaria
+    ##   prediction_gam_heterobasidion
+    ##   maps_gam
+    ##   maps_kknn
+    ##   maps_xgboost
+    ##   bm_sp_nsp_gam
     ##   ...
 
-    ## [1] "1968029.341s (~3.25 weeks)"
+    ## [1] "2217886.131s (~3.67 weeks)"
 
 Acceleration when parallelizing the `make()` call
 
@@ -142,7 +142,7 @@ make(plan, keep_going = TRUE, console_log_file = stdout())
 
 Text: CC-BY-4.0 <http://creativecommons.org/licenses/by/4.0/>
 
-Code: MIT <http://opensource.org/licenses/MIT> year: 2015, copyright holder: Patrick Schratz
+Code: MIT <http://opensource.org/licenses/MIT> year: 2019, copyright holder: Patrick Schratz
 
 Data: CC0 <http://creativecommons.org/publicdomain/zero/1.0/>
 
