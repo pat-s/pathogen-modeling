@@ -8,14 +8,25 @@ ps_rf <- makeParamSet(
 
 # xgboost -----------------------------------------------------------------
 
+# ps_xgboost = makeParamSet(
+#   makeIntegerParam("nrounds", lower = 10, upper = 600),
+#   makeNumericParam("colsample_bytree", lower = 0.3, upper = 0.7),
+#   makeNumericParam("subsample", lower = 0.25, upper = 1),
+#   makeIntegerParam("max_depth", lower = 1, upper = 10),
+#   makeNumericParam("gamma", lower = 0, upper = 10),
+#   makeNumericParam("eta", lower = 0.001, upper = 0.6),
+#   makeNumericParam("min_child_weight", lower = 0, upper = 20)
+# )
+
 ps_xgboost = makeParamSet(
-  makeIntegerParam("nrounds", lower = 10, upper = 600),
-  makeNumericParam("colsample_bytree", lower = 0.3, upper = 0.7),
-  makeNumericParam("subsample", lower = 0.25, upper = 1),
-  makeIntegerParam("max_depth", lower = 1, upper = 10),
-  makeNumericParam("gamma", lower = 0, upper = 10),
-  makeNumericParam("eta", lower = 0.001, upper = 0.6),
-  makeNumericParam("min_child_weight", lower = 0, upper = 20)
+  makeNumericParam("eta", lower = 0.01, upper = 0.2),
+  makeNumericParam("gamma", lower = -7, upper = 6, trafo = function(x) 2^x),
+  makeIntegerParam("max_depth", lower = 3, upper = 20),
+  makeNumericParam("colsample_bytree", lower = 0.5, upper = 1),
+  makeNumericParam("colsample_bylevel", lower = 0.5, upper = 1),
+  makeNumericParam("lambda", lower = -10, upper = 10, trafo = function(x) 2^x),
+  makeNumericParam("alpha", lower = -10, upper = 10, trafo = function(x) 2^x),
+  makeNumericParam("subsample", lower = 0.5, upper = 1)
 )
 
 # SVM ---------------------------------------------------------------------
@@ -31,7 +42,8 @@ ps_svm = makeParamSet(
 
 ps_kknn <- makeParamSet(
   makeIntegerParam("k", lower = 1, upper = 100),
-  makeIntegerParam("distance", lower = 1, upper = 100)
+  makeIntegerParam("distance", lower = 1, upper = 100),
+  makeDiscreteParam("kernel", values = c("rectangular", "triangular", "epanechnikov", "triweight", "cos", "inv", "gaussian", "rank", "optimal"))
 )
 
 # BRT ---------------------------------------------------------------------

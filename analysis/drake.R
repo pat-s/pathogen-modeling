@@ -1,9 +1,41 @@
-needs::needs(drake, mlr, magrittr, mlrMBO, purrr, parallelMap, sf, dplyr, lwgeom,
-             forcats, tibble, rgdal, viridis, rasterVis, lattice, latticeExtra, glue,
-             RSAGA, stringr, GSIF, sp, R.utils, curl, fs, rgenoud,
-             magick, stringr, ggplot2, ggspatial)
+suppressPackageStartupMessages(library(drake))
+suppressPackageStartupMessages(library(mlr))
+suppressPackageStartupMessages(library(magrittr))
+suppressPackageStartupMessages(library(mlrMBO))
+suppressPackageStartupMessages(library(purrr))
+suppressPackageStartupMessages(library(parallelMap))
+suppressPackageStartupMessages(library(sf))
+suppressPackageStartupMessages(library(dplyr))
+suppressPackageStartupMessages(library(lwgeom))
+suppressPackageStartupMessages(library(forcats))
+suppressPackageStartupMessages(library(tibble))
+suppressPackageStartupMessages(library(rgdal))
+suppressPackageStartupMessages(library(viridis))
+suppressPackageStartupMessages(library(rasterVis))
+suppressPackageStartupMessages(library(lattice))
+suppressPackageStartupMessages(library(latticeExtra))
+suppressPackageStartupMessages(library(glue))
+suppressPackageStartupMessages(library(RSAGA))
+suppressPackageStartupMessages(library(stringr))
+suppressPackageStartupMessages(library(GSIF))
+suppressPackageStartupMessages(library(sp))
+suppressPackageStartupMessages(library(R.utils))
+suppressPackageStartupMessages(library(curl))
+suppressPackageStartupMessages(library(fs))
+suppressPackageStartupMessages(library(rgenoud))
+suppressPackageStartupMessages(library(magick))
+suppressPackageStartupMessages(library(stringr))
+suppressPackageStartupMessages(library(ggplot2))
+suppressPackageStartupMessages(library(ggspatial))
+suppressPackageStartupMessages(library(clustermq))
+suppressPackageStartupMessages(library(ggsci))
+suppressPackageStartupMessages(library(furrr))
+suppressPackageStartupMessages(library(future.callr))
+suppressPackageStartupMessages(library(ggpubr))
 
 # Plans -----------------------------------------------------------
+
+sourceDirectory("R/")
 
 data_plan = code_to_plan("analysis/data/data.R")
 task = code_to_plan("analysis/data/task.R")
@@ -16,7 +48,6 @@ sourceDirectory("analysis/benchmark/")
 sourceDirectory("analysis/prediction/")
 sourceDirectory("analysis/reports/")
 
-sourceDirectory("R/")
 source("https://raw.githubusercontent.com/mlr-org/mlr-extralearner/master/R/RLearner_classif_gam.R")
 
 # grouping for visualization

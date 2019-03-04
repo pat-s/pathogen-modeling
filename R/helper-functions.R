@@ -72,3 +72,26 @@ test_age_imputation <- function(x, y, age) {
   }
   return(data.frame(obs = age,imput = res))
 }
+
+
+# recursive function to remove name from all levels of list
+stripname <- function(x, name) {
+  thisdepth <- depth(x)
+  if (thisdepth == 0) {
+    return(x)
+  } else if (length(nameIndex <- which(names(x) == name))) {
+    x <- x[-nameIndex]
+  }
+  return(lapply(x, stripname, name))
+}
+
+# function to find depth of a list element
+# see http://stackoverflow.com/questions/13432863/determine-level-of-nesting-in-r
+depth <- function(this, thisdepth=0){
+  if (!is.list(this)) {
+    return(thisdepth)
+  } else{
+    return(max(unlist(lapply(this,depth,thisdepth=thisdepth+1))))
+  }
+}
+
