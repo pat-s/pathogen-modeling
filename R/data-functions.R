@@ -266,7 +266,7 @@ precipitation_preprocessing = function(atlas_climatico) {
   #' Modified data: Total july and august precipitation raster in `.tif` format in CRS 32630.
 
   precip = list.files("data/atlas-climatico/unzip",
-                      "pluvio.*(julio|agosto)_av.tif$",
+                      "pluvio.*(julio|agosto|septiembre)_av.tif$",
                       full.names = TRUE
   ) %>%
     stack() %>%
@@ -630,9 +630,9 @@ mod_raw_data = function(data, drop_vars, response) {
   #' ## Wiggle coordinates
   #' Some coordinates are not unique, so we have to wiggle them a little bit
   #'
-  set.seed(1234)
-  data$x <- data$x + rnorm(nrow(data)) / 10
-  data$y <- data$y + rnorm(nrow(data)) / 10
+  # set.seed(1234)
+  # data$x <- data$x + rnorm(nrow(data)) / 10
+  # data$y <- data$y + rnorm(nrow(data)) / 10
 
   if (!is.null(drop_vars)) {
     # drop second response
@@ -785,11 +785,218 @@ preprocessing_custom <- function(path, slope, soil, temperature_mean, ph, hail,
     pisr %>%
     raster::extract(data_in)
 
+  data_in %<>%
+    mutate(pisr = replace(pisr, pisr < -0.1, -0.1))
+
   # Precipitation
 
   data_in$precip <-
     precipitation_sum %>%
     raster::extract(data_in)
+
+  data_in %<>%
+    mutate(precip = replace(precip, precip < 124.4, 124.4))
+
+  # Hail
+
+  data_in$hail_probability <-
+    hail %>%
+    raster::extract(data_in)
+
+  # Age
+
+  if (isTRUE(age)) {
+    data_in = age_imp_preprocessing(data = data_in)
+  }
+
+  # year
+  if ("date" %in% colnames(data_in)) {
+    # The two missing entries we added for observation `785` and `836` are based on statements from the person who collected the data.
+
+    data_in %<>%
+      mutate(year = fct_recode(date, "NA" = "-",
+                               "NA" = ""))
+
+    data_in$year %<>%
+      str_replace_all("-","/") %>%
+      str_extract_all('\\d+') %>%
+      vapply(function(x) paste(x[3], collapse = '/'), character(1))
+
+    data_in %<>%
+      mutate(year = replace(year, id == 785, 2009)) %>%
+      mutate(year = replace(year, id == 836, 2009)) %>%
+      mutate(year = as.factor(year))
+
+  }
+
+  # select vars
+  if (all(c("year", "age") %in% colnames(data_in))) {
+    data_in %<>%
+      dplyr::select(!!response, temp, precip,
+                    hail_probability, ph, soil,
+                    lithology, slope_degrees, pisr,
+                    x, y, year, age)
+  } else {
+    data_in %<>%
+      dplyr::select(!!response, temp, precip,
+                    hail_probability, ph, soil,
+                    lithology, slope_degrees, pisr,
+                    x, y)
+  }
+  # Remove NAs
+
+  #' # Remove samples with NAs
+  #' Examine datasets for missing values. Remove sample 12 from heterobasi data set because lithology is missing
+  #' and remove sample 11, 13, 14, 15, 22, 23, 25, 26, 27 and 28 from armillaria data set because elevation and/or lithology is missing.
+
+  data_in %<>%
+    na.omit() %>%
+    as.data.frame() %>%
+    droplevels()
+
+  # target as factor
+  # https://stackoverflow.com/questions/49942453/piping-dplyr-mutate-with-unknown-variable-name?noredirect=1&lq=1
+  # # sollte eigentlich funktionieren, aber klappt manchmal iwie einfach nicht.
+  # vllt NSE != drake, aber alles unklar. Kostet zu viel Zeit um es zum laufen zu kriegen
+  # daher der "unschöne" if() workaround
+  # data_in %<>%
+  #   mutate(!!quo_name(as.name(response)) := as.factor(!!as.name(response)))
+
+  if (response == "armillaria") {
+    data_in$armillaria = as.factor(as.character(data_in$armillaria))
+  } else if (response == "heterobasi") {
+    data_in$heterobasi = as.factor(as.character(data_in$heterobasi))
+  } else if (response == "diplo01") {
+    data_in$diplo01 = as.factor(as.character(data_in$diplo01))
+  } else if (response == "fus01") {
+    data_in$fus01 = as.factor(as.character(data_in$fus01))
+  }
+
+  return(data_in)
+}
+
+preprocessing_custom_v2 <- function(path, slope, soil, temperature_mean, ph, hail,
+                                 precipitation_sum, elevation, pisr, lithology,
+                                 study_area = data_basque, response,
+                                 drop_vars = NULL, age = FALSE) {
+
+  data_in = st_read(path, quiet = TRUE)
+
+  #data_in = mod_raw_data(data_in, drop_vars = drop_vars, response = response)
+
+  # Predictor Preprocessing -------------------------------------------------
+
+  # Elevation
+
+  data_in$elevation <-
+    elevation %>%
+    raster::extract(data_in)
+
+  # Slope
+
+  data_in$slope_degrees <-
+    slope %>%
+    raster::extract(data_in)
+
+  # Soil
+
+  data_in$soil <-
+    soil %>%
+    raster::extract(data_in)
+
+  # data("soil.legends")
+  soil_legend <- as_tibble(GSIF::soil.legends$TAXNWRB)
+
+  data_in %<>%
+    left_join(soil_legend, by = c("soil" = "Number")) %>%
+    dplyr::select(-one_of("Shortened_name", "Group", "COLOR", "soil")) %>%
+    dplyr::rename(soil = Generic) %>%
+    mutate(soil = as.factor(soil))
+
+  data_in %<>%
+    mutate(soil = fct_recode(soil,
+                             "soils with limitations to root growth" = "Leptosols",
+                             "soils with limitations to root growth" = "Cryosols",
+                             "soils with limitations to root growth" = "Vertisols",
+                             "soils with clay-enriched subsoil" = "Luvisols",
+                             "soils with clay-enriched subsoil" = "Lixisols",
+                             "soils with clay-enriched subsoil" = "Acrisols",
+                             "organic soil" = "Histosols",
+                             "pronounced accumulation of organic matter in the mineral topsoil" = "Kastanozems",
+                             "pronounced accumulation of organic matter in the mineral topsoil" = "Chernozems",
+                             "pronounced accumulation of organic matter in the mineral topsoil" = "Phaeozems",
+                             "accumulation of moderately soluble salts or non-saline substances" = "Gypsisols",
+                             "accumulation of moderately soluble salts or non-saline substances" = "Durisols",
+                             "accumulation of moderately soluble salts or non-saline substances" = "Calcisols",
+                             "soils distinguished by Fe/Al chemistry" = "Gleysols",
+                             "soils distinguished by Fe/Al chemistry" = "Podzols",
+                             "soils distinguished by Fe/Al chemistry" = "Plinthosols",
+                             "soils distinguished by Fe/Al chemistry" = "Planosols",
+                             "soils distinguished by Fe/Al chemistry" = "Nitisols",
+                             "soils with little or no profile differentiation" = "Fluvisols",
+                             "soils with little or no profile differentiation" = "Cambisols",
+                             "soils with little or no profile differentiation" = "Arenosols",
+                             "soils with little or no profile differentiation" = "Regosols",
+                             "soils distinguished by Fe/Al chemistry" = "Ferralsols"
+    ))
+
+  # ph
+
+  data_in$ph <-
+    ph %>%
+    raster::extract(data_in)
+
+  # Lithology
+
+  data_in %<>% st_join(lithology)
+
+  data_in %<>%
+    dplyr::rename(lithology = COD_LITOLO) %>%
+    mutate(lithology = as.factor(lithology)) %>%
+    mutate(lithology = fct_recode(lithology,
+                                  "surface deposits" = "01",
+                                  "clastic sedimentary rock" = "02",
+                                  "clastic sedimentary rock" = "03",
+                                  "biological sedimentary rock" = "04",
+                                  "clastic sedimentary rock" = "08",
+                                  "biological sedimentary rock" = "09",
+                                  "biological sedimentary rock" = "10",
+                                  "chemical sedimentary rock" = "11",
+                                  "chemical sedimentary rock" = "12",
+                                  "magmatic rock" = "13",
+                                  "magmatic rock" = "14",
+                                  "chemical sedimentary rock" = "15",
+                                  "biological sedimentary rock" = "16",
+                                  "biological sedimentary rock" = "17",
+                                  "chemical sedimentary rock" = "18",
+                                  "clastic sedimentary rock" = "19",
+                                  "magmatic rock" = "20",
+                                  "magmatic rock" = "22",
+                                  "magmatic rock" = "23",
+                                  "magmatic rock" = "24"
+    ))
+
+  # Temperature
+
+  data_in$temp <-
+    temperature_mean %>%
+    raster::extract(data_in)
+
+  # PISR
+
+  data_in$pisr <- data_in$r_sum
+
+  data_in %<>%
+    mutate(pisr = replace(pisr, pisr < -0.1, -0.1))
+
+  # Precipitation
+
+  data_in$precip <-
+    precipitation_sum %>%
+    raster::extract(data_in)
+
+  data_in %<>%
+    mutate(precip = replace(precip, precip < 124.4, 124.4))
 
   # Hail
 

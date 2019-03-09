@@ -1,9 +1,9 @@
 
-[![Last-changedate](https://img.shields.io/badge/last%20change-2019--03--04-brightgreen.svg)](https://github.com/pat-s/pathogen-modeling/commits/master)
+[![Last-changedate](https://img.shields.io/badge/last%20change-2019--03--09-brightgreen.svg)](https://github.com/pat-s/pathogen-modeling/commits/master)
 [![minimal R
 version](https://img.shields.io/badge/R%3E%3D-3.5.0-brightgreen.svg)](https://cran.r-project.org/)
 [![Licence](https://img.shields.io/github/license/mashape/apistatus.svg)](http://choosealicense.com/licenses/mit/)  
-<!-- [![Travis-CI Build Status](https://travis-ci.org/pat-s/pathogen-modeling.png?branch=master)](https://travis-ci.org/pat-s/pathogen-modeling)  -->
+[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.2582970.svg)](https://doi.org/10.5281/zenodo.2582970)
 
 ### Compendium URL
 
@@ -34,10 +34,9 @@ publication:
 See the
 [`analysis`](https://github.com/pat-s/pathogen-modeling/tree/master/analysis)
 directory on GitHub for the source code that generated the figures and
-statistical results contained in the manuscript. See the
-[`data`](https://github.com/pat-s/pathogen-modeling/tree/master/analysis/data)
-directory for instructions how to access the raw data discussed in the
-manuscript.
+statistical results contained in the manuscript. The raw is stored on
+[Zenodo](https://zenodo.org/badge/DOI/10.5281/zenodo.2582970.svg)\](<https://doi.org/10.5281/zenodo.2582970>)
+and will be downloaded when starting the analysis.
 
 #### Install the R package
 
@@ -80,78 +79,27 @@ Then start R in this directory and run
 
 ``` r
 packrat::restore()
-source("analysis/drake.R")
-make(plan, keep_going = TRUE, console_log_file = stdout()) 
-# use more cores with make(plan, jobs = <number of cores>)
+r_make()
 ```
 
 ## Runtime
 
-Predicted total runtime (based on all target runtimes ever built and
-stored in the internal `config` file)
+Predicted total runtime. The time is based on all targets that have been
+created so far in the project. Estimated time will differ depending on
+the CPU speed and possible availability of a HPC.
 
 ``` r
-source("analysis/drake.R")
-predict_runtime(config, from_scratch = TRUE)
+r_predict_runtime()
 ```
 
-    ## Warning: Some targets were never actually timed, And no hypothetical time was specified in `known_times`. Assuming a runtime of 0 for these targets:
-    ##   bm_sp_sp_fusarium_brt
-    ##   bm_sp_sp_heterobasidion_brt
-    ##   bm_sp_sp_heterobasidion_xgboost
-    ##   bm_sp_nsp_armillaria_rf
-    ##   bm_sp_nsp_armillaria_svm
-    ##   bm_sp_nsp_armillaria_xgboost
-    ##   bm_sp_nsp_armillaria_brt
-    ##   bm_sp_nsp_armillaria_kknn
-    ##   bm_sp_nsp_diplodia_rf
-    ##   bm_sp_nsp_diplodia_svm
-    ##   bm_sp_nsp_diplodia_xgboost
-    ##   bm_sp_nsp_diplodia_brt
-    ##   bm_sp_nsp_diplodia_kknn
-    ##   bm_sp_nsp_fusarium_rf
-    ##   bm_sp_nsp_fusarium_svm
-    ##   bm_sp_nsp_fusarium_xgboost
-    ##   bm_sp_nsp_fusarium_brt
-    ##   bm_sp_nsp_fusarium_kknn
-    ##   bm_sp_nsp_heterobasidion_rf
-    ##   bm_sp_nsp_heterobasidion_svm
-    ##   bm_sp_nsp_heterobasidion_xgboost
-    ##   bm_sp_nsp_heterobasidion_brt
-    ##   bm_sp_nsp_heterobasidion_kknn
-    ##   bm_sp_non_armillaria_rf
-    ##   bm_sp_non_armillaria_svm
-    ##   bm_sp_non_armillaria_xgboost
-    ##   bm_sp_non_armillaria_brt
-    ##   bm_sp_non_armillaria_kknn
-    ##   bm_sp_non_armillaria_glm
-    ##   ...
+    ## [90mcache[39m /home/patrick/git/pathogen-modeling/.drake
+    ## [90manalyze[39m environment
+    ## [90mconstruct[39m priority queue
+    ## Warning message:
+    ## Arguments `file_targets` and `strings_in_dots` of `drake_plan()` are deprecated. 
+    ## Error while shutting down parallel: unable to terminate some child processes
 
-    ## [1] "82411.4520000001s (~22.89 hours)"
-
-Acceleration when parallelizing the `make()` call
-
-``` r
-time <- c()
-for (jobs in 1:10){
-time[jobs] <- predict_runtime(
-drake_config(),
-jobs = jobs,
-from_scratch = TRUE,
-known_times = build_times(targets_only = TRUE)$elapsed
-)
-}
-
-library(ggplot2)
-ggplot(data.frame(time = time / 3600, jobs = ordered(1:10), group = 1)) +
-geom_line(aes(x = jobs, y = time, group = group)) +
-scale_y_continuous(breaks = 0:10 * 4, limits = c(0, 29)) +
-ggpubr::theme_pubr() +
-xlab("jobs argument of make()") +
-ylab("Predicted runtime of make() (hours)")
-```
-
-![](README_files/figure-gfm/README-6-1.png)<!-- -->
+    ## [1] "136953.552s (~1.59 days)"
 
 ## Docker
 
@@ -173,8 +121,7 @@ executing `docker build -t image .` within the `./docker` directory.
 Next, the analysis can be started by calling
 
 ``` r
-source("analysis/drake.R")
-make(plan, keep_going = TRUE, console_log_file = stdout()) 
+r_make()
 ```
 
 ### Licenses

@@ -58,37 +58,87 @@ rm(args_pred)
 
 # prediction maps ---------------------------------------------------------
 
-args_pred = tibble(prediction_raster = c("prediction_glm",
-                                         "prediction_gam",
-                                         "prediction_svm",
+args_pred = tibble(prediction_raster = c("prediction_glm_diplodia",
+                                         "prediction_glm_fusarium",
+                                         "prediction_glm_armillaria",
+                                         "prediction_glm_heterobasidion",
+
+                                         "prediction_gam_diplodia",
+                                         "prediction_gam_fusarium",
+                                         "prediction_gam_armillaria",
+                                         "prediction_gam_heterobasidion",
+
+                                         "prediction_svm_diplodia",
+                                         "prediction_svm_fusarium",
+                                         "prediction_svm_armillaria",
+                                         "prediction_svm_heterobasidion",
+
                                          "prediction_rf",
                                          "prediction_kknn",
                                          "prediction_xgboost",
                                          "prediction_brt"),
                    model_name = c("glm",
+                                  "glm",
+                                  "glm",
+                                  "glm",
+
                                   "gam",
+                                  "gam",
+                                  "gam",
+                                  "gam",
+
                                   "svm",
+                                  "svm",
+                                  "svm",
+                                  "svm",
+
                                   "rf",
                                   "kknn",
                                   "xgboost",
                                   "brt"),
-                   benchmark_object = c("bm_sp_non_glm",
-                                        "bm_sp_sp_gam",
-                                        "bm_sp_sp_svm",
+                   benchmark_object = c("bm_sp_non_diplodia_glm",
+                                        "bm_sp_non_armillaria_glm",
+                                        "bm_sp_non_fusarium_glm",
+                                        "bm_sp_non_heterobasidion_glm",
+
+                                        "bm_sp_sp_diplodia_gam",
+                                        "bm_sp_sp_armillaria_gam",
+                                        "bm_sp_sp_fusarium_gam",
+                                        "bm_sp_sp_heterobasidion_gam",
+
+
+                                        "bm_sp_sp_diplodia_svm",
+                                        "bm_sp_sp_armillaria_svm",
+                                        "bm_sp_sp_fusarium_svm",
+                                        "bm_sp_sp_heterobasidion_svm",
+
                                         "bm_sp_sp_rf",
                                         "bm_sp_sp_kknn",
                                         "bm_sp_sp_xgboost",
                                         "bm_sp_sp_brt"),
                    resampling = c("spatial/no tuning",
+                                  "spatial/no tuning",
+                                  "spatial/no tuning",
+                                  "spatial/no tuning",
+
                                   "spatial/spatial",
                                   "spatial/spatial",
+                                  "spatial/spatial",
+                                  "spatial/spatial",
+
+                                  "spatial/spatial",
+                                  "spatial/spatial",
+                                  "spatial/spatial",
+                                  "spatial/spatial",
+
+
                                   "spatial/spatial",
                                   "spatial/spatial",
                                   "spatial/spatial",
                                   "spatial/spatial")
 )
 
-args_pred$id = suppressWarnings(paste0("maps_", str_split(args_pred$prediction_raster, "_", simplify = TRUE)[, 2]))
+args_pred$id = suppressWarnings(paste0("maps_", gsub("prediction_", "", args_pred$prediction_raster)))
 args_pred$prediction_raster = rlang::syms(args_pred$prediction_raster)
 args_pred$benchmark_object = rlang::syms(args_pred$benchmark_object)
 

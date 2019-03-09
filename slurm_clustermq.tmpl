@@ -8,22 +8,8 @@
 #SBATCH --array=1-{{ n_jobs }}
 
 cd ~/git/pathogen-modeling/
-pwd
 
 spack load r@3.5.1
-#export PATH=/opt/R/3.5.1/bin:$PATH
-export R_HOME=/opt/R/3.5.1/lib64/R
+spack load saga-gis
 
-#R -q -e 'options("clustermq.scheduler")'
-#R -q -e 'Sys.getenv("R_HOME")'
-#R -q -e '.libPaths()'
-
-#which R
-#CMQ_AUTH={{ auth }}
-
-#module load gnu8
-#module load R
-
-#ulimit -v $(( 1024 * {{ memory | 4096 }} ))
-# no matter what I specify, it will always use the R version that made the Q() call to call the following line
 CMQ_AUTH={{ auth }} R --no-save --no-restore -e 'clustermq:::worker("{{ master }}")'

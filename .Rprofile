@@ -2,12 +2,11 @@
 source("packrat/init.R")
 #### -- End Packrat Autoloader -- ####
 
-options(bitmapType = 'cairo', device = 'png')
-
-options(
-  clustermq.scheduler = "slurm",
-  clustermq.template = "~/git/pathogen-modeling/slurm_clustermq.tmpl"
-)
+# options(
+#   clustermq.scheduler = "slurm",
+#   clustermq.template = "~/git/pathogen-modeling/slurm_clustermq.tmpl"
+# )
 
 startup::startup(debug = F)
 
+library("drake")

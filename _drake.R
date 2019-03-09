@@ -32,6 +32,7 @@ suppressPackageStartupMessages(library(ggsci))
 suppressPackageStartupMessages(library(furrr))
 suppressPackageStartupMessages(library(future.callr))
 suppressPackageStartupMessages(library(ggpubr))
+suppressPackageStartupMessages(library(hrbrthemes))
 
 # Plans -----------------------------------------------------------
 
@@ -73,16 +74,20 @@ plan = bind_plans(data_plan, task, learners, resampling, param_set,
 
 plan %<>% mutate(stage = as.factor(stage))
 
-config = drake_config(plan)
+options(
+  clustermq.scheduler = "slurm",
+  clustermq.template = "~/git/pathogen-modeling/slurm_clustermq.tmpl"
+)
 
-# make(plan, keep_going = TRUE, console_log_file=stdout())
+### Show log in console
+# watch -n .1 tail -n 40 ~/git/pathogen-modeling/drake.log
 
-# make(plan, targets = "bm_glm", keep_going = TRUE, console_log_file=stdout())
+# drake_config(plan, verbose = 2, targets = c("bm_sp_non_diplodia_glm_old"), console_log_file = "drake2.log",
+#              lazy_load = "promise", caching = "worker", template = list(log_file = "log-glm.txt", n_cpus= 8),
+#              garbage_collection = TRUE, jobs = 1, parallelism = "clustermq", force = T)
 
-# make(plan, targets = "pred_data", keep_going = TRUE, console_log_file=stdout())
+drake_config(plan, verbose = 2, targets = c("benchmark_evaluation_report_diplodia"), cache_log_file = "log/cache_log.txt",
+             lazy_load = "promise", caching = "worker", template = list(log_file = "log/worker%a.log", n_cpus= 32),
+             garbage_collection = TRUE, jobs = 3, parallelism = "clustermq")
 
-# make(plan, targets = "armillaria_data", keep_going = TRUE, console_log_file=stdout())
-
-# make(plan, targets = "slope", keep_going = TRUE, console_log_file=stdout())
-
-# make(plan, targets = "tasks", keep_going = TRUE, console_log_file=stdout(), jobs = 10)
+# drake_config(plan, verbose = 2, targets = "bm_sp_non_diplodia_glm_old", console_log_file = stdout())
