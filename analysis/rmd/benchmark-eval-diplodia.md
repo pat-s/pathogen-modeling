@@ -25,33 +25,15 @@ Merge benchmark results
 bm_sp_sp_diplodia = mergeBenchmarkResults(list(bm_sp_sp_diplodia_gam, 
                                                bm_sp_sp_diplodia_kknn, bm_sp_sp_diplodia_rf,
                                                bm_sp_sp_diplodia_svm, bm_sp_sp_diplodia_brt))
-```
 
-```
-## Error in clustermq:::worker("tcp://gisc:6438"): Assertion on 'bmrs' failed: May only contain the following types: BenchmarkResult.
-```
-
-```r
 bm_sp_nsp_diplodia = mergeBenchmarkResults(list(bm_sp_nsp_diplodia_gam,
                                                 bm_sp_nsp_diplodia_kknn, bm_sp_nsp_diplodia_rf,
                                                 bm_sp_nsp_diplodia_svm, bm_sp_nsp_diplodia_brt))
-```
 
-```
-## Error in clustermq:::worker("tcp://gisc:6438"): Assertion on 'bmrs' failed: May only contain the following types: BenchmarkResult.
-```
-
-```r
 bm_nsp_nsp_diplodia = mergeBenchmarkResults(list(bm_nsp_nsp_diplodia_gam,
                                                  bm_nsp_nsp_diplodia_kknn, bm_nsp_nsp_diplodia_rf,
                                                  bm_nsp_nsp_diplodia_svm, bm_nsp_nsp_diplodia_brt))
-```
 
-```
-## Error in clustermq:::worker("tcp://gisc:6438"): Assertion on 'bmrs' failed: May only contain the following types: BenchmarkResult.
-```
-
-```r
 bm_sp_non_diplodia = mergeBenchmarkResults(list(bm_sp_non_diplodia_gam, bm_sp_non_diplodia_glm,
                                                 bm_sp_non_diplodia_kknn, bm_sp_non_diplodia_rf,
                                                 bm_sp_non_diplodia_svm, bm_sp_non_diplodia_brt))
@@ -74,7 +56,12 @@ bm_sp_sp_diplodia %>%
 ```
 
 ```
-## Error in eval(lhs, parent, parent): object 'bm_sp_sp_diplodia' not found
+##    task.id           learner.id brier.test.mean timetrain.test.mean
+## 1 diplodia   classif.kknn.tuned       0.1977213            88.56259
+## 2 diplodia    classif.svm.tuned       0.1971449           125.95788
+## 3 diplodia    classif.gbm.tuned       0.1835597          3166.36952
+## 4 diplodia classif.ranger.tuned       0.1669685           155.18637
+## 5 diplodia    classif.gam.tuned       0.1444755           188.19462
 ```
 
 ### Visualize
@@ -92,36 +79,14 @@ plt = plotBMRBoxplots(bm_sp_sp_diplodia, measure = brier, pretty.names = T,
   # scale_color_viridis_d() +
   theme(strip.text.x = element_text(size = 8)) + 
   theme_pubr()
-```
 
-```
-## Error in checkClass(x, classes, ordered, null.ok): object 'bm_sp_sp_diplodia' not found
-```
-
-```r
 levels(plt$data$task.id) = c("Diplodia")
-```
-
-```
-## Error in levels(plt$data$task.id) = c("Diplodia"): object 'plt' not found
-```
-
-```r
 levels(plt$data$learner.id) = c("GAM", "KNN", "RF", "SVM", "BRT")
-```
 
-```
-## Error in levels(plt$data$learner.id) = c("GAM", "KNN", "RF", "SVM", "BRT"): object 'plt' not found
-```
-
-```r
-#plt + ylab("Performance")
 plt
 ```
 
-```
-## Error in eval(expr, envir, enclos): object 'plt' not found
-```
+<img src="figure/benchmark-eval-diplodia-3-1.png" title="plot of chunk benchmark-eval-diplodia-3" alt="plot of chunk benchmark-eval-diplodia-3" width="100%" style="display: block; margin: auto;" />
 
 ### Aggregated performances
 
@@ -130,35 +95,14 @@ plt
 plt2 = plotBMRSummary(bm_sp_sp_diplodia, pretty.names = FALSE) + 
   scale_colour_nejm() +
   theme_pubr()
-```
 
-```
-## Error in checkClass(x, classes, ordered, null.ok): object 'bm_sp_sp_diplodia' not found
-```
-
-```r
 levels(plt2$data$task.id) = c("Diplodia")
-```
-
-```
-## Error in levels(plt2$data$task.id) = c("Diplodia"): object 'plt2' not found
-```
-
-```r
 levels(plt2$data$learner.id) = c("GAM", "KNN", "RF", "SVM", "BRT")
-```
 
-```
-## Error in levels(plt2$data$learner.id) = c("GAM", "KNN", "RF", "SVM", "BRT"): object 'plt2' not found
-```
-
-```r
 plt2
 ```
 
-```
-## Error in eval(expr, envir, enclos): object 'plt2' not found
-```
+<img src="figure/benchmark-eval-diplodia-4-1.png" title="plot of chunk benchmark-eval-diplodia-4" alt="plot of chunk benchmark-eval-diplodia-4" width="100%" style="display: block; margin: auto;" />
 
 ## Spatial-Non-Spatial
 
@@ -170,7 +114,12 @@ bm_sp_nsp_diplodia %>%
 ```
 
 ```
-## Error in eval(lhs, parent, parent): object 'bm_sp_nsp_diplodia' not found
+##    task.id           learner.id brier.test.mean timetrain.test.mean
+## 1 diplodia    classif.svm.tuned       0.2191010           205.44966
+## 2 diplodia   classif.kknn.tuned       0.1899420            89.19088
+## 3 diplodia    classif.gbm.tuned       0.1847972          2660.82957
+## 4 diplodia classif.ranger.tuned       0.1633784           220.30125
+## 5 diplodia    classif.gam.tuned       0.1429795           192.42811
 ```
 
 ### Visualize
@@ -188,36 +137,15 @@ plt = plotBMRBoxplots(bm_sp_nsp_diplodia, measure = brier, pretty.names = T,
   # scale_color_viridis_d() +
   theme(strip.text.x = element_text(size = 8)) + 
   theme_pubr()
-```
 
-```
-## Error in checkClass(x, classes, ordered, null.ok): object 'bm_sp_nsp_diplodia' not found
-```
-
-```r
 levels(plt$data$task.id) = c("Diplodia")
-```
-
-```
-## Error in levels(plt$data$task.id) = c("Diplodia"): object 'plt' not found
-```
-
-```r
 levels(plt$data$learner.id) = c("GAM", "KNN", "RF", "SVM", "BRT")
-```
 
-```
-## Error in levels(plt$data$learner.id) = c("GAM", "KNN", "RF", "SVM", "BRT"): object 'plt' not found
-```
-
-```r
 #plt + ylab("Performance")
 plt
 ```
 
-```
-## Error in eval(expr, envir, enclos): object 'plt' not found
-```
+<img src="figure/benchmark-eval-diplodia-6-1.png" title="plot of chunk benchmark-eval-diplodia-6" alt="plot of chunk benchmark-eval-diplodia-6" width="100%" style="display: block; margin: auto;" />
 
 ### Aggregated performances
 
@@ -226,35 +154,14 @@ plt
 plt2 = plotBMRSummary(bm_sp_nsp_diplodia, pretty.names = FALSE) + 
   scale_colour_nejm() +
   theme_pubr()
-```
 
-```
-## Error in checkClass(x, classes, ordered, null.ok): object 'bm_sp_nsp_diplodia' not found
-```
-
-```r
 levels(plt2$data$task.id) = c("Diplodia")
-```
-
-```
-## Error in levels(plt2$data$task.id) = c("Diplodia"): object 'plt2' not found
-```
-
-```r
 levels(plt2$data$learner.id) = c("GAM", "KNN", "RF", "SVM", "BRT")
-```
 
-```
-## Error in levels(plt2$data$learner.id) = c("GAM", "KNN", "RF", "SVM", "BRT"): object 'plt2' not found
-```
-
-```r
 plt2
 ```
 
-```
-## Error in eval(expr, envir, enclos): object 'plt2' not found
-```
+<img src="figure/benchmark-eval-diplodia-7-1.png" title="plot of chunk benchmark-eval-diplodia-7" alt="plot of chunk benchmark-eval-diplodia-7" width="100%" style="display: block; margin: auto;" />
 
 ## Non-Spatial-Non-Spatial
 
@@ -266,7 +173,12 @@ bm_nsp_nsp_diplodia %>%
 ```
 
 ```
-## Error in eval(lhs, parent, parent): object 'bm_nsp_nsp_diplodia' not found
+##    task.id           learner.id brier.test.mean timetrain.test.mean
+## 1 diplodia    classif.svm.tuned      0.12692652           214.81148
+## 2 diplodia   classif.kknn.tuned      0.11769331            90.99921
+## 3 diplodia    classif.gam.tuned      0.11747621           191.37731
+## 4 diplodia    classif.gbm.tuned      0.09869744          2608.40361
+## 5 diplodia classif.ranger.tuned      0.09057322           226.44571
 ```
 
 ### Visualize
@@ -284,36 +196,15 @@ plt = plotBMRBoxplots(bm_nsp_nsp_diplodia, measure = brier, pretty.names = T,
   # scale_color_viridis_d() +
   theme(strip.text.x = element_text(size = 8)) + 
   theme_pubr()
-```
 
-```
-## Error in checkClass(x, classes, ordered, null.ok): object 'bm_nsp_nsp_diplodia' not found
-```
-
-```r
 levels(plt$data$task.id) = c("Diplodia")
-```
-
-```
-## Error in levels(plt$data$task.id) = c("Diplodia"): object 'plt' not found
-```
-
-```r
 levels(plt$data$learner.id) = c("GAM", "KNN", "RF", "SVM", "BRT")
-```
 
-```
-## Error in levels(plt$data$learner.id) = c("GAM", "KNN", "RF", "SVM", "BRT"): object 'plt' not found
-```
-
-```r
 #plt + ylab("Performance")
 plt
 ```
 
-```
-## Error in eval(expr, envir, enclos): object 'plt' not found
-```
+<img src="figure/benchmark-eval-diplodia-9-1.png" title="plot of chunk benchmark-eval-diplodia-9" alt="plot of chunk benchmark-eval-diplodia-9" width="100%" style="display: block; margin: auto;" />
 
 ### Aggregated performances
 
@@ -322,35 +213,14 @@ plt
 plt2 = plotBMRSummary(bm_nsp_nsp_diplodia, pretty.names = FALSE) + 
   scale_colour_nejm() +
   theme_pubr()
-```
 
-```
-## Error in checkClass(x, classes, ordered, null.ok): object 'bm_nsp_nsp_diplodia' not found
-```
-
-```r
 levels(plt2$data$task.id) = c("Diplodia")
-```
-
-```
-## Error in levels(plt2$data$task.id) = c("Diplodia"): object 'plt2' not found
-```
-
-```r
 levels(plt2$data$learner.id) = c("GAM", "KNN", "RF", "SVM", "BRT")
-```
 
-```
-## Error in levels(plt2$data$learner.id) = c("GAM", "KNN", "RF", "SVM", "BRT"): object 'plt2' not found
-```
-
-```r
 plt2
 ```
 
-```
-## Error in eval(expr, envir, enclos): object 'plt2' not found
-```
+<img src="figure/benchmark-eval-diplodia-10-1.png" title="plot of chunk benchmark-eval-diplodia-10" alt="plot of chunk benchmark-eval-diplodia-10" width="100%" style="display: block; margin: auto;" />
 
 ## Non-Spatial-No Tuning
 
@@ -363,12 +233,12 @@ bm_nsp_non_diplodia %>%
 
 ```
 ##    task.id       learner.id brier.test.mean timetrain.test.mean
-## 1 diplodia      classif.svm      0.15876016            0.311578
-## 2 diplodia      classif.gam      0.12198008            0.480930
-## 3 diplodia classif.binomial      0.11710443            0.020346
-## 4 diplodia     classif.kknn      0.11636471            0.000530
-## 5 diplodia      classif.gbm      0.10594038            0.053444
-## 6 diplodia   classif.ranger      0.09378588            0.340866
+## 1 diplodia      classif.svm      0.15876016            0.240778
+## 2 diplodia      classif.gam      0.12198008            0.295326
+## 3 diplodia classif.binomial      0.11710443            0.019602
+## 4 diplodia     classif.kknn      0.11636471            0.000508
+## 5 diplodia      classif.gbm      0.10594038            0.049736
+## 6 diplodia   classif.ranger      0.09378588            0.262988
 ```
 
 ### Visualize
@@ -435,12 +305,12 @@ bm_sp_non_diplodia %>%
 
 ```
 ##    task.id       learner.id brier.test.mean timetrain.test.mean
-## 1 diplodia      classif.gam       0.2232293            0.504344
-## 2 diplodia      classif.svm       0.2096548            0.308034
-## 3 diplodia     classif.kknn       0.1715233            0.000646
-## 4 diplodia      classif.gbm       0.1678247            0.054144
-## 5 diplodia   classif.ranger       0.1611135            0.348736
-## 6 diplodia classif.binomial       0.1403910            0.017754
+## 1 diplodia      classif.gam       0.2232293            0.316826
+## 2 diplodia      classif.svm       0.2096548            0.238336
+## 3 diplodia     classif.kknn       0.1715233            0.000480
+## 4 diplodia      classif.gbm       0.1678247            0.048636
+## 5 diplodia   classif.ranger       0.1611135            0.260018
+## 6 diplodia classif.binomial       0.1403910            0.039392
 ```
 
 ### Visualize
@@ -610,13 +480,6 @@ all_diplodia = map2(list(bm_sp_sp_diplodia,
                                                   TRUE ~ NA_real_)) %>% 
   dplyr::group_by(rep, learner.id, setting)
                 })
-```
-
-```
-## Error in map2(list(bm_sp_sp_diplodia, bm_sp_nsp_diplodia, bm_nsp_nsp_diplodia, : object 'bm_sp_sp_diplodia' not found
-```
-
-```r
 # now summarise the performance over all groupings
 
 all_diplodia %<>% 
@@ -625,7 +488,18 @@ all_diplodia %<>%
 ```
 
 ```
-## Error in eval(lhs, parent, parent): object 'all_diplodia' not found
+## Warning in bind_rows_(x, .id): Unequal factor levels: coercing to character
+```
+
+```
+## Warning in bind_rows_(x, .id): binding character and factor vector,
+## coercing into character vector
+
+## Warning in bind_rows_(x, .id): binding character and factor vector,
+## coercing into character vector
+
+## Warning in bind_rows_(x, .id): binding character and factor vector,
+## coercing into character vector
 ```
 
 
@@ -645,24 +519,18 @@ all_diplodia %<>%
   mutate(learner.id = fct_recode(learner.id, "KNN" = "classif.kknn"))
 ```
 
-```
-## Error in eval(lhs, parent, parent): object 'all_diplodia' not found
-```
-
 
 ```r
-update_geom_font_defaults()
+#update_geom_font_defaults()
 ggplot(all_diplodia, aes(learner.id, brier, fill = setting)) + 
   geom_boxplot(width = 0.6, outlier.size = 0.3, outlier.shape = 19) +
   scale_fill_nejm() +
   labs(y = "Brier score", x = "") + 
-  coord_cartesian(ylim = c(0.10, 0.50)) + 
+  coord_cartesian(ylim = c(0.10, 0.30)) + 
   scale_y_continuous(breaks = seq(0.10, 0.50, 0.05)) +
   scale_x_discrete(limits = c("GAM", "GLM", "BRT", "KNN", "RF", "SVM")) +
   theme(legend.title = element_text("CV Type")) + 
   theme_pubr() +
-  # theme_ipsum_rc(grid = "Y", axis_title_size = 16, 
-  #                axis_title_just = "c") + 
   theme(axis.text = element_text(size = 14),
         plot.margin = unit(c(0.25, 0.2, 0.2, 0.2), "cm"),
         legend.position = "top",
@@ -674,7 +542,5 @@ ggplot(all_diplodia, aes(learner.id, brier, fill = setting)) +
                                                         size = 12))) 
 ```
 
-```
-## Error in ggplot(all_diplodia, aes(learner.id, brier, fill = setting)): object 'all_diplodia' not found
-```
+<img src="figure/benchmark-eval-diplodia-19-1.png" title="plot of chunk benchmark-eval-diplodia-19" alt="plot of chunk benchmark-eval-diplodia-19" width="100%" style="display: block; margin: auto;" />
 

@@ -18,7 +18,7 @@ on the following pathogen:
 
 ```{r setup, include=FALSE}
 #knitr::opts_knit$set(base.dir = 'analysis/rmd/')
-knitr::opts_chunk$set(fig.retina=3, fig.align = 'center', fig.height = 3.5 , fig.width = 3,
+knitr::opts_chunk$set(fig.retina=3, fig.align = 'center', fig.width = 6.93, fig.height = 6.13,
                       out.width = "100%")
 
 loadd(bm_sp_sp_diplodia_gam, bm_sp_sp_diplodia_kknn, bm_sp_sp_diplodia_rf,
@@ -90,7 +90,6 @@ plt = plotBMRBoxplots(bm_sp_sp_diplodia, measure = brier, pretty.names = T,
 levels(plt$data$task.id) = c("Diplodia")
 levels(plt$data$learner.id) = c("GAM", "KNN", "RF", "SVM", "BRT")
 
-#plt + ylab("Performance")
 plt
 ```
 
@@ -416,18 +415,16 @@ all_diplodia %<>%
 ```
 
 ```{r benchmark-eval-diplodia-19, fig.width = 6.93, fig.height = 6.13 }
-update_geom_font_defaults()
+#update_geom_font_defaults()
 ggplot(all_diplodia, aes(learner.id, brier, fill = setting)) + 
   geom_boxplot(width = 0.6, outlier.size = 0.3, outlier.shape = 19) +
   scale_fill_nejm() +
   labs(y = "Brier score", x = "") + 
-  coord_cartesian(ylim = c(0.10, 0.50)) + 
+  coord_cartesian(ylim = c(0.10, 0.30)) + 
   scale_y_continuous(breaks = seq(0.10, 0.50, 0.05)) +
   scale_x_discrete(limits = c("GAM", "GLM", "BRT", "KNN", "RF", "SVM")) +
   theme(legend.title = element_text("CV Type")) + 
   theme_pubr() +
-  # theme_ipsum_rc(grid = "Y", axis_title_size = 16, 
-  #                axis_title_just = "c") + 
   theme(axis.text = element_text(size = 14),
         plot.margin = unit(c(0.25, 0.2, 0.2, 0.2), "cm"),
         legend.position = "top",
