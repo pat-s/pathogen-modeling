@@ -1,41 +1,5 @@
-suppressPackageStartupMessages(library(drake))
-suppressPackageStartupMessages(library(mlr))
-suppressPackageStartupMessages(library(magrittr))
-suppressPackageStartupMessages(library(mlrMBO))
-suppressPackageStartupMessages(library(purrr))
-suppressPackageStartupMessages(library(parallelMap))
-suppressPackageStartupMessages(library(sf))
-suppressPackageStartupMessages(library(dplyr))
-suppressPackageStartupMessages(library(lwgeom))
-suppressPackageStartupMessages(library(forcats))
-suppressPackageStartupMessages(library(tibble))
-suppressPackageStartupMessages(library(rgdal))
-suppressPackageStartupMessages(library(viridis))
-suppressPackageStartupMessages(library(rasterVis))
-suppressPackageStartupMessages(library(lattice))
-suppressPackageStartupMessages(library(latticeExtra))
-suppressPackageStartupMessages(library(glue))
-suppressPackageStartupMessages(library(RSAGA))
-suppressPackageStartupMessages(library(stringr))
-suppressPackageStartupMessages(library(GSIF))
-suppressPackageStartupMessages(library(sp))
-suppressPackageStartupMessages(library(R.utils))
-suppressPackageStartupMessages(library(curl))
-suppressPackageStartupMessages(library(fs))
-suppressPackageStartupMessages(library(rgenoud))
-suppressPackageStartupMessages(library(magick))
-suppressPackageStartupMessages(library(stringr))
-suppressPackageStartupMessages(library(ggplot2))
-suppressPackageStartupMessages(library(ggspatial))
-suppressPackageStartupMessages(library(clustermq))
-suppressPackageStartupMessages(library(ggsci))
-suppressPackageStartupMessages(library(furrr))
-suppressPackageStartupMessages(library(future.callr))
-suppressPackageStartupMessages(library(ggpubr))
-suppressPackageStartupMessages(library(hrbrthemes))
-
 # Plans -----------------------------------------------------------
-
+source("analysis/packages.R")
 sourceDirectory("R/")
 
 data_plan = code_to_plan("analysis/data/data.R")
@@ -82,12 +46,12 @@ options(
 ### Show log in console
 # watch -n .1 tail -n 40 ~/git/pathogen-modeling/drake.log
 
-# drake_config(plan, verbose = 2, targets = c("bm_sp_non_diplodia_glm_old"), console_log_file = "drake2.log",
-#              lazy_load = "promise", caching = "worker", template = list(log_file = "log-glm.txt", n_cpus= 8),
-#              garbage_collection = TRUE, jobs = 1, parallelism = "clustermq", force = T)
+drake_config(plan, verbose = 2, targets = c("bm_sp_non_diplodia_glm_old"), console_log_file = "drake2.log",
+             lazy_load = "promise", caching = "worker", template = list(log_file = "log-glm.txt", n_cpus= 8),
+             garbage_collection = TRUE, jobs = 1, parallelism = "clustermq", force = T)
 
-drake_config(plan, verbose = 2, targets = c("benchmark_evaluation_report_diplodia"), cache_log_file = "log/cache_log.txt",
-             lazy_load = "promise", caching = "worker", template = list(log_file = "log/worker%a.log", n_cpus= 32),
-             garbage_collection = TRUE, jobs = 3, parallelism = "clustermq")
+# drake_config(plan, verbose = 2, targets = c("benchmark_evaluation_report_diplodia"), cache_log_file = "log/cache_log.txt",
+#              lazy_load = "promise", caching = "worker", template = list(log_file = "log/worker%a.log", n_cpus= 32),
+#              garbage_collection = TRUE, jobs = 3, parallelism = "clustermq")
 
 # drake_config(plan, verbose = 2, targets = "bm_sp_non_diplodia_glm_old", console_log_file = stdout())
