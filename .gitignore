@@ -7,3 +7,4 @@ analysis/data/derived_data
 .drake
 data
 .Rhistory
+rosm.cache
