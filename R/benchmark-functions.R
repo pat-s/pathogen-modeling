@@ -13,11 +13,11 @@ benchmark_custom <- function(task, learner, resampling) {
   set.seed(12345, kind = "L'Ecuyer-CMRG")
 
   bmr <- benchmark(learner, task,
-                   models = FALSE,
-                   keep.pred = TRUE,
-                   keep.extract = FALSE,
+                   models = ignore(T),
+                   keep.pred = ignore(TRUE),
+                   keep.extract = ignore(FALSE),
                    resampling = resampling,
-                   show.info = TRUE, measures = list(brier, timetrain)
+                   show.info = ignore(TRUE), measures = list(brier, timetrain)
   )
 
   parallelStop()
