@@ -1,5 +1,5 @@
 
-[![Last-changedate](https://img.shields.io/badge/last%20change-2019--03--09-brightgreen.svg)](https://github.com/pat-s/pathogen-modeling/commits/master)
+[![Last-changedate](https://img.shields.io/badge/last%20change-2019--03--10-brightgreen.svg)](https://github.com/pat-s/pathogen-modeling/commits/master)
 [![minimal R
 version](https://img.shields.io/badge/R%3E%3D-3.5.0-brightgreen.svg)](https://cran.r-project.org/)
 [![Licence](https://img.shields.io/github/license/mashape/apistatus.svg)](http://choosealicense.com/licenses/mit/)  
@@ -98,10 +98,9 @@ r_predict_runtime()
     ## [90manalyze[39m environment
     ## [90mconstruct[39m priority queue
     ## Warning message:
-    ## Arguments `file_targets` and `strings_in_dots` of `drake_plan()` are deprecated. 
-    ## Error while shutting down parallel: unable to terminate some child processes
+    ## Arguments `file_targets` and `strings_in_dots` of `drake_plan()` are deprecated.
 
-    ## [1] "136953.552s (~1.59 days)"
+    ## [1] "0s"
 
 # Docker
 
