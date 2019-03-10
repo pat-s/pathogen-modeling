@@ -9,4 +9,6 @@ source("packrat/init.R")
 
 startup::startup(debug = F)
 
+pkgconfig::set_config("drake::strings_in_dots" = "literals")
+
 library("drake")
