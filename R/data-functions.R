@@ -982,9 +982,17 @@ preprocessing_custom_v2 <- function(path, slope, soil, temperature_mean, ph, hai
     temperature_mean %>%
     raster::extract(data_in)
 
+  #### old temp from dataset
+
   # PISR
 
-  data_in$pisr <- data_in$r_sum
+  data_in$pisr <-
+    pisr %>%
+    raster::extract(data_in)
+
+  #### old pisr from dataset
+
+  # data_in$pisr <- data_in$r_sum
 
   data_in %<>%
     mutate(pisr = replace(pisr, pisr < -0.1, -0.1))
@@ -994,6 +1002,9 @@ preprocessing_custom_v2 <- function(path, slope, soil, temperature_mean, ph, hai
   data_in$precip <-
     precipitation_sum %>%
     raster::extract(data_in)
+
+  #### old p_sum from dataset
+  # data_in$precip <- data_in$p_sum
 
   data_in %<>%
     mutate(precip = replace(precip, precip < 124.4, 124.4))
@@ -1006,9 +1017,9 @@ preprocessing_custom_v2 <- function(path, slope, soil, temperature_mean, ph, hai
 
   # Age
 
-  if (isTRUE(age)) {
-    data_in = age_imp_preprocessing(data = data_in)
-  }
+  # if (isTRUE(age)) {
+  #   data_in = age_imp_preprocessing(data = data_in)
+  # }
 
   # year
   if ("date" %in% colnames(data_in)) {
