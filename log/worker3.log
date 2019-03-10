@@ -23,10 +23,10 @@ During startup - Warning messages:
 5: Setting LC_MONETARY failed, using "C" 
 6: Setting LC_PAPER failed, using "C" 
 7: Setting LC_MEASUREMENT failed, using "C" 
-> clustermq:::worker("tcp://gisc:6766")
-Master: tcp://gisc:6766
-WORKER_UP to: tcp://gisc:6766
-> DO_SETUP (0.579s wait)
+> clustermq:::worker("tcp://gisc:6038")
+Master: tcp://gisc:6038
+WORKER_UP to: tcp://gisc:6038
+> DO_SETUP (0.225s wait)
 token from msg: set_common_data_token
 > DO_CALL (0.000s wait)
 
@@ -269,59 +269,10 @@ The following object is masked from 'package:raster':
 
     rotate
 
-Target bm_sp_sp_diplodia_gam messages:
-  Starting parallelization in mode=multicore with cpus=32.
-  Task: diplodia, Learner: classif.gam.tuned
-  Resampling: repeated spatial cross-validation
-  Measures:             brier       timetrain   
-  Mapping in parallel: mode = multicore; cpus = 32; elements = 500.
-  
-
-  Aggregated Result: brier.test.mean=0.1444755,timetrain.test.mean=188.1946160
-  
-
-  Stopped parallelization. All cleaned up.
 eval'd: drake::cmq_buildtargetmetadepsconfig
-> DO_CALL (0.000s wait)
-Target bm_nsp_non_diplodia_gam messages:
-  Starting parallelization in mode=multicore with cpus=32.
-  Task: diplodia, Learner: classif.gam
-  Resampling: repeated cross-validation
-  Measures:             brier       timetrain   
-  Mapping in parallel: mode = multicore; cpus = 32; elements = 500.
-  
+> WORKER_STOP (0.000s wait)
+shutting down worker
 
-  Aggregated Result: brier.test.mean=0.1219801,timetrain.test.mean=0.2953260
-  
-
-  Stopped parallelization. All cleaned up.
-eval'd: drake::cmq_buildtargetmetadepsconfig
-> DO_CALL (0.001s wait)
-Target bm_sp_sp_diplodia_rf messages:
-  Starting parallelization in mode=multicore with cpus=32.
-  Task: diplodia, Learner: classif.ranger.tuned
-  Resampling: repeated spatial cross-validation
-  Measures:             brier       timetrain   
-  Mapping in parallel: mode = multicore; cpus = 32; elements = 500.
-  
-
-  Aggregated Result: brier.test.mean=0.1669685,timetrain.test.mean=155.1863700
-  
-
-  Stopped parallelization. All cleaned up.
-eval'd: drake::cmq_buildtargetmetadepsconfig
-> DO_CALL (0.000s wait)
-Target bm_nsp_nsp_diplodia_rf messages:
-  Starting parallelization in mode=multicore with cpus=32.
-  Task: diplodia, Learner: classif.ranger.tuned
-  Resampling: repeated cross-validation
-  Measures:             brier       timetrain   
-  Mapping in parallel: mode = multicore; cpus = 32; elements = 500.
-  
-
-  Aggregated Result: brier.test.mean=0.0905732,timetrain.test.mean=226.4457080
-  
-
-  Stopped parallelization. All cleaned up.
-eval'd: drake::cmq_buildtargetmetadepsconfig
-> DO_CALL (0.000s wait)
+Total: 0 in 15.87s [user], 0.68s [system], 20.87s [elapsed]
+> 
+> 
