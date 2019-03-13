@@ -613,13 +613,13 @@ mod_raw_data = function(data, drop_vars, response) {
   #' Raw data: Point shapefile in CRS 23030 with presense and absence observations of heterobasi and armillaria.
   #'
   #'
-
+  #'
   data %<>%
     st_transform(32630)
 
-  data %<>%
-    st_coordinates() %>%
-    cbind(data)
+  # data %<>%
+  #   st_coordinates() %>%
+  #   cbind(data)
 
   #' ## Change column names to lowercase
   colnames(data) <-
@@ -630,9 +630,9 @@ mod_raw_data = function(data, drop_vars, response) {
   #' ## Wiggle coordinates
   #' Some coordinates are not unique, so we have to wiggle them a little bit
   #'
-  # set.seed(1234)
-  # data$x <- data$x + rnorm(nrow(data)) / 10
-  # data$y <- data$y + rnorm(nrow(data)) / 10
+  set.seed(1234)
+  data$x <- data$x + rnorm(nrow(data)) / 10
+  data$y <- data$y + rnorm(nrow(data)) / 10
 
   if (!is.null(drop_vars)) {
     # drop second response
@@ -773,35 +773,48 @@ preprocessing_custom <- function(path, slope, soil, temperature_mean, ph, hail,
                                   "magmatic rock" = "24"
     ))
 
-  # Temperature
-
-  data_in$temp <-
-    temperature_mean %>%
-    raster::extract(data_in)
-
-  # PISR
-
-  data_in$pisr <-
-    pisr %>%
-    raster::extract(data_in)
-
-  data_in %<>%
-    mutate(pisr = replace(pisr, pisr < -0.1, -0.1))
-
-  # Precipitation
-
-  data_in$precip <-
-    precipitation_sum %>%
-    raster::extract(data_in)
-
-  data_in %<>%
-    mutate(precip = replace(precip, precip < 124.4, 124.4))
 
   # Hail
 
   data_in$hail_probability <-
     hail %>%
     raster::extract(data_in)
+
+
+  # the geom column needs to be removed, otherwise `rowMeans()` will faill
+  st_geometry(data_in) = NULL
+
+  # Temperature Tue Mar 12 21:21:30 2019 ------------------------------
+
+  # temperature is already in the dataset
+
+  data_in %>%
+    dplyr::select(ttmarav, ttabrav, ttmayav, ttjunav, ttjulav, ttagoav, ttsepav) %>%
+    dplyr::mutate_if(is.integer, as.numeric) %>%
+    rowMeans() %>%
+    divide_by(10) -> data_in$temp
+
+  # PISR Tue Mar 12 21:21:42 2019 ------------------------------
+
+  # PISR is already in the dataset
+
+  data_in %>%
+    dplyr::select(rjulav, ragoav, rsepav) %>%
+    rowSums %>%
+    divide_by(mean(.)) - 1 -> data_in$pisr
+
+  # Precipitation Tue Mar 12 21:22:01 2019 ------------------------------
+
+  # precip is already in the dataset
+
+  data_in %>%
+    dplyr::select(pjuliav, pagosav, pseptav) %>%
+    dplyr::mutate_if(is.integer, as.numeric) %>%
+    rowSums() %>%
+    divide_by(10) -> data_in$precip
+
+  data_in %<>%
+    mutate(p_sum = replace(precip, precip < 124.4, 124.4))
 
   # Age
 
@@ -999,12 +1012,12 @@ preprocessing_custom_v2 <- function(path, slope, soil, temperature_mean, ph, hai
 
   # Precipitation
 
-  data_in$precip <-
-    precipitation_sum %>%
-    raster::extract(data_in)
+  # data_in$precip <-
+  #   precipitation_sum %>%
+  #   raster::extract(data_in)
 
   #### old p_sum from dataset
-  # data_in$precip <- data_in$p_sum
+  data_in$precip <- data_in$p_sum
 
   data_in %<>%
     mutate(precip = replace(precip, precip < 124.4, 124.4))
