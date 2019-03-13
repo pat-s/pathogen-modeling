@@ -1,0 +1,140 @@
+---
+title: "R Notebook"
+output: html_notebook
+---
+
+This is an [R Markdown](http://rmarkdown.rstudio.com) Notebook. When you execute code within the notebook, the results appear beneath the code. 
+
+Try executing this chunk by clicking the *Run* button within the chunk or by placing your cursor inside it and pressing *Ctrl+Shift+Enter*. 
+
+```{r}
+loadd(diplodia_data) 
+diplodia_data %<>% st_as_sf() %>% 
+  mutate(x = as.integer(x)) %>% 
+  mutate(y = as.integer(y)) %>% 
+  as_tibble()# new
+data_old = st_read("data-clean.gpkg") %>% 
+  as_tibble()
+```
+
+Rbind old data to new data.
+
+data old: 927
+data new: 922
+
+We join by coordinates. 
+
+We get only 910 that match?
+
+```{r}
+all = left_join(diplodia_data, data_old, by = c("x", "y")) %>% na.omit()
+```
+
+# Precip
+
+New: precip
+old: p_sum
+
+```{r}
+cor(all$precip, all$p_sum)
+```
+
+```{r}
+plot(all$precip, all$p_sum)
+```
+
+# Slope
+
+```{r}
+cor(all$slope_degrees.x, all$slope_degrees.y)
+```
+
+```{r}
+summary(all$precip)
+```
+
+Hier wurde nach unten hin trimemd in der alten Version.
+
+```{r}
+summary(all$p_sum)
+```
+
+# temp
+
+New: temp.x
+old: temp.y
+
+```{r}
+cor(all$temp.x, all$temp.y)
+```
+
+# hail prob
+
+New: hail_probability
+old: hail_prob
+
+```{r}
+cor(all$hail_probability, all$hail_prob)
+```
+
+# pisr
+
+```{r}
+cor(all$pisr, all$r_sum)
+```
+
+```{r}
+plot(all$pisr, all$r_sum)
+```
+
+
+```{r}
+summary(all$pisr)
+```
+
+```{r}
+summary(all$r_sum)
+```
+
+# ph
+
+```{r}
+cor(all$ph.x, all$ph.y)
+```
+
+# Lithology
+
+```{r}
+levels(all$lithology.x)
+```
+
+```{r}
+levels(all$lithology.y)
+```
+
+```{r}
+summary(all$lithology.x)
+```
+
+```{r}
+summary(all$lithology.y)
+```
+
+
+# Soil
+
+```{r}
+levels(all$soil.x)
+```
+
+```{r}
+levels(all$soil.y)
+```
+
+```{r}
+summary(all$soil.x)
+```
+
+```{r}
+summary(all$soil.y)
+```
