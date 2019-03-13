@@ -153,7 +153,7 @@
 Ecological applications range from species distribution models \citep{Halvorsen2016, Quillfeldt2017, Wieland2017} over plant disease and soil type modeling \citep{heimDetectingMyrtleRust2018, brungardMachineLearningPredicting2015} to resource selection \citep{Baasch2010}.
 
 % link case study
-One typical example for a spatial prediction approach in ecology is the detection of fungi infection on Monterey pines \citep{Iturritxa2014}.
+A typical example for a spatial prediction approach in ecology is the detection of fungi infection on Monterey pines \citep{Iturritxa2014}.
 Fungal species such as \textit{Diplodia sapinea} inflict severe damages to \textit{Pinus radiata} trees which are then subjected to environmental stress \citep{Wingfield2008}.
 Infected forest stands cause economic as well as ecological damages worldwide \citep{Ganley2009}.
 In Spain, where timber production is regionally an important economic factor, about 25\% of the timber production stems from Monterrey pine (\textit{Pinus radiata}) plantations in northern Spain, and here mostly from the Basque Country \citep{Iturritxa2014}.
@@ -163,20 +163,22 @@ These findings can then be used for spatially predicting the risk of future outb
 
 \subsection{The special role of spatial autocorrelation in predictive modeling}
 \label{subsec:spcv_pred_mod}
-All of the previously mentioned fields have at least one thing in common: The observations inherit spatial information.
-One of the main challenges that comes with this information is to account for the influence of spatial autocorrelation in the data \citep{Legendre1993}.
+All of the previously mentioned scientific fields have one thing in common: The observations inherit spatial information.
+One of the main challenges that comes with this information is the accounting for the influence of spatial autocorrelation in the data \citep{Legendre1993}.
 Cross-validation and bootstrapping are two widely used performance estimation techniques \citep{Efron1983, Gordon1984, Kohavi1995}.
 However, in the presence of spatial autocorrelation, estimates obtained using regular (non-spatial) random resampling may be biased and overoptimistic.
 This has led to the adoption of spatial resampling in cross-validation and bootstrapping for bias reduction.
 The mentioned bias inherits from the fact that training and test observations are located close to each other (in a geographical space) if a random sampling is used in \ac{CV} \citep{Legendre1993}.
 Random sampling in CV leads to the selection of test observations that are spatially close to training observations. 
-However, according to the first law of geography, close observations are frequently more similar to each other than observations further apart which violates the fundamental assumption of independence in cross-validation.
+According to the first law of geography, close observations are frequently more similar to each other than observations further apart. 
+This violates the fundamental assumption of independence in cross-validation.
 Hence, algorithms fitted on the training data often achieve very good performance results, simply because the characteristics of the evaluation set are very similar to the training data.
 
 One approach to solve this, which has been applied in various studies in the last decade, builds upon the idea to spatially disjoin training and test set in \ac{CV}.
-The naming of this concept varies with the scientific field in which it is applied: \cite{Burman1994, Roberts2017, Shao1993} label it "Block cross-validation", \cite{Brenning2005} as "spatial cross-validation", \cite{Pohjankukka2017} "spatial k-fold cross-validation" and \cite{Meyer2018} "Leave-location-out cross-validation".
-Here, we use the term "spatial cross-validation" because it is the most generic wording to label this concept and hope that this naming convention will prevail.
-Although the importance of bias-reduced spatial resampling methods for performance estimation has been emphasized repeatedly in recent years \citep{Geiss2017, Meyer2018, Wenger2012}, many studies have been published in recent years that did not account for this problem \citep{Bui2015, Pourghasemi2018, Smolinski2016, Wollan2008, Youssef2015}.
+The naming of this concept varies with the scientific field in which it is applied: \cite{Burman1994, Roberts2017, Shao1993} label it "Block cross-validation", \cite{Brenning2005} as "spatial cross-validation", \cite{pohjankukkaEstimatingPredictionPerformance2017} "spatial k-fold cross-validation" and \cite{Meyer2018} "Leave-location-out cross-validation".
+In this work we use the term "spatial cross-validation" because it is the most generic wording to label this concept and hope that this naming convention will prevail.
+
+Although the importance of bias-reduced spatial resampling methods for performance estimation has been emphasized repeatedly in recent years \citep{Geiss2017, Meyer2018, Wenger2012}, unfortunately many studies have been published in recent years that did not account for this problem \citep{Bui2015, Pourghasemi2018, Smolinski2016, Wollan2008, Youssef2015}.
 
 \subsection{Parametric vs. non-parametric algorithms}
 Supervised learning techniques can be broadly divided into parametric and non-parametric models.
@@ -185,7 +187,8 @@ This enables ecologists to interpret relationships between the response and its 
 Choosing the best performing algorithm for a specific dataset is an essential step in ecological modeling to maximize predictive accuracy.
 In this context, model interpretability should certainly be an important criterion in the selection process when the aim is to make inference on the modeled relationship \citep{johnsonModelSelectionEcology2004}.
 While the most commonly used statistical models such as generalized linear mixed models (GLMMs) are parametric, especially machine-learning techniques offer a non-parametric approach to spatial modeling in ecology \citep{deathBoostedTreesEcological2007}.
-Although their ability to make inference is limited compared to parametric ones, these gained in popularity due to their ability to handle high-dimensional and highly correlated data and their less important model assumptions.
+Even though recently a lot of effort has been put into improving the interpretability of machine-learning algorithms, their ability to make inference is still limited compared to parametric ones \citep{adlerAuditingBlackboxModels2018, heneliusPeekBlackBox2014}. 
+The former gained in popularity due to their ability to handle high-dimensional and highly correlated data and their less important model assumptions.
 
 \subsection{The importance of hyperparameter optimization}
 \label{subsec:importance_of_tuning}
