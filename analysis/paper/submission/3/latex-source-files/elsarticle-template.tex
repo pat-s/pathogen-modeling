@@ -194,18 +194,18 @@ The former gained in popularity due to their ability to handle high-dimensional 
 \label{subsec:importance_of_tuning}
 To reach robust performance results with non-parametric models, their respective hyperparameters must be optimized.
 Default hyperparameter settings can not guarantee an optimal performance of machine-learning techniques and additional attention should be directed to this critical step.
-When performance estimation techniques such as cross-validation are used in this step, the adequacy of non-spatial techniques for spatial datasets can be questioned.
+When performance estimation techniques such as cross-validation are used in this step, the adequacy of non-spatial partitioning techniques for spatial datasets can be questioned.
 Although spatial resampling methods have been used in studies that deal with spatial data for quite some time now \citep{Geiss2017, Iturritxa2014, Meyer2018}, there is no analysis of the effect and meaningfulness of using spatial resampling techniques for hyperparameter tuning.
 This study aims to check if optimizing hyperparameters using a non-spatial sampling may potentially lead to non-optimal performance estimates.
 
 \subsection{Main objectives}
-Overall, the intention of this work is to emphasize the need for spatial CV and corresponding hyperparameter tuning in spatial modeling to receive biased-reduced performance estimates.
+Overall, the intention of this work is to emphasize the need for spatial \ac{CV} and corresponding hyperparameter tuning in spatial modeling to receive biased-reduced performance estimates.
 The following objectives (and hypotheses) are addressed:
 
 \begin{itemize}
-	\item Comparing predictive performance of spatial and non-spatial partitioning methods. We assume that non-spatial partitioning methods will yield over-optimistic results in the presence of spatial autocorrelation.
+	\item Comparison of the predictive performance of spatial and non-spatial partitioning methods. We assume that non-spatial partitioning methods will yield over-optimistic results in the presence of spatial autocorrelation.
 	\item Exploring the effects of (spatial) hyperparameter tuning for commonly used algorithms in the field of ecological modeling. We propose that optimal hyperparameter tuning has an substantial effect on model performance.
-	\item Comparing the predictive performance of parametric (GLM, GAM) and non-parametric algorithms (BRT, RF, SVM, KNN). We assume that the predictive performance of non-parametric algorithms is substantially higher.
+	\item Comparison of the predictive performance of parametric (GLM, GAM) and non-parametric algorithms (BRT, RF, SVM, KNN). We assume that the predictive performance of non-parametric algorithms is substantially higher.
 \end{itemize}
 
 \section{Data and study area}
