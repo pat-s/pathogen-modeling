@@ -786,35 +786,51 @@ preprocessing_custom <- function(path, slope, soil, temperature_mean, ph, hail,
 
   # Temperature Tue Mar 12 21:21:30 2019 ------------------------------
 
-  # temperature is already in the dataset
+  if (response == "heterobasi" | response == "armillaria") {
+    data_in$temp <-
+      temp %>%
+      raster::extract(data_in)
+  } else {
 
-  data_in %>%
-    dplyr::select(ttmarav, ttabrav, ttmayav, ttjunav, ttjulav, ttagoav, ttsepav) %>%
-    dplyr::mutate_if(is.integer, as.numeric) %>%
-    rowMeans() %>%
-    divide_by(10) -> data_in$temp
+    # temperature is already in the dataset
+    data_in %>%
+      dplyr::select(ttmarav, ttabrav, ttmayav, ttjunav, ttjulav, ttagoav, ttsepav) %>%
+      dplyr::mutate_if(is.integer, as.numeric) %>%
+      rowMeans() %>%
+      divide_by(10) -> data_in$temp
+  }
 
   # PISR Tue Mar 12 21:21:42 2019 ------------------------------
 
-  # PISR is already in the dataset
+  if (response == "heterobasi" | response == "armillaria") {
+    data_in$pisr <-
+      pisr %>%
+      raster::extract(data_in)
+  } else {
 
-  data_in %>%
-    dplyr::select(rjulav, ragoav, rsepav) %>%
-    rowSums %>%
-    divide_by(mean(.)) - 1 -> data_in$pisr
+    # PISR is already in the dataset
+    data_in %>%
+      dplyr::select(rjulav, ragoav, rsepav) %>%
+      rowSums %>%
+      divide_by(mean(.)) - 1 -> data_in$pisr
+  }
 
   # Precipitation Tue Mar 12 21:22:01 2019 ------------------------------
 
-  # precip is already in the dataset
+  if (response == "heterobasi" | response == "armillaria") {
+    data_in$pisr <-
+      pisr %>%
+      raster::extract(data_in)
+  } else {
 
-  data_in %>%
-    dplyr::select(pjuliav, pagosav, pseptav) %>%
-    dplyr::mutate_if(is.integer, as.numeric) %>%
-    rowSums() %>%
-    divide_by(10) -> data_in$precip
+    # precip is already in the dataset
+    data_in %>%
+      dplyr::select(pjuliav, pagosav, pseptav) %>%
+      dplyr::mutate_if(is.integer, as.numeric) %>%
+      rowSums() %>%
+      divide_by(10) -> data_in$precip
+  }
 
-  data_in %<>%
-    mutate(p_sum = replace(precip, precip < 124.4, 124.4))
 
   # Age
 
