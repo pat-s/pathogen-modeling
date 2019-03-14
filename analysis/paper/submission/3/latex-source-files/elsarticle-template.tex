@@ -338,7 +338,7 @@ This tuning approach substantially reduces the tuning budget that is needed to f
 \subsubsection{Hyperparameter search spaces}
 The boundaries of the hyperparameter search spaces were based on the suggestions of the \textit{mlrHyperopt} package.
 In cases when the optimal setting of the folds of a model was close to the specified minimum or maximum of the tuning space, we extended the limits.
-We furthermore checked on the first five inner folds of each outer fold that the number of tuning iterations set in the \ac{SMBO} tuning was sufficiently large (\autoref{fig:optimization_paths}).
+We furthermore checked on the first five inner folds of the first outer fold that the number of tuning iterations set in the \ac{SMBO} tuning was sufficiently large (\autoref{fig:optimization_paths}).
 This requirement was met if no new local minimum was found in the last 10 \% of the iterations of the selected fold.
 
 In addition, all models were fitted using their respective default hyperparameter settings, i.e. no tuning was performed.
@@ -361,7 +361,7 @@ In the end it depends on whether the training/test difference is more similar to
 \subsubsection{Practical implementation}
 Most packages offering \ac{CV} solutions in R offer only random partitioning methods, assuming independence of the observations.
 Package \textit{mlr}, which was used as the modeling framework in this work, was missing spatial partitioning functions but provides a unified framework for modeling and simplifies hyperparameter tuning.
-With this study we implemented the spatial partitioning methods of package \textit{sperrorest} into \textit{mlr}.
+Within the works of this study we implemented the spatial partitioning methods of package \textit{sperrorest} into \textit{mlr}.
 
 \begin{figure} [t!]
 	\begin{center}
