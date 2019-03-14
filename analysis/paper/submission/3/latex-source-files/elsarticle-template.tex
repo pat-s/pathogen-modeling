@@ -263,13 +263,13 @@ Radiata pine is the most abundant species occupying 33.27\% of the total area \c
 
 \section{Methods}
 
-In this study we provide an exemplary analysis combining both tuning of hyperparameters (see \autoref{subsec:importance_of_tuning}) using nested \ac{CV} (see \autoref{subsubsec:nested_cv}) and the use of spatial \ac{CV} to assess bias-reduced model performances (see \autoref{subsec:spcv_pred_mod}).
-We compared predictive performances using four setups: Non-spatial \ac{CV} for performance estimation combined with non-spatial hyperparameter tuning (\emph{non-spatial/non-spatial}), spatial \ac{CV} estimation with spatial hyperparameter tuning (\emph{spatial/spatial}), spatial \ac{CV} estimation with non-spatial hyperparameter tuning (\emph{spatial/non-spatial}), and spatial \ac{CV} estimation without hyperparameter tuning (\emph{spatial/no tuning}).
+\noindent In this study we provide an exemplary analysis combining both tuning of hyperparameters (see \autoref{subsec:importance_of_tuning}) using nested \ac{CV} (see \autoref{subsubsec:nested_cv}) and the use of spatial \ac{CV} to assess bias-reduced model performance (see \autoref{subsec:spcv_pred_mod}).
+We compared predictive performance using four settings: Non-spatial \ac{CV} for performance estimation combined with non-spatial hyperparameter tuning (\emph{non-spatial/non-spatial}), spatial \ac{CV} estimation with spatial hyperparameter tuning (\emph{spatial/spatial}), spatial \ac{CV} estimation with non-spatial hyperparameter tuning (\emph{spatial/non-spatial}), and spatial \ac{CV} estimation without hyperparameter tuning (\emph{spatial/no tuning}).
 We used the open-source statistical programming language R \citep{R_core}.
 The algorithm implementations of the following packages have been used: \textit{gbm} \citep{gbm} (\ac{BRT}, \cite{Elith2008}), \textit{mgcv} \citep{mgcv} (\ac{GAM}), \textit{kernlab} \citep{kernlab} (\ac{SVM}, \cite{Vapnik1998}), \textit{kknn} \citep{kknn} (\ac{KNN}, \cite{Dudani1976}), and \textit{ranger} \citep{ranger} (\ac{RF}, \cite{Breiman2001}). 
 The spatial partitioning functions of the \textit{sperrorest} package have been integrated into the \textit{mlr} package as part of this work.
 \textit{mlr} provides a standardized interface for a wide variety of statistical and machine-learning models in R simplifying essential modeling tasks such as hyperparameter tuning, model performance evaluation and parallelization \citep{bischlMlrMachineLearning2016}. 
-We provide the complete code and required data as a Mendeley dataset to make this work fully reproducible \citep{schratzSupplementaryDataECOMOD182262018}.	
+The complete analysis including data is available as a research compendium at Zenodo (\url{https://doi.org/10.5281/zenodo.2591746}))  \citep{schratz_patrick_2019_2591746}.	
 
 \subsection{Tuning}
 \label{subsec:methods_tuning}
