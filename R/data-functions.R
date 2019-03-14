@@ -630,9 +630,12 @@ mod_raw_data = function(data, drop_vars, response) {
   #' ## Wiggle coordinates
   #' Some coordinates are not unique, so we have to wiggle them a little bit
   #'
-  set.seed(1234)
-  data$x <- data$x + rnorm(nrow(data)) / 10
-  data$y <- data$y + rnorm(nrow(data)) / 10
+  #'
+  if (response == "diplo01" | response == "fus01") {
+    set.seed(1234)
+    data$x <- data$x + rnorm(nrow(data)) / 10
+    data$y <- data$y + rnorm(nrow(data)) / 10
+  }
 
   if (!is.null(drop_vars)) {
     # drop second response
@@ -780,18 +783,16 @@ preprocessing_custom <- function(path, slope, soil, temperature_mean, ph, hail,
     hail %>%
     raster::extract(data_in)
 
-
-  # the geom column needs to be removed, otherwise `rowMeans()` will faill
-  st_geometry(data_in) = NULL
-
   # Temperature Tue Mar 12 21:21:30 2019 ------------------------------
 
   if (response == "heterobasi" | response == "armillaria") {
     data_in$temp <-
-      temp %>%
+      temperature_mean %>%
       raster::extract(data_in)
   } else {
 
+    # the geom column needs to be removed, otherwise `rowMeans()` will faill
+    st_geometry(data_in) = NULL
     # temperature is already in the dataset
     data_in %>%
       dplyr::select(ttmarav, ttabrav, ttmayav, ttjunav, ttjulav, ttagoav, ttsepav) %>%
@@ -818,8 +819,8 @@ preprocessing_custom <- function(path, slope, soil, temperature_mean, ph, hail,
   # Precipitation Tue Mar 12 21:22:01 2019 ------------------------------
 
   if (response == "heterobasi" | response == "armillaria") {
-    data_in$pisr <-
-      pisr %>%
+    data_in$precip <-
+      precipitation_sum %>%
       raster::extract(data_in)
   } else {
 
