@@ -418,13 +418,13 @@ To underline the crucial need for spatial \ac{CV} when assessing a model's perfo
 Setup (\emph{spatial/spatial}) should be used when conducting spatial modeling with machine learning algorithms that require hyperparameter tuning.
 
 \subsubsection{Performance measure}
-The Brier score was selected as a scoring rule to to compare the predictive performances of all algorithms \citep{Brier1950}.
-In contrast to other commonly used measures for binary classification (e.g. the \ac{AUROC}), the Brier score classifies as a proper scoring rule \citep{Byrne2016, Gneiting2007}.
+Brier score was selected as a scoring rule to to compare the predictive performances of all algorithms \citep{Brier1950}.
+In contrast to other commonly used measures for binary classification (e.g. the \ac{AUROC}), Brier score classifies as a proper scoring rule \citep{Byrne2016, Gneiting2007}.
 It is defined as the mean quadratic loss between the predicted and observed probabilities.
 It ranges from 0 to 1 with low values indicating a good prediction \citep{Brier1950}.
 
 \subsubsection{A note on spatial autocorrelation structures in parametric models}
-In this work we assume that, on average, the predictive accuracy of parametric models with and without spatial autocorrelation structures is the same.
+In this work we assume that, on average, the predictive accuracy of parametric models with and without spatial autocorrelation structures incorporated into the model is the same.
 However, there is little research on this specific topic \citep{Dormann2007b, Mets2017} and a detailed analysis goes beyond the scope of this work.
 In our view, a possible analysis would need to estimate the spatial autocorrelation structure of a model for every fold of a cross-validation using a data-driven approach (i.e. automatically estimate the spatial autocorrelation structure from each training set in the respective CV fold) and compare the results to the same model fitted without a spatial autocorrelation structure.
 Since we only focused on predictive accuracy in this work, we did not use spatial autocorrelation structures during model fitting for \ac{GLM} and \ac{GAM} to reduce runtime.
@@ -454,7 +454,7 @@ Since we only focused on predictive accuracy in this work, we did not use spatia
 
 \subsubsection{Optimization paths}
 To proof the effectiveness of the tuning, the optimization paths of the first five folds of RF for settings {spatial/spatial} and \emph{spatial/non-spatial} are visualized (\autoref{fig:optimization_paths}).
-Using 100 SMBO iterations, all shown folds show decreases in Brier score along the optimization path (\autoref{fig:optimization_paths}).
+Using 100 SMBO iterations, all shown folds show decrease in Brier score along the optimization path (\autoref{fig:optimization_paths}).
 Apart from fold 5 of setting \emph{spatial/non-spatial}, all folds show a saturation of at least 15 or more iterations in which no new local minimum was found.
 
 \subsubsection{Best hyperparameter settings}
@@ -462,7 +462,7 @@ There were notable differences in the distribution of the estimated optimal hype
 By contrast, the range of optimal settings in the non-spatial tuning case is much smaller and often clusters around a few specific settings (e.g. compare the spatial and non-spatial results of the SVM) (\autoref{fig:best_parameter_combs}).
 
 For the spatial tuning case of RF, the estimated \texttt{$m_{try}$} values mainly ranged between 1 and 3 and \texttt{$m_{try}$} of 1 was most often the optimal value.
-This stand in strong contrast to the non-spatial tuning setting in which \texttt{$m_{try}$} mainly ranged between 3 and 5 and \texttt{$m_{try}$} of 3 was most often the optimal choice.
+This stands in strong contrast to the non-spatial tuning setting in which \texttt{$m_{try}$} mainly ranged between 3 and 5 and \texttt{$m_{try}$} of 3 was most often the optimal choice.
 Generally, we observed the tendency that spatially tuned hyperparameters are often close to the limits of the search space especially when compared to their non-spatial counterparts.
 The GAM results are not included in \autoref{fig:best_parameter_combs} as the estimated hyperparameter (smoothing parameter $\lambda$) is a vector of length eight (eight being the number of non-linear variables in the model formula) that cannot be visualized in a 2D space.
 
@@ -471,7 +471,7 @@ The GAM results are not included in \autoref{fig:best_parameter_combs} as the es
 
 \subsubsection{Which models showed the best performance?}
 For the spatial settings (\emph{spatial/spatial} and \emph{spatial/no tuning}), \ac{RF} showed the best predictive performance followed by BRT, KNN and GLM (\autoref{fig:cv_final_boxplots}).
-The absolute difference between the best (RF) and worst (GAM) performing model in our setup is 0.039 (mean Brier score (\emph{spatial/spatial})).
+The absolute difference between the best (RF) and worst (GAM) performing model in our benchmark comparison is 0.039 (mean Brier score (\emph{spatial/spatial})).
 The GAM showed a high variance for all spatial settings compared to all other algorithms.
 
 \subsubsection{Effect of hyperparameter tuning on predictive performance}
