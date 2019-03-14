@@ -402,14 +402,19 @@ Model performances of every hyperparameter setting were computed at the tuning l
 The hyperparameter setting with the lowest mean Brier score across all tuning folds was used to train a model on the training set of the respective performance estimation level.
 This model was then evaluated on the test set of the respective fold (performance estimation level).
 
-\subsubsection{Cross-Validation setups}
+\subsubsection{Cross-Validation settings}
 
 To underline the crucial need for spatial \ac{CV} when assessing a model's performance, and to identify overoptimistic outcomes when neglecting to do so, we used the following CV setups:
-Nested non-spatial \ac{CV} which uses random partitioning and non-spatial hyperparameter tuning (\emph{non-spatial/non-spatial}),
-nested spatial \ac{CV} which uses k-means clustering for partitioning \citep{Brenning2005} and results in a spatial grouping of the observations and performs non-spatial hyperparameter tuning (\emph{spatial/non-spatial}),
-nested spatial \ac{CV} including spatial hyperparameter tuning (\emph{spatial/spatial}) and
-spatial \ac{CV} without hyperparameter tuning (\emph{spatial/no tuning}).
-Setup (\emph{non-spatial/non-spatial}) was only used to show the overoptimistic results when using non-spatial \ac{CV} with spatial data and setups \emph{spatial/non-spatial}, \emph{spatial/spatial} to reveal the differences between spatial and non-spatial hyperparameter tuning.
+
+\begin{itemize}
+	\item Nested non-spatial \ac{CV} which uses random partitioning and non-spatial hyperparameter tuning (\emph{non-spatial/non-spatial})
+	\item Nested spatial \ac{CV} which uses k-means clustering for partitioning \citep{Brenning2005} and results in a spatial grouping of the observations in combination with non-spatial hyperparameter tuning (\emph{spatial/non-spatial})
+	\item Sested spatial \ac{CV} including spatial hyperparameter tuning (\emph{spatial/spatial}) 
+	\item Spatial \ac{CV} without hyperparameter tuning (\emph{spatial/no tuning})
+	\item Non-spatial \ac{CV} without hyperparameter tuning (\emph{non-spatial/no tuning})
+\end{itemize}
+
+\noindent Setup (\emph{non-spatial/non-spatial}) was only used to show the overoptimistic results when using non-spatial \ac{CV} with spatial data and setups \emph{spatial/non-spatial}, \emph{spatial/spatial} to reveal the differences between spatial and non-spatial hyperparameter tuning.
 Setup (\emph{spatial/spatial}) should be used when conducting spatial modeling with machine learning algorithms that require hyperparameter tuning.
 
 \subsubsection{Performance measure}
