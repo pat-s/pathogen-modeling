@@ -221,9 +221,9 @@ The following objectives (and hypotheses) are addressed:
 \subsection{Summary of the prediction task}
 This study uses parts of the dataset from \cite{Iturritxa2014}.
 While \cite{Iturritxa2014} focused on the influence of environmental predictors on pathogen probability, the aim of this study is to compare different algorithms with the focus of exploring the influence of spatial autocorrelation on predictive accuracy and hyperparameter tuning.
-In the present study we also introduced further predictors (probability of hail damage at trees, soil type, lithology type, pH) to possibly enhance the predictive power of the trained models.
+In the present study we also introduced additional predictors (probability of hail damage at trees, soil type, lithology type, pH) to possibly enhance the predictive power of the trained models.
 
-This dataset was chosen because it incorporates attributes of common geospatial modeling tasks:
+This particular dataset was chosen because it incorporates attributes of common geospatial modeling tasks:
 An uneven distribution of the binary response variable (25/75), presence of spatial autocorrelation and predictor variables derived from various sources (previous modeling results, remote sensing data, surveyed information).
 It is representative for many other ecological datasets in terms of sample size (926), number of variables (11) and predictor types (numeric as well as nominal).
 
@@ -233,11 +233,12 @@ The following (environmental) variables were used as predictors: Mean temperatur
 Temperature, precipitation and \ac{PISR} are long-term averages (1951 - 1999) of meteorological stations across the Iberian Peninsula \citep{Ninyerola2005}.
 Tree infection caused by the fungal pathogen \textit{Diplodia sapinea} represents the response variable.
 The ratio of infected and non-infected trees in the sample is roughly 1:3 (223, 703).
+Precipitation, temperature and PISR were already attached to the dataset.
+All other variables were extracted to the point data from their raw sources.
 
-\cite{Iturritxa2014} showed that the presence or absence of hail damage observed on trees explained best pathogen infections of trees in the Basque Country.
+\cite{Iturritxa2014} showed in their study that the presence or absence of hail damage observed on trees is an important predictor when modeling pathogen infections of trees in the Basque Country.
 Because almost every infected tree by \textit{Diplodia sapinea} showed hail damage, it was assumed that the pathogen uses the open wounds caused by the hail damage as an entry point.
 To make the tree-based hail damage variable spatially available for the whole Basque country, we spatially predicted hail damage potential (in probabilities from 0 - 1) as a function of climatic variables using a \ac{GAM} \citep{Schratz2016}.
-The reasoning for extending the original dataset was that the pathogen might favor specific soil or lithology types, pH environments or younger/older trees.
 In the following we shortly describe the source and modifications of the new variables.
 For the remaining ones, please see \cite{Iturritxa2014}.
 
@@ -249,7 +250,7 @@ The rock class were aggregated by the respective top level class for magmatic ty
 
 We removed three observations due to missing information in some variables leaving a total of 926 observations (\autoref{table:descriptive_summary_numeric}).
 All nominal variables (soil and lithology-type) were dummy-encoded.
-To avoid introducing collinearity, the following levels were removed from the data: soil type: "soils with clay enriched sub-soils". Lithology type: "surface deposits".
+To avoid introducing collinearity, the following reference levels of the dummy-encoded variables were removed from the data: soil type: "soils with clay enriched sub-soils". Lithology type: "surface deposits".
 
 \subsection{Study area}
 
