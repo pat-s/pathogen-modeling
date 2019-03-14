@@ -393,16 +393,14 @@ Model performance estimates are expected to be overoptimistic due to the similar
 Therefore, cross-validation approaches that adapt to this problem should be used in any kind of performance evaluation when spatial data is involved \citep{Meyer2018, Telford2009}.
 In this work we use the spatial cross-validation approach after \cite{sperrorest} which uses $k$-means clustering to reduce the influence of spatial autocorrelation.
 In contrast to non-spatial CV, spatial CV reduces the influence of spatial autocorrelation by partitioning the data into spatially disjoint subsets (\autoref{fig:nested_cv}).
-These are determined by k-means clustering \citep{sperrorest}.
 
-Five-fold partitioning repeated 100 times was chosen for performance estimation (\autoref{fig:nested_cv}).
-For the hyperparameter tuning, again five folds were used to split the training set of each fold.
+A 100 times repeated (to reduce random variability introduced by partitioning) five-fold partitioning setting was chosen for performance estimation (\autoref{fig:nested_cv}).
+For hyperparameter tuning, again five folds were used to partition the training set of each fold.
 Hyperparameter tuning only applied to the machine-learning algorithms.
-A sequential model-based optimization approach was used to tune the hyperparameters (see \autoref{subsec:methods_tuning}).
+A sequential model-based optimization approach was used for optimization (see \autoref{subsec:methods_tuning}).
 Model performances of every hyperparameter setting were computed at the tuning level and averaged across folds.
 The hyperparameter setting with the lowest mean Brier score across all tuning folds was used to train a model on the training set of the respective performance estimation level.
 This model was then evaluated on the test set of the respective fold (performance estimation level).
-The procedure was repeated 500 times to reduce random variability introduced by partitioning.
 
 \subsubsection{Cross-Validation setups}
 
