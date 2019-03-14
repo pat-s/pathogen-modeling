@@ -314,14 +314,15 @@ Often enough, parametric models do not require tuning to achieve optimal perform
 However, some (semi-)parametric algorithms (e.g. \ac{GAM}, penalized regression methods) can be optimized to possibly increase their performance.
 
 \subsubsection{Parameter vs. hyperparameter}
-For parametric models the term "parameter" is often used to refer to the regression coefficients of each predictor in the fitted model.
+For parametric models the term "parameter" is often used to refer to the regression coefficients of each predictor of a fitted model.
 However, for machine-learning algorithms, the terms "parameter" and "hyperparameter" both refer to "hyperparameter" as there are no regression coefficients for these models.
 In addition, the term "parameter" is often used in programming to refer to an argument of a function.
 Hyperparameters determine how exactly an algorithm work and they have an influence on the final outcome. 
 
-Usually it is not known in advance how to set them to achieve the best outcome for a specific problem. 
-Therefore hyperparameter optimization is necessary to determine the best setting.
-Hyperparameters are determined by finding the optimal setting for an algorithm using optimization procedures such as \textit{random search} or \textit{Bayesian optimization} while parameters of parametric models are estimated when fitting them to the data \citep{Kuhn2013}.
+Hyperparameters cannot be set manually if the best performance of a model is desired. 
+Automatic optimization is necessary to determine the best setting.
+This optimization is done via procedures such as \textit{random search} or \textit{Bayesian optimization}.
+In contrast, parameters of parametric models are estimated when fitting them to the data \citep{Kuhn2013}.
 
 \subsubsection{Tuning method}
 For hyperparameter tuning, we used \ac{SMBO} as implemented in the \textit{mlrMBO} package \citep{mlrMBO}.
