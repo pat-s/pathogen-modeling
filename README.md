@@ -1,5 +1,5 @@
 
-[![Last-changedate](https://img.shields.io/badge/last%20change-2019--03--10-brightgreen.svg)](https://github.com/pat-s/pathogen-modeling/commits/master)
+[![Last-changedate](https://img.shields.io/badge/last%20change-2019--03--16-brightgreen.svg)](https://github.com/pat-s/pathogen-modeling/commits/master)
 [![minimal R
 version](https://img.shields.io/badge/R%3E%3D-3.5.0-brightgreen.svg)](https://cran.r-project.org/)
 [![Licence](https://img.shields.io/github/license/mashape/apistatus.svg)](http://choosealicense.com/licenses/mit/)  
@@ -88,17 +88,25 @@ r_make()
 
 Predicted total runtime. The time is based on all targets that have been
 created so far in the project. Estimated time will differ depending on
-the CPU speed and possible availability of a HPC.
+the CPU speed and possible availability of a
+    HPC.
 
 ``` r
 r_predict_runtime()
 ```
 
+    ## The interface at https://ropenscilabs.github.io/drake-manual/plans.html#large-plans is better than evaluate_plan(), map_plan(), gather_by(), etc.
     ## [90mcache[39m /home/patrick/git/pathogen-modeling/.drake
     ## [90manalyze[39m environment
     ## [90mconstruct[39m priority queue
-    ## Warning message:
-    ## Arguments `file_targets` and `strings_in_dots` of `drake_plan()` are deprecated.
+    ## Warning messages:
+    ## 1: Arguments `file_targets` and `strings_in_dots` of `drake_plan()` are deprecated. 
+    ## 2: Some targets were never actually timed, And no hypothetical time was specified in `known_times`. Assuming a runtime of 0 for these targets:
+    ##   bm_sp_sp_diplodia_brt
+    ##   bm_nsp_nsp_diplodia_brt
+    ##   bm_sp_nsp_diplodia_brt
+    ##   benchmark_evaluation_report_diplodia 
+    ## Error while shutting down parallel: unable to terminate some child processes
 
     ## [1] "0s"
 
