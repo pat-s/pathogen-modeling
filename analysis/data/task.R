@@ -18,6 +18,12 @@ diplodia_task_dummy <- task_custom(diplodia_data,
   dummy.factors = TRUE
 )
 
+diplodia_task <- task_custom(diplodia_data,
+                             "diplodia", "diplo01",
+                             #dummy_features = c("lithology", "soil", "year"),
+                             dummy.factors = FALSE
+)
+
 test_task_old <- task_custom(test_data,
                                  "diplodia", "diplo01",
                                  dummy_features = c("lithology", "soil", "year"),
