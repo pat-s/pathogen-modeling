@@ -17,9 +17,9 @@ on the following pathogen:
 - _Diplodia sapinea_
 
 ```{r setup, include=FALSE}
-#knitr::opts_knit$set(base.dir = 'analysis/rmd/')
+knitr::opts_knit$set(base.dir = 'analysis/rmd/')
 knitr::opts_chunk$set(fig.retina=3, fig.align = 'center', fig.width = 6.93, fig.height = 6.13,
-                      out.width = "100%")
+                      out.width = "100%", dev = c("png", "pdf"))
 
 loadd(bm_sp_sp_diplodia_gam, bm_sp_sp_diplodia_kknn, bm_sp_sp_diplodia_rf,
              bm_sp_sp_diplodia_svm, bm_sp_sp_diplodia_brt)
