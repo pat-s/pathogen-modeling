@@ -3,7 +3,7 @@ benchmark_custom <- function(task, learner, resampling) {
   if (grepl("kknn", learner$id)) {
     cores = ignore(16)
   } else {
-    cores = ignore(20)
+    cores = ignore(32)
   }
 
   parallelStart(
