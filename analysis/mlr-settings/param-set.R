@@ -50,7 +50,7 @@ ps_kknn <- makeParamSet(
 
 ps_brt <- makeParamSet(
   makeIntegerParam("n.trees", lower = 100, upper = 10000),
-  makeNumericParam("shrinkage", lower = 0.005, upper = 0.01),
+  makeNumericParam("shrinkage", lower = 0.005, upper = 0.2),
   makeIntegerParam("interaction.depth", lower = 1, upper = 10)
 )
 
