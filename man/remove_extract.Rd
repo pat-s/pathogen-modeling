@@ -10,7 +10,7 @@ remove_extract(bm_result)
 \item{bm_result}{BenchmarkResult object}
 }
 \description{
-Removes the extract column of a `mlr` BenchmarkResult object
+Removes the extract column of a \code{mlr} BenchmarkResult object
 }
 \details{
 Typically, tuning results are stored in this slot. Combining many benchmark

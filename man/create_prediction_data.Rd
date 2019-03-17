@@ -2,11 +2,31 @@
 % Please edit documentation in R/data-functions.R
 \name{create_prediction_data}
 \alias{create_prediction_data}
-\title{Make prediction data.frame}
+\title{Create prediction data}
 \usage{
 create_prediction_data(temperature, precipitation, pisr, slope, elevation,
   soil, lithology, hail, ph)
 }
+\arguments{
+\item{temperature}{Temperature data (mean)}
+
+\item{precipitation}{Precipitation data (sum)}
+
+\item{pisr}{Potential incoming solar radiation (as a fraction of its mean)}
+
+\item{slope}{Slope (in degrees)}
+
+\item{elevation}{Elevation in meters}
+
+\item{soil}{Soil type}
+
+\item{lithology}{Lithology type}
+
+\item{hail}{Probability of hail damage at trees}
+
+\item{ph}{pH value of soil
+Make prediction data.frame}
+}
 \description{
-Make prediction data.frame
+Create prediction data
 }

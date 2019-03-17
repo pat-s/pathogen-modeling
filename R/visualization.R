@@ -1,3 +1,4 @@
+#' @title Visualization of partitions used in benchmarking
 #' @param resampling_sp A benchmark/resampling object with a spatial resampling
 #' @param resampling_nsp A benchmark/resampling object with a non-spatial resampling
 
@@ -58,6 +59,7 @@ vis_partitions = function(data, resampling_sp, resampling_nsp) {
 
 ## RF
 
+#' @title Visualization of tuning effects
 #' @param models List of Benchmark/Resample results
 #' @param resampling String specifying the resample setting
 #' @param model_name Name of algorithm for title
@@ -114,6 +116,7 @@ vis_tuning_effects = function(models, resampling, model_name, hyperparam) {
   )
 }
 
+#' @title Visualization of optimization paths
 #' @param model2 List of Benchmark/Resample results
 #' @param n_folds Number of folds to visualize (e.g. 1-5)
 
@@ -148,6 +151,7 @@ vis_opt_path = function(models, n_folds) {
   )
 }
 
+#' @title Write optimization path figures to disk
 #' @param list A list generated from `vis_opt_path()`
 save_plot_opt_paths = function(list) {
 

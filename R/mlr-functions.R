@@ -1,4 +1,9 @@
-wrapper_custom <- function(lrn, param_set, resampling, tune_ctrl) {
+#' @title mlr tuning wrapper
+#' @template learner
+#' @template param_set
+#' @template resampling
+#' @template tune_ctrl
+tuning_wrapper_custom <- function(lrn, param_set, resampling, tune_ctrl) {
 
   wrapper <- makeTuneWrapper(
     lrn,
@@ -9,6 +14,8 @@ wrapper_custom <- function(lrn, param_set, resampling, tune_ctrl) {
   return(wrapper)
 }
 
+#' @title mlrMBO 30n 20 iterations tuning setting
+#' @template param_set
 tune_ctrl_mbo_30n_20it = function(param_set) {
   makeTuneControlMBO(
     mbo.control = makeMBOControl(propose.points = 1L) %>%
@@ -18,6 +25,8 @@ tune_ctrl_mbo_30n_20it = function(param_set) {
   )
 }
 
+#' @title mlrMBO 30n 70 iterations tuning setting
+#' @template param_set
 tune_ctrl_mbo_30n_70it = function(param_set) {
   makeTuneControlMBO(
     mbo.control = makeMBOControl(propose.points = 1L) %>%

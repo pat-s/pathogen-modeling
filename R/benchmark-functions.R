@@ -1,3 +1,9 @@
+#' @title mlr::benchmark() wrapper
+#'
+#' @template task
+#' @template learner
+#' @template resampling
+
 benchmark_custom <- function(task, learner, resampling) {
 
   if (grepl("kknn", learner$id)) {

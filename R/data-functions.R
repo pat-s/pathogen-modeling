@@ -1,4 +1,16 @@
-task_custom <- function(data, name, target, dummy_features, dummy.factors = FALSE) {
+#' @title Create a [mlr::task] for performance estimation
+#'
+#' @param data [data.frame]
+#' @param name ID of the task
+#' @param target Response of the task
+#' @param dummy_features (logical) Whether factor levels should be dummy encoded
+#' @param dummy.factors Which factor levels should be dummy encoded
+#'
+#' @details Differs to [task_custom_prediction] in that it includes variables
+#'   that are not available for prediction
+
+task_custom <- function(data, name, target, dummy_features,
+                        dummy.factors = FALSE) {
 
 
   coordinates <- data[, c("x", "y")]
@@ -29,9 +41,18 @@ task_custom <- function(data, name, target, dummy_features, dummy.factors = FALS
   return(task)
 }
 
-
-task_custom_prediction <- function(data, name, target, dummy_features, dummy.factors = FALSE,
-                                   remove.vars = FALSE) {
+#' @title Create a [mlr::task] for performance estimation
+#'
+#' @param data [data.frame]
+#' @param name ID of the task
+#' @param target Response of the task
+#' @param dummy_features (logical) Whether factor levels should be dummy encoded
+#' @param dummy.factors Which factor levels should be dummy encoded
+#'
+#' @details Differs to [task_custom] in that it removes variables
+#'   that are not available for prediction
+task_custom_prediction <- function(data, name, target, dummy_features,
+                                   dummy.factors = FALSE, remove.vars = FALSE) {
   task <- task_custom(
     data = data, name = name, target = target,
     dummy_features = dummy_features, dummy.factors = dummy.factors
@@ -50,6 +71,17 @@ task_custom_prediction <- function(data, name, target, dummy_features, dummy.fac
   return(task)
 }
 
+#' @title Create prediction data
+#'
+#' @param temperature Temperature data (mean)
+#' @param precipitation Precipitation data (sum)
+#' @param pisr Potential incoming solar radiation (as a fraction of its mean)
+#' @param slope Slope (in degrees)
+#' @param elevation Elevation in meters
+#' @param soil Soil type
+#' @param lithology Lithology type
+#' @param hail Probability of hail damage at trees
+#' @param ph pH value of soil
 create_prediction_data <- function(temperature, precipitation, pisr, slope,
                                    elevation, soil, lithology, hail, ph) {
 
@@ -212,7 +244,9 @@ create_prediction_data <- function(temperature, precipitation, pisr, slope,
   return(pred_grid)
 }
 
-
+#' @title Impute age values of trees
+#'
+#' @param data [data.frame] containing a variable named "age"
 age_imp_preprocessing = function(data) {
   data %<>%
     filter(!is.na(age))
@@ -234,7 +268,9 @@ age_imp_preprocessing = function(data) {
   return(data)
 }
 
-hail_download = function(path) {
+#' @title Download hail data
+#' @template url
+hail_download = function(url) {
 
   dir_create("data/hail")
 
@@ -249,6 +285,8 @@ hail_download = function(path) {
 
 }
 
+#' @title Preprocessing of precipitation data
+#' @param atlas_climatico Preprocessed Atlas Climatico data
 precipitation_preprocessing = function(atlas_climatico) {
 
   # Atlas climatico is a prerequisite for the following task
@@ -277,6 +315,8 @@ precipitation_preprocessing = function(atlas_climatico) {
   return(precip)
 }
 
+#' @title Preprocessing of PISR data
+#' @param atlas_climatico Preprocessed Atlas Climatico data
 pisr_preprocessing = function(atlas_climatico) {
 
   # Atlas climatico is a prerequisite for the following task
@@ -311,6 +351,8 @@ pisr_preprocessing = function(atlas_climatico) {
   return(psir_sum_raster)
 }
 
+#' @title Preprocessing of temperature data
+#' @param atlas_climatico Preprocessed Atlas Climatico data
 temperature_preprocessing = function(atlas_climatico) {
 
   # Atlas climatico is a prerequisite for the following task
@@ -339,7 +381,9 @@ temperature_preprocessing = function(atlas_climatico) {
   return(temperature_mean)
 }
 
-atlas_climatico_download = function(path) {
+#' @title Download Atlas Climatico data
+#' @template url
+atlas_climatico_download = function(url) {
 
   dir_create("data/atlas-climatico")
 
@@ -360,7 +404,9 @@ atlas_climatico_download = function(path) {
 
 }
 
-atlas_climatico_preprocessing = function(path,
+#' @title Preprocessing of Atlas Climatico data
+#' @param data Downloaded Atlas Climatico data
+atlas_climatico_preprocessing = function(data,
                                          study_area) {
 
   # ## Atlas Climatico
@@ -377,7 +423,7 @@ atlas_climatico_preprocessing = function(path,
   # Mod data: Temperature, pisr and precipitation rasters in `.tif` format in CRS 32630 for each month.
   #
 
-  path %>%
+  data %>%
     unlist() %>%
     walk(unzip, exdir = "data/atlas-climatico/unzip")
 
@@ -410,12 +456,14 @@ atlas_climatico_preprocessing = function(path,
 
 }
 
-lithology_download = function(path) {
+#' @title Download lithology data
+#' @template url
+lithology_download = function(url) {
 
   dir_create("data/lithology")
 
   if (!file.exists("data/lithology/CT_LITOLOGICO_25000_ETRS89.shp")) {
-    curl_download(path,
+    curl_download(url,
                   destfile = glue(tempdir(), "/lithology.zip"), quiet = FALSE)
     unzip(glue(tempdir(), "/lithology.zip"), exdir = "data/lithology")
   }
@@ -429,7 +477,9 @@ lithology_download = function(path) {
 
 }
 
-lithology_preprocessing = function(lithology) {
+#' @title Preprocessing of lithology data
+#' @param data Downloaded lithology data
+lithology_preprocessing = function(data) {
 
   # Raw data: Polygon shapefile with lithology units in CRS 25830.
   #
@@ -450,20 +500,22 @@ lithology_preprocessing = function(lithology) {
   #   st_transform(32630) %>%
   #   dplyr::select(COD_LITOLO) -> lithology_sp
 
-  lithology %<>%
+  data %<>%
     st_make_valid() %>%
     st_cast("POLYGON")
 
-  return(lithology)
+  return(data)
 
 }
 
-ph_download = function(path) {
+#' @title Download pH data
+#' @template url
+ph_download = function(url) {
 
   dir_create("data/ph")
 
   if (!file.exists("data/ph/dblbnd.adf")) {
-    curl_download(path,
+    curl_download(url,
                   destfile = glue(tempdir(), "/ph.zip"), quiet = FALSE)
     unzip(glue(tempdir(), "/ph.zip"), exdir = "data/ph")
   }
@@ -477,26 +529,30 @@ ph_download = function(path) {
 
 }
 
-ph_preprocessing = function(path,
+#' @title Preprocessing of pH data
+#' @param data Downloaded pH data
+ph_preprocessing = function(data,
                             study_area) {
 
-  crs(path) <- CRS("+init=epsg:3035")
+  crs(data) <- CRS("+init=epsg:3035")
 
   study_area_3035 <-
     study_area %>%
     st_transform(3035) %>%
     as("Spatial")
 
-  path %<>%
+  data %<>%
     crop(study_area_3035) %>%
     mask(study_area_3035) %>%
     projectRaster(crs = CRS("+init=epsg:32630"), method = "bilinear") %>%
     writeRaster("data/ph/ph.tif", overwrite = TRUE)
 
-  return(path)
+  return(data)
 }
 
-elevation_preprocessing = function(path) {
+#' @title Preprocessing of elevation data
+#' @param data Downloaded elevation data
+elevation_preprocessing = function(data) {
 
   # Raw data: Zipped 5m lidar DEM in CRS 3042 in `.tif` format.
   #
@@ -504,18 +560,20 @@ elevation_preprocessing = function(path) {
   #
   # Mod data: DEM with 5m resolution in `.tif` format in CRS 32630.
 
-  dem = raster(path) %>%
+  dem = raster(data) %>%
     projectRaster(crs = CRS("+init=epsg:32630"), method = "bilinear") %>%
     writeRaster("data/dem/dem.tif", overwrite = TRUE)
 
-  return(dem)
+  return(data)
 }
 
-soil_download = function(path) {
+#' @title Download soil data
+#' @template url
+soil_download = function(url) {
 
   dir_create("data/soil")
 
-  curl_download(path,
+  curl_download(url,
                 destfile = "data/soil/soil.tif", quiet = FALSE)
 
   soil = raster("data/soil/soil.tif")
@@ -523,8 +581,10 @@ soil_download = function(path) {
   return(soil)
 }
 
-soil_preprocessing = function(path,
-                              study_area) {
+#' @title Preprocessing of soil data
+#' @param data Downloaded soil data
+#' @param study_area Geopackage of study area
+soil_preprocessing = function(data, study_area) {
 
   # ## Soil
   #
@@ -544,7 +604,7 @@ soil_preprocessing = function(path,
     st_transform(4326) %>%
     as("Spatial")
 
-  soil_ras = path %>%
+  soil_ras = data %>%
     crop(study_area_4326) %>%
     mask(study_area_4326) %>%
     projectRaster(crs = CRS("+init=epsg:32630"), method = "ngb")
@@ -553,12 +613,14 @@ soil_preprocessing = function(path,
 
 }
 
-dem_download = function(path) {
+#' @title Download DEM
+#' @template url
+dem_download = function(url) {
 
   dir_create("data/dem")
 
   if (!file.exists("data/dem/mdt_2013_5m.tif")) {
-    curl_download(path,
+    curl_download(url,
                   destfile = glue(tempdir(), "/dem.zip"), quiet = FALSE)
     unzip(glue(tempdir(), "/dem.zip"), exdir = "data/dem")
   }
@@ -570,7 +632,9 @@ dem_download = function(path) {
 
 }
 
-slope_processing = function(path) {
+#' @title Preprocessing of slope data
+#' @param data Downloaded DEM data
+slope_processing = function(data) {
 
   # ## Slope
   #
@@ -606,6 +670,17 @@ slope_processing = function(path) {
 
 }
 
+#' @title Modification of raw data
+#' @param data Raw input data
+#' @param drop_vars Variable to remove from the data
+#' @param response Variable that will be the response of the task later
+#'
+#' @details The following modifications are handled in this function:
+#' - Transformation of variable names to lowercase
+#' - Wiggling of coordinates so that they are "unique" in a spatial sense
+#' - Custom replacement of specific variables using expert knowledge
+#' - Removal of points with no coordinate information
+#' - Filtering of observations to a certain tree species
 mod_raw_data = function(data, drop_vars, response) {
 
   # ## Import disease data and store as sf
@@ -675,16 +750,35 @@ mod_raw_data = function(data, drop_vars, response) {
   return(data)
 }
 
-preprocessing_custom <- function(path, slope, soil, temperature_mean, ph, hail,
-                                 precipitation_sum, elevation, pisr, lithology,
-                                 study_area = data_basque, response,
-                                 drop_vars = NULL, age = FALSE) {
+#' @title Extract variables to in-situ data
+#' @param data Input [data.frame] containing in-situ points. Here a Geopackage
+#'   file downloaded directly from Zenodo.
+#' @param temperature Temperature data (mean)
+#' @param precipitation Precipitation data (sum)
+#' @param pisr Potential incoming solar radiation (as a fraction of its mean)
+#' @param slope Slope (in degrees)
+#' @param elevation Elevation in meters
+#' @param soil Soil type
+#' @param lithology Lithology type
+#' @param hail Probability of hail damage at trees
+#' @param ph pH value of soil
+#' @param study_area study area
+#' @param response Name of the response variable
+#' @param drop_vars A vector of variables to drop
+#' @param age (logical) Whether "age imputation" should be performed
+#'
+#' @details This function extract all variables to the data points.
+#'   Variables "temperature", "precipitation" and "pisr" already existed in the
+#'   dataset and were not extracted to the points.
+#'
+#' @seealso [extract_variables_v2]
+extract_variables <- function(data, temperature, precipitation, pisr, slope,
+                              elevation, soil, lithology, hail, ph, study_area,
+                              response, drop_vars = NULL, age = FALSE) {
 
-  data_in = st_read(path, quiet = TRUE)
+  data_in = st_read(data, quiet = TRUE)
 
   data_in = mod_raw_data(data_in, drop_vars = drop_vars, response = response)
-
-  # Predictor Preprocessing -------------------------------------------------
 
   # Elevation
 
@@ -783,11 +877,9 @@ preprocessing_custom <- function(path, slope, soil, temperature_mean, ph, hail,
     hail %>%
     raster::extract(data_in)
 
-  # Temperature Tue Mar 12 21:21:30 2019 ------------------------------
-
   if (response == "heterobasi" | response == "armillaria") {
     data_in$temp <-
-      temperature_mean %>%
+      temperature %>%
       raster::extract(data_in)
   } else {
 
@@ -800,8 +892,6 @@ preprocessing_custom <- function(path, slope, soil, temperature_mean, ph, hail,
       rowMeans() %>%
       divide_by(10) -> data_in$temp
   }
-
-  # PISR Tue Mar 12 21:21:42 2019 ------------------------------
 
   if (response == "heterobasi" | response == "armillaria") {
     data_in$pisr <-
@@ -816,11 +906,9 @@ preprocessing_custom <- function(path, slope, soil, temperature_mean, ph, hail,
       divide_by(mean(.)) - 1 -> data_in$pisr
   }
 
-  # Precipitation Tue Mar 12 21:22:01 2019 ------------------------------
-
   if (response == "heterobasi" | response == "armillaria") {
     data_in$precip <-
-      precipitation_sum %>%
+      precipitation %>%
       raster::extract(data_in)
   } else {
 
@@ -905,7 +993,30 @@ preprocessing_custom <- function(path, slope, soil, temperature_mean, ph, hail,
   return(data_in)
 }
 
-preprocessing_custom_v2 <- function(path, slope, soil, temperature_mean, ph, hail,
+#' @title Extract variables to in-situ data
+#' @param data Input [data.frame] containing in-situ points. Here a Geopackage
+#'   file downloaded directly from Zenodo.
+#' @param temperature Temperature data (mean)
+#' @param precipitation Precipitation data (sum)
+#' @param pisr Potential incoming solar radiation (as a fraction of its mean)
+#' @param slope Slope (in degrees)
+#' @param elevation Elevation in meters
+#' @param soil Soil type
+#' @param lithology Lithology type
+#' @param hail Probability of hail damage at trees
+#' @param ph pH value of soil
+#' @param study_area study area
+#' @param response Name of the response variable
+#' @param drop_vars A vector of variables to drop
+#' @param age (logical) Whether "age imputation" should be performed
+#'
+#' @details This function extract all variables to the data points.
+#'   Variables "temperature", "precipitation" and "pisr" already existed in the
+#'   dataset and were not extracted to the points.
+#'
+#' @seealso [extract_variables]
+#' @keywords internal
+extract_variables_v2 <- function(path, slope, soil, temperature_mean, ph, hail,
                                  precipitation_sum, elevation, pisr, lithology,
                                  study_area = data_basque, response,
                                  drop_vars = NULL, age = FALSE) {
@@ -913,8 +1024,6 @@ preprocessing_custom_v2 <- function(path, slope, soil, temperature_mean, ph, hai
   data_in = st_read(path, quiet = TRUE)
 
   #data_in = mod_raw_data(data_in, drop_vars = drop_vars, response = response)
-
-  # Predictor Preprocessing -------------------------------------------------
 
   # Elevation
 
@@ -1029,12 +1138,12 @@ preprocessing_custom_v2 <- function(path, slope, soil, temperature_mean, ph, hai
 
   # Precipitation
 
-  # data_in$precip <-
-  #   precipitation_sum %>%
-  #   raster::extract(data_in)
+  data_in$precip <-
+    precipitation_sum %>%
+    raster::extract(data_in)
 
   #### old p_sum from dataset
-  data_in$precip <- data_in$p_sum
+  #data_in$precip <- data_in$p_sum
 
   data_in %<>%
     mutate(precip = replace(precip, precip < 124.4, 124.4))

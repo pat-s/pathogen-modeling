@@ -1,3 +1,13 @@
+#' @title Predict infection state of pathogens
+#' @param ... mlr task objects
+#' @template learner
+#' @template param_set
+#' @template tune_ctrl
+#' @template resampling
+#' @param prediction_data Prediction data.frame
+#' @param prediction_grid Raster Grid to which the prediction should be mapped to
+#' @param desc_resampling Resampling description
+
 prediction_custom = function(..., learner, param_set, tune_ctrl, resampling,
                              prediction_data, prediction_grid,
                              desc_resampling) {
@@ -64,8 +74,6 @@ prediction_custom = function(..., learner, param_set, tune_ctrl, resampling,
 
     predictions = map(fit, ~ predict(.x, newdata = prediction_data))
 
-    # Create prediction maps ---------------------------------------------------
-
     # this object contains the coordinates that we need to attach to the predictions
     prediction_grid <- as(prediction_grid, "SpatialPixelsDataFrame")
     prediction_grid = st_as_sf(prediction_grid)
@@ -125,6 +133,11 @@ prediction_custom = function(..., learner, param_set, tune_ctrl, resampling,
     return(rasters)
 }
 
+#' @title Create spatial maps from the predicted data
+#' @param prediction_raster Predicted raster layer from [prediction_custom]
+#' @param model_name Algorithm name
+#' @param benchmark_object mlr benchmark object containing performance
+#' @param Resampling String with the resampling description that should appear on the map
 create_prediction_map = function(prediction_raster, model_name, benchmark_object,
                                  resampling) {
 
