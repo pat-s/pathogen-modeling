@@ -1,5 +1,5 @@
 Package: pathogen.modeling
-Title: Benchmarking of algorithms on different resampling
+Title: Benchmarking of algorithms across different resampling
     strategies
 Version: 0.0.0.9000
 Authors@R:
@@ -11,9 +11,47 @@ Description: What the package does (one paragraph)
 License: MIT + file LICENSE
 URL: https://github.com/pat-s/pathogen-modeling
 BugReports: https://github.com/pat-s/pathogen-modeling/issues
+Depends: 
+    clustermq,
+    cowplot,
+    curl,
+    dplyr,
+    drake,
+    forcats,
+    fs,
+    furrr,
+    future.callr,
+    ggplot2,
+    ggpubr,
+    ggsci,
+    ggspatial,
+    glue,
+    GSIF,
+    hrbrthemes,
+    lattice,
+    latticeExtra,
+    lwgeom,
+    magrittr,
+    mlr,
+    mlrMBO,
+    parallelMap,
+    purrr,
+    R.utils,
+    rasterVis,
+    rgdal,
+    rgenoud,
+    RSAGA,
+    rzmq,
+    sf,
+    sp,
+    stringr,
+    stringr,
+    tibble,
+    viridis
 Suggests:
     testthat
 ByteCompile: true
 Encoding: UTF-8
 LazyData: true
 RoxygenNote: 6.1.1
+Roxygen: list(wrap = FALSE, markdown = TRUE)
