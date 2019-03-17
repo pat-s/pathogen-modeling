@@ -1,10 +1,10 @@
 # Plans -----------------------------------------------------------
-source("analysis/packages.R")
+source("analysis/99-packages.R")
 sourceDirectory("R/")
 
 data_plan = code_to_plan("analysis/data/data.R")
 task = code_to_plan("analysis/data/task.R")
-learners = code_to_plan("analysis/learner/learner.R")
+learners = code_to_plan("analysis/mlr-settings/learner.R")
 resampling = code_to_plan("analysis/mlr-settings/resampling.R")
 param_set = code_to_plan("analysis/mlr-settings/param-set.R")
 tune_ctrl = code_to_plan("analysis/mlr-settings/tune_ctrl_mbo.R")
