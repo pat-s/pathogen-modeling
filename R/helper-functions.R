@@ -95,3 +95,20 @@ depth <- function(this, thisdepth=0){
   }
 }
 
+#' @title remove_extract
+#' @description Removes the extract column of a `mlr` BenchmarkResult object
+#' @param bm_result BenchmarkResult object
+#'
+#' @details Typically, tuning results are stored in this slot. Combining many benchmark
+#' results can lead to a huge object. For visualizing the performance, the
+#' object can be shrinked with this function.
+remove_extract = function(bm_result) {
+
+  bm_result[["results"]] = map(bm_result[["results"]], ~
+                                 {
+                                   map(.x, function(y) list_modify(y, extract = NULL))
+                                 })
+
+  return(bm_result)
+}
+
