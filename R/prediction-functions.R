@@ -75,8 +75,8 @@ prediction_custom = function(..., learner, param_set, tune_ctrl, resampling,
     rownames(coords) <- rownames(prediction_grid)
     rm(prediction_grid)
 
-    #' # Visualize all predictors
-    #'
+    # # Visualize all predictors
+    #
 
     rasters = imap(predictions, ~ {
 

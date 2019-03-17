@@ -57,15 +57,15 @@ create_prediction_data <- function(temperature, precipitation, pisr, slope,
   # This prevents error for the subsequent raster `extract` calls that may result
   # in NAs if the rasters does not exceed the dimensions of the extracting area.
 
-  #' ## Prediction raster grid
-  #'
-  #' Now create a 200 x 200 point grid using a dummy raster that represents the study area shape.
-  #'
-  #' !! This is temporarly overwritten by an import of the below created file which has already the extracted ltihology information inisde.
-  #' This intersection was created in ArcGIS as R did not finish in one day.
-  #' Runtime in ArcGIS: < 1 min.
-  #' QGIS did not even start..
-  #'
+  # ## Prediction raster grid
+  #
+  # Now create a 200 x 200 point grid using a dummy raster that represents the study area shape.
+  #
+  # !! This is temporarly overwritten by an import of the below created file which has already the extracted ltihology information inisde.
+  # This intersection was created in ArcGIS as R did not finish in one day.
+  # Runtime in ArcGIS: < 1 min.
+  # QGIS did not even start..
+  #
   pred_grid <- as(temperature, "SpatialPixelsDataFrame")
   pred_grid = st_as_sf(pred_grid)
 
@@ -255,15 +255,15 @@ precipitation_preprocessing = function(atlas_climatico) {
   # However we do not want to do run it every time
   # by specifying it as an unused argument we trigger is as a drake dependency
 
-  #' ## Precipitation
-  #'
-  #' Raw data: Precipitation rasters for month july and august in `.tif`´format in CRS 32630.
-  #'
-  #' Workflow: Get files by pattern and stack files.
-  #'           Add precipitation of month july and august and write raster to disk.
-  #'           Extract precipitation at each observation.
-  #'
-  #' Modified data: Total july and august precipitation raster in `.tif` format in CRS 32630.
+  # ## Precipitation
+  #
+  # Raw data: Precipitation rasters for month july and august in `.tif`´format in CRS 32630.
+  #
+  # Workflow: Get files by pattern and stack files.
+  #           Add precipitation of month july and august and write raster to disk.
+  #           Extract precipitation at each observation.
+  #
+  # Modified data: Total july and august precipitation raster in `.tif` format in CRS 32630.
 
   precip = list.files("data/atlas-climatico/unzip",
                       "pluvio.*(julio|agosto|septiembre)_av.tif$",
@@ -283,16 +283,16 @@ pisr_preprocessing = function(atlas_climatico) {
   # However we do not want to do run it every time
   # by specifying it as an unused argument we trigger is as a drake dependency)
 
-  #' ## PISR
-  #'
-  #' Raw data: PISR rasters for month july to september in `.tif`´format in CRS 32630.
-  #'
-  #' Workflow: Get files by pattern and stack files.
-  #'           Add pisr of july to september and convert to the relative fraction of its mean (mean = 8065.952 kW/m^2).
-  #'           Write raster to disk and extract pisr at each observation.
-  #'
-  #' Modified data: PISR raster in `.tif` format in CRS 32630.
-  #'
+  # ## PISR
+  #
+  # Raw data: PISR rasters for month july to september in `.tif`´format in CRS 32630.
+  #
+  # Workflow: Get files by pattern and stack files.
+  #           Add pisr of july to september and convert to the relative fraction of its mean (mean = 8065.952 kW/m^2).
+  #           Write raster to disk and extract pisr at each observation.
+  #
+  # Modified data: PISR raster in `.tif` format in CRS 32630.
+  #
 
 
   psir_sum_raster <-
@@ -317,15 +317,15 @@ temperature_preprocessing = function(atlas_climatico) {
   # However we do not want to do run it every time
   # by specifying it as an unused argument we trigger is as a drake dependency
 
-  #' ## Temperature
-  #'
-  #' Raw data: Temperature rasters for month march to september in `.tif`´format in CRS 32630.
-  #'
-  #' Workflow: Get files by pattern and stack files.
-  #'           Calculate mean temperature of month march to september and write raster to disk.
-  #'           Extract mean summer temperature at each observation.
-  #'
-  #' Modified data: Mean summer temperature raster in `.tif` format in CRS 32630.
+  # ## Temperature
+  #
+  # Raw data: Temperature rasters for month march to september in `.tif`´format in CRS 32630.
+  #
+  # Workflow: Get files by pattern and stack files.
+  #           Calculate mean temperature of month march to september and write raster to disk.
+  #           Extract mean summer temperature at each observation.
+  #
+  # Modified data: Mean summer temperature raster in `.tif` format in CRS 32630.
 
   temperature_mean = list.files("data/atlas-climatico/unzip",
                                 "termo.*(marzo|abril|mayo|junio|julio|agosto|septiembre)_av.tif$",
@@ -363,19 +363,19 @@ atlas_climatico_download = function(path) {
 atlas_climatico_preprocessing = function(path,
                                          study_area) {
 
-  #' ## Atlas Climatico
-  #'
-  #' Raw data: Zipped raster files of temperature, pisr and precipitation in `.txt` format in CRS 23030.
-  #'
-  #' Workflow: Unzip files specified by pattern.
-  #'           Remove unused `.gif` and `.htm` files.
-  #'           Reproject study area to CRS 23030 to crop and mask raster files.
-  #'           Reproject raster files to CRS 32630.
-  #'           Write raster files to disk.
-  #'           Remove unused `.txt` files
-  #'
-  #' Mod data: Temperature, pisr and precipitation rasters in `.tif` format in CRS 32630 for each month.
-  #'
+  # ## Atlas Climatico
+  #
+  # Raw data: Zipped raster files of temperature, pisr and precipitation in `.txt` format in CRS 23030.
+  #
+  # Workflow: Unzip files specified by pattern.
+  #           Remove unused `.gif` and `.htm` files.
+  #           Reproject study area to CRS 23030 to crop and mask raster files.
+  #           Reproject raster files to CRS 32630.
+  #           Write raster files to disk.
+  #           Remove unused `.txt` files
+  #
+  # Mod data: Temperature, pisr and precipitation rasters in `.tif` format in CRS 32630 for each month.
+  #
 
   path %>%
     unlist() %>%
@@ -431,16 +431,16 @@ lithology_download = function(path) {
 
 lithology_preprocessing = function(lithology) {
 
-  #' Raw data: Polygon shapefile with lithology units in CRS 25830.
-  #'
-  #' Workflow: Read shapefile and reproject to CRS 32630.
-  #'           Extract column with lithology unit id.
-  #'           Make lithology sf object valid and extract at each observation the lithology unit id.
-  #'           Aggregate lithology units to common lithology classes.
-  #'
-  #' Output: Aggregated lithology units.
-  #'
-  #'
+  # Raw data: Polygon shapefile with lithology units in CRS 25830.
+  #
+  # Workflow: Read shapefile and reproject to CRS 32630.
+  #           Extract column with lithology unit id.
+  #           Make lithology sf object valid and extract at each observation the lithology unit id.
+  #           Aggregate lithology units to common lithology classes.
+  #
+  # Output: Aggregated lithology units.
+  #
+  #
   # curl_download(path,
   #               destfile = glue(tempdir(), "/lithology.zip"), quiet = FALSE)
   # unzip(glue(tempdir(), "/lithology.zip"), exdir = glue(tempdir(), "/lithology"))
@@ -498,11 +498,11 @@ ph_preprocessing = function(path,
 
 elevation_preprocessing = function(path) {
 
-  #' Raw data: Zipped 5m lidar DEM in CRS 3042 in `.tif` format.
-  #'
-  #' Workflow: Reprojection on CRS 32630. Extraction of the elevation values for each observation.
-  #'
-  #' Mod data: DEM with 5m resolution in `.tif` format in CRS 32630.
+  # Raw data: Zipped 5m lidar DEM in CRS 3042 in `.tif` format.
+  #
+  # Workflow: Reprojection on CRS 32630. Extraction of the elevation values for each observation.
+  #
+  # Mod data: DEM with 5m resolution in `.tif` format in CRS 32630.
 
   dem = raster(path) %>%
     projectRaster(crs = CRS("+init=epsg:32630"), method = "bilinear") %>%
@@ -526,18 +526,18 @@ soil_download = function(path) {
 soil_preprocessing = function(path,
                               study_area) {
 
-  #' ## Soil
-  #'
-  #' Raw data: Soil raster with 250m resolution in `.tif`format in CRS 4326 (Hengl 2017, http://journals.plos.org/plosone/article?id=10.1371/journal.pone.0169748).
-  #'
-  #' Workflow: Reproject study area to CRS 4326.
-  #'           Crop soil raster with study area and reproject to CRS 23030.
-  #'           Extraction of the soil value for each record.
-  #'           Left join with soil database from GSIF package to get actual soil name.
-  #'           Remove unused columns and factor soil name.
-  #'
-  #' Output: Soil raster with 250 m resolution in `.tif` format in CRS 23030.
-  #'
+  # ## Soil
+  #
+  # Raw data: Soil raster with 250m resolution in `.tif`format in CRS 4326 (Hengl 2017, http://journals.plos.org/plosone/article?id=10.1371/journal.pone.0169748).
+  #
+  # Workflow: Reproject study area to CRS 4326.
+  #           Crop soil raster with study area and reproject to CRS 23030.
+  #           Extraction of the soil value for each record.
+  #           Left join with soil database from GSIF package to get actual soil name.
+  #           Remove unused columns and factor soil name.
+  #
+  # Output: Soil raster with 250 m resolution in `.tif` format in CRS 23030.
+  #
 
   study_area_4326 <-
     study_area %>%
@@ -572,16 +572,16 @@ dem_download = function(path) {
 
 slope_processing = function(path) {
 
-  #' ## Slope
-  #'
-  #' Raw data: Reprojected DEM with 5m resolution in `.tif` format in CRS 32630.
-  #'
-  #' Workflow: Calculation of the slope with the RSAGA package.
-  #'           Conversion of the resulting `.sgrd` to `.tif`.
-  #'           Extraction of the slope values for each record.
-  #'
-  #' Mod data: Slope raster in degrees with 5m resolution in `.tif` format in CRS 32630.
-  #'
+  # ## Slope
+  #
+  # Raw data: Reprojected DEM with 5m resolution in `.tif` format in CRS 32630.
+  #
+  # Workflow: Calculation of the slope with the RSAGA package.
+  #           Conversion of the resulting `.sgrd` to `.tif`.
+  #           Extraction of the slope values for each record.
+  #
+  # Mod data: Slope raster in degrees with 5m resolution in `.tif` format in CRS 32630.
+  #
   dir_create("data/slope")
 
   env = rsaga.env()
@@ -608,12 +608,12 @@ slope_processing = function(path) {
 
 mod_raw_data = function(data, drop_vars, response) {
 
-  #' ## Import disease data and store as sf
-  #'
-  #' Raw data: Point shapefile in CRS 23030 with presense and absence observations of heterobasi and armillaria.
-  #'
-  #'
-  #'
+  # ## Import disease data and store as sf
+  #
+  # Raw data: Point shapefile in CRS 23030 with presense and absence observations of heterobasi and armillaria.
+  #
+  #
+  #
   data %<>%
     st_transform(32630)
 
@@ -621,16 +621,16 @@ mod_raw_data = function(data, drop_vars, response) {
   #   st_coordinates() %>%
   #   cbind(data)
 
-  #' ## Change column names to lowercase
+  ## Change column names to lowercase
   colnames(data) <-
     data %>%
     colnames() %>%
     tolower()
 
-  #' ## Wiggle coordinates
-  #' Some coordinates are not unique, so we have to wiggle them a little bit
-  #'
-  #'
+  # ## Wiggle coordinates
+  # Some coordinates are not unique, so we have to wiggle them a little bit
+  #
+  #
   if (response == "diplo01" | response == "fus01") {
     set.seed(1234)
     data$x <- data$x + rnorm(nrow(data)) / 10
@@ -875,9 +875,9 @@ preprocessing_custom <- function(path, slope, soil, temperature_mean, ph, hail,
   }
   # Remove NAs
 
-  #' # Remove samples with NAs
-  #' Examine datasets for missing values. Remove sample 12 from heterobasi data set because lithology is missing
-  #' and remove sample 11, 13, 14, 15, 22, 23, 25, 26, 27 and 28 from armillaria data set because elevation and/or lithology is missing.
+  # # Remove samples with NAs
+  # Examine datasets for missing values. Remove sample 12 from heterobasi data set because lithology is missing
+  # and remove sample 11, 13, 14, 15, 22, 23, 25, 26, 27 and 28 from armillaria data set because elevation and/or lithology is missing.
 
   data_in %<>%
     na.omit() %>%
@@ -1087,9 +1087,9 @@ preprocessing_custom_v2 <- function(path, slope, soil, temperature_mean, ph, hai
   }
   # Remove NAs
 
-  #' # Remove samples with NAs
-  #' Examine datasets for missing values. Remove sample 12 from heterobasi data set because lithology is missing
-  #' and remove sample 11, 13, 14, 15, 22, 23, 25, 26, 27 and 28 from armillaria data set because elevation and/or lithology is missing.
+  # # Remove samples with NAs
+  # Examine datasets for missing values. Remove sample 12 from heterobasi data set because lithology is missing
+  # and remove sample 11, 13, 14, 15, 22, 23, 25, 26, 27 and 28 from armillaria data set because elevation and/or lithology is missing.
 
   data_in %<>%
     na.omit() %>%

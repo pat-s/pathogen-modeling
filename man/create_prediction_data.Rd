@@ -2,19 +2,11 @@
 % Please edit documentation in R/data-functions.R
 \name{create_prediction_data}
 \alias{create_prediction_data}
-\title{## Prediction raster grid}
+\title{Make prediction data.frame}
 \usage{
 create_prediction_data(temperature, precipitation, pisr, slope, elevation,
   soil, lithology, hail, ph)
 }
 \description{
-Now create a 200 x 200 point grid using a dummy raster that represents the study area shape.
-}
-\details{
-!! This is temporarly overwritten by an import of the below created file which has already the extracted ltihology information inisde.
-This intersection was created in ArcGIS as R did not finish in one day.
-Runtime in ArcGIS: < 1 min.
-QGIS did not even start..
-
 Make prediction data.frame
 }

@@ -1,6 +1,6 @@
 Package: pathogen.modeling
 Title: Benchmarking of algorithms on different resampling
-    stratgies
+    strategies
 Version: 0.0.0.9000
 Authors@R:
     person(given = "Patrick",
