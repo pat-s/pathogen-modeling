@@ -696,53 +696,71 @@ This work was funded by the EU LIFE Healthy Forest project: LIFE14 ENV/ES/000179
 \label{table:descriptive_summary_numeric}
 \end{table}
 
-% latex table generated in R 3.4.3 by xtable 1.8-2 package
-% Sun Jan  7 19:56:08 2018
-\begin{table}[H]
-\centering
-\begingroup\footnotesize
-\begin{tabular}{ll|rr}
-	\textbf{Variable} & \textbf{Levels}                                                                & $\mathbf{n}$ & $\mathbf{\%}$ \\
+% latex table generated in R 3.5.1 by xtable 1.8-3 package
+% Mon Mar 18 14:53:15 2019
+\begin{table}[ht]
+	\centering
+	\begingroup\footnotesize
+	\begin{tabular}{lrrrrrrrrr}
+	 \textbf{Variable} & $\mathbf{n}$ & \textbf{Min} & $\mathbf{q_1}$ & $\mathbf{\widetilde{x}}$ & $\mathbf{\bar{x}}$ & $\mathbf{q_3}$ & \textbf{Max} & \textbf{IQR} & \textbf{\#NA} \\ 
+		\hline
+	temp & 922 & 12.6 &  14.6 &  15.2 &  15.1 &  15.7 &  16.8 &  1.0 & 0 \\ 
+		precip & 922 & 88.1 & 181.2 & 224.6 & 234.1 & 252.2 & 496.6 & 71.0 & 0 \\ 
+		hail\_probability & 922 &  0.0 &   0.2 &   0.6 &   0.5 &   0.7 &   1.0 &  0.5 & 0 \\ 
+		ph & 922 &  4.0 &   4.4 &   4.6 &   4.6 &   4.8 &   6.0 &  0.4 & 0 \\ 
+		slope\_degrees & 922 &  0.1 &  12.3 &  19.3 &  19.8 &  27.0 &  55.1 & 14.7 & 0 \\ 
+		pisr & 922 & -0.1 &   0.0 &   0.0 &   0.0 &   0.0 &   0.1 &  0.1 & 0 \\ 
+		age & 922 &  2.0 &  13.0 &  20.0 &  19.0 &  24.0 &  40.0 & 11.0 & 0 \\ 
+		\end{tabular}
+	\endgroup
+	\caption{Summary of numerical predictor variables. Precipitation (precip) in $\mathrm{mm/m^{2}}$, temperature (temp) in \degree C, solar radiation (pisr) in $\mathrm{kW/m^{2}}$, tree age (age) in years. Statistics show sample size ($\mathbf{n}$), minimum (\textbf{Min}), 25\% percentile ($\mathbf{q_1}$), median ($\mathbf{\widetilde{x}}$), mean ($\mathbf{\bar{x}}$), 75\% percentile ($\mathbf{q_3}$), maximum (\textbf{Max}), inner-quartile range (\textbf{IQR}) and NA Count (\textbf{\#NA}).}
+	\label{}
+	\end{table}
+
+% latex table generated in R 3.5.1 by xtable 1.8-3 package
+% Mon Mar 18 14:56:49 2019
+\begin{table}[ht]
+	\centering
+	\begingroup\footnotesize
+	\begin{tabular}{ll|rr}
+	 \textbf{Variable} & \textbf{Levels} & $\mathbf{n}$ & $\mathbf{\%}$ \\ 
+		\hline
+	diplo01 & 0 & 700 & 75.9 \\ 
+		 & 1 & 222 & 24.1 \\ 
+		 \hline
+	 & all & 922 & 100.0 \\ 
+		 \hline
 	\hline
-	diplo01           & 0                                                                              & 703          & 75.9          \\
-	                  & 1                                                                              & 223          & 24.1          \\
+	soil & soils with clay-enriched subsoil & 215 & 23.3 \\ 
+		 & soils with little or no profile differentiation & 705 & 76.5 \\ 
+		 & pronounced accumulation of organic matter in the mineral topsoil & 1 & 0.1 \\ 
+		 & soils with limitations to root growth & 1 & 0.1 \\ 
+		 \hline
+	 & all & 922 & 100.0 \\ 
+		 \hline
 	\hline
-	                  & all                                                                            & 926          & 100.0         \\
+	lithology & surface deposits & 31 & 3.4 \\ 
+		 & clastic sedimentary rock & 600 & 65.1 \\ 
+		 & biological sedimentary rock & 136 & 14.8 \\ 
+		 & chemical sedimentary rock & 142 & 15.4 \\ 
+		 & magmatic rock & 13 & 1.4 \\ 
+		 \hline
+	 & all & 922 & 100.0 \\ 
+		 \hline
 	\hline
+	year & 2009 & 399 & 43.3 \\ 
+		 & 2010 & 260 & 28.2 \\ 
+		 & 2011 & 102 & 11.1 \\ 
+		 & 2012 & 161 & 17.5 \\ 
+		 \hline
+	 & all & 922 & 100.0 \\ 
+		 \hline
 	\hline
-	lithology         & surface deposits                                                               & 32           & 3.5           \\
-	                  & clastic sedimentary rock                                                       & 602          & 65.0          \\
-	                  & biological sedimentary rock                                                    & 136          & 14.7          \\
-	                  & chemical sedimentary rock                                                      & 143          & 15.4          \\
-	                  & magmatic rock                                                                  & 13           & 1.4           \\
-	\hline
-	                  & all                                                                            & 926          & 100.0         \\
-	\hline
-	\hline
-	soil              & \specialcell{soils with little or no profile differentiation                                                  \\ {(Cambisols, Fluvisols)}} & 672 & 72.6 \\
-	                  & \specialcell{pronounced accumulation of organic matter in the mineral topsoil                                 \\ {(Chernozems, Kastanozems)}} & 22 & 2.4 \\
-	                  & soils with limitations to root growth (Cryosols, Leptosols)                    & 19           & 2.0           \\
-	                  & \specialcell{accumulation of moderately soluble salts or non-saline substances                                \\ {(Durisols, Gypsisols)}} & 13 & 1.4 \\
-	                  & soils distinguished by Fe/Al chemistry (Ferralsols, Gleysols)                  & 35           & 3.8           \\
-	                  & organic soil (Histosols)                                                       & 14           & 1.5           \\
-	                  & soils with clay-enriched subsoil (Lixisols, Luvisols)                          & 151          & 16.3          \\
-	\hline
-	                  & all                                                                            & 926          & 100.0         \\
-	\hline
-	\hline
-	year              & 2009                                                                           & 401          & 43.3          \\
-	                  & 2010                                                                           & 261          & 28.2          \\
-	                  & 2011                                                                           & 102          & 11.0          \\
-	                  & 2012                                                                           & 162          & 17.5          \\
-	\hline
-	                  & all                                                                            & 926          & 100.0         \\
-	\hline
-	\hline
-\end{tabular}
-\endgroup
-\caption{Summary of nominal predictor variables}
-\label{table:descriptive_summary_non_numeric}
-\end{table}
+	\end{tabular}
+	\endgroup
+	\caption{Summary of nominal predictor variables} 
+	\label{}
+	\end{table}
 
 \pagebreak
 
