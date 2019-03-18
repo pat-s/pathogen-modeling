@@ -7,3 +7,5 @@
 - Add section 5.3 "Possible enhancements and future work"
 
 - Move "The effect of overoptimistic performance estimates on ecological decision making" from "subsection" to "subsubsection"
+
+- Update hyperparameter range from BRT
