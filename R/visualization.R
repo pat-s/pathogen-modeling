@@ -151,17 +151,21 @@ vis_opt_path = function(models, n_folds) {
   )
 }
 
-#' @title Write optimization path figures to disk
-#' @param list A list generated from `vis_opt_path()`
-save_plot_opt_paths = function(list) {
+#' @title Save plot and convert to pdf
+#' @param plot A ggplot2 plot
+#' @param path The path where to save the plot (including filename)
+#' @param nrow number of rows
+#' @param ncol number of columns
+#'
+#' @details Same behaviour as [cowplot::save_plot]
+save_plot_custom = function(plot, path, nrow, ncol) {
 
-  # TODO: auto-parse names from model and resamp setting
+  save_plot(file_out(path),
+            plot, ncol = ncol, nrow = nrow)
 
-  imgs = map(list, ~ save_plot(file_out("analysis/figures/opt-paths-RF-sp-vs-nsp.png")),
-             .x,
-             ncol = 1, nrow = 2, base_width = 12
-  )
-  return(imgs)
+  system("cd analysis/figures && exec ls -1 *.png |
+       parallel convert '{}' '{.}.pdf'")
+
 }
 
 #' @title Create continuos and nominal LaTeX tables from dataset
