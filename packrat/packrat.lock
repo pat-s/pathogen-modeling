@@ -1211,6 +1211,12 @@ Source: CRAN
 Version: 2.0.2
 Hash: cfcf5e119ed5e6af4b47530ba59101f3
 
+Package: reporttools
+Source: CRAN
+Version: 1.1.2
+Hash: aba9a8c83cccd82d383b67c45108411f
+Requires: xtable
+
 Package: reprex
 Source: CRAN
 Version: 0.2.1
