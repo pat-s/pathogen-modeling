@@ -46,29 +46,29 @@ data_basque = st_read("https://zenodo.org/record/2591746/files/study-area.gpkg",
                       quiet = TRUE)
 
 dem_raw = dem_download("https://zenodo.org/record/2591746/files/dem.zip")
-slope = slope_processing(path = dem_raw)
-elevation = elevation_preprocessing(path = dem_raw)
+slope = slope_processing(data = dem_raw)
+elevation = elevation_preprocessing(data = dem_raw)
 
 temperature_mean = temperature_preprocessing(atlas_climatico = atlas_climatico)
 precipitation_sum = precipitation_preprocessing(atlas_climatico = atlas_climatico)
 pisr = pisr_preprocessing(atlas_climatico = atlas_climatico)
 
-lithology_raw = lithology_download(path = "https://zenodo.org/record/2591746/files/lithology.zip")
+lithology_raw = lithology_download(url = "https://zenodo.org/record/2591746/files/lithology.zip")
 lithology = lithology_preprocessing(lithology_raw)
 
 ph_raw = ph_download("https://zenodo.org/record/2591746/files/ph.zip")
-ph = ph_preprocessing(path = ph_raw,
+ph = ph_preprocessing(data = ph_raw,
                       study_area = data_basque)
 
 soil_raw = soil_download("https://zenodo.org/record/2591746/files/soil.tif")
-soil = soil_preprocessing(path = soil_raw,
+soil = soil_preprocessing(data = soil_raw,
                           study_area = data_basque)
 
 atlas_climatico_raw = atlas_climatico_download("https://zenodo.org/record/2591746/files/atlas-climatico.zip")
 atlas_climatico = atlas_climatico_preprocessing(data = atlas_climatico_raw,
                                                 study_area = data_basque)
 
-hail_raw = hail_download(path = "https://zenodo.org/record/2591746/files/hail-probability.tif")
+hail_raw = hail_download(url = "https://zenodo.org/record/2591746/files/hail-probability.tif")
 
 # Prediction data ---------------------------------------------------------
 
