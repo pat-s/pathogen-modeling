@@ -802,8 +802,7 @@
   in Pine Plantations of Northern {{Spain}} as a Major Risk Factor for Forest
   Disease}\/}.
 \newblock Ph.D. thesis Friedrich-Schiller-University Jena.
-\newblock \DOIprefix\doi{https://doi.org/10.5281/zenodo.814262}
-  \bibinfo{note}{00000 (unpublished)}.
+\newblock \DOIprefix\doi{10.5281/zenodo.814262}.
 %Type = Article
 \bibitem[{Schratz et~al.(2019)Schratz, Muenchow, Iturritxa, Richter \&
   Brenning}]{schratz_patrick_2019_2591746}
@@ -813,7 +812,7 @@
 \newblock \bibinfo{title}{Analyzing the importance of spatial autocorrelation
   in hyperparameter tuning and performance estimation of machine-learning
   algorithms for spatial data.}, .
-\newblock \DOIprefix\doi{10.5281/zenodo.2591746}.
+\newblock \DOIprefix\doi{10.5281/zenodo.2582969}.
 %Type = Article
 \bibitem[{Shao(1993)}]{Shao1993}
 \bibinfo{author}{Shao, J.} (\bibinfo{year}{1993}).
