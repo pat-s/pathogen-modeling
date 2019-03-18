@@ -125,6 +125,7 @@
 	\acro{AUROC}{Area Under the Receiver Operating Characteristics Curve}
 	\acro{BRT}{Boosted Regression Trees}
 	\acro{CART}{Classification and Regression Trees}
+	\acro{CTF}{Common Task Framework}
 	\acro{CV}{Cross-Validation}
 	\acro{ENM}{Environmental Niche Modeling}
 	\acro{FPR}{False Positive Rate}
@@ -607,12 +608,29 @@ However, there is little research on this specific topic \citep{Dormann2007b, Me
 In our view, a possible analysis would need to estimate the spatial autocorrelation structure of a model for every fold of a cross-validation using a data-driven approach (i.e. automatically estimate the spatial autocorrelation structure from each training set in the respective CV fold) and compare the results to the same model fitted without a spatial autocorrelation structure.
 Since we only focused on predictive accuracy in this work, we did not use spatial autocorrelation structures during model fitting for \ac{GLM} and \ac{GAM} to reduce runtime.
 
-\subsection{The effect of overoptimistic performance estimates on ecological decision making}
+\subsubsection{The effect of overoptimistic performance estimates on ecological decision making}
 \noindent Unbiased model outcomes are the foundation of informed ecological decision-making, biodiversity conservation as well as renaturation strategies \citep{muenchowReviewEcologicalGradient2018}. 
 In particular, reliable outcomes are indispensable in species distribution \citep{loehleDisequilibriumRelaxationTimes2018}, invasive species dispersal \citep{srivastavaMappingInvasionPotential2018}, and ecosystem service modeling \citep{watanabeDynamicEmergyAccounting2014}. 
 Global change makes model predictions uncertain enough \citep{ipccSummaryPolicymakers2013}. 
 Therefore, it is unnecessary to introduce an additional autocorrelation bias, especially since one can relatively easy account for it. 
 By contrast, the damage done in terms of monetary and ecological mismanagement due to biased advice is disproportionately harder to reverse.
+
+\subsection{Possible enhancements and future work}
+
+The methodology of this study should be applied to more datasets to verify the findings and allow for more generalizable conclusions. 
+In the machine-learning field plenty datasets exists for benchmarking \citep{olsonPMLBLargeBenchmark2017, vanschorenOpenMLNetworkedScience2014}.
+However, most do not inherit spatial information or do not focus on ecological applications.
+Approaches like the \ac{CTF} \citep{wikleCommonTaskFramework2017} are a step into the right direction but they need to be maintained and promoted more extensively to be picked up by the community.
+Using multiple datasets in this work would overload the detailed analysis of the tuning effects for certain resampling settings which was one of the main goals of this study.
+Future studies are welcome to continue here by comparing tuning effects of single algorithms across multiple datasets and different resampling schemes.
+While this work focused only on the effects of spatial influence on tuning effects and resampling settings for different algorithms it would be interesting to apply this methodology also to spatio-temporal datasets.
+
+After the first review of the manuscript we changed the error measure from \ac{AUROC} to Brier score as the latter is better suited when comparing algorithms due to is property of being a proper scoring rule \citep{Byrne2016, Gneiting2007}. 
+The GAM was highly affected by this change, moving from the best performing algorithm to the worst in the list of chosen classifiers.
+We have no explanation for this substantial change at this point.
+
+We would like to thank two anonymous reviewers for their input. 
+Their comments substantially improved the manuscript.
 
 \section{Conclusion}
  
