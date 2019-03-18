@@ -1,4 +1,4 @@
-\begin{thebibliography}{95}
+\begin{thebibliography}{103}
 \expandafter\ifx\csname natexlab\endcsname\relax\def\natexlab#1{#1}\fi
 \providecommand{\url}[1]{\texttt{#1}}
 \providecommand{\href}[2]{#2}
@@ -11,6 +11,18 @@
 \providecommand{\Pubmed}[1]{\href{pmid:#1}{\path{#1}}}
 \providecommand{\bibinfo}[2]{#2}
 \ifx\xfnm\relax \def\xfnm[#1]{\unskip,\space#1}\fi
+%Type = Article
+\bibitem[{Adler et~al.(2018)Adler, Falk, Friedler, Nix, Rybeck, Scheidegger,
+  Smith \& Venkatasubramanian}]{adlerAuditingBlackboxModels2018}
+\bibinfo{author}{Adler, P.}, \bibinfo{author}{Falk, C.},
+  \bibinfo{author}{Friedler, S.~A.}, \bibinfo{author}{Nix, T.},
+  \bibinfo{author}{Rybeck, G.}, \bibinfo{author}{Scheidegger, C.},
+  \bibinfo{author}{Smith, B.}, \& \bibinfo{author}{Venkatasubramanian, S.}
+  (\bibinfo{year}{2018}).
+\newblock \bibinfo{title}{Auditing black-box models for indirect influence}.
+\newblock {\it \bibinfo{journal}{Knowledge and Information Systems}\/},  {\it
+  \bibinfo{volume}{54}\/}, \bibinfo{pages}{95--122}.
+  \DOIprefix\doi{10.1007/s10115-017-1116-3}.
 %Type = Article
 \bibitem[{Adler et~al.(2017)Adler, Gefeller \& Uter}]{Alder2017}
 \bibinfo{author}{Adler, W.}, \bibinfo{author}{Gefeller, O.}, \&
@@ -206,6 +218,14 @@
 \newblock {\it \bibinfo{journal}{Economic Geography}\/},  {\it
   \bibinfo{volume}{46}\/}, \bibinfo{pages}{269}. \DOIprefix\doi{10/d93r2k}.
 %Type = Article
+\bibitem[{De'ath(2007)}]{deathBoostedTreesEcological2007}
+\bibinfo{author}{De'ath, G.} (\bibinfo{year}{2007}).
+\newblock \bibinfo{title}{Boosted {{Trees}} for {{Ecological Modeling}} and
+  {{Prediction}}}.
+\newblock {\it \bibinfo{journal}{Ecology}\/},  {\it \bibinfo{volume}{88}\/},
+  \bibinfo{pages}{243--251}. \DOIprefix\doi{10/c46943}.
+\newblock \bibinfo{note}{00657}.
+%Type = Article
 \bibitem[{Dormann(2007)}]{Dormann2007b}
 \bibinfo{author}{Dormann, C.~F.} (\bibinfo{year}{2007}).
 \newblock \bibinfo{title}{Effects of incorporating spatial autocorrelation into
@@ -372,6 +392,17 @@
   \bibinfo{volume}{67}\/}, \bibinfo{pages}{1114--1121}.
   \DOIprefix\doi{10.1111/ppa.12830}.
 %Type = Article
+\bibitem[{Henelius et~al.(2014)Henelius, Puolam\"aki, Bostr\"om, Asker \&
+  Papapetrou}]{heneliusPeekBlackBox2014}
+\bibinfo{author}{Henelius, A.}, \bibinfo{author}{Puolam\"aki, K.},
+  \bibinfo{author}{Bostr\"om, H.}, \bibinfo{author}{Asker, L.}, \&
+  \bibinfo{author}{Papapetrou, P.} (\bibinfo{year}{2014}).
+\newblock \bibinfo{title}{A peek into the black box: Exploring classifiers by
+  randomization}.
+\newblock {\it \bibinfo{journal}{Data Mining and Knowledge Discovery}\/},  {\it
+  \bibinfo{volume}{28}\/}, \bibinfo{pages}{1503--1529}.
+  \DOIprefix\doi{10.1007/s10618-014-0368-8}.
+%Type = Article
 \bibitem[{Hengl et~al.(2017)Hengl, {de Jesus}, Heuvelink, Gonzalez, Kilibarda,
   Blagoti\'c, Shangguan, Wright, Geng, {Bauer-Marschallinger}, Guevara, Vargas,
   MacMillan, Batjes, Leenaars, Ribeiro, Wheeler, Mantel \& Kempen}]{Hengl2017}
@@ -446,6 +477,15 @@
   with background selection}.
 \newblock {\it \bibinfo{journal}{Ecological Modelling}\/},  {\it
   \bibinfo{volume}{363}\/}, \bibinfo{pages}{48--56}. \DOIprefix\doi{10/gcg2ff}.
+%Type = Article
+\bibitem[{Johnson \& Omland(2004)}]{johnsonModelSelectionEcology2004}
+\bibinfo{author}{Johnson, J.~B.}, \& \bibinfo{author}{Omland, K.~S.}
+  (\bibinfo{year}{2004}).
+\newblock \bibinfo{title}{Model selection in ecology and evolution}.
+\newblock {\it \bibinfo{journal}{Trends in Ecology \& Evolution}\/},  {\it
+  \bibinfo{volume}{19}\/}, \bibinfo{pages}{101--108}.
+  \DOIprefix\doi{10/cbzhrm}.
+\newblock \bibinfo{note}{02884}.
 %Type = Article
 \bibitem[{Jones et~al.(1998)Jones, Schonlau \& Welch}]{Jones1998}
 \bibinfo{author}{Jones, D.~R.}, \bibinfo{author}{Schonlau, M.}, \&
@@ -620,6 +660,16 @@
   Bellaterra}}.
 \newblock \bibinfo{note}{00000}.
 %Type = Article
+\bibitem[{Olson et~al.(2017)Olson, La~Cava, Orzechowski, Urbanowicz \&
+  Moore}]{olsonPMLBLargeBenchmark2017}
+\bibinfo{author}{Olson, R.~S.}, \bibinfo{author}{La~Cava, W.},
+  \bibinfo{author}{Orzechowski, P.}, \bibinfo{author}{Urbanowicz, R.~J.}, \&
+  \bibinfo{author}{Moore, J.~H.} (\bibinfo{year}{2017}).
+\newblock \bibinfo{title}{{{PMLB}}: A large benchmark suite for machine
+  learning evaluation and comparison}.
+\newblock {\it \bibinfo{journal}{BioData Mining}\/},  {\it
+  \bibinfo{volume}{10}\/}. \DOIprefix\doi{10.1186/s13040-017-0154-4}.
+%Type = Article
 \bibitem[{Pe\~na \& Brenning(2015)}]{Pena2015}
 \bibinfo{author}{Pe\~na, M.}, \& \bibinfo{author}{Brenning, A.}
   (\bibinfo{year}{2015}).
@@ -628,6 +678,17 @@
 \newblock {\it \bibinfo{journal}{Remote Sensing of Environment}\/},  {\it
   \bibinfo{volume}{171}\/}, \bibinfo{pages}{234--244}.
   \DOIprefix\doi{10/f745cg}.
+%Type = Article
+\bibitem[{Pohjankukka et~al.(2017)Pohjankukka, Pahikkala, Nevalainen \&
+  Heikkonen}]{pohjankukkaEstimatingPredictionPerformance2017}
+\bibinfo{author}{Pohjankukka, J.}, \bibinfo{author}{Pahikkala, T.},
+  \bibinfo{author}{Nevalainen, P.}, \& \bibinfo{author}{Heikkonen, J.}
+  (\bibinfo{year}{2017}).
+\newblock \bibinfo{title}{Estimating the prediction performance of spatial
+  models via spatial k-fold cross validation}.
+\newblock {\it \bibinfo{journal}{International Journal of Geographical
+  Information Science}\/},  {\it \bibinfo{volume}{31}\/},
+  \bibinfo{pages}{2001--2019}. \DOIprefix\doi{10/gdq9pg}.
 %Type = Article
 \bibitem[{Pourghasemi \& Rahmati(2018)}]{Pourghasemi2018}
 \bibinfo{author}{Pourghasemi, H.~R.}, \& \bibinfo{author}{Rahmati, O.}
@@ -667,8 +728,8 @@
 \newblock {\it \bibinfo{journal}{Journal of Avian Biology}\/}, .
   \DOIprefix\doi{10/gct5qg}.
 %Type = Book
-\bibitem[{{R Core Team}(2017)}]{R_core}
-\bibinfo{author}{{R Core Team}} (\bibinfo{year}{2017}).
+\bibitem[{{R Core Team}(2019)}]{R_core}
+\bibinfo{author}{{R Core Team}} (\bibinfo{year}{2019}).
 \newblock {\it \bibinfo{title}{R: {{A Language}} and {{Environment}} for
   {{Statistical Computing}}}\/}.
 \newblock \bibinfo{address}{Vienna, Austria}.
@@ -744,13 +805,15 @@
 \newblock \DOIprefix\doi{https://doi.org/10.5281/zenodo.814262}
   \bibinfo{note}{00000 (unpublished)}.
 %Type = Article
-\bibitem[{Schratz \& Iturritxa(2018)}]{schratzSupplementaryDataECOMOD182262018}
-\bibinfo{author}{Schratz, P.}, \& \bibinfo{author}{Iturritxa, E.}
-  (\bibinfo{year}{2018}).
-\newblock \bibinfo{title}{Supplementary data for {{ECOMOD}}-18-226}.
-\newblock {\it \bibinfo{journal}{Mendeley datasets}\/}, .
-  \DOIprefix\doi{10/gdvmxg}.
-\newblock \bibinfo{note}{00000}.
+\bibitem[{Schratz et~al.(2019)Schratz, Muenchow, Iturritxa, Richter \&
+  Brenning}]{schratz_patrick_2019_2591746}
+\bibinfo{author}{Schratz, P.}, \bibinfo{author}{Muenchow, J.},
+  \bibinfo{author}{Iturritxa, E.}, \bibinfo{author}{Richter, J.}, \&
+  \bibinfo{author}{Brenning, A.} (\bibinfo{year}{2019}).
+\newblock \bibinfo{title}{Analyzing the importance of spatial autocorrelation
+  in hyperparameter tuning and performance estimation of machine-learning
+  algorithms for spatial data.}, .
+\newblock \DOIprefix\doi{10.5281/zenodo.2591746}.
 %Type = Article
 \bibitem[{Shao(1993)}]{Shao1993}
 \bibinfo{author}{Shao, J.} (\bibinfo{year}{1993}).
@@ -818,6 +881,16 @@
 \newblock {\it \bibinfo{journal}{Quaternary Science Reviews}\/},  {\it
   \bibinfo{volume}{28}\/}, \bibinfo{pages}{1309--1316}.
   \DOIprefix\doi{10/b87tzq}.
+%Type = Article
+\bibitem[{Vanschoren et~al.(2014)Vanschoren, {van Rijn}, Bischl \&
+  Torgo}]{vanschorenOpenMLNetworkedScience2014}
+\bibinfo{author}{Vanschoren, J.}, \bibinfo{author}{{van Rijn}, J.~N.},
+  \bibinfo{author}{Bischl, B.}, \& \bibinfo{author}{Torgo, L.}
+  (\bibinfo{year}{2014}).
+\newblock \bibinfo{title}{{{OpenML}}: Networked science in machine learning}.
+\newblock {\it \bibinfo{journal}{ACM SIGKDD Explorations Newsletter}\/},  {\it
+  \bibinfo{volume}{15}\/}, \bibinfo{pages}{49--60}.
+  \DOIprefix\doi{10.1145/2641190.2641198}.
 %Type = Incollection
 \bibitem[{Vapnik(1998)}]{Vapnik1998}
 \bibinfo{author}{Vapnik, V.} (\bibinfo{year}{1998}).
@@ -877,6 +950,14 @@
 \newblock {\it \bibinfo{journal}{Ecological Modelling}\/},  {\it
   \bibinfo{volume}{352}\/}, \bibinfo{pages}{108--112}.
   \DOIprefix\doi{10/f96529}.
+%Type = Misc
+\bibitem[{Wikle et~al.(2017)Wikle, Cressie, {Zammit-Mangion} \&
+  Shumack}]{wikleCommonTaskFramework2017}
+\bibinfo{author}{Wikle, C.~K.}, \bibinfo{author}{Cressie, N. A.~C.},
+  \bibinfo{author}{{Zammit-Mangion}, A.}, \& \bibinfo{author}{Shumack, C.}
+  (\bibinfo{year}{2017}).
+\newblock \bibinfo{title}{A {{Common Task Framework}} ({{CTF}}) for {{Objective
+  Comparison}} of {{Spatial Prediction Methodologies}} - {{Statistics Views}}}.
 %Type = Article
 \bibitem[{Wingfield et~al.(2008)Wingfield, Hammerbacher, Ganley, Steenkamp,
   Gordon, Wingfield \& Coutinho}]{Wingfield2008}
