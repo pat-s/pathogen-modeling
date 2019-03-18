@@ -2,7 +2,7 @@
 
 # Changes
 
-- Add Zenodo RC
+- Add Zenodo research compendium link
 
 - Add section 5.3 "Possible enhancements and future work"
 
