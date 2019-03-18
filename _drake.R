@@ -10,9 +10,11 @@ param_set = code_to_plan("analysis/mlr-settings/param-set.R")
 tune_ctrl = code_to_plan("analysis/mlr-settings/tune_ctrl_mbo.R")
 tuning_wrapper = code_to_plan("analysis/mlr-settings/tuning.R")
 visualization = code_to_plan("analysis/visualization/vis-partitions.R")
-sourceDirectory("analysis/benchmark/")
-sourceDirectory("analysis/prediction/")
-sourceDirectory("analysis/reports/")
+dataset_tables = code_to_plan("analysis/visualization/create_dataset_tables.R")
+source("analysis/benchmark/aggregate-results.R")
+source("analysis/benchmark/benchmark.R")
+source("analysis/prediction/prediction.R")
+source("analysis/reports/benchmark-eval.R")
 
 source("https://raw.githubusercontent.com/mlr-org/mlr-extralearner/master/R/RLearner_classif_gam.R")
 
@@ -32,13 +34,14 @@ prediction_prob$stage = "prediction"
 prediction_maps$stage = "prediction"
 reports$stage = "reports"
 visualization$stage = "visualization"
+dataset_tables$stage = "visualization"
 
 # Combine all -------------------------------------------------------------
 
 plan = bind_plans(data_plan, task, learners, resampling, param_set,
                   tune_ctrl, tuning_wrapper, benchmark_plan, prediction_prob,
                   prediction_maps, bmr_aggregated, bm_all_pathogens, no_extract,
-                  reports, visualization)
+                  reports, visualization, dataset_tables)
 
 plan %<>% mutate(stage = as.factor(stage))
 
@@ -54,14 +57,20 @@ options(
 #              lazy_load = "promise", caching = "worker", template = list(log_file = "log/worker2-%a.log", n_cpus= 32),
 #              garbage_collection = TRUE, jobs = 3, parallelism = "clustermq")
 
-drake_config(plan, verbose = 2, targets = c("benchmark_evaluation_report_diplodia"), cache_log_file = "log/cache_log.txt",
+drake_config(plan, verbose = 2, targets = c("benchmark_evaluation_report_diplodia"),
+             cache_log_file = "log/cache_log.txt",
              console_log_file = "log/drake.log",
-             lazy_load = "promise", caching = "worker", template = list(log_file = "log/worker%a.log", n_cpus= 32),
+             lazy_load = "promise", caching = "worker",
+             template = list(log_file = "log/worker%a.log", n_cpus= 32),
              garbage_collection = TRUE, jobs = 3, parallelism = "clustermq")
 
 # drake_config(plan, verbose = 2, targets = "bm_sp_non_diplodia_glm_old", console_log_file = stdout())
 
-# make(plan, verbose = 2, targets = c("bm_sp_nsp_diplodia_brt", "bm_nsp_nsp_diplodia_brt"), cache_log_file = "log/cache_log.txt",
+# make(plan, verbose = 2, targets = c("bm_sp_sp_diplodia_brt",
+#                                     "bm_sp_nsp_diplodia_brt",
+#                                     "bm_nsp_nsp_diplodia_brt"),
+#      cache_log_file = "log/cache_log.txt",
 #      console_log_file = "log/drake.log",
-#      lazy_load = "promise", caching = "worker", template = list(log_file = "log/worker%a.log", n_cpus= 32),
+#      lazy_load = "promise", caching = "worker",
+#      template = list(log_file = "log/worker%a.log", n_cpus= 32),
 #      garbage_collection = TRUE, jobs = 3, parallelism = "clustermq")

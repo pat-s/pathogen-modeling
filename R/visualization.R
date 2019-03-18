@@ -163,3 +163,39 @@ save_plot_opt_paths = function(list) {
   )
   return(imgs)
 }
+
+#' @title Create continuos and nominal LaTeX tables from dataset
+#' @param data [data.frame]
+#' @param type Options: "continuous" or "nominal"
+create_dataset_tables = function(data, type = "continuous", drop_vars = NULL,
+                                 stats = NULL) {
+
+  if (is.null(stats)) {
+    stats = c("n", "min", "q1", "median", "mean", "q3", "max",
+              "s", "iqr", "na")
+  }
+
+  if (!is.null(drop_vars)) {
+    data %<>%
+      dplyr::select(-!!drop_vars)
+  }
+
+  if (type == "continuous") {
+
+    table = tableContinuous(data[, sapply(data, is.numeric)],
+                            longtable = FALSE, cumsum = FALSE,
+                            cap = "Summary of numerical predictor variables",
+                            label = "table:descriptive_summary_numeric",
+                            stats = stats)
+
+  } else if (type == "nominal") {
+    table = tableNominal(data[, !sapply(data, is.numeric)],
+                         longtable = FALSE, cumsum = FALSE,
+                         cap = "Summary of nominal predictor variables",
+                         label = "table:descriptive_summary_non_numeric",
+                         stats = stats)
+  }
+
+  return(table)
+
+}
