@@ -607,6 +607,7 @@ In this work we assume that, on average, the predictive accuracy of parametric m
 However, there is little research on this specific topic \citep{Dormann2007b, Mets2017} and a detailed analysis goes beyond the scope of this work.
 In our view, a possible analysis would need to estimate the spatial autocorrelation structure of a model for every fold of a cross-validation using a data-driven approach (i.e. automatically estimate the spatial autocorrelation structure from each training set in the respective CV fold) and compare the results to the same model fitted without a spatial autocorrelation structure.
 Since we only focused on predictive accuracy in this work, we did not use spatial autocorrelation structures during model fitting for \ac{GLM} and \ac{GAM} to reduce runtime.
+However, if the aim is statistical inference it is of utmost importance to include a spatial autocorrelation structure during model fitting. 
 
 \subsubsection{The effect of overoptimistic performance estimates on ecological decision making}
 \noindent Unbiased model outcomes are the foundation of informed ecological decision-making, biodiversity conservation as well as renaturation strategies \citep{muenchowReviewEcologicalGradient2018}. 
@@ -623,6 +624,7 @@ However, most do not inherit spatial information or do not focus on ecological a
 Approaches like the \ac{CTF} \citep{wikleCommonTaskFramework2017} are a step into the right direction but they need to be maintained and promoted more extensively to be picked up by the community.
 Using multiple datasets in this work would overload the detailed analysis of the tuning effects for certain resampling settings which was one of the main goals of this study.
 Future studies are welcome to continue here by comparing tuning effects of single algorithms across multiple datasets and different resampling schemes.
+
 While this work focused only on the effects of spatial influence on tuning effects and resampling settings for different algorithms it would be interesting to apply this methodology also to spatio-temporal datasets.
 
 After the first review of the manuscript we changed the error measure from \ac{AUROC} to Brier score as the latter is better suited when comparing algorithms due to is property of being a proper scoring rule \citep{Byrne2016, Gneiting2007}. 
@@ -674,31 +676,9 @@ This work was funded by the EU LIFE Healthy Forest project: LIFE14 ENV/ES/000179
 
 \section{Descriptive summary of numerical and nominal predictor variables}
 
-% latex table generated in R 3.4.3 by xtable 1.8-2 package
-% Wed Jan 10 15:27:25 2018
-\begin{table}[H] 
-\centering
-\begingroup\footnotesize
-\begin{tabular}{lrrrrrrrrrr}
-	\textbf{Variable} & $\mathbf{n}$ & \textbf{Min} & $\mathbf{q_1}$ & $\mathbf{\widetilde{x}}$ & $\mathbf{\bar{x}}$ & $\mathbf{q_3}$ & \textbf{Max} & \textbf{IQR} & \textbf{\#NA} \\
-	\hline
-	temp              & 926          & 12.6         & 14.6           & 15.2                     & 15.1               & 15.7           & 16.8         & 1.0          & 0             \\
-	p\_sum            & 926          & 124.4        & 181.8          & 224.6                    & 234.2              & 252.3          & 496.6        & 70.5         & 0             \\
-	r\_sum            & 926          & -0.1         & 0.0            & 0.0                      & 0.0                & 0.0            & 0.1          & 0.1          & 0             \\
-	elevation         & 926          & 0.6          & 197.2          & 327.2                    & 338.7              & 455.9          & 885.9        & 258.8        & 0             \\
-	slope\_degrees    & 926          & 0.2          & 12.5           & 19.5                     & 19.8               & 27.1           & 55.1         & 14.6         & 0             \\
-	hail\_prob        & 926          & 0.0          & 0.2            & 0.6                      & 0.5                & 0.7            & 1.0          & 0.5          & 0             \\
-	age               & 926          & 2.0          & 13.0           & 20.0                     & 18.9               & 24.0           & 40.0         & 11.0         & 0             \\
-	ph                & 926          & 4.0          & 4.4            & 4.6                      & 4.6                & 4.8            & 6.0          & 0.4          & 0             \\
-\end{tabular}
-\endgroup
-\caption{Summary of numerical predictor variables. Precipitation (p\_sum) in $\mathrm{mm/m^{2}}$, temperature (temp) in \degree C, solar radiation (r\_sum) in $\mathrm{kW/m^{2}}$, tree age (age) in years. Statistics show sample size ($\mathbf{n}$), minimum (\textbf{Min}), 25\% percentile ($\mathbf{q_1}$), median ($\mathbf{\widetilde{x}}$), mean ($\mathbf{\bar{x}}$), 75\% percentile ($\mathbf{q_3}$), maximum (\textbf{Max}), inner-quartile range (\textbf{IQR}) and NA Count (\textbf{\#NA}).}
-\label{table:descriptive_summary_numeric}
-\end{table}
-
 % latex table generated in R 3.5.1 by xtable 1.8-3 package
 % Mon Mar 18 14:53:15 2019
-\begin{table}[ht]
+\begin{table}[H]
 	\centering
 	\begingroup\footnotesize
 	\begin{tabular}{lrrrrrrrrr}
@@ -719,7 +699,7 @@ This work was funded by the EU LIFE Healthy Forest project: LIFE14 ENV/ES/000179
 
 % latex table generated in R 3.5.1 by xtable 1.8-3 package
 % Mon Mar 18 14:56:49 2019
-\begin{table}[ht]
+\begin{table}[H]
 	\centering
 	\begingroup\footnotesize
 	\begin{tabular}{ll|rr}
