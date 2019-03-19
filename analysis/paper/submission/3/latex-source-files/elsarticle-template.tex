@@ -419,7 +419,7 @@ To underline the crucial need for spatial \ac{CV} when assessing a model's perfo
 Setup (\emph{spatial/spatial}) should be used when conducting spatial modeling with machine learning algorithms that require hyperparameter tuning.
 
 \subsubsection{Performance measure}
-Brier score was selected as a scoring rule to to compare the predictive performances of all algorithms \citep{Brier1950}.
+Brier score was selected as a scoring rule to compare the predictive performances of all algorithms \citep{Brier1950}.
 In contrast to other commonly used measures for binary classification (e.g. the \ac{AUROC}), Brier score classifies as a proper scoring rule \citep{Byrne2016, Gneiting2007}.
 It is defined as the mean quadratic loss between the predicted and observed probabilities.
 It ranges from 0 to 1 with low values indicating a good prediction \citep{Brier1950}.
@@ -626,13 +626,6 @@ Using multiple datasets in this work would overload the detailed analysis of the
 Future studies are welcome to continue here by comparing tuning effects of single algorithms across multiple datasets and different resampling schemes.
 
 While this work focused only on the effects of spatial influence on tuning effects and resampling settings for different algorithms it would be interesting to apply this methodology also to spatio-temporal datasets.
-
-After the first review of the manuscript we changed the error measure from \ac{AUROC} to Brier score as the latter is better suited when comparing algorithms due to is property of being a proper scoring rule \citep{Byrne2016, Gneiting2007}. 
-The GAM was highly affected by this change, moving from the best performing algorithm to the worst in the list of chosen classifiers.
-We have no explanation for this substantial change at this point.
-
-We would like to thank two anonymous reviewers for their input. 
-Their comments substantially improved the manuscript.
 
 \section{Conclusion}
  
