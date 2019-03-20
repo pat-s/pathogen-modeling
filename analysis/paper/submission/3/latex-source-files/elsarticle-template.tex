@@ -15,7 +15,7 @@
 \usepackage{caption}
 \usepackage{subcaption}
 
-% \graphicspath{{../../../../04_figures/02_results/}{./}{../../../../04_figures/01_data/}} 
+% \graphicspath{{../../../../04_figures/02_results/}{./}{../../../../04_figures/01_data/}}
 
 % prevents that appendices are moved behind references
 \usepackage{placeins}
@@ -25,7 +25,7 @@
 \usepackage{longtable}
 \usepackage{booktabs}
 \usepackage{multirow}
-\usepackage{float} 
+\usepackage{float}
 
 % https://tex.stackexchange.com/questions/223149/warning-text-page-x-contains-only-floats-how-to-suppress-this-warning
 \usepackage{silence}
@@ -73,11 +73,11 @@
 %% APA style
 \bibliographystyle{model5-names}\biboptions{authoryear}
 
-\begin{document} 
+\begin{document}
 
 \begin{frontmatter}
 
-	\title{Hyperparameter tuning and performance assessment of statistical and machine-learning algorithms using spatial data} 
+	\title{Hyperparameter tuning and performance assessment of statistical and machine-learning algorithms using spatial data}
 
 	%% Group authors per affiliation:
 	\author[FSU]{Patrick Schratz}
@@ -94,7 +94,7 @@
 	\address[TUDO]{Department of Statistics, TU Dortmund University, Germany}
 
 	\begin{abstract}
-		While the application of machine-learning algorithms has been highly simplified in the last years due to their well-documented integration in commonly used statistical programming languages (such as R or Python), there are several practical challenges in the field of ecological modeling related to unbiased performance estimation. 
+		While the application of machine-learning algorithms has been highly simplified in the last years due to their well-documented integration in commonly used statistical programming languages (such as R or Python), there are several practical challenges in the field of ecological modeling related to unbiased performance estimation.
 		One is the influence of spatial autocorrelation in both hyperparameter tuning and performance estimation.
 		Grouped cross-validation strategies have been proposed in recent years in environmental as well as medical contexts to reduce bias in predictive performance.
 		In this study we show the effects of spatial autocorrelation on hyperparameter tuning and performance estimation by comparing several widely used machine-learning algorithms such as Boosted Regression Trees (BRT), k-Nearest Neighbor (KNN), Random Forest (RF) and Support Vector Machine (SVM) with traditional parametric algorithms such as logistic regression (GLM) and semi-parametric ones like Generalized Additive Models (GAM) in terms of predictive performance.
@@ -170,8 +170,8 @@ Cross-validation and bootstrapping are two widely used performance estimation te
 However, in the presence of spatial autocorrelation, estimates obtained using regular (non-spatial) random resampling may be biased and overoptimistic.
 This has led to the adoption of spatial resampling in cross-validation and bootstrapping for bias reduction.
 The mentioned bias inherits from the fact that training and test observations are located close to each other (in a geographical space) if a random sampling is used in \ac{CV} \citep{Legendre1993}.
-Random sampling in CV leads to the selection of test observations that are spatially close to training observations. 
-According to the first law of geography, close observations are frequently more similar to each other than observations further apart. 
+Random sampling in CV leads to the selection of test observations that are spatially close to training observations.
+According to the first law of geography, close observations are frequently more similar to each other than observations further apart.
 This violates the fundamental assumption of independence in cross-validation.
 Hence, algorithms fitted on the training data often achieve very good performance results, simply because the characteristics of the evaluation set are very similar to the training data.
 
@@ -188,7 +188,7 @@ This enables ecologists to interpret relationships between the response and its 
 Choosing the best performing algorithm for a specific dataset is an essential step in ecological modeling to maximize predictive accuracy.
 In this context, model interpretability should certainly be an important criterion in the selection process when the aim is to make inference on the modeled relationship \citep{johnsonModelSelectionEcology2004}.
 While the most commonly used statistical models such as generalized linear mixed models (GLMMs) are parametric, especially machine-learning techniques offer a non-parametric approach to spatial modeling in ecology \citep{deathBoostedTreesEcological2007}.
-Even though recently a lot of effort has been put into improving the interpretability of machine-learning algorithms, their ability to make inference is still limited compared to parametric ones \citep{adlerAuditingBlackboxModels2018, heneliusPeekBlackBox2014}. 
+Even though recently a lot of effort has been put into improving the interpretability of machine-learning algorithms, their ability to make inference is still limited compared to parametric ones \citep{adlerAuditingBlackboxModels2018, heneliusPeekBlackBox2014}.
 The former gained in popularity due to their ability to handle high-dimensional and highly correlated data and their less important model assumptions.
 
 \subsection{The importance of hyperparameter optimization}
@@ -267,10 +267,10 @@ Radiata pine is the most abundant species occupying 33.27\% of the total area \c
 \noindent In this study we provide an exemplary analysis combining both tuning of hyperparameters (see \autoref{subsec:importance_of_tuning}) using nested \ac{CV} (see \autoref{subsubsec:nested_cv}) and the use of spatial \ac{CV} to assess bias-reduced model performance (see \autoref{subsec:spcv_pred_mod}).
 We compared predictive performance using four settings: Non-spatial \ac{CV} for performance estimation combined with non-spatial hyperparameter tuning (\emph{non-spatial/non-spatial}), spatial \ac{CV} estimation with spatial hyperparameter tuning (\emph{spatial/spatial}), spatial \ac{CV} estimation with non-spatial hyperparameter tuning (\emph{spatial/non-spatial}), and spatial \ac{CV} estimation without hyperparameter tuning (\emph{spatial/no tuning}).
 We used the open-source statistical programming language R \citep{R_core}.
-The algorithm implementations of the following packages have been used: \textit{gbm} \citep{gbm} (\ac{BRT}, \cite{Elith2008}), \textit{mgcv} \citep{mgcv} (\ac{GAM}), \textit{kernlab} \citep{kernlab} (\ac{SVM}, \cite{Vapnik1998}), \textit{kknn} \citep{kknn} (\ac{KNN}, \cite{Dudani1976}), and \textit{ranger} \citep{ranger} (\ac{RF}, \cite{Breiman2001}). 
+The algorithm implementations of the following packages have been used: \textit{gbm} \citep{gbm} (\ac{BRT}, \cite{Elith2008}), \textit{mgcv} \citep{mgcv} (\ac{GAM}), \textit{kernlab} \citep{kernlab} (\ac{SVM}, \cite{Vapnik1998}), \textit{kknn} \citep{kknn} (\ac{KNN}, \cite{Dudani1976}), and \textit{ranger} \citep{ranger} (\ac{RF}, \cite{Breiman2001}).
 The spatial partitioning functions of the \textit{sperrorest} package have been integrated into the \textit{mlr} package as part of this work.
-\textit{mlr} provides a standardized interface for a wide variety of statistical and machine-learning models in R simplifying essential modeling tasks such as hyperparameter tuning, model performance evaluation and parallelization \citep{bischlMlrMachineLearning2016}. 
-The complete analysis including data is available as a research compendium at Zenodo (\url{10.5281/zenodo.2582969})  \citep{schratz_patrick_2019_2591746}.	
+\textit{mlr} provides a standardized interface for a wide variety of statistical and machine-learning models in R simplifying essential modeling tasks such as hyperparameter tuning, model performance evaluation and parallelization \citep{bischlMlrMachineLearning2016}.
+The complete analysis including data is available as a research compendium at Zenodo (\url{10.5281/zenodo.2582969})  \citep{schratz_patrick_2019_2591746}.
 
 \subsection{Tuning}
 \label{subsec:methods_tuning}
@@ -318,9 +318,9 @@ However, some (semi-)parametric algorithms (e.g. \ac{GAM}, penalized regression 
 For parametric models the term "parameter" is often used to refer to the regression coefficients of each predictor of a fitted model.
 However, for machine-learning algorithms, the terms "parameter" and "hyperparameter" both refer to "hyperparameter" as there are no regression coefficients for these models.
 In addition, the term "parameter" is often used in programming to refer to an argument of a function.
-Hyperparameters determine how exactly an algorithm work and they have an influence on the final outcome. 
+Hyperparameters determine how exactly an algorithm work and they have an influence on the final outcome.
 
-Hyperparameters cannot be set manually if the best performance of a model is desired. 
+Hyperparameters cannot be set manually if the best performance of a model is desired.
 Automatic optimization is necessary to determine the best setting.
 This optimization is done via procedures such as \textit{random search} or \textit{Bayesian optimization}.
 In contrast, parameters of parametric models are estimated when fitting them to the data \citep{Kuhn2013}.
@@ -329,8 +329,8 @@ In contrast, parameters of parametric models are estimated when fitting them to 
 For hyperparameter tuning, we used \ac{SMBO} as implemented in the \textit{mlrMBO} package \citep{mlrMBO}.
 At first, \textit{n} hyperparameter settings are randomly chosen from a user-defined search space.
 Next, they are evaluated on the chosen resampling strategy.
-Based on the previous evaluations a regression model is fitted. 
-The regression model estimates the performance of the machine learning method for unknown hyperparameter settings. 
+Based on the previous evaluations a regression model is fitted.
+The regression model estimates the performance of the machine learning method for unknown hyperparameter settings.
 Using these estimates, a new promising hyperparameter setting is proposed to be evaluated next.
 This is continued until a termination criterion is reached \citep{Hutter2011, Jones1998}.
 In this work we used an initial design of 30 randomly composed hyperparameter settings and a termination criterion of 70 iterations, resulting in a total budget of 100 evaluated settings per fold.
@@ -410,7 +410,7 @@ To underline the crucial need for spatial \ac{CV} when assessing a model's perfo
 \begin{itemize}
 	\item Nested non-spatial \ac{CV} which uses random partitioning and non-spatial hyperparameter tuning (\emph{non-spatial/non-spatial})
 	\item Nested spatial \ac{CV} which uses k-means clustering for partitioning \citep{Brenning2005} and results in a spatial grouping of the observations in combination with non-spatial hyperparameter tuning (\emph{spatial/non-spatial})
-	\item Sested spatial \ac{CV} including spatial hyperparameter tuning (\emph{spatial/spatial}) 
+	\item Sested spatial \ac{CV} including spatial hyperparameter tuning (\emph{spatial/spatial})
 	\item Spatial \ac{CV} without hyperparameter tuning (\emph{spatial/no tuning})
 	\item Non-spatial \ac{CV} without hyperparameter tuning (\emph{non-spatial/no tuning})
 \end{itemize}
@@ -484,7 +484,7 @@ The use of spatial partitioning in hyperparameter tuning (setting (\emph{spatial
 \begin{figure} [H]
 	\begin{center}
 		\makebox[\textwidth]{\includegraphics[angle=90, height = 0.85\textheight] {tuning_effects_all_models_mbo-1.pdf}}
-		\caption[]{Best hyperparameter settings by fold (500 total) each estimated from 100 (30/70) SMBO tuning iterations per fold using five-fold cross-validation. 
+		\caption[]{Best hyperparameter settings by fold (500 total) each estimated from 100 (30/70) SMBO tuning iterations per fold using five-fold cross-validation.
 		Split by spatial and non-spatial partitioning setup and model type.
 			Red crosses indicate the default hyperparameters of the respective model.
 			Black dots represent the winning hyperparameter setting of each fold.
@@ -513,7 +513,7 @@ BRT and RF show the highest differences between these two settings (47\% and 46\
 
 \subsection{Tuning}
 
-\subsubsection{Tuning methods} 
+\subsubsection{Tuning methods}
 The question on the most efficient approach of hyperparameter tuning has been discussed for decades \citep{Bengio2000, Probst2018a, Yang2017}.
 The goal is to use as few computational resources as possible to find a nearly optimal hyperparameter setting of an algorithm for a specific dataset.
 In this respect, methods like \textit{random search} are particularly promising in multidimensional hyperparameter spaces with possibly redundant or insensitive hyperparameters (low effective dimensionality; \citep{Bergstra2012}).
@@ -548,9 +548,9 @@ No major differences in model performances were found when using spatial versus 
 The winning algorithm RF is used to discuss the optimal estimated hyperparameters per fold of the spatial and non-spatial tuning setting in more detail.
 Although the tuning of RF had no substantial effect on predictive performance (\autoref{fig:cv_final_boxplots}), the estimated optimal hyperparameters of RF differ for the non-spatial and spatial tuning setting (\autoref{fig:best_parameter_combs}).
 We split the following discussion into two points: (1) The nature of the algorithm and (2) the implications which method should be chosen.
-(1) In a non-spatial tuning setting, RF will prioritize spatially autocorrelated predictors because these will yield the best performance results in the internal variable selection process that uses the \textit{Gini impurity measure} \citep{Biau2016, Gordon1984}. 
+(1) In a non-spatial tuning setting, RF will prioritize spatially autocorrelated predictors because these will yield the best performance results in the internal variable selection process that uses the \textit{Gini impurity measure} \citep{Biau2016, Gordon1984}.
 We define "spatially autocorrelated predictors" as variables that show highly similar patterns in its relationship to the response in both training and test set.
-By selecting these, the algorithm is able to achieve good performances because the trained patterns appear almost identical in the test set. 
+By selecting these, the algorithm is able to achieve good performances because the trained patterns appear almost identical in the test set.
 The resulting performances are then overoptimistic as they benefit highly from the non-spatial sampling scheme.
 
 In this pre-selection, \texttt{mtry} values around 3 - 5 are favored because they provide a fair chance of having one of the autocorrelated predictors included in the selection.
@@ -561,8 +561,8 @@ This specific value essentially removes the internal variable selection process 
 Subsequently, on average, each predictor will be chosen equally often and the higher weighting of spatially autocorrelated predictors in the final model (by choosing them more often in the trees) does not apply.
 This leads to a more general model that apparently performs better on heterogeneous datasets (e.g. if training and test data are less affected by spatial autocorrelation) as it is the case in a spatial sampling.
 
-(2) Even though the estimated hyperparameters from a spatial and non-spatial sampling differ, they roughly achieve the same performance when being evaluated at the performance estimation level of the CV. 
-This outcome is not generalizable and highly depends on the dataset of this study. 
+(2) Even though the estimated hyperparameters from a spatial and non-spatial sampling differ, they roughly achieve the same performance when being evaluated at the performance estimation level of the CV.
+This outcome is not generalizable and highly depends on the dataset of this study.
 It needs to be verified by using other spatial datasets.
 Performance differences might be more substantial when using either \texttt{mtry = 1} or \texttt{mtry = 3} on datasets with different characteristics.
 This applies also to all other algorithms used in this study.
@@ -573,7 +573,7 @@ In addition, if a model is going to be evaluated on a specific sampling scheme (
 \subsubsection{Non-spatial vs. spatial CV}
 Our findings agree with previous studies in that non-spatial performance estimates appear to be substantially "better" than spatial performance estimates \citep{Meyer2018, Micheletti2013, Roberts2017}.
 However, this difference can be attributed to an overoptimistic bias in non-spatial performance estimates in the presence of spatial autocorrelation \citep{Goetz2015, Meyer2018, Russ2010a, Steger2016}.
-Spatial cross-validation is therefore required for performance estimation in spatial predictive modeling, and similar grouped cross-validation strategies have been proposed elsewhere in environmental as well as medical contexts to reduce bias in predictive performance \citep{Brenning2008, Meyer2018, Pena2015, Pohjankukka2017, Roberts2017}. 
+Spatial cross-validation is therefore required for performance estimation in spatial predictive modeling, and similar grouped cross-validation strategies have been proposed elsewhere in environmental as well as medical contexts to reduce bias in predictive performance \citep{Brenning2008, Meyer2018, Pena2015, Pohjankukka2017, Roberts2017}.
 
 \subsubsection{The effect of hyperparameter tuning on predictive accuracy}
 Although hyperparameter tuning certainly increases the predictive performance for some models (e.g. BRT, GAM and KNN) in our case, the magnitude always depends on the meaningful/arbitrary defaults of the respective algorithm and the characteristics of the dataset.
@@ -583,15 +583,15 @@ To underline this statement, there was basically no tuning effect for SVM in thi
 \subsubsection{Predictive performance across algorithms}
 Other studies also found that RF showed the best predictive performance (referring to setting \emph{spatial/spatial}) \citep{Bahn2012, Jarnevich2017, Smolinski2016, Vorpahl2012}.
 The fact that the GLM is showing a better performance than the GAM shows the heterogeneous train/test split introduced by spatial partitioning: The GAM is not able to generalize enough (i.e. it overfits on the training set) if the test set is substantially different to the training set.
-The high variance of the GAM performances in the spatial setting verify this: If the training set is somewhat similar to the test set, the GAM is able to achieve Brier score results around 0.19. 
-In cases where training and test set are more heterogeneous, the predictive performance shows Brier score estimates up to 0.30. 
+The high variance of the GAM performances in the spatial setting verify this: If the training set is somewhat similar to the test set, the GAM is able to achieve Brier score results around 0.19.
+In cases where training and test set are more heterogeneous, the predictive performance shows Brier score estimates up to 0.30.
 Overall, the linear approach of the GLM is able to generalize better in this study and subsequently results in a better performance.
 
 It maybe surprising at first that the GLM is showing a showing a performance which is similar to that of BRT, KNN and SVM.
 This is most likely due to the ability of the algorithm to generalize.
-Highly flexible algorithms have a tendency to overfit when the test set differs substantially from the training set. 
-For instance, a test set located close to the sea might be hard to predict for models trained on data that was almost exclusively located in mountainous regions. 
-In such a setting, a low degree of flexibility will result in better predictions. 
+Highly flexible algorithms have a tendency to overfit when the test set differs substantially from the training set.
+For instance, a test set located close to the sea might be hard to predict for models trained on data that was almost exclusively located in mountainous regions.
+In such a setting, a low degree of flexibility will result in better predictions.
 This example also shows the importance of traditional parametric approaches in ecological modeling: Often enough ecological datasets show a high degree of diversity and machine-learning models might suffer from overfitting.
 In this case, the interpretability, speed and generalization attributes of a GLM make this algorithm a valid choice, especially if the differences in predictive accuracy compared to black-box models is small.
 
@@ -599,7 +599,7 @@ In this case, the interpretability, speed and generalization attributes of a GLM
 The choice of the scoring rule for the evaluation of binary classifications is an important decision \citep{Gneiting2007}.
 Measures that are not classified as "proper" can lead to undetected deviations during scoring that can end up in biased results \citep{Byrne2016}.
 One of the most used performance measures in the field of binary classification, the \ac{AUROC}, is affected by this.
-In a previous version of this work we used \ac{AUROC} to rank the algorithms which had the effect of GAM showing a similar performance as RF. 
+In a previous version of this work we used \ac{AUROC} to rank the algorithms which had the effect of GAM showing a similar performance as RF.
 So by only changing the measure, GAM went from the best (AUROC) to the worst (Brier score) algorithm.
 This example highlights the importance of selecting a measure for benchmarking purposes that is classified as a proper scoring rule.
 However, analyzing the effect of different measures on benchmarking performance across algorithms exceeds the scope of this work.
@@ -609,56 +609,51 @@ In this work we assume that, on average, the predictive accuracy of parametric m
 However, there is little research on this specific topic \citep{Dormann2007b, Mets2017} and a detailed analysis goes beyond the scope of this work.
 In our view, a possible analysis would need to estimate the spatial autocorrelation structure of a model for every fold of a cross-validation using a data-driven approach (i.e. automatically estimate the spatial autocorrelation structure from each training set in the respective CV fold) and compare the results to the same model fitted without a spatial autocorrelation structure.
 Since we only focused on predictive accuracy in this work, we did not use spatial autocorrelation structures during model fitting for \ac{GLM} and \ac{GAM} to reduce runtime.
-However, if the aim is statistical inference it is of utmost importance to include a spatial autocorrelation structure during model fitting. 
+However, if the aim is statistical inference it is of utmost importance to include a spatial autocorrelation structure during model fitting.
 
 \subsubsection{The effect of overoptimistic performance estimates on ecological decision making}
-\noindent Unbiased model outcomes are the foundation of informed ecological decision-making, biodiversity conservation as well as renaturation strategies \citep{muenchowReviewEcologicalGradient2018}. 
-In particular, reliable outcomes are indispensable in species distribution \citep{loehleDisequilibriumRelaxationTimes2018}, invasive species dispersal \citep{srivastavaMappingInvasionPotential2018}, and ecosystem service modeling \citep{watanabeDynamicEmergyAccounting2014}. 
-Global change makes model predictions uncertain enough \citep{ipccSummaryPolicymakers2013}. 
-Therefore, it is unnecessary to introduce an additional autocorrelation bias, especially since one can relatively easy account for it. 
+\noindent Unbiased model outcomes are the foundation of informed ecological decision-making, biodiversity conservation as well as renaturation strategies \citep{muenchowReviewEcologicalGradient2018}.
+In particular, reliable outcomes are indispensable in species distribution \citep{loehleDisequilibriumRelaxationTimes2018}, invasive species dispersal \citep{srivastavaMappingInvasionPotential2018}, and ecosystem service modeling \citep{watanabeDynamicEmergyAccounting2014}.
+Global change makes model predictions uncertain enough \citep{ipccSummaryPolicymakers2013}.
+Therefore, it is unnecessary to introduce an additional autocorrelation bias, especially since one can relatively easy account for it.
 By contrast, the damage done in terms of monetary and ecological mismanagement due to biased advice is disproportionately harder to reverse.
 
-\subsection{Possible enhancements and future work}
+\subsection{Outlook}
 
-The methodology of this study should be applied to more datasets to verify the findings and allow for more generalizable conclusions. 
-In the machine-learning field plenty datasets exists for benchmarking \citep{olsonPMLBLargeBenchmark2017, vanschorenOpenMLNetworkedScience2014}.
-However, most do not inherit spatial information or do not focus on ecological applications.
-Approaches like the \ac{CTF} \citep{wikleCommonTaskFramework2017} are a step into the right direction but they need to be maintained and promoted more extensively to be picked up by the community.
-Using multiple datasets in this work would overload the detailed analysis of the tuning effects for certain resampling settings which was one of the main goals of this study.
-Future studies are welcome to continue here by comparing tuning effects of single algorithms across multiple datasets and different resampling schemes.
+In this study, we focused on comparing resampling methods (spatial vs. non-spatial strategies) including hyperparameter tuning on a typical ecological dataset. 
+Also we showed how to retrieve a bias-reduced performance estimate in the presence of spatial autocorrelation.
+Since we only used one dataset, our results are not generalizable.
+Still, we believe that future studies adapting the approach presented in this work will help with finding general patterns.
+It would be interesting to see if a spatial hyperparameter tuning (\autoref{fig:nested_cv}) shows a more pronounced effect when other datasets are used.
+Initiatives like the \ac{CTF} by \cite{wikleCommonTaskFramework2017} are an approach to test methodologies on multiple datasets.
+However, outsourcing the analysis to a computing instance that is managed externally will not work for everyone. 
+Most freely available datasets in the major repositories \citep{olsonPMLBLargeBenchmark2017, vanschorenOpenMLNetworkedScience2014} lack spatial information which obviously is the prerequisite for spatial data analysis.
 
-While this work focused only on the effects of spatial influence on tuning effects and resampling settings for different algorithms it would be interesting to apply this methodology also to spatio-temporal datasets.
+Finally, ecological observations are often sampled from the same locations over time.
+In this case, the observations are most likely affected by both spatial and temporal autocorrelation.
+Therefore, one would have to adjust the methodology presented in this manuscript by incorporating the temporal dimension into the spatial resampling strategy.
+This means one has to make sure that all temporal observations of one location belong either to the test or the training dataset by applying dataset-aware resampling strategies \citep{Meyer2018}.
 
-\section{Conclusion}
- 
-\noindent A total of six statistical and machine-learning models have been compared in this study focusing on predictive performance.
-We proofed that non-spatial partitioning yields overoptimistic performance results if spatial autocorrelation is present.
+\section{Conclusions}
 
-Hyperparameter tuning did not always have an substantial effect on predictive performance of algorithms.
-The effect of hyperparameter tuning of machine-learning algorithms depends on the algorithm and dataset.
-The effect of hyperparameter tuning on predictive performance in this work was smaller than the differences between the algorithms.
-No substantial differences between spatial and non-spatial hyperparameter tuning were found.
-The magnitude of performance increase when performing hyperparameter tuning depends on the algorithm.
-However, hyperparameter tuning should always be performed using a sampling scheme that is consistent with the one used for performance estimation.
+\noindent In this study, we compared six statistical and machine-learning models in terms of predictive performance.
+With the exception of SVM, all machine-learning models outperformed (semi-)parametric models.
+More important, we found that non-spatial partitioning yields largely overoptimistic performance results in the presence of spatial autocorrelation.
 
-The assumption of higher predictive performances of machine-learning models was true for all algorithms besides SVM.
-Subsequently this statement only holds true partly.
+By contrast, the effect of hyperparameter tuning on the predictive performance was less obvious, varies by algorithm and was overall smaller than the performance differences between algorithms.
+Additionally, the performance differences between spatial and non-spatial hyperparameter tuning were rather small.
+%Still, hyperparameter tuning should always be performed using a sampling scheme that is consistent with the one used for the performance estimation.
+%% why??
+Still, we would recommend to use spatial \ac{CV} instead of non-spatial \ac{CV} when working with spatial data as only this ensures the assessment of bias-reduced predictive performance results for both hyperparameter tuning and performance estimation.
+This is especially important when the corresponding results form the basis of ecological and conservation decision making.
 
-Spatial \ac{CV} should be used instead of non-spatial \ac{CV} when working with spatial data to obtain bias-reduced predictive performance results for both hyperparameter tuning and performance estimation.
-Spatial autocorrelation led to substantial overoptimistic performance results for all algorithms if non-spatial CV was used.
-As modeling studies with an ecological context always deal with spatial data, the findings of the present work are important for any study that aims to report optimal and unbiased performance estimates.
-These are very important in helping taking correct actions in ecological decision making.
-
-The findings of this study should be verified on additional datasets. 
-In this regard it would be desirable to establish a database of spatial benchmark datasets.
-
-Furthermore, we recommend to clearly identify the main goal of an analysis beforehand:
-If the goal is to understand environmental processes with the help of statistical inference, (semi-)parametric models should be favored even if they do not provide the best predictive accuracy.
-On the other hand, if the intention is to make highly accurate spatial predictions, spatially tuned machine-learning models should be considered for the task.
-We hope that this work motivates and helps scientists to report more bias-reduced performance estimates in the future.
+Finally, we recommend to clearly identify the main goal of an analysis from the beginning:
+If the goal is to disentangle environmental-ecological relationships with the help of statistical inference, (semi-)parametric models should be favored even if they fare less well in terms of predictive accuracy.
+By contrast, if the intention is to produce highly accurate spatial prediction maps, spatially tuned machine-learning models might be the better choice.
 
 \section{Acknowledgments}
-This work was funded by the EU LIFE Healthy Forest project: LIFE14 ENV/ES/000179 and funding from the German Scholars Organization/Carl Zeiss Foundation awarded to A. Brenning.
+This work was funded by the EU LIFE Healthy Forest project (LIFE14 ENV/ES/000179) and the German Scholars Organization/Carl Zeiss Foundation.
+We thank two anonymous reviewers for their valuable comments to this manuscript.
 
 \section{Appendix}
 
@@ -677,15 +672,15 @@ This work was funded by the EU LIFE Healthy Forest project: LIFE14 ENV/ES/000179
 	\centering
 	\begingroup\footnotesize
 	\begin{tabular}{lrrrrrrrrr}
-	 \textbf{Variable} & $\mathbf{n}$ & \textbf{Min} & $\mathbf{q_1}$ & $\mathbf{\widetilde{x}}$ & $\mathbf{\bar{x}}$ & $\mathbf{q_3}$ & \textbf{Max} & \textbf{IQR} & \textbf{\#NA} \\ 
+	 \textbf{Variable} & $\mathbf{n}$ & \textbf{Min} & $\mathbf{q_1}$ & $\mathbf{\widetilde{x}}$ & $\mathbf{\bar{x}}$ & $\mathbf{q_3}$ & \textbf{Max} & \textbf{IQR} & \textbf{\#NA} \\
 		\hline
-	temp & 922 & 12.6 &  14.6 &  15.2 &  15.1 &  15.7 &  16.8 &  1.0 & 0 \\ 
-		precip & 922 & 88.1 & 181.2 & 224.6 & 234.1 & 252.2 & 496.6 & 71.0 & 0 \\ 
-		hail\_probability & 922 &  0.0 &   0.2 &   0.6 &   0.5 &   0.7 &   1.0 &  0.5 & 0 \\ 
-		ph & 922 &  4.0 &   4.4 &   4.6 &   4.6 &   4.8 &   6.0 &  0.4 & 0 \\ 
-		slope\_degrees & 922 &  0.1 &  12.3 &  19.3 &  19.8 &  27.0 &  55.1 & 14.7 & 0 \\ 
-		pisr & 922 & -0.1 &   0.0 &   0.0 &   0.0 &   0.0 &   0.1 &  0.1 & 0 \\ 
-		age & 922 &  2.0 &  13.0 &  20.0 &  19.0 &  24.0 &  40.0 & 11.0 & 0 \\ 
+	temp & 922 & 12.6 &  14.6 &  15.2 &  15.1 &  15.7 &  16.8 &  1.0 & 0 \\
+		precip & 922 & 88.1 & 181.2 & 224.6 & 234.1 & 252.2 & 496.6 & 71.0 & 0 \\
+		hail\_probability & 922 &  0.0 &   0.2 &   0.6 &   0.5 &   0.7 &   1.0 &  0.5 & 0 \\
+		ph & 922 &  4.0 &   4.4 &   4.6 &   4.6 &   4.8 &   6.0 &  0.4 & 0 \\
+		slope\_degrees & 922 &  0.1 &  12.3 &  19.3 &  19.8 &  27.0 &  55.1 & 14.7 & 0 \\
+		pisr & 922 & -0.1 &   0.0 &   0.0 &   0.0 &   0.0 &   0.1 &  0.1 & 0 \\
+		age & 922 &  2.0 &  13.0 &  20.0 &  19.0 &  24.0 &  40.0 & 11.0 & 0 \\
 		\end{tabular}
 	\endgroup
 	\caption{Summary of numerical predictor variables. Precipitation (precip) in $\mathrm{mm/m^{2}}$, temperature (temp) in \degree C, solar radiation (pisr) in $\mathrm{kW/m^{2}}$, tree age (age) in years. Statistics show sample size ($\mathbf{n}$), minimum (\textbf{Min}), 25\% percentile ($\mathbf{q_1}$), median ($\mathbf{\widetilde{x}}$), mean ($\mathbf{\bar{x}}$), 75\% percentile ($\mathbf{q_3}$), maximum (\textbf{Max}), inner-quartile range (\textbf{IQR}) and NA Count (\textbf{\#NA}).}
@@ -698,42 +693,42 @@ This work was funded by the EU LIFE Healthy Forest project: LIFE14 ENV/ES/000179
 	\centering
 	\begingroup\footnotesize
 	\begin{tabular}{ll|rr}
-	 \textbf{Variable} & \textbf{Levels} & $\mathbf{n}$ & $\mathbf{\%}$ \\ 
+	 \textbf{Variable} & \textbf{Levels} & $\mathbf{n}$ & $\mathbf{\%}$ \\
 		\hline
-	diplo01 & 0 & 700 & 75.9 \\ 
-		 & 1 & 222 & 24.1 \\ 
+	diplo01 & 0 & 700 & 75.9 \\
+		 & 1 & 222 & 24.1 \\
 		 \hline
-	 & all & 922 & 100.0 \\ 
-		 \hline
-	\hline
-	soil & soils with clay-enriched subsoil & 215 & 23.3 \\ 
-		 & soils with little or no profile differentiation & 705 & 76.5 \\ 
-		 & pronounced accumulation of organic matter in the mineral topsoil & 1 & 0.1 \\ 
-		 & soils with limitations to root growth & 1 & 0.1 \\ 
-		 \hline
-	 & all & 922 & 100.0 \\ 
+	 & all & 922 & 100.0 \\
 		 \hline
 	\hline
-	lithology & surface deposits & 31 & 3.4 \\ 
-		 & clastic sedimentary rock & 600 & 65.1 \\ 
-		 & biological sedimentary rock & 136 & 14.8 \\ 
-		 & chemical sedimentary rock & 142 & 15.4 \\ 
-		 & magmatic rock & 13 & 1.4 \\ 
+	soil & soils with clay-enriched subsoil & 215 & 23.3 \\
+		 & soils with little or no profile differentiation & 705 & 76.5 \\
+		 & pronounced accumulation of organic matter in the mineral topsoil & 1 & 0.1 \\
+		 & soils with limitations to root growth & 1 & 0.1 \\
 		 \hline
-	 & all & 922 & 100.0 \\ 
+	 & all & 922 & 100.0 \\
 		 \hline
 	\hline
-	year & 2009 & 399 & 43.3 \\ 
-		 & 2010 & 260 & 28.2 \\ 
-		 & 2011 & 102 & 11.1 \\ 
-		 & 2012 & 161 & 17.5 \\ 
+	lithology & surface deposits & 31 & 3.4 \\
+		 & clastic sedimentary rock & 600 & 65.1 \\
+		 & biological sedimentary rock & 136 & 14.8 \\
+		 & chemical sedimentary rock & 142 & 15.4 \\
+		 & magmatic rock & 13 & 1.4 \\
 		 \hline
-	 & all & 922 & 100.0 \\ 
+	 & all & 922 & 100.0 \\
+		 \hline
+	\hline
+	year & 2009 & 399 & 43.3 \\
+		 & 2010 & 260 & 28.2 \\
+		 & 2011 & 102 & 11.1 \\
+		 & 2012 & 161 & 17.5 \\
+		 \hline
+	 & all & 922 & 100.0 \\
 		 \hline
 	\hline
 	\end{tabular}
 	\endgroup
-	\caption{Summary of nominal predictor variables} 
+	\caption{Summary of nominal predictor variables}
 	\label{}
 	\end{table}
 
