@@ -1,6 +1,5 @@
 .Rproj.user
 packrat/lib*/
-packrat/src/
 .RData
 analysis/data/raw_data
 analysis/data/derived_data

@@ -223,6 +223,12 @@ Hash: ac5d989ec81faa75ac6a2816038d9a32
 Requires: Hmisc, MASS, RColorBrewer, digest, lattice, plotrix, plyr,
     reshape, scales, sp, stringr
 
+Package: askpass
+Source: CRAN
+Version: 1.1
+Hash: 6f6c430e3cd0dd7d48f447700f4d7e7f
+Requires: sys
+
 Package: assertthat
 Source: CRAN
 Version: 0.2.0
@@ -1458,6 +1464,11 @@ Version: 1.2.1
 Hash: 0355a5b19c891c2c6a813867638d4169
 Requires: BH, Rcpp, gdtools
 
+Package: sys
+Source: CRAN
+Version: 3.1
+Hash: dc2a997b1b9a2d3f9c234491153cb951
+
 Package: sysreqs
 Source: github
 Version: 1.0.0.9000
@@ -1480,6 +1491,21 @@ Version: 2.0.1
 Hash: d2a00b9a314cfad8f6b51e2c97aaff5c
 Requires: cli, crayon, fansi, pillar, pkgconfig, rlang
 
+Package: tic
+Source: github
+Version: 0.2.13.9010
+Hash: 07810f0b0db14d6a2356e195c36d535e
+Requires: R6, backports, crayon, magrittr, memoise, withr
+GithubRepo: tic
+GithubUsername: ropenscilabs
+GithubRef: master
+GithubSha1: 86a2102aabfd0c765b19a61f3b0e251c6962658f
+RemoteHost: api.github.com
+RemoteRepo: tic
+RemoteUsername: ropenscilabs
+RemoteRef: master
+RemoteSha: 86a2102aabfd0c765b19a61f3b0e251c6962658f
+
 Package: tidyr
 Source: CRAN
 Version: 0.8.2
@@ -1498,6 +1524,21 @@ Source: CRAN
 Version: 0.6
 Hash: a149d4e6a2f7d6422e063a19cca52bb9
 Requires: xfun
+
+Package: travis
+Source: github
+Version: 0.2.11.9000
+Hash: 4d19adb75fbf605243773524df97444e
+Requires: clipr, git2r, glue, httr, memoise, openssl, withr
+GithubRepo: travis
+GithubUsername: ropenscilabs
+GithubRef: master
+GithubSha1: 6719bd06e2153b3ef348c4f977e53dcdef774697
+RemoteHost: api.github.com
+RemoteRepo: travis
+RemoteUsername: ropenscilabs
+RemoteRef: master
+RemoteSha: 6719bd06e2153b3ef348c4f977e53dcdef774697
 
 Package: units
 Source: CRAN

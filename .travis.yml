@@ -5,6 +5,8 @@
 
 # DO NOT CHANGE THE CODE BELOW
 before_install:
+- R -e "0" --args --bootstrap-packrat
+- R -e "packrat::restore(restart = FALSE)"
 - R -q -e 'if (!requireNamespace("remotes")) install.packages("remotes")'
 - R -q -e 'if (getRversion() < "3.2" && !requireNamespace("curl")) install.packages("curl")'
 - R -q -e 'remotes::install_github("ropenscilabs/tic"); tic::prepare_all_stages()'
@@ -31,7 +33,9 @@ after_script: R -q -e 'tic::after_script()'
 language: r
 sudo: false
 dist: trusty
-cache: packages
+cache:
+  - packages
+  - $TRAVIS_BUILD_DIR/packrat/lib
 latex: false
 
 #env

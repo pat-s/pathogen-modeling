@@ -17,10 +17,13 @@ Depends:
     curl,
     dplyr,
     drake,
+    e1071,
     forcats,
     fs,
     furrr,
+    future,
     future.callr,
+    gbm,
     ggplot2,
     ggpubr,
     ggsci,
@@ -28,16 +31,20 @@ Depends:
     glue,
     GSIF,
     hrbrthemes,
+    kknn,
     lattice,
     latticeExtra,
     lwgeom,
     magrittr,
+    mgcv,
     mlr,
     mlrMBO,
     parallelMap,
     purrr,
     R.utils,
+    ranger,
     rasterVis,
+    reporttools,
     rgdal,
     rgenoud,
     RSAGA,
@@ -53,5 +60,5 @@ Suggests:
 ByteCompile: true
 Encoding: UTF-8
 LazyData: true
-RoxygenNote: 6.1.1
 Roxygen: list(wrap = FALSE, markdown = TRUE)
+RoxygenNote: 6.1.1
