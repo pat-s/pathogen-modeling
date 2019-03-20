@@ -5,8 +5,13 @@
 
 addons:
   apt:
+    sources:
+      - sourceline: 'ppa:ubuntugis/ubuntugis-unstable'
     packages:
       - libzmq3-dev
+      - libudunits2-dev
+      - libproj-dev
+      - libgeos-dev
 
 # DO NOT CHANGE THE CODE BELOW
 before_install:

@@ -564,7 +564,7 @@ elevation_preprocessing = function(data) {
     projectRaster(crs = CRS("+init=epsg:32630"), method = "bilinear") %>%
     writeRaster("data/dem/dem.tif", overwrite = TRUE)
 
-  return(data)
+  return(dem)
 }
 
 #' @title Download soil data
@@ -775,6 +775,8 @@ mod_raw_data = function(data, drop_vars, response) {
 extract_variables <- function(data, temperature, precipitation, pisr, slope,
                               elevation, soil, lithology, hail, ph, study_area,
                               response, drop_vars = NULL, age = FALSE) {
+
+  browser()
 
   data_in = st_read(data, quiet = TRUE)
 

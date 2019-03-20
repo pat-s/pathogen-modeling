@@ -62,7 +62,7 @@ drake_config(plan, verbose = 2, targets = c("benchmark_evaluation_report_all"),
              console_log_file = "log/drake.log",
              lazy_load = "promise", caching = "worker",
              memory_strategy = "memory",
-             template = list(log_file = "log/worker%a.log", n_cpus= 32),
+             template = list(log_file = "log/worker%a.log", n_cpus= 20),
              garbage_collection = TRUE, jobs = 3, parallelism = "clustermq")
 
 # drake_config(plan, verbose = 2, targets = "bm_sp_non_diplodia_glm_old", console_log_file = stdout())
