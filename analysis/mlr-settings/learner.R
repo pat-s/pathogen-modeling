@@ -140,7 +140,7 @@ lrn_gam_armillaria_perf <- makeLearner("classif.gam",
                                      fix.factors.prediction = TRUE,
                                      formula = "armillaria ~ s(temp, k = 15) + s(precip, k = 15) + s(pisr, k = 15) +
                                                 s(slope_degrees, k = 15) + s(hail_probability, k = 15) +
-                                                s(age, k = 15) + s(ph, k = 15) +
+                                                + s(ph, k = 15) +
 
                                                 lithology.clastic.sedimentary.rock +
                                                 lithology.biological.sedimentary.rock +
@@ -153,7 +153,8 @@ lrn_gam_armillaria_perf <- makeLearner("classif.gam",
 
                                                 year.2010 +
                                                 year.2011 +
-                                                year.2012"
+                                                year.2012",
+                                     sp = rep(0, 6)
 )
 
 # "pred" without variable and "year"
@@ -173,7 +174,8 @@ lrn_gam_armillaria_pred <- makeLearner("classif.gam",
 
                                                 soil.soils.with.little.or.no.profile.differentiation +
                                                 soil.pronounced.accumulation.of.organic.matter.in.the.mineral.topsoil
-                                                soil.soils.with.limitations.to.root.growth"
+                                                soil.soils.with.limitations.to.root.growth",
+                                     sp = rep(0, 6)
 )
 
 lrn_gam_heterobasidion_perf <- makeLearner("classif.gam",
@@ -184,7 +186,7 @@ lrn_gam_heterobasidion_perf <- makeLearner("classif.gam",
                                        fix.factors.prediction = TRUE,
                                        formula = "heterobasi ~ s(temp, k = 15) + s(precip, k = 15) + s(pisr, k = 15) +
                                                 s(slope_degrees, k = 15) + s(hail_probability, k = 15) +
-                                                s(age, k = 15) + s(ph, k = 15) +
+                                                + s(ph, k = 15) +
 
                                                 lithology.clastic.sedimentary.rock +
                                                 lithology.biological.sedimentary.rock +
@@ -197,7 +199,8 @@ lrn_gam_heterobasidion_perf <- makeLearner("classif.gam",
 
                                                 year.2010 +
                                                 year.2011 +
-                                                year.2012"
+                                                year.2012",
+                                       sp = rep(0, 6)
 )
 
 # "pred" without variable and "year"
@@ -217,7 +220,8 @@ lrn_gam_heterobasidion_pred <- makeLearner("classif.gam",
 
                                                 soil.soils.with.little.or.no.profile.differentiation +
                                                 soil.pronounced.accumulation.of.organic.matter.in.the.mineral.topsoil
-                                                soil.soils.with.limitations.to.root.growth"
+                                                soil.soils.with.limitations.to.root.growth",
+                                       sp = rep(0, 6)
 )
 
 
@@ -282,7 +286,7 @@ lrn_gam_armillaria_perf_non <- makeLearner("classif.gam",
                                        fix.factors.prediction = TRUE,
                                        formula = "armillaria ~ s(temp, k = 15) + s(precip, k = 15) + s(pisr, k = 15) +
                                                 s(slope_degrees, k = 15) + s(hail_probability, k = 15) +
-                                                s(age, k = 15) + s(ph, k = 15) +
+                                                + s(ph, k = 15) +
 
                                                 lithology.clastic.sedimentary.rock +
                                                 lithology.biological.sedimentary.rock +
@@ -308,7 +312,7 @@ lrn_gam_heterobasidion_perf_non <- makeLearner("classif.gam",
                                            fix.factors.prediction = TRUE,
                                            formula = "heterobasi ~ s(temp, k = 15) + s(precip, k = 15) + s(pisr, k = 15) +
                                                 s(slope_degrees, k = 15) + s(hail_probability, k = 15) +
-                                                s(age, k = 15) + s(ph, k = 15) +
+                                                + s(ph, k = 15) +
 
                                                 lithology.clastic.sedimentary.rock +
                                                 lithology.biological.sedimentary.rock +
