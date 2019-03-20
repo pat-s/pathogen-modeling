@@ -295,8 +295,8 @@ plot_grid(tuning_effects_diplodia_nsp_nsp[[4]], tuning_effects_diplodia_nsp_nsp[
   tuning_effects_diplodia_sp_nsp[[4]], tuning_effects_diplodia_sp_nsp[[2]],
   tuning_effects_diplodia_sp_nsp[[3]], tuning_effects_diplodia_sp_nsp[[1]],
   
-  tuning_effects_diplodia_sp_nsp[[4]], tuning_effects_diplodia_sp_nsp[[2]],
-  tuning_effects_diplodia_sp_nsp[[3]], tuning_effects_diplodia_sp_nsp[[1]],
+  tuning_effects_diplodia_sp_sp[[4]], tuning_effects_diplodia_sp_sp[[2]],
+  tuning_effects_diplodia_sp_sp[[3]], tuning_effects_diplodia_sp_sp[[1]],
   
   ncol = 4, nrow = 3
 )
