@@ -119,12 +119,11 @@ vis_tuning_effects = function(models, resampling, model_name, hyperparam) {
 #' @title Visualization of optimization paths
 #' @param model2 List of Benchmark/Resample results
 #' @param n_folds Number of folds to visualize (e.g. 1-5)
-
-vis_opt_path = function(models, n_folds) {
+vis_opt_path = function(models) {
 
   opt_path_list = map(models, function(.i)
     imap(
-      .i$extract[n_folds],
+      .i$extract[1:5],
       ~getOptPathY(.x$opt.path) %>%
         as_tibble() %>%
         mutate(iter = 1:length(value)) %>%
@@ -134,7 +133,7 @@ vis_opt_path = function(models, n_folds) {
       bind_rows()
   )
 
-  opt_path_plot = map(opt_path_list, ~
+  opt_path_plot = imap(opt_path_list, ~
                         ggline(.x,
                                x = "iter",
                                y = "value",
@@ -145,11 +144,79 @@ vis_opt_path = function(models, n_folds) {
                                numeric.x.axis = T,
                                point.size = 0.03, facet.by = "fold_id"
                         ) +
+                        ggtitle(.y) +
                         geom_vline(xintercept = 30, linetype = "dashed") +
-                        theme(axis.title.y = element_text(margin = margin(t = 0, r = 20, b = 0, l = 0))) +
+                        theme(axis.title.y =
+                                element_text(margin = margin(t = 0, r = 20,
+                                                             b = 0, l = 0))) +
                         facet_wrap(~fold_id, scales = "free") # we use the ggplot2 version here as we can specify `scales` which is not possible in the ggpubr argument
   )
 }
+
+vis_tuning_effects = function(models, model_name, resampling, hyperparameter,
+                              xlim, ylim, default) {
+
+
+  plot_list = pmap(list(x = models, y = model_name, z = hyperparameter,
+                        xlim = xlim, ylim = ylim, default = default),
+                   function(x, y, z, xlim, ylim, default) {
+
+    hyperpar_effect <- generateHyperParsEffectData(x, partial.dep = TRUE)
+
+    # find best combinations by folds
+    hyperpar_effect$data %<>%
+      group_by(nested_cv_run) %>%
+      filter(brier.test.mean == min(brier.test.mean, na.rm = TRUE)) %>%
+      ungroup() %>%
+      mutate(nested_cv_run = as.factor(nested_cv_run))
+
+    plot = ggplot(hyperpar_effect$data, aes_string(x = z[1], y = z[2],
+                                                   label = "nested_cv_run")) +
+      geom_point(alpha = 0.1) +
+      geom_point(aes(x = default[1], y = default[2]), shape = 4,
+                 color = "red", size = 3) + # default values for num.trees and mtry
+      coord_cartesian(
+        ylim = ylim,
+        xlim = xlim
+      ) +
+      labs(
+        title = glue("{y} ({resampling})"),
+        subtitle = glue("{z[1]} and {z[2]}")
+      ) +
+      geom_label_repel(
+        data = subset(
+          hyperpar_effect$data,
+          as.integer(nested_cv_run) <= 5),
+        min.segment.length = unit(0, "lines")) +
+      #scale_y_continuous(breaks = seq(1, 11, 2), labels = seq(1, 11, 2)) +
+      theme_pubr() +
+      theme(
+        axis.text = element_text(size = 12),
+        plot.margin = unit(c(0.25, 0.2, 0.5, 0.2), "cm"),
+        axis.title.y = element_text(angle = -90, vjust = 1)
+      )
+
+    if (y == "SVM") {
+      plot = plot +
+        labs(
+          x = bquote(2^{
+            cost
+          }),
+          y = bquote(2^{
+            gamma
+          })
+        )
+    }
+
+    plot_marg <- ggMarginal(plot,
+                            type = "density",
+                            fill = "transparent", size = 20
+    )
+  })
+
+}
+
+
 
 #' @title Save plot and convert to pdf
 #' @param plot A ggplot2 plot
