@@ -2,14 +2,9 @@
 source("packrat/init.R")
 #### -- End Packrat Autoloader -- ####
 
-# options(
-#   clustermq.scheduler = "slurm",
-#   clustermq.template = "~/git/pathogen-modeling/slurm_clustermq.tmpl"
-# )
-
 options(drake_make_menu = FALSE)
 
-startup::startup(debug = F)
+startup::startup(debug = FALSE)
 
 pkgconfig::set_config("drake::strings_in_dots" = "literals")
 
