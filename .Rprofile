@@ -7,6 +7,8 @@ source("packrat/init.R")
 #   clustermq.template = "~/git/pathogen-modeling/slurm_clustermq.tmpl"
 # )
 
+options(drake_make_menu = FALSE)
+
 startup::startup(debug = F)
 
 pkgconfig::set_config("drake::strings_in_dots" = "literals")
