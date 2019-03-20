@@ -620,25 +620,25 @@ By contrast, the damage done in terms of monetary and ecological mismanagement d
 
 \subsection{Outlook}
 
-In this study, we focused on comparing resampling methods (spatial vs. non-spatial strategies) including hyperparameter tuning on a typical ecological dataset, and how to retrieve a bias-reduced performance estimate in the presence of spatial autocorrelation.
-Hence, our results are not generalizable across datasets.
-Still, we believe that future studies adapting the approach presented in this work will help with finding general patters.
-For example, it would be interesting if the spatial hyperparameter tuning (tuning level; \autoref{fig:nested_cv}) would show a more pronounced effect with other datasets compared to our observations.
-It would be also possible to derive at generalizable results using multiple datasets at once \citep{wikleCommonTaskFramework2017}.
-However, this has to be done with care since taking data sets out of their original application context can lead to misleading results as it is hard to identify not just data sets but research questions that fit the exact model type used in this study.
-For example, freely available datasets often lack spatial information which obviously is the prerequisite for spatial data analysis \citep{olsonPMLBLargeBenchmark2017, vanschorenOpenMLNetworkedScience2014}.
+In this study, we focused on comparing resampling methods (spatial vs. non-spatial strategies) including hyperparameter tuning on a typical ecological dataset. 
+Also we showed how to retrieve a bias-reduced performance estimate in the presence of spatial autocorrelation.
+Since we only used one dataset, our results are not generalizable.
+Still, we believe that future studies adapting the approach presented in this work will help with finding general patterns.
+It would be interesting to see if a spatial hyperparameter tuning (\autoref{fig:nested_cv}) shows a more pronounced effect when other datasets are used.
+Initiatives like the \ac{CTF} by \cite{wikleCommonTaskFramework2017} are an approach to test methodologies on multiple datasets.
+However, outsourcing the analysis to a computing instance that is managed externally will not work for everyone. 
+Most freely available datasets in the major repositories \citep{olsonPMLBLargeBenchmark2017, vanschorenOpenMLNetworkedScience2014} lack spatial information which obviously is the prerequisite for spatial data analysis.
 
 Finally, ecological observations are often sampled from the same locations over time.
 In this case, the observations are most likely affected by both spatial and temporal autocorrelation.
 Therefore, one would have to adjust the methodology presented in this manuscript by incorporating the temporal dimension into the spatial resampling strategy.
-This means one has to make sure that all temporal observations of one location belong either to the test or the training dataset \citep{Meyer2018}.
+This means one has to make sure that all temporal observations of one location belong either to the test or the training dataset by applying dataset-aware resampling strategies \citep{Meyer2018}.
 
 \section{Conclusions}
 
 \noindent In this study, we compared six statistical and machine-learning models in terms of predictive performance.
 With the exception of SVM, all machine-learning models outperformed (semi-)parametric models.
-% Subsequently, this statement only holds true partly. %%??
-Even more important, we found that non-spatial partitioning yields largely overoptimistic performance results in the presence of spatial autocorrelation.
+More important, we found that non-spatial partitioning yields largely overoptimistic performance results in the presence of spatial autocorrelation.
 
 By contrast, the effect of hyperparameter tuning on the predictive performance was less obvious, varies by algorithm and was overall smaller than the performance differences between algorithms.
 Additionally, the performance differences between spatial and non-spatial hyperparameter tuning were rather small.
@@ -653,6 +653,7 @@ By contrast, if the intention is to produce highly accurate spatial prediction m
 
 \section{Acknowledgments}
 This work was funded by the EU LIFE Healthy Forest project (LIFE14 ENV/ES/000179) and the German Scholars Organization/Carl Zeiss Foundation.
+We thank two anonymous reviewers for their valuable comments to this manuscript.
 
 \section{Appendix}
 
