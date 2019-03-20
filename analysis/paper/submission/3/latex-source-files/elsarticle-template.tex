@@ -300,8 +300,8 @@ The complete analysis including data is available as a research compendium at Ze
 	                               & \texttt{min.node.size}     & integer & 1         & 10       & 1          \\
 	                               & \texttt{sample.fraction}   & numeric & 0.2       & 0.9      & 1          \\
 	\midrule
-	\multirow{2}{*}{SVM (kernlab)} & \texttt{C}                 & numeric & $2^{-15}$ & $2^{15}$ & 1          \\
-	                               & \texttt{$\sigma$}          & numeric & $2^{-15}$ & $2^{15}$ & 1          \\
+	\multirow{2}{*}{SVM (e1071)} & \texttt{cost}                 & numeric & $2^{-5}$ & $2^{12}$ & 1          \\
+	                               & \texttt{$\gamma$}          & numeric & $2^{-12}$ & $2^{3}$ & 1          \\
 	\bottomrule
 	\multicolumn{6}{l}{* triangular, Epanechnikov, biweight, triweight, cos, inv, Gaussian, optimal}     \\
 \end{tabular}
@@ -366,7 +366,7 @@ Within the works of this study we implemented the spatial partitioning methods o
 
 \begin{figure} [t!]
 	\begin{center}
-		\makebox[\textwidth]{\includegraphics[height = 0.82\textheight] {spcv_nspcv_folds.pdf}}
+		\makebox[\textwidth]{\includegraphics[height = 0.82\textheight] {spcv_nspcv_folds-1.pdf}}
 		\caption[]{Comparison of spatial and non-spatial partitioning of the first five folds in spatial and non-spatial cross-validation performance estimation.
 			Blue dots represent the training samples and orange dots the testing sample.
 			"SpCV" stands for spatial cross-validation (spatial sampling of observations) and "CV" for cross-validation (random sampling of observations).}
@@ -447,7 +447,7 @@ Since we only focused on predictive accuracy in this work, we did not use spatia
 
 \begin{figure} [t!]
 	\begin{center}
-		\makebox[\textwidth]{\includegraphics[width=\textwidth] {opt-paths-RF-sp-vs-nsp.pdf}}
+		\makebox[\textwidth]{\includegraphics[width=\textwidth] {opt-paths-RF-sp-vs-nsp-1.pdf}}
 		\caption[]{SMBO optimization paths of the first five folds of the \emph{spatial/spatial} and \emph{spatial/non-spatial} CV setting for \ac{RF}. The dashed line marks the border between the initial design (30 randomly composed hyperparameter settings) and the sequential optimization part in which each setting was proposed using information from the prior evaluated settings. Optimization paths of the remaining models can be found in the appendix.}
 		\label{fig:optimization_paths}
 	\end{center}
@@ -482,7 +482,7 @@ The use of spatial partitioning in hyperparameter tuning (setting (\emph{spatial
 
 \begin{figure} [H]
 	\begin{center}
-		\makebox[\textwidth]{\includegraphics[angle=90, height = 0.85\textheight] {tuning_effects_all_models_mbo.pdf}}
+		\makebox[\textwidth]{\includegraphics[angle=90, height = 0.85\textheight] {tuning_effects_all_models_mbo-1.pdf}}
 		\caption[]{Best hyperparameter settings by fold (500 total) each estimated from 100 (30/70) SMBO tuning iterations per fold using five-fold cross-validation. 
 		Split by spatial and non-spatial partitioning setup and model type.
 			Red crosses indicate the default hyperparameters of the respective model.
@@ -499,7 +499,7 @@ BRT and RF show the highest differences between these two settings (47\% and 46\
 
 \begin{figure} [t!]
 	\begin{center}
-		\makebox[\textwidth]{\includegraphics[width=\textwidth] {cv_boxplots_final_brier.pdf}}
+		\makebox[\textwidth]{\includegraphics[width=\textwidth] {cv_boxplots_final_brier-1.pdf}}
 		\caption[]{(Nested) \ac{CV} estimates of model performance at the repetition level using 100 SMBO iterations for hyperparameter tuning.
 			CV setting refers to performance estimation/hyperparameter tuning of the respective (nested) CV, e.g. "Spatial/Non-Spatial" means that spatial partitioning was used for performance estimation and non-spatial partitioning for hyperparameter tuning.}
 		\label{fig:cv_final_boxplots}
@@ -734,59 +734,6 @@ This work was funded by the EU LIFE Healthy Forest project: LIFE14 ENV/ES/000179
 	\caption{Summary of nominal predictor variables} 
 	\label{}
 	\end{table}
-
-\pagebreak
-
-\section{Additional hyperparameter tuning results}
-
-\begin{figure} [ht]
-	\begin{center}
-		\makebox[\textwidth]{\includegraphics[angle=90, height = 0.55\textheight] {tuning_effects_appendix_mbo.pdf}}
-		\caption[]{Best hyperparameter settings by fold (500 total) each estimated from 100 (30/70) SMBO tuning iterations per fold using five-fold cross-validation. Split by spatial and non-spatial partitioning setup and model type.
-			Red crosses indicate the default hyperparameters of the respective model.
-			Black dots represent the winning hyperparameter setting of each fold.
-			The labels ranging from one to five show the winning hyperparameter settings of the first five folds}
-		\label{fig:best_parameter_combs_app}
-	\end{center}
-\end{figure}
-
-\pagebreak
-
-\section{SMBO optimization paths for all models}
-
-\begin{figure} [ht]
-	\begin{center}
-		\makebox[\textwidth]{\includegraphics[width=\textwidth] {opt-paths-BRT.pdf}}
-		\caption[]{SMBO optimization paths of the first five folds of the \emph{spatial/spatial} for \ac{BRT}. The dashed line marks the border between the initial design (30 randomly composed hyperparameter settings) and the sequential optimization part in which each setting was proposed using information from the prior evaluated settings.}
-		\label{fig:optimization_paths_brt}
-	\end{center}
-\end{figure}
-
-\begin{figure} [ht]
-	\begin{center} 
-		\makebox[\textwidth]{\includegraphics[width=\textwidth] {opt-paths-GAM.pdf}}
-		\caption[]{SMBO optimization paths of the first five folds of the \emph{spatial/spatial} for \ac{GAM}. The dashed line marks the border between the initial design (30 randomly composed hyperparameter settings) and the sequential optimization part in which each setting was proposed using information from the prior evaluated settings.}
-		\label{fig:optimization_paths_gam}
-	\end{center}
-\end{figure}
-
-\begin{figure} [ht]
-	\begin{center}
-		\makebox[\textwidth]{\includegraphics[width=\textwidth] {opt-paths-KNN.pdf}}
-		\caption[]{SMBO optimization paths of the first five folds of the \emph{spatial/spatial} for \ac{KNN}. The dashed line marks the border between the initial design (30 randomly composed hyperparameter settings) and the sequential optimization part in which each setting was proposed using information from the prior evaluated settings.}
-		\label{fig:optimization_paths_knn}
-	\end{center}
-\end{figure}
-
-\begin{figure} [ht]
-	\begin{center}
-		\makebox[\textwidth]{\includegraphics[width=\textwidth] {opt-paths-SVM.pdf}}
-		\caption[]{SMBO optimization paths of the first five folds of the \emph{spatial/spatial} for \ac{SVM}. The dashed line marks the border between the initial design (30 randomly composed hyperparameter settings) and the sequential optimization part in which each setting was proposed using information from the prior evaluated settings.}
-		\label{fig:optimization_paths_svm}
-	\end{center}
-\end{figure}
-
-\FloatBarrier
 
 \pagebreak
 
