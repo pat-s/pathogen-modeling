@@ -69,7 +69,7 @@ tuning_effects_diplodia_sp_sp = vis_tuning_effects(bm_sp_sp_diplodia$results$dip
                                                      "RF", 
                                                      "SVM", 
                                                      "BRT"),
-                                                   resampling = "spatial/spatial",
+                                                   resampling = "Spatial/Spatial",
                                                    hyperparameter = list(
                                                      c("k", "distance"),
                                                      c("min.node.size", "mtry"),
@@ -145,7 +145,7 @@ tuning_effects_diplodia_sp_nsp = vis_tuning_effects(bm_sp_nsp_diplodia$results$d
                                                       "RF", 
                                                       "SVM", 
                                                       "BRT"),
-                                                    resampling = "Spatial/Non-spatial",
+                                                    resampling = "Spatial/Non-Spatial",
                                                     hyperparameter = list(
                                                       c("k", "distance"),
                                                       c("min.node.size", "mtry"),
@@ -221,7 +221,7 @@ tuning_effects_diplodia_nsp_nsp = vis_tuning_effects(bm_nsp_nsp_diplodia$results
                                                        "RF", 
                                                        "SVM", 
                                                        "BRT"),
-                                                     resampling = "Non-Spatial/Non-spatial",
+                                                     resampling = "Non-Spatial/Non-Spatial",
                                                      hyperparameter = list(
                                                        c("k", "distance"),
                                                        c("min.node.size", "mtry"),
