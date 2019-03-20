@@ -12,6 +12,7 @@ addons:
       - libudunits2-dev
       - libproj-dev
       - libgeos-dev
+      - libmagick++-dev
 
 # DO NOT CHANGE THE CODE BELOW
 before_install:
