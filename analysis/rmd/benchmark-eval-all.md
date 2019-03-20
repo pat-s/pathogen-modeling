@@ -20,8 +20,5 @@ on four different pathogens:
 - _Fusarium mellea_
 - _Heterobasidion mellea_
 
-```{r setup, include=FALSE}
-loadd(bm_all_pathogens)
-# knitr::opts_chunk$set(eval = FALSE)
-```
+
 

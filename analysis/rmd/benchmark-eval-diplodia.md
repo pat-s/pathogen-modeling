@@ -16,28 +16,32 @@ on the following pathogen:
 
 - _Diplodia sapinea_
 
-```{r setup, include=FALSE}
-knitr::opts_knit$set(base.dir = 'analysis/rmd/')
-knitr::opts_chunk$set(fig.retina=3, fig.align = 'center', fig.width = 6.93, fig.height = 6.13,
-                      out.width = "100%")
 
-loadd(no_extract_bm_sp_sp_diplodia, no_extract_bm_sp_nsp_diplodia, no_extract_bm_nsp_nsp_diplodia,
-      no_extract_bm_nsp_non_diplodia, no_extract_bm_sp_non_diplodia)
-```
 
 # Resampling strategies {.tabset .tabset-fade}
 
 ## Spatial-Spatial
 
-```{r benchmark-eval-diplodia-2 }
+
+```r
 no_extract_bm_sp_sp_diplodia %>%
   getBMRAggrPerformances(as.df = TRUE) %>% 
   arrange(task.id, desc(brier.test.mean))
 ```
 
+```
+##    task.id           learner.id brier.test.mean timetrain.test.mean
+## 1 diplodia    classif.gam.tuned       0.2118220           170.01416
+## 2 diplodia    classif.svm.tuned       0.1972381           113.22662
+## 3 diplodia   classif.kknn.tuned       0.1956182            90.70678
+## 4 diplodia    classif.gbm.tuned       0.1780292           925.19630
+## 5 diplodia classif.ranger.tuned       0.1650495           150.69493
+```
+
 ### Visualize
 
-```{r benchmark-eval-diplodia-3 }
+
+```r
 plt = plotBMRBoxplots(no_extract_bm_sp_sp_diplodia, measure = brier, pretty.names = T, 
                       #order.lrn = c("classif.ranger.tuned", "classif.svm.tuned", "classif.kknn.tuned",
                       #              "classif.gbm.tuned" , "classif.gam.tuned")) +
@@ -56,9 +60,12 @@ levels(plt$data$learner.id) = c("GAM", "KNN", "RF", "SVM", "BRT")
 plt
 ```
 
+<img src="figure/benchmark-eval-diplodia-3-1.png" title="plot of chunk benchmark-eval-diplodia-3" alt="plot of chunk benchmark-eval-diplodia-3" width="100%" style="display: block; margin: auto;" />
+
 ### Aggregated performances
 
-```{r benchmark-eval-diplodia-4 }
+
+```r
 plt2 = plotBMRSummary(no_extract_bm_sp_sp_diplodia, pretty.names = FALSE) + 
   scale_colour_nejm() +
   theme_pubr()
@@ -69,17 +76,30 @@ levels(plt2$data$learner.id) = c("GAM", "KNN", "RF", "SVM", "BRT")
 plt2
 ```
 
+<img src="figure/benchmark-eval-diplodia-4-1.png" title="plot of chunk benchmark-eval-diplodia-4" alt="plot of chunk benchmark-eval-diplodia-4" width="100%" style="display: block; margin: auto;" />
+
 ## Spatial-Non-Spatial
 
-```{r benchmark-eval-diplodia-5 }
+
+```r
 no_extract_bm_sp_nsp_diplodia %>%
   getBMRAggrPerformances(as.df = TRUE) %>% 
   arrange(task.id, desc(brier.test.mean))
 ```
 
+```
+##    task.id           learner.id brier.test.mean timetrain.test.mean
+## 1 diplodia    classif.svm.tuned       0.2239936           195.40948
+## 2 diplodia    classif.gam.tuned       0.2126723           173.69348
+## 3 diplodia   classif.kknn.tuned       0.1949616            92.64619
+## 4 diplodia    classif.gbm.tuned       0.1926850          1428.34169
+## 5 diplodia classif.ranger.tuned       0.1607841           213.12914
+```
+
 ### Visualize
 
-```{r benchmark-eval-diplodia-6 }
+
+```r
 plt = plotBMRBoxplots(no_extract_bm_sp_nsp_diplodia, measure = brier, pretty.names = T, 
                       #order.lrn = c("classif.ranger.tuned", "classif.svm.tuned", "classif.kknn.tuned",
                       #              "classif.gbm.tuned" , "classif.gam.tuned")) +
@@ -99,9 +119,12 @@ levels(plt$data$learner.id) = c("GAM", "KNN", "RF", "SVM", "BRT")
 plt
 ```
 
+<img src="figure/benchmark-eval-diplodia-6-1.png" title="plot of chunk benchmark-eval-diplodia-6" alt="plot of chunk benchmark-eval-diplodia-6" width="100%" style="display: block; margin: auto;" />
+
 ### Aggregated performances
 
-```{r benchmark-eval-diplodia-7 }
+
+```r
 plt2 = plotBMRSummary(no_extract_bm_sp_nsp_diplodia, pretty.names = FALSE) + 
   scale_colour_nejm() +
   theme_pubr()
@@ -112,17 +135,30 @@ levels(plt2$data$learner.id) = c("GAM", "KNN", "RF", "SVM", "BRT")
 plt2
 ```
 
+<img src="figure/benchmark-eval-diplodia-7-1.png" title="plot of chunk benchmark-eval-diplodia-7" alt="plot of chunk benchmark-eval-diplodia-7" width="100%" style="display: block; margin: auto;" />
+
 ## Non-Spatial-Non-Spatial
 
-```{r benchmark-eval-diplodia-8 }
+
+```r
 no_extract_bm_nsp_nsp_diplodia %>%
   getBMRAggrPerformances(as.df = TRUE) %>% 
   arrange(task.id, desc(brier.test.mean))
 ```
 
+```
+##    task.id           learner.id brier.test.mean timetrain.test.mean
+## 1 diplodia    classif.gam.tuned      0.13828131           173.88212
+## 2 diplodia    classif.svm.tuned      0.12183801           201.08392
+## 3 diplodia   classif.kknn.tuned      0.11960121            92.65495
+## 4 diplodia    classif.gbm.tuned      0.09626146          1279.78120
+## 5 diplodia classif.ranger.tuned      0.08844688           219.48629
+```
+
 ### Visualize
 
-```{r benchmark-eval-diplodia-9 }
+
+```r
 plt = plotBMRBoxplots(no_extract_bm_nsp_nsp_diplodia, measure = brier, pretty.names = T, 
                       #order.lrn = c("classif.ranger.tuned", "classif.svm.tuned", "classif.kknn.tuned",
                       #              "classif.gbm.tuned" , "classif.gam.tuned")) +
@@ -142,9 +178,12 @@ levels(plt$data$learner.id) = c("GAM", "KNN", "RF", "SVM", "BRT")
 plt
 ```
 
+<img src="figure/benchmark-eval-diplodia-9-1.png" title="plot of chunk benchmark-eval-diplodia-9" alt="plot of chunk benchmark-eval-diplodia-9" width="100%" style="display: block; margin: auto;" />
+
 ### Aggregated performances
 
-```{r benchmark-eval-diplodia-10 }
+
+```r
 plt2 = plotBMRSummary(no_extract_bm_nsp_nsp_diplodia, pretty.names = FALSE) + 
   scale_colour_nejm() +
   theme_pubr()
@@ -155,17 +194,31 @@ levels(plt2$data$learner.id) = c("GAM", "KNN", "RF", "SVM", "BRT")
 plt2
 ```
 
+<img src="figure/benchmark-eval-diplodia-10-1.png" title="plot of chunk benchmark-eval-diplodia-10" alt="plot of chunk benchmark-eval-diplodia-10" width="100%" style="display: block; margin: auto;" />
+
 ## Non-Spatial-No Tuning
 
-```{r benchmark-eval-diplodia-11 }
+
+```r
 no_extract_bm_nsp_non_diplodia %>%
   getBMRAggrPerformances(as.df = TRUE) %>% 
   arrange(task.id, desc(brier.test.mean))
 ```
 
+```
+##    task.id       learner.id brier.test.mean timetrain.test.mean
+## 1 diplodia      classif.svm      0.15953720            0.251526
+## 2 diplodia      classif.gam      0.13784101            0.268174
+## 3 diplodia classif.binomial      0.11916360            0.020952
+## 4 diplodia     classif.kknn      0.11893981            0.000590
+## 5 diplodia      classif.gbm      0.10556276            0.049274
+## 6 diplodia   classif.ranger      0.09234835            0.278520
+```
+
 ### Visualize
 
-```{r benchmark-eval-diplodia-12 }
+
+```r
 plt = plotBMRBoxplots(bm_nsp_non_diplodia, measure = brier, pretty.names = T, 
                       #order.lrn = c("classif.ranger.tuned", "classif.svm.tuned", "classif.kknn.tuned",
                       #              "classif.gbm.tuned" , "classif.gam.tuned")) +
@@ -177,7 +230,13 @@ plt = plotBMRBoxplots(bm_nsp_non_diplodia, measure = brier, pretty.names = T,
   # scale_color_viridis_d() +
   theme(strip.text.x = element_text(size = 8)) + 
   theme_pubr()
+```
 
+```
+## Error in checkClass(x, classes, ordered, null.ok): object 'bm_nsp_non_diplodia' not found
+```
+
+```r
 levels(plt$data$task.id) = c("Diplodia")
 levels(plt$data$learner.id) = c("GAM", "KNN", "RF", "SVM", "BRT")
 
@@ -185,30 +244,53 @@ levels(plt$data$learner.id) = c("GAM", "KNN", "RF", "SVM", "BRT")
 plt
 ```
 
+<img src="figure/benchmark-eval-diplodia-12-1.png" title="plot of chunk benchmark-eval-diplodia-12" alt="plot of chunk benchmark-eval-diplodia-12" width="100%" style="display: block; margin: auto;" />
+
 ### Aggregated performances
 
-```{r benchmark-eval-diplodia-13 }
+
+```r
 plt2 = plotBMRSummary(bm_nsp_non_diplodia, pretty.names = FALSE) + 
   scale_colour_nejm() +
   theme_pubr()
+```
 
+```
+## Error in checkClass(x, classes, ordered, null.ok): object 'bm_nsp_non_diplodia' not found
+```
+
+```r
 levels(plt2$data$task.id) = c("Diplodia")
 levels(plt2$data$learner.id) = c("GAM", "KNN", "RF", "SVM", "BRT")
 
 plt2
 ```
 
+<img src="figure/benchmark-eval-diplodia-13-1.png" title="plot of chunk benchmark-eval-diplodia-13" alt="plot of chunk benchmark-eval-diplodia-13" width="100%" style="display: block; margin: auto;" />
+
 ## Spatial-No Tuning
 
-```{r benchmark-eval-diplodia-14 }
+
+```r
 no_extract_bm_sp_non_diplodia %>%
   getBMRAggrPerformances(as.df = TRUE) %>% 
   arrange(task.id, desc(brier.test.mean))
 ```
 
+```
+##    task.id       learner.id brier.test.mean timetrain.test.mean
+## 1 diplodia      classif.gam       0.2372448            0.251176
+## 2 diplodia      classif.svm       0.2008383            0.250330
+## 3 diplodia classif.binomial       0.1959824            0.035560
+## 4 diplodia      classif.gbm       0.1776288            0.048726
+## 5 diplodia     classif.kknn       0.1732633            0.000520
+## 6 diplodia   classif.ranger       0.1588658            0.275670
+```
+
 ### Visualize
 
-```{r benchmark-eval-diplodia-15 }
+
+```r
 plt = plotBMRBoxplots(bm_sp_non_diplodia, measure = brier, pretty.names = T, 
                       #order.lrn = c("classif.ranger.tuned", "classif.svm.tuned", "classif.kknn.tuned",
                       #              "classif.gbm.tuned" , "classif.gam.tuned")) +
@@ -220,7 +302,13 @@ plt = plotBMRBoxplots(bm_sp_non_diplodia, measure = brier, pretty.names = T,
   # scale_color_viridis_d() +
   theme(strip.text.x = element_text(size = 8)) + 
   theme_pubr()
+```
 
+```
+## Error in checkClass(x, classes, ordered, null.ok): object 'bm_sp_non_diplodia' not found
+```
+
+```r
 levels(plt$data$task.id) = c("Diplodia")
 levels(plt$data$learner.id) = c("GAM", "KNN", "RF", "SVM", "BRT")
 
@@ -228,22 +316,34 @@ levels(plt$data$learner.id) = c("GAM", "KNN", "RF", "SVM", "BRT")
 plt
 ```
 
+<img src="figure/benchmark-eval-diplodia-15-1.png" title="plot of chunk benchmark-eval-diplodia-15" alt="plot of chunk benchmark-eval-diplodia-15" width="100%" style="display: block; margin: auto;" />
+
 ### Aggregated performances
 
-```{r benchmark-eval-diplodia-16 }
+
+```r
 plt2 = plotBMRSummary(bm_sp_non_diplodia, pretty.names = FALSE) + 
   scale_colour_nejm() +
   theme_pubr()
+```
 
+```
+## Error in checkClass(x, classes, ordered, null.ok): object 'bm_sp_non_diplodia' not found
+```
+
+```r
 levels(plt2$data$task.id) = c("Diplodia")
 levels(plt2$data$learner.id) = c("GAM", "KNN", "RF", "SVM", "BRT")
 
 plt2
 ```
 
+<img src="figure/benchmark-eval-diplodia-16-1.png" title="plot of chunk benchmark-eval-diplodia-16" alt="plot of chunk benchmark-eval-diplodia-16" width="100%" style="display: block; margin: auto;" />
+
 # Comparison of all tuning settings
 
-```{r aggregate-by-rep}
+
+```r
 all_diplodia = map2(list(no_extract_bm_sp_sp_diplodia,
                          no_extract_bm_sp_nsp_diplodia,
                          no_extract_bm_nsp_nsp_diplodia, 
@@ -361,7 +461,23 @@ all_diplodia %<>%
   ungroup()
 ```
 
-```{r benchmark-eval-diplodia-18 }
+```
+## Warning in bind_rows_(x, .id): Unequal factor levels: coercing to character
+```
+
+```
+## Warning in bind_rows_(x, .id): binding character and factor vector,
+## coercing into character vector
+
+## Warning in bind_rows_(x, .id): binding character and factor vector,
+## coercing into character vector
+
+## Warning in bind_rows_(x, .id): binding character and factor vector,
+## coercing into character vector
+```
+
+
+```r
 all_diplodia %<>% 
   mutate(setting = as.factor(setting)) %>% 
   mutate(learner.id = fct_recode(learner.id, "GLM" = "classif.binomial")) %>% 
@@ -377,7 +493,8 @@ all_diplodia %<>%
   mutate(learner.id = fct_recode(learner.id, "KNN" = "classif.kknn"))
 ```
 
-```{r cv_boxplots_final_brier, fig.width = 6.93, fig.height = 6.13, fig.path="../../analysis/paper/submission/3/latex-source-files/", dev = c("png", "pdf")}
+
+```r
 ggplot(all_diplodia, aes(learner.id, brier, fill = setting)) + 
   geom_boxplot(width = 0.6, outlier.size = 0.3, outlier.shape = 19) +
   scale_fill_nejm() +
@@ -397,3 +514,5 @@ ggplot(all_diplodia, aes(learner.id, brier, fill = setting)) +
                              title.theme = element_text(angle = -0, 
                                                         size = 12))) 
 ```
+
+<img src="../../analysis/paper/submission/3/latex-source-files/cv_boxplots_final_brier-1.png" title="plot of chunk cv_boxplots_final_brier" alt="plot of chunk cv_boxplots_final_brier" width="100%" style="display: block; margin: auto;" />
