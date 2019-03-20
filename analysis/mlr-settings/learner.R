@@ -147,8 +147,7 @@ lrn_gam_armillaria_perf <- makeLearner("classif.gam",
                                                 lithology.chemical.sedimentary.rock +
                                                 lithology.magmatic.rock +
 
-                                                soil.soils.with.little.or.no.profile.differentiation +
-                                                soil.pronounced.accumulation.of.organic.matter.in.the.mineral.topsoil
+                                                soil.soils.with.little.or.no.profile.differentiation
                                                 soil.soils.with.limitations.to.root.growth +
 
                                                 year.2010 +
@@ -172,8 +171,7 @@ lrn_gam_armillaria_pred <- makeLearner("classif.gam",
                                                 lithology.chemical.sedimentary.rock +
                                                 lithology.magmatic.rock +
 
-                                                soil.soils.with.little.or.no.profile.differentiation +
-                                                soil.pronounced.accumulation.of.organic.matter.in.the.mineral.topsoil
+                                                soil.soils.with.little.or.no.profile.differentiation
                                                 soil.soils.with.limitations.to.root.growth",
                                      sp = rep(0, 6)
 )
@@ -193,8 +191,7 @@ lrn_gam_heterobasidion_perf <- makeLearner("classif.gam",
                                                 lithology.chemical.sedimentary.rock +
                                                 lithology.magmatic.rock +
 
-                                                soil.soils.with.little.or.no.profile.differentiation +
-                                                soil.pronounced.accumulation.of.organic.matter.in.the.mineral.topsoil
+                                                soil.soils.with.little.or.no.profile.differentiation
                                                 soil.soils.with.limitations.to.root.growth +
 
                                                 year.2010 +
@@ -218,8 +215,7 @@ lrn_gam_heterobasidion_pred <- makeLearner("classif.gam",
                                                 lithology.chemical.sedimentary.rock +
                                                 lithology.magmatic.rock +
 
-                                                soil.soils.with.little.or.no.profile.differentiation +
-                                                soil.pronounced.accumulation.of.organic.matter.in.the.mineral.topsoil
+                                                soil.soils.with.little.or.no.profile.differentiation
                                                 soil.soils.with.limitations.to.root.growth",
                                        sp = rep(0, 6)
 )
@@ -293,8 +289,7 @@ lrn_gam_armillaria_perf_non <- makeLearner("classif.gam",
                                                 lithology.chemical.sedimentary.rock +
                                                 lithology.magmatic.rock +
 
-                                                soil.soils.with.little.or.no.profile.differentiation +
-                                                soil.pronounced.accumulation.of.organic.matter.in.the.mineral.topsoil
+                                                soil.soils.with.little.or.no.profile.differentiation
                                                 soil.soils.with.limitations.to.root.growth +
 
                                                 year.2010 +
@@ -319,8 +314,7 @@ lrn_gam_heterobasidion_perf_non <- makeLearner("classif.gam",
                                                 lithology.chemical.sedimentary.rock +
                                                 lithology.magmatic.rock +
 
-                                                soil.soils.with.little.or.no.profile.differentiation +
-                                                soil.pronounced.accumulation.of.organic.matter.in.the.mineral.topsoil
+                                                soil.soils.with.little.or.no.profile.differentiation
                                                 soil.soils.with.limitations.to.root.growth +
 
                                                 year.2010 +
