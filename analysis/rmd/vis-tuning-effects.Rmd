@@ -246,7 +246,7 @@ tuning_effects_diplodia_nsp_nsp[[4]]
 
 # Grid of most settings
 
-```{r tuning_effects_all_models_mbo, fig.width=14, fig.path="../../analysis/paper/submission/3/latex-source-files/", dev = c("png", "pdf")}
+```{r tuning_effects_all_models_mbo, fig.width=15, fig.path="../../analysis/paper/submission/3/latex-source-files/", dev = c("png", "pdf")}
 plot_grid(tuning_effects_diplodia_nsp_nsp[[4]], tuning_effects_diplodia_nsp_nsp[[2]],
   tuning_effects_diplodia_nsp_nsp[[3]], tuning_effects_diplodia_nsp_nsp[[1]],
   
