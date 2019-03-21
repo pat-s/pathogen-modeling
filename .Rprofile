@@ -4,8 +4,8 @@ source("packrat/init.R")
 
 options(drake_make_menu = FALSE)
 
-startup::startup(debug = FALSE)
+# startup::startup(debug = FALSE)
 
-pkgconfig::set_config("drake::strings_in_dots" = "literals")
+#pkgconfig::set_config("drake::strings_in_dots" = "literals")
 
-library("drake")
+#library("drake")
