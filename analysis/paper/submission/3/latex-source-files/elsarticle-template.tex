@@ -226,7 +226,7 @@ In the present study we also introduced additional predictors (probability of ha
 
 This particular dataset was chosen because it incorporates attributes of common geospatial modeling tasks:
 An uneven distribution of the binary response variable (25/75), presence of spatial autocorrelation and predictor variables derived from various sources (previous modeling results, remote sensing data, surveyed information).
-It is representative for many other ecological datasets in terms of sample size (922), number of variables (11) and predictor types (numeric as well as nominal).
+It is representative for many other ecological datasets in terms of sample size (n=922), number of variables (n=11) and predictor types (numeric as well as nominal).
 
 \subsection{Variables}
 
@@ -243,7 +243,7 @@ To make the tree-based hail damage variable spatially available for the whole Ba
 In the following we shortly describe the source and modifications of the new variables.
 For the remaining ones, please see \cite{Iturritxa2014}.
 
-Soil type was predicted by \cite{Hengl2017} using approx. 150.000 soil profiles at a spatial resolution of 250 m.
+Soil type was predicted by \cite{Hengl2017} using approximately 150.000 soil profiles at a spatial resolution of 250 m.
 The age of trees was imputed and trimmed to a value of 40 to reduce the influence of outliers.
 The ph value was mapped by the \cite{ph} using a regression-kriging approach based on 12.333 soil pH measurements from 11 different sources.
 GeoEuskadi provided the lithology types \citep{lithology}.
@@ -620,13 +620,13 @@ By contrast, the damage done in terms of monetary and ecological mismanagement d
 
 \subsection{Outlook}
 
-In this study, we focused on comparing resampling methods (spatial vs. non-spatial strategies) including hyperparameter tuning on a typical ecological dataset. 
+In this study, we focused on comparing resampling methods (spatial vs. non-spatial strategies) including hyperparameter tuning on a typical ecological dataset.
 Also we showed how to retrieve a bias-reduced performance estimate in the presence of spatial autocorrelation.
 Since we only used one dataset, our results are not generalizable.
 Still, we believe that future studies adapting the approach presented in this work will help with finding general patterns.
 It would be interesting to see if a spatial hyperparameter tuning (\autoref{fig:nested_cv}) shows a more pronounced effect when other datasets are used.
 Initiatives like the \ac{CTF} by \cite{wikleCommonTaskFramework2017} are an approach to test methodologies on multiple datasets.
-However, outsourcing the analysis to a computing instance that is managed externally will not work for everyone. 
+However, outsourcing the analysis to a computing instance that is managed externally will not work for everyone.
 Most freely available datasets in the major repositories \citep{olsonPMLBLargeBenchmark2017, vanschorenOpenMLNetworkedScience2014} lack spatial information which obviously is the prerequisite for spatial data analysis.
 
 Finally, ecological observations are often sampled from the same locations over time.
