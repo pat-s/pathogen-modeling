@@ -1256,8 +1256,8 @@ Requires: Rcpp, plyr, stringr
 
 Package: rgdal
 Source: CRAN
-Version: 1.4-2
-Hash: 06279861df899ac433cba0738717749e
+Version: 1.4-3
+Hash: 2d43c14023befdba0d0913dcef1b6be4
 Requires: sp
 
 Package: rgenoud
