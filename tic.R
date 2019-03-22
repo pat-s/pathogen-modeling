@@ -1,1 +1,1 @@
-add_package_checks(error_on = "error", check_args = "--no-tests")
+add_package_checks(error_on = "error", args = "--no-tests")
