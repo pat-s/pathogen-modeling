@@ -41,81 +41,6 @@ vis_partitions = function(data, resampling_sp, resampling_nsp) {
 
 }
 
-# Explore winning hyperparameter settings Thu Mar 14 14:03:35 2019
-# ------------------------------ Load the cross-validation results from all
-# models.
-#
-# Retrival of best hyperparameter settings per fold:
-#
-# After generating the hyperparameter effect data from the cross-validation
-# objects using `generateHyperParsEffectData`, the information is grouped by
-# folds. For each fold, we search for the highest AUROC value which then leaves
-# us with the winning hyperparamter setting for each fold.
-#
-# We do so for every cross-validation setting for each fold.
-#
-# For models BRT and knn with three tunable hyperparameters, we end up with nine
-# scatterplots, respectively.
-
-## RF
-
-#' @title Visualization of tuning effects
-#' @param models List of Benchmark/Resample results
-#' @param resampling String specifying the resample setting
-#' @param model_name Name of algorithm for title
-#' @param hyperparam String of 2L specyfying the hyperparamters to compare
-vis_tuning_effects = function(models, resampling, model_name, hyperparam) {
-
-  hyperpars_effect_data = map(models, ~ generateHyperParsEffectData(.x, partial.dep = TRUE))
-
-  names = map2_chr(model_name, resampling, ~ glue("{.x}-{.y}"))
-
-  # find best combinations by folds
-  hyperpars_effect_data$data %<>%
-    map(~ group_by(.x, nested_cv_run)) %>%
-    map(~ filter(.x, brier.test.mean == min(brier.test.mean))) %>%
-    map(~ ungroup(.x)) %>%
-    map(~ mutate(.x, nested_cv_run = as.factor(nested_cv_run)))
-
-  plots = map(hyperpars_effect_data$data, ~
-                ggplot(.x, aes(x = hyperparam[1], y = hyperparam[2], label = nested_cv_run)) +
-                geom_point(alpha = 0.1) +
-                geom_point(aes(x = 1, y = 3), shape = 4, color = "red", size = 3) + # default values for num.trees and mtry
-                coord_cartesian(
-                  ylim = c(1, 11),
-                  xlim = c(1, 10)
-                ) +
-                labs(
-                  title = glue("{model_name} ({resampling})"),
-                  subtitle = "min.node.size and mtry"
-                ) +
-                geom_label_repel(
-                  data = subset(
-                    .x,
-                    as.integer(nested_cv_run) <= 5
-                  ),
-                  min.segment.length = unit(0, "lines")
-                ) +
-                scale_y_continuous(breaks = seq(1, 11, 2), labels = seq(1, 11, 2)) +
-                theme_ipsum_rc(
-                  axis_title_size = 12,
-                  axis_title_just = "c",
-                  plot_title_size = 15
-                ) +
-                theme(
-                  axis.text = element_text(size = 12),
-                  plot.margin = unit(c(0.25, 0.2, 0.5, 0.2), "cm"),
-                  axis.title.y = element_text(angle = -90, vjust = 1)
-                )
-  )
-
-  # create marginal plots
-  marginal_plots = map(plots, ~ ggMarginal(.x,
-                                           type = "density",
-                                           fill = "transparent", size = 20)
-  )
-}
-
 #' @title Visualization of optimization paths
 #' @param model2 List of Benchmark/Resample results
 #' @param n_folds Number of folds to visualize (e.g. 1-5)
@@ -153,6 +78,15 @@ vis_opt_path = function(models) {
   )
 }
 
+#' @title Visualization of tuning effects
+#' @param models List of Benchmark/Resample results
+#' @param model_name Name of algorithm for title
+#' @param resampling String specifying the resample setting
+#' @param hyperparam String of 2L specyfying the hyperparamters to compare
+#' @param xlim x-axis limits
+#' @param ylim y-axis limits
+#' @param default Default hyperparameter settings (x and y). A red cross will
+#'   denote the default settings in the plot.
 vis_tuning_effects = function(models, model_name, resampling, hyperparameter,
                               xlim, ylim, default) {
 

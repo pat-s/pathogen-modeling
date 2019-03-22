@@ -4,12 +4,12 @@
 \alias{vis_opt_path}
 \title{Visualization of optimization paths}
 \usage{
-vis_opt_path(models, n_folds)
+vis_opt_path(models)
 }
 \arguments{
-\item{n_folds}{Number of folds to visualize (e.g. 1-5)}
-
 \item{model2}{List of Benchmark/Resample results}
+
+\item{n_folds}{Number of folds to visualize (e.g. 1-5)}
 }
 \description{
 Visualization of optimization paths

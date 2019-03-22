@@ -4,14 +4,22 @@
 \alias{vis_tuning_effects}
 \title{Visualization of tuning effects}
 \usage{
-vis_tuning_effects(models, resampling, model_name, hyperparam)
+vis_tuning_effects(models, model_name, resampling, hyperparameter, xlim,
+  ylim, default)
 }
 \arguments{
 \item{models}{List of Benchmark/Resample results}
 
+\item{model_name}{Name of algorithm for title}
+
 \item{resampling}{String specifying the resample setting}
 
-\item{model_name}{Name of algorithm for title}
+\item{xlim}{x-axis limits}
+
+\item{ylim}{y-axis limits}
+
+\item{default}{Default hyperparameter settings (x and y). A red cross will
+denote the default settings in the plot.}
 
 \item{hyperparam}{String of 2L specyfying the hyperparamters to compare}
 }
