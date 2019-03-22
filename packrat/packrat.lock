@@ -858,18 +858,9 @@ Hash: 66b740385f59ab5c8803d10d970eb38c
 Requires: Rcpp, curl, magrittr
 
 Package: magrittr
-Source: github
-Version: 1.5.0.9000
-Hash: 30e84bf2a36b85756a23e88d3d1b0791
-GithubRepo: magrittr
-GithubUsername: tidyverse
-GithubRef: master
-GithubSha1: 4104d6b593e409859befd0076ddc1abd0417d793
-RemoteHost: api.github.com
-RemoteRepo: magrittr
-RemoteUsername: tidyverse
-RemoteRef: master
-RemoteSha: 4104d6b593e409859befd0076ddc1abd0417d793
+Source: CRAN
+Version: 1.5
+Hash: bdc4d48c3135e8f3b399536ddf160df4
 
 Package: maptools
 Source: CRAN
