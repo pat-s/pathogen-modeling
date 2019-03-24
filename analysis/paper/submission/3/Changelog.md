@@ -4,8 +4,12 @@
 
 - Add Zenodo research compendium link
 
-- Add section 5.3 "Possible enhancements and future work"
+- Add section 5.3 "Outlook"
 
-- Move "The effect of overoptimistic performance estimates on ecological decision making" from "subsection" to "subsubsection"
+- Add section 5.2.6 "The effect of overoptimistic performance estimates on ecological decision making"
 
 - Update hyperparameter range from BRT
+
+- Move appendices into Research compendium
+
+- Change title from "*Crucial but often neglected: The important role of spatial autocorrelation in hyperparameter tuning and predictive performance of machine-learning algorithms for spatial data.*" to "*Hyperparameter tuning and performance assessment of statistical and machine-learning algorithms using spatial data.*"
