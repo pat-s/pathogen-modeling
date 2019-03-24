@@ -1,4 +1,13 @@
-args_pred = tibble(task = rlang::syms("tasks_pred"),
+args_pred = tibble(task = rlang::syms(c("tasks_pred",
+                                        "tasks_pred",
+                                        "tasks_pred",
+                                        "tasks_pred",
+                                        "tasks_pred",
+                                        "diplodia_task_dummy_prediction",
+                                        "fusarium_task_dummy_prediction",
+                                        "armillaria_task_dummy",
+                                        "heterobasidion_task_dummy",
+                                        "tasks_pred")),
                    learner = c("lrn_rf",
                                "lrn_svm",
                                "lrn_xgboost",
@@ -15,20 +24,20 @@ args_pred = tibble(task = rlang::syms("tasks_pred"),
                                              "ps_xgboost",
                                              "ps_kknn",
                                              "NULL",
-                                             "NULL",
-                                             "NULL",
-                                             "NULL",
-                                             "NULL",
+                                             "ps_gam_diplodia_fusarium_pred",
+                                             "ps_gam_diplodia_fusarium_pred",
+                                             "ps_gam_armillaria_heterobasidion",
+                                             "ps_gam_armillaria_heterobasidion",
                                              "ps_brt")),
                    tune_ctrl = rlang::syms(c("tune_ctrl_rf_100",
                                              "tune_ctrl_svm_100",
                                              "tune_ctrl_xgboost_100",
                                              "tune_ctrl_kknn_100",
                                              "NULL",
-                                             "NULL",
-                                             "NULL",
-                                             "NULL",
-                                             "NULL",
+                                             "tune_ctrl_gam_100_diplodia_fusarium_pred",
+                                             "tune_ctrl_gam_100_diplodia_fusarium_pred",
+                                             "tune_ctrl_gam_100_armillaria_heterobasidion",
+                                             "tune_ctrl_gam_100_armillaria_heterobasidion",
                                              "tune_ctrl_brt_100")),
                    prediction_data = rep(rlang::syms("pred_data"), 10),
                    prediction_grid = rep(rlang::syms("temperature_mean"), 10),
@@ -58,84 +67,68 @@ rm(args_pred)
 
 # prediction maps ---------------------------------------------------------
 
-args_pred = tibble(prediction_raster = c("prediction_glm_diplodia",
-                                         "prediction_glm_fusarium",
-                                         "prediction_glm_armillaria",
-                                         "prediction_glm_heterobasidion",
+args_pred = tibble(prediction_raster = c("prediction_glm",
 
                                          "prediction_gam_diplodia",
                                          "prediction_gam_fusarium",
-                                         "prediction_gam_armillaria",
+                                         # "prediction_gam_armillaria",
                                          "prediction_gam_heterobasidion",
 
-                                         "prediction_svm_diplodia",
-                                         "prediction_svm_fusarium",
-                                         "prediction_svm_armillaria",
-                                         "prediction_svm_heterobasidion",
+                                         "prediction_svm",
 
                                          "prediction_rf",
+
                                          "prediction_kknn",
+
                                          "prediction_xgboost",
-                                         "prediction_brt"),
-                   model_name = c("glm",
-                                  "glm",
-                                  "glm",
-                                  "glm",
 
-                                  "gam",
-                                  "gam",
-                                  "gam",
-                                  "gam",
+                                         "prediction_brt"
+),
+model_name = c("glm",
 
-                                  "svm",
-                                  "svm",
-                                  "svm",
-                                  "svm",
+               "gam",
+               "gam",
+               # "gam",
+               "gam",
 
-                                  "rf",
-                                  "kknn",
-                                  "xgboost",
-                                  "brt"),
-                   benchmark_object = c("bm_sp_non_diplodia_glm",
-                                        "bm_sp_non_armillaria_glm",
-                                        "bm_sp_non_fusarium_glm",
-                                        "bm_sp_non_heterobasidion_glm",
+               "svm",
 
-                                        "bm_sp_sp_diplodia_gam",
-                                        "bm_sp_sp_armillaria_gam",
-                                        "bm_sp_sp_fusarium_gam",
-                                        "bm_sp_sp_heterobasidion_gam",
+               "rf",
+
+               "kknn",
+
+               "xgboost",
+
+               "brt"
+),
+benchmark_object = c("bm_sp_non_glm",
+
+                     "bm_sp_sp_diplodia_gam",
+                     "bm_sp_sp_fusarium_gam",
+                     # "bm_sp_sp_armillaria_gam",
+                     "bm_sp_sp_heterobasidion_gam",
 
 
-                                        "bm_sp_sp_diplodia_svm",
-                                        "bm_sp_sp_armillaria_svm",
-                                        "bm_sp_sp_fusarium_svm",
-                                        "bm_sp_sp_heterobasidion_svm",
+                     "no_extract_bm_sp_sp_svm",
+                     "no_extract_bm_sp_sp_rf",
+                     "no_extract_bm_sp_sp_kknn",
+                     "no_extract_bm_sp_sp_xgboost",
+                     "no_extract_bm_sp_sp_brt"
+),
+resampling = c(# glm
+  "spatial/no tuning",
 
-                                        "bm_sp_sp_rf",
-                                        "bm_sp_sp_kknn",
-                                        "bm_sp_sp_xgboost",
-                                        "bm_sp_sp_brt"),
-                   resampling = c("spatial/no tuning",
-                                  "spatial/no tuning",
-                                  "spatial/no tuning",
-                                  "spatial/no tuning",
+  # gam
+  "spatial/spatial",
+  "spatial/spatial",
+  # "spatial/spatial",
+  "spatial/spatial",
 
-                                  "spatial/spatial",
-                                  "spatial/spatial",
-                                  "spatial/spatial",
-                                  "spatial/spatial",
-
-                                  "spatial/spatial",
-                                  "spatial/spatial",
-                                  "spatial/spatial",
-                                  "spatial/spatial",
-
-
-                                  "spatial/spatial",
-                                  "spatial/spatial",
-                                  "spatial/spatial",
-                                  "spatial/spatial")
+  "spatial/spatial",
+  "spatial/spatial",
+  "spatial/spatial",
+  "spatial/spatial",
+  "spatial/spatial")
 )
 
 args_pred$id = suppressWarnings(paste0("maps_", gsub("prediction_", "", args_pred$prediction_raster)))

@@ -4,9 +4,13 @@
 #' @template param_set
 #' @template tune_ctrl
 #' @template resampling
-#' @param prediction_data Prediction data.frame
+#' @param prediction_data List of prediction data.frame(s)
 #' @param prediction_grid Raster Grid to which the prediction should be mapped to
 #' @param desc_resampling Resampling description
+#'
+#' @details `prediction_data` is a list of Tasks. If the learner ID has a
+#'   pathogen in its name, e.g. GAM has, then the prediction will only be done
+#'   for this task. Otherwise, prediction will be done for all supplied tasks.
 
 prediction_custom = function(..., learner, param_set, tune_ctrl, resampling,
                              prediction_data, prediction_grid,
@@ -14,16 +18,19 @@ prediction_custom = function(..., learner, param_set, tune_ctrl, resampling,
 
   configureMlr(on.learner.error = "warn", on.error.dump = TRUE)
 
-  if (grepl("diplodia", deparse(substitute(learner)))) {
-    task = diplodia_task_dummy_prediction
-  } else if (grepl("fusarium", deparse(substitute(learner)))) {
-    task = fusarium_task_dummy_prediction
-  } else if (grepl("armillaria", deparse(substitute(learner)))) {
-    task = armillaria_task_dummy_prediction
-  } else if (grepl("heterobasidion", deparse(substitute(learner)))) {
-    task = heterobasidion_task_dummy_prediction
-  }
-
+  #browser()
+  # # check if a supplied learner has one of the following keywords in its name
+  # # if yes, we need to subset `tasks_pred` to the specific task
+  # if (any(map_lgl(c("diplodia", "fusarium", "armillaria", "heterobasidion"), ~
+  #                 grepl(.x, deparse(substitute(learner)))))) {
+  #   str_deparse(substitute(lrn_gam_fusarium_pred))
+  #
+  #   # subset the specific task
+  #   tasks = list(tasks_pred[[which(map_lgl(c("diplodia", "fusarium", "armillaria", "heterobasidion"), ~
+  #                                      grepl(.x, deparse(substitute(learner)))))]])
+  # } else {
+  #   tasks = list(...)
+  # }
   tasks = list(...)
 
   # unlist if a list of multiple tasks was supplied
@@ -65,6 +72,8 @@ prediction_custom = function(..., learner, param_set, tune_ctrl, resampling,
     } else {
       fit = map(tasks, ~ train(learner_tuned, .x))
     }
+
+  browser()
 
     # Create predictions ---------------------------------------------------
 
@@ -133,11 +142,14 @@ prediction_custom = function(..., learner, param_set, tune_ctrl, resampling,
     return(rasters)
 }
 
-#' @title Create spatial maps from the predicted data
-#' @param prediction_raster Predicted raster layer from [prediction_custom]
+#' @title Create spatial maps from predicted data
+#' @param prediction_raster List of predicted raster layers from
+#'   [prediction_custom].
 #' @param model_name Algorithm name
-#' @param benchmark_object mlr benchmark object containing performance
-#' @param Resampling String with the resampling description that should appear on the map
+#' @param benchmark_object mlr benchmark object containing performance of all
+#'   tasks that are present in `prediction_raster`
+#' @param Resampling String with the resampling description that should appear
+#'   on the map
 create_prediction_map = function(prediction_raster, model_name, benchmark_object,
                                  resampling) {
 
@@ -153,6 +165,11 @@ create_prediction_map = function(prediction_raster, model_name, benchmark_object
     resampling_file = "nsp_non"
   }
 
+  # accoutn for missing armillaria object for xgboost
+  if (model_name == "xgboost") {
+    prediction_raster[[1]] = NULL
+  }
+
   out_maps = imap(prediction_raster, ~ {
 
     score = getBMRAggrPerformances(benchmark_object, as.df = TRUE) %>%
@@ -160,7 +177,7 @@ create_prediction_map = function(prediction_raster, model_name, benchmark_object
       dplyr::select(brier.test.mean) %>%
       pull()
 
-    ggplot() +
+    plot = ggplot() +
       annotation_map_tile(zoomin = -1, type = "cartolight") +
       layer_spatial(.x, aes(fill = stat(band1))) +
       #scale_alpha_continuous(na.value = 0) +
@@ -169,40 +186,43 @@ create_prediction_map = function(prediction_raster, model_name, benchmark_object
       annotation_scale(location = "tl") +
       # spatial-aware automagic north arrow
       annotation_north_arrow(location = "br", which_north = "true") +
-      ggpubr::theme_pubr(legend = "right")  +
+      theme_pubr(legend = "right")  +
       theme(legend.key.size = unit(2,"line"),
             plot.margin = margin(1.5, 0, 1, 0)) +
       labs(caption = glue("Pathogen: {tools::toTitleCase(.y)}, Algorithm: {toupper(model_name)},",
                           " Spatial resolution: 200 m
                           Performance: {round(score, 4)} (Brier), Resampling: {resampling}"))
 
-    dir_create(c("data/prediction/maps/png", "data/prediction/maps/pdf"))
-
-    ggsave(glue("data/prediction/maps/png/maps-prediction-{.y}-{model_name}-{resampling_file}.png"),
-           height = 5.5, width = 8.5)
+    return(plot)
   })
 
-  if (resampling == "spatial/spatial") {
-    resampling_file = "sp_sp"
-  } else if (resampling == "spatial/no tuning") {
-    resampling_file = "sp_non"
-  } else if (resampling == "spatial/non-spatial") {
-    resampling_file = "sp_nsp"
-  } else if (resampling == "non-spatial/non-spatial") {
-    resampling_file = "nsp_nsp"
-  } else if (resampling == "non-spatial/no tuning") {
-    resampling_file = "nsp_non"
-  }
-
-  imgs = imap_chr(prediction_raster, ~ {
-    glue("data/prediction/maps/png/maps-prediction-{.y}-{model_name}-{resampling_file}.png")
-  })
-
-
-  #plan(multiprocess, workers = length(imgs))
-  walk(imgs, ~ image_write(image_read(.x),
-                           path = str_replace_all(.x, "png", "pdf"),
-                           format = "pdf"))
+  #   dir_create(c("data/prediction/maps/png", "data/prediction/maps/pdf"))
+  #
+  #   ggsave(glue("data/prediction/maps/png/maps-prediction-{.y}-{model_name}-{resampling_file}.png"),
+  #          height = 5.5, width = 8.5)
+  # })
+  #
+  # if (resampling == "spatial/spatial") {
+  #   resampling_file = "sp_sp"
+  # } else if (resampling == "spatial/no tuning") {
+  #   resampling_file = "sp_non"
+  # } else if (resampling == "spatial/non-spatial") {
+  #   resampling_file = "sp_nsp"
+  # } else if (resampling == "non-spatial/non-spatial") {
+  #   resampling_file = "nsp_nsp"
+  # } else if (resampling == "non-spatial/no tuning") {
+  #   resampling_file = "nsp_non"
+  # }
+  #
+  # imgs = imap_chr(prediction_raster, ~ {
+  #   glue("data/prediction/maps/png/maps-prediction-{.y}-{model_name}-{resampling_file}.png")
+  # })
+  #
+  #
+  # #plan(multiprocess, workers = length(imgs))
+  # walk(imgs, ~ image_write(image_read(.x),
+  #                          path = str_replace_all(.x, "png", "pdf"),
+  #                          format = "pdf"))
 
   # system("cd /home/patrick/PhD/papers/01_model_comparison/04_figures/01_data && exec ls -1 *.png |
   #      parallel convert '{}' '{.}.pdf'")
@@ -215,5 +235,5 @@ create_prediction_map = function(prediction_raster, model_name, benchmark_object
   #
   #
 
-  return(out_maps)
+  #return(out_maps)
 }
