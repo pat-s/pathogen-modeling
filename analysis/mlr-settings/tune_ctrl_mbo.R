@@ -13,4 +13,5 @@ tune_ctrl_brt_100 = tune_ctrl_mbo_30n_70it(ps_brt)
 
 
 tune_ctrl_gam_100_diplodia_fusarium = tune_ctrl_mbo_30n_70it(ps_gam_diplodia_fusarium)
+tune_ctrl_gam_100_diplodia_fusarium_pred = tune_ctrl_mbo_30n_70it(ps_gam_diplodia_fusarium_pred)
 tune_ctrl_gam_100_armillaria_heterobasidion = tune_ctrl_mbo_30n_70it(ps_gam_armillaria_heterobasidion)
