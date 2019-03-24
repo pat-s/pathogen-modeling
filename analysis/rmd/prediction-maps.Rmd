@@ -1,0 +1,215 @@
+---
+title: "Prediction maps of classifiers"
+output: html_document
+author: "Patrick Schratz, FSU Jena"
+---
+
+Models that did not converge:
+
+- Armillaria: XGBOOST (sp/sp)
+- Armillaria: GAM     (sp/sp)
+
+Since we got no performance estimate of these combinations, we did not create prediction maps.
+
+Furthermore, XGBOOST cannot handle new levels factors of the prediction data (or at least I do not know how to solve this).
+Therefore, no prediction maps for XGBOOST as the prediction values are all NA.
+
+```{r setup, include=FALSE}
+knitr::opts_knit$set(base.dir = 'analysis/rmd/')
+knitr::opts_chunk$set(fig.retina = 3, fig.align = 'center', fig.width = 8.5, 
+                      fig.height = 5.5, out.width = "100%",
+                      fig.path = "../../analysis/paper/submission/3/appendices/")
+```
+
+```{r echo = FALSE}
+loadd(maps_gam_diplodia, maps_glm_diplodia, 
+      maps_gam_fusarium, maps_glm_fusarium,
+      #maps_gam_armillaria, 
+      maps_glm_armillaria, 
+      maps_gam_heterobasidion, maps_glm_heterobasidion, 
+      
+      maps_svm, maps_rf,
+      # maps_xgboost, 
+      maps_kknn, 
+      maps_brt)
+```
+
+# Pathogens {.tabset .tabset-fade}
+
+## Armillaria
+
+### GAM
+
+```{r prediction-map-armillaria-gam }
+NA
+```
+
+### GLM
+
+```{r prediction-map-armillaria-glm }
+maps_glm_armillaria
+```
+
+### BRT
+
+```{r prediction-map-armillaria-brt }
+maps_brt[[1]]
+```
+
+### RF
+
+```{r prediction-map-armillaria-rf }
+maps_rf[[1]]
+```
+
+### SVM
+
+```{r prediction-map-armillaria-svm }
+maps_svm[[1]]
+```
+
+### KKNN
+
+```{r prediction-map-armillaria-knn }
+maps_kknn[[1]]
+```
+
+### XGBOOST
+
+```{r prediction-map-armillaria-xgboost }
+NA
+```
+
+
+## Heterobasidion
+
+### GAM
+
+```{r prediction-map-heterobasidion-gam }
+maps_gam_heterobasidion
+```
+
+### GLM
+
+```{r prediction-map-heterobasidion-glm }
+maps_glm_heterobasidion
+```
+
+### BRT
+
+```{r prediction-map-heterobasidion-brt }
+maps_brt[[2]]
+```
+
+### RF
+
+```{r prediction-map-heterobasidion-rf }
+maps_rf[[2]]
+```
+
+### SVM
+
+```{r prediction-map-heterobasidion-svm }
+maps_svm[[2]]
+```
+
+### KKNN
+
+```{r prediction-map-heterobasidion-knn }
+maps_kknn[[2]]
+```
+
+### XGBOOST
+
+```{r prediction-map-heterobasidion-xgboost }
+NA
+```
+
+
+## Diplodia
+
+### GAM
+
+```{r prediction-map-diplodia-gam }
+maps_gam_diplodia
+```
+
+### GLM
+
+```{r prediction-map-diplodia-glm }
+maps_glm_diplodia
+```
+
+### BRT
+
+```{r prediction-map-diplodia-brt }
+maps_brt[[3]]
+```
+
+### RF
+
+```{r prediction-map-diplodia-rf }
+maps_rf[[3]]
+```
+
+### SVM
+
+```{r prediction-map-diplodia-svm }
+maps_svm[[3]]
+```
+
+### KKNN
+
+```{r prediction-map-diplodia-knn }
+maps_kknn[[3]]
+```
+
+### XGBOOST
+
+```{r prediction-map-diplodia-xgboost }
+NA
+```
+
+## Fusarium
+
+### GAM
+
+```{r prediction-map-fusarium-gam }
+maps_gam_fusarium
+```
+
+### GLM
+
+```{r prediction-map-fusarium-glm }
+maps_glm_fusarium
+```
+
+### BRT
+
+```{r prediction-map-fusarium-brt }
+maps_brt[[4]]
+```
+
+### RF
+
+```{r prediction-map-fusarium-rf }
+maps_rf[[4]]
+```
+
+### SVM
+
+```{r prediction-map-fusarium-svm }
+maps_svm[[4]]
+```
+
+### KKNN
+
+```{r prediction-map-fusarium-knn }
+maps_kknn[[4]]
+```
+
+### XGBOOST
+
+```{r prediction-map-fusarium-xgboost }
+NA
+```

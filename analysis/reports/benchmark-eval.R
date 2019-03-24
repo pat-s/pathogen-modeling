@@ -21,6 +21,10 @@ reports_plan = drake_plan(
     knitr_in("analysis/rmd/vis-tuning-effects.Rmd"),
     output = file_out("analysis/rmd/vis-tuning-effects.md"), # Important: must be the output file
     quiet = TRUE),
+  prediction_maps = knitr::knit(
+    knitr_in("analysis/rmd/prediction-maps.Rmd"),
+    output = file_out("analysis/rmd/prediction-maps.md"), # Important: must be the output file
+    quiet = TRUE),
 
   strings_in_dots = "literals"
 )
