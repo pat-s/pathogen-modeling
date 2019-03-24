@@ -152,8 +152,7 @@ lrn_gam_armillaria_perf <- makeLearner("classif.gam",
 
                                                 year.2010 +
                                                 year.2011 +
-                                                year.2012",
-                                     sp = rep(0, 6)
+                                                year.2012"
 )
 
 # "pred" without variable and "year"
@@ -172,8 +171,7 @@ lrn_gam_armillaria_pred <- makeLearner("classif.gam",
                                                 lithology.magmatic.rock +
 
                                                 soil.soils.with.little.or.no.profile.differentiation
-                                                soil.soils.with.limitations.to.root.growth",
-                                     sp = rep(0, 6)
+                                                soil.soils.with.limitations.to.root.growth"
 )
 
 lrn_gam_heterobasidion_perf <- makeLearner("classif.gam",
@@ -196,8 +194,7 @@ lrn_gam_heterobasidion_perf <- makeLearner("classif.gam",
 
                                                 year.2010 +
                                                 year.2011 +
-                                                year.2012",
-                                       sp = rep(0, 6)
+                                                year.2012"
 )
 
 # "pred" without variable and "year"
@@ -216,8 +213,7 @@ lrn_gam_heterobasidion_pred <- makeLearner("classif.gam",
                                                 lithology.magmatic.rock +
 
                                                 soil.soils.with.little.or.no.profile.differentiation
-                                                soil.soils.with.limitations.to.root.growth",
-                                       sp = rep(0, 6)
+                                                soil.soils.with.limitations.to.root.growth"
 )
 
 
