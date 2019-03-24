@@ -12,6 +12,7 @@ This report evaluates the performance of the algorithms
 * _Extreme Gradient Boosting_ (xgboost) 
 * _Generalized Linear Model_ (GLM) 
 * _Generalized Additive Model_ (GAM) 
+* _k-Nearest Neighbor_ (KNN)
 
 on four different pathogens:
 
@@ -21,7 +22,245 @@ on four different pathogens:
 - _Heterobasidion mellea_
 
 ```{r setup, include=FALSE}
-loadd(bm_all_pathogens)
+knitr::opts_knit$set(base.dir = 'analysis/rmd/')
+knitr::opts_chunk$set(fig.retina = 3, fig.align = 'center', 
+                      fig.width = 6.93, fig.height = 6.13,
+                      out.width = "100%",
+                      fig.path = "../../analysis/paper/submission/3/appendices/")
+                      
+loadd(bm_all_pathogens_sp_sp, bm_all_pathogens_sp_nsp, 
+      bm_all_pathogens_nsp_nsp, bm_all_pathogens_sp_non, 
+      bm_all_pathogens_nsp_non,
+      
+      no_extract_bm_sp_sp_armillaria)
 # knitr::opts_chunk$set(eval = FALSE)
 ```
 
+Models that did not converge:
+
+- Armillaria: XGBOOST (sp/sp)
+- Armillaria: GAM     (sp/sp)
+
+# Resampling strategies {.tabset .tabset-fade}
+
+## Spatial-Spatial
+
+```{r benchmark-eval-all-2 }
+bm_all_pathogens_sp_sp %>%
+  getBMRAggrPerformances(as.df = TRUE) %>% 
+  arrange(task.id, desc(brier.test.mean))
+```
+
+### Visualize
+
+```{r benchmark-eval-all-3 }
+plt = plotBMRBoxplots(bm_all_pathogens_sp_sp, measure = brier, pretty.names = F, 
+                      order.lrn = c("classif.gam.tuned", "classif.kknn.tuned",
+                                    "classif.ranger.tuned",
+                                    "classif.svm.tuned" , "classif.gbm.tuned",
+                                    "classif.xgboost.tuned")) +
+  #order.lrn = getBMRLearnerIds(bm_all_pathogens_sp_sp)) + # gam again duplicated -.-
+  aes(color = learner.id) +
+  geom_boxplot(width = 0.6, outlier.size = 0.3, outlier.shape = 19) +
+  scale_colour_nejm() +
+  labs(y = "Brier score", x = "") + 
+  # scale_color_viridis_d() +
+  theme(strip.text.x = element_text(size = 8)) + 
+  theme_pubr()
+
+#levels(plt$data$task.id) = c("Diplodia")
+levels(plt$data$learner.id) = c("GAM", "KNN", "RF", "SVM", "BRT", "XGBOOST")
+
+plt
+```
+
+### Aggregated performances
+
+```{r benchmark-eval-all-4 }
+plt2 = plotBMRSummary(bm_all_pathogens_sp_sp, pretty.names = FALSE) + 
+  scale_colour_nejm() +
+  theme_pubr()
+
+#levels(plt2$data$task.id) = c("Diplodia")
+levels(plt$data$learner.id) = c("GAM", "KNN", "RF", "SVM", "BRT", "XGBOOST")
+
+plt2
+```
+
+## Spatial-Non-Spatial
+
+```{r benchmark-eval-all-5 }
+bm_all_pathogens_sp_nsp %>%
+  getBMRAggrPerformances(as.df = TRUE) %>% 
+  arrange(task.id, desc(brier.test.mean))
+```
+
+### Visualize
+
+```{r benchmark-eval-all-6 }
+plt = plotBMRBoxplots(bm_all_pathogens_sp_nsp, measure = brier, pretty.names = F, 
+                      order.lrn = c("classif.gam.tuned", "classif.kknn.tuned",
+                                    "classif.ranger.tuned",
+                                    "classif.svm.tuned" , "classif.gbm.tuned",
+                                    "classif.xgboost.tuned")) +
+  #order.lrn = getBMRLearnerIds(bm_all_pathogens_sp_sp)) + # gam again duplicated -.-
+  aes(color = learner.id) +
+  geom_boxplot(width = 0.6, outlier.size = 0.3, outlier.shape = 19) +
+  scale_colour_nejm() +
+  labs(y = "Brier score", x = "") + 
+  # scale_color_viridis_d() +
+  theme(strip.text.x = element_text(size = 8)) + 
+  theme_pubr()
+
+#levels(plt$data$task.id) = c("Diplodia")
+levels(plt$data$learner.id) = c("GAM", "KNN", "RF", "SVM", "BRT", "XGBOOST")
+
+plt
+```
+
+### Aggregated performances
+
+```{r benchmark-eval-all-7 }
+plt2 = plotBMRSummary(bm_all_pathogens_sp_nsp, pretty.names = FALSE) + 
+  scale_colour_nejm() +
+  theme_pubr()
+
+#levels(plt2$data$task.id) = c("Diplodia")
+levels(plt2$data$learner.id) = c("GAM", "KNN", "RF", "SVM", "BRT")
+
+plt2
+```
+
+## Non-Spatial-Non-Spatial
+
+```{r benchmark-eval-all-8 }
+bm_all_pathogens_nsp_nsp %>%
+  getBMRAggrPerformances(as.df = TRUE) %>% 
+  arrange(task.id, desc(brier.test.mean))
+```
+
+### Visualize
+
+```{r benchmark-eval-all-9 }
+plt = plotBMRBoxplots(bm_all_pathogens_nsp_nsp, measure = brier, pretty.names = F, 
+                      order.lrn = c("classif.gam.tuned", "classif.kknn.tuned",
+                                    "classif.ranger.tuned",
+                                    "classif.svm.tuned" , "classif.gbm.tuned",
+                                    "classif.xgboost.tuned")) +
+  #order.lrn = getBMRLearnerIds(bm_all_pathogens_sp_sp)) + # gam again duplicated -.-
+  aes(color = learner.id) +
+  geom_boxplot(width = 0.6, outlier.size = 0.3, outlier.shape = 19) +
+  scale_colour_nejm() +
+  labs(y = "Brier score", x = "") + 
+  # scale_color_viridis_d() +
+  theme(strip.text.x = element_text(size = 8)) + 
+  theme_pubr()
+
+#levels(plt$data$task.id) = c("Diplodia")
+levels(plt$data$learner.id) = c("GAM", "KNN", "RF", "SVM", "BRT", "XGBOOST")
+
+plt
+```
+
+### Aggregated performances
+
+```{r benchmark-eval-all-10 }
+plt2 = plotBMRSummary(bm_all_pathogens_nsp_nsp, pretty.names = FALSE) + 
+  scale_colour_nejm() +
+  theme_pubr()
+
+#levels(plt2$data$task.id) = c("Diplodia")
+levels(plt2$data$learner.id) = c("GAM", "KNN", "RF", "SVM", "BRT")
+
+plt2
+```
+
+## Non-Spatial-No Tuning
+
+```{r benchmark-eval-all-11 }
+bm_all_pathogens_nsp_non %>%
+  getBMRAggrPerformances(as.df = TRUE) %>% 
+  arrange(task.id, desc(brier.test.mean))
+```
+
+### Visualize
+
+```{r benchmark-eval-all-12 }
+plt = plotBMRBoxplots(bm_all_pathogens_nsp_non, measure = brier, pretty.names = F, 
+                      order.lrn = c("classif.gam", "classif.binomial",
+                                    "classif.kknn",
+                                    "classif.ranger",
+                                    "classif.svm", "classif.gbm",
+                                    "classif.xgboost")) +
+  #order.lrn = getBMRLearnerIds(bm_all_pathogens_sp_sp)) + # gam again duplicated -.-
+  aes(color = learner.id) +
+  geom_boxplot(width = 0.6, outlier.size = 0.3, outlier.shape = 19) +
+  scale_colour_nejm() +
+  labs(y = "Brier score", x = "") + 
+  # scale_color_viridis_d() +
+  theme(strip.text.x = element_text(size = 8)) + 
+  theme_pubr()
+
+#levels(plt$data$task.id) = c("Diplodia")
+levels(plt$data$learner.id) = c("GAM", "GLM", "KNN", "RF", "SVM", "BRT", "XGBOOST")
+
+plt
+```
+
+### Aggregated performances
+
+```{r benchmark-eval-all-13 }
+plt2 = plotBMRSummary(bm_all_pathogens_nsp_non, pretty.names = FALSE) + 
+  scale_colour_nejm() +
+  theme_pubr()
+
+#levels(plt2$data$task.id) = c("Diplodia")
+levels(plt2$data$learner.id) = c("GAM", "GLM", "KNN", "RF", "SVM", "BRT", "XGBOOST")
+
+plt2
+```
+
+## Spatial-No Tuning
+
+```{r benchmark-eval-all-14 }
+bm_all_pathogens_sp_non %>%
+  getBMRAggrPerformances(as.df = TRUE) %>% 
+  arrange(task.id, desc(brier.test.mean))
+```
+
+### Visualize
+
+```{r benchmark-eval-all-15 }
+plt = plotBMRBoxplots(bm_all_pathogens_sp_non, measure = brier, pretty.names = F, 
+                      order.lrn = c("classif.gam", "classif.binomial",
+                                    "classif.kknn",
+                                    "classif.ranger",
+                                    "classif.svm", "classif.gbm",
+                                    "classif.xgboost"))  +
+  #order.lrn = getBMRLearnerIds(bm_all_pathogens_sp_sp)) + # gam again duplicated -.-
+  aes(color = learner.id) +
+  geom_boxplot(width = 0.6, outlier.size = 0.3, outlier.shape = 19) +
+  scale_colour_nejm() +
+  labs(y = "Brier score", x = "") + 
+  # scale_color_viridis_d() +
+  theme(strip.text.x = element_text(size = 8)) + 
+  theme_pubr()
+
+#levels(plt$data$task.id) = c("Diplodia")
+levels(plt$data$learner.id) = c("GAM", "GLM", "KNN", "RF", "SVM", "BRT", "XGBOOST")
+
+plt
+```
+
+### Aggregated performances
+
+```{r benchmark-eval-all-16 }
+plt2 = plotBMRSummary(bm_all_pathogens_sp_non, pretty.names = FALSE) + 
+  scale_colour_nejm() +
+  theme_pubr()
+
+# levels(plt2$data$task.id) = c("Diplodia")
+levels(plt2$data$learner.id) = c("GAM", "GLM", "KNN", "RF", "SVM", "BRT", "XGBOOST")
+
+plt2
+```
