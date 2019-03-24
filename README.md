@@ -1,5 +1,5 @@
 
-[![Last-changedate](https://img.shields.io/badge/last%20change-2019--03--20-brightgreen.svg)](https://github.com/pat-s/pathogen-modeling/commits/master)
+[![Last-changedate](https://img.shields.io/badge/last%20change-2019--03--24-brightgreen.svg)](https://github.com/pat-s/pathogen-modeling/commits/master)
 [![minimal R
 version](https://img.shields.io/badge/R%3E%3D-3.5.0-brightgreen.svg)](https://cran.r-project.org/)
 [![Licence](https://img.shields.io/github/license/mashape/apistatus.svg)](http://choosealicense.com/licenses/mit/)  
@@ -85,8 +85,7 @@ r_make() # recreates the analysis
 Predicted total runtime. The time is based on all targets that have been
 created so far in the project. Estimated time will differ depending on
 the CPU speed and possible availability of a HPC. Here, we assume that
-the analysis is run on a cluster with three compute nodes (=
-“jobs”).
+the analysis is run on a cluster with three compute nodes (= “jobs”).
 
 ``` r
 source("_drake.R")
@@ -96,12 +95,15 @@ source("_drake.R")
 
     ## analyze environment
 
+    ## Unloading targets from environment:
+    ##   prediction_maps
+
 ``` r
 config = drake_config(plan, targets = "benchmark_evaluation_report_diplodia")
 predict_runtime(config, from_scratch = TRUE, jobs = 3)
 ```
 
-    ## [1] "251458.019s (~2.91 days)"
+    ## [1] "404.412s (~6.74 minutes)"
 
 # Licenses
 
