@@ -27,7 +27,8 @@ param_set$stage = "mlr_settings"
 tune_ctrl$stage = "mlr_settings"
 tuning_wrapper$stage = "learner"
 benchmark_plan$stage = "benchmark"
-bmr_aggregated$stage = "benchmark"
+bmr_aggr_path_resamp$stage = "benchmark"
+bmr_aggr_model_resamp$stage = "benchmark"
 no_extract_plan$stage = "benchmark"
 bm_all_pathogens_plan$stage = "benchmark"
 prediction_prob$stage = "prediction"
@@ -39,9 +40,18 @@ dataset_tables$stage = "visualization"
 # Combine all -------------------------------------------------------------
 
 plan = bind_plans(data_plan, task, learners, resampling, param_set,
-                  tune_ctrl, tuning_wrapper, benchmark_plan, prediction_prob,
-                  prediction_maps, bmr_aggregated, bm_all_pathogens_plan, no_extract_plan,
-                  reports_plan, visualization, dataset_tables)
+                  tune_ctrl, tuning_wrapper,
+
+                  bmr_aggr_path_resamp,
+                  bmr_aggr_model_resamp,
+                  bm_all_pathogens_plan,
+                  no_extract_plan,
+                  benchmark_plan,
+
+                  prediction_prob,
+                  prediction_maps,
+                  reports_plan, visualization,
+                  dataset_tables)
 
 plan %<>% mutate(stage = as.factor(stage))
 
@@ -67,7 +77,7 @@ drake_config(plan, verbose = 2, targets = c("benchmark_evaluation_report_all"),
 
 # drake_config(plan, verbose = 2, targets = "bm_sp_non_diplodia_glm_old", console_log_file = stdout())
 
-# make(plan, verbose = 2, targets = c("benchmark_evaluation_report_diplodia"),
+# make(plan, verbose = 2, targets = c("bm_sp_sp_armillaria_xgboost", "bm_sp_sp_armillaria_brt", "bm_sp_sp_armillaria_kknn"),
 #      cache_log_file = "log/cache_log.txt",
 #      console_log_file = "log/drake.log",
 #      lazy_load = "promise", caching = "worker",
