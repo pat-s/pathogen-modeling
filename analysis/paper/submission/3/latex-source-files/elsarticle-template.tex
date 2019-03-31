@@ -564,7 +564,7 @@ Subsequently, on average, each predictor will be chosen equally often and the hi
 This leads to a more general model that apparently performs better on heterogeneous datasets (e.g. if training and test data are less affected by spatial autocorrelation) as it is the case in a spatial sampling.
 
 (2) Even though the estimated hyperparameters from a spatial and non-spatial sampling differ, they roughly achieve the same performance when being evaluated at the performance estimation level of the CV.
-This outcome is not generalizable and highly depends on the dataset of this study.
+However, this outcome may depend on the specific characteristics of this dataset.
 It needs to be verified by using other spatial datasets.
 Performance differences might be more substantial when using either \texttt{$m_{try}$ = 1} or \texttt{$m_{try}$ = 3} on datasets with different characteristics.
 This applies also to all other algorithms used in this study.
@@ -578,7 +578,7 @@ However, this difference can be attributed to an overoptimistic bias in non-spat
 Spatial cross-validation is therefore required for performance estimation in spatial predictive modeling, and similar grouped cross-validation strategies have been proposed elsewhere in environmental as well as medical contexts to reduce bias in predictive performance \citep{Brenning2008, Meyer2018, Pena2015, Pohjankukka2017, Roberts2017}.
 
 \subsubsection{The effect of hyperparameter tuning on predictive accuracy}
-Although hyperparameter tuning certainly increases the predictive performance for some models (e.g. BRT, GAM and KNN) in our case, the magnitude always depends on the meaningful/arbitrary defaults of the respective algorithm and the characteristics of the dataset.
+Although hyperparameter tuning certainly increased the predictive performance for BRT, GAM and KNN in our case, the magnitude always depends on the meaningful/arbitrary defaults of the respective algorithm and the characteristics of the dataset.
 Naturally, the tuning effect is higher for models without meaningful defaults (such as BRT and KNN) than for models with meaningful defaults such as RF.
 To underline this statement, there was basically no tuning effect for SVM in this study (\autoref{fig:cv_final_boxplots}) although the SVM usually shows substantial increases when being tuned \citep{Rojas_Dominguez2018}.
 
