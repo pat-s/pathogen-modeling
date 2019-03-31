@@ -204,9 +204,9 @@ Overall, the intention of this work is to emphasize the need for spatial \ac{CV}
 The following objectives (and hypotheses) are addressed:
 
 \begin{itemize}
-	\item Comparison of the predictive performance of spatial and non-spatial partitioning methods. We assume that non-spatial partitioning methods will yield over-optimistic results in the presence of spatial autocorrelation.
-	\item Exploring the effects of (spatial) hyperparameter tuning for commonly used algorithms in the field of ecological modeling. We propose that optimal hyperparameter tuning has an substantial effect on model performance.
-	\item Comparison of the predictive performance of parametric (GLM, GAM) and non-parametric algorithms (BRT, RF, SVM, KNN). We assume that the predictive performance of non-parametric algorithms is substantially higher.
+	\item Comparison of the predictive performance of spatial and non-spatial partitioning methods. We expect that non-spatial partitioning methods will yield over-optimistic results in the presence of spatial autocorrelation.
+	\item Exploring the effects of (spatial) hyperparameter tuning for commonly used algorithms in the field of ecological modeling. We propose that optimal hyperparameter tuning has a substantial effect on model performance.
+	\item Comparison of the predictive performance of parametric (GLM, GAM) and non-parametric algorithms (BRT, RF, SVM, KNN). We expect that the predictive performance of non-parametric algorithms is substantially higher.
 \end{itemize}
 
 \section{Data and study area}
@@ -425,7 +425,7 @@ It is defined as the mean quadratic loss between the predicted and observed prob
 It ranges from 0 to 1 with low values indicating a good prediction \citep{Brier1950}.
 
 \subsubsection{A note on spatial autocorrelation structures in parametric models}
-In this work we assume that, on average, the predictive accuracy of parametric models with and without spatial autocorrelation structures incorporated into the model is the same.
+In this work we expect that, on average, the predictive accuracy of parametric models with and without spatial autocorrelation structures incorporated into the model is the same.
 However, there is little research on this specific topic \citep{Dormann2007b, Mets2017} and a detailed analysis goes beyond the scope of this work.
 In our view, a possible analysis would need to estimate the spatial autocorrelation structure of a model for every fold of a cross-validation using a data-driven approach (i.e. automatically estimate the spatial autocorrelation structure from each training set in the respective CV fold) and compare the results to the same model fitted without a spatial autocorrelation structure.
 Since we only focused on predictive accuracy in this work, we did not use spatial autocorrelation structures during model fitting for \ac{GLM} and \ac{GAM} to reduce runtime.
@@ -479,7 +479,7 @@ The GAM showed a high variance for all spatial settings compared to all other al
 \subsubsection{Effect of hyperparameter tuning on predictive performance}
 The tuning of hyperparameters resulted in a clear increase of predictive performance for BRT (0.183 (\emph{spatial/spatial}) vs. 0.201 (\emph{spatial/no tuning}) mean Brier score), GAM (0.206 (\emph{spatial/spatial}) vs. 0.251 (\emph{spatial/no tuning}) and KNN (0.181 (\emph{spatial/spatial}) vs 0.210 (\emph{spatial/no tuning}) mean Brier score) (\autoref{fig:cv_final_boxplots}).
 No effect of hyperparameter tuning on predictive performance was visible for RF and SVM.
-The use of spatial partitioning in hyperparameter tuning (setting (\emph{spatial/spatial}) had an substantial positive impact for BRT and a negative one for GAM and KNN (\autoref{fig:cv_final_boxplots}).
+The use of spatial partitioning in hyperparameter tuning (setting (\emph{spatial/spatial}) had a substantial positive impact for BRT and a negative one for GAM and KNN (\autoref{fig:cv_final_boxplots}).
 
 \begin{figure} [H]
 	\begin{center}
@@ -548,12 +548,14 @@ No major differences in model performances were found when using spatial versus 
 The winning algorithm RF is used to discuss the optimal estimated hyperparameters per fold of the spatial and non-spatial tuning setting in more detail.
 Although the tuning of RF had no substantial effect on predictive performance (\autoref{fig:cv_final_boxplots}), the estimated optimal hyperparameters of RF differ for the non-spatial and spatial tuning setting (\autoref{fig:best_parameter_combs}).
 We split the following discussion into two points: (1) The nature of the algorithm and (2) the implications which method should be chosen.
+
 (1) In a non-spatial tuning setting, RF will prioritize spatially autocorrelated predictors because these will yield the best performance results in the internal variable selection process that uses the \textit{Gini impurity measure} \citep{Biau2016, Gordon1984}.
-We define "spatially autocorrelated predictors" as variables that show highly similar patterns in its relationship to the response in both training and test set.
-By selecting these, the algorithm is able to achieve good performances because the trained patterns appear almost identical in the test set.
+The conditions for being selected as an "important predictor" in a non-spatial tuning setting are two fold: First, the predictor needs to be important for the model in general (e.g. by having a strong correlation to the response).
+Next, it should have a medium-high spatial autocorrelation, so that the model will yield good test set results. 
+By selecting predictors with these characteristics, the algorithm is able to achieve good performances because the trained patterns appear almost identical in the test set.
 The resulting performances are then overoptimistic as they benefit highly from the non-spatial sampling scheme.
 
-In this pre-selection, \texttt{mtry} values around 3 - 5 are favored because they provide a fair chance of having one of the autocorrelated predictors included in the selection.
+In the pre-selection for the non-spatial tuning setting, \texttt{mtry} values around 3 - 5 are favored because they provide a fair chance of having one of the strong autocorrelated predictors included in the selection.
 At the same time, \texttt{mtry} is low enough to prevent overfitting on the training data because the autocorrelated predictors are not always available to the algorithm.
 
 In the spatial tuning setting, mainly \texttt{mtry = 1} is chosen.
@@ -605,7 +607,7 @@ This example highlights the importance of selecting a measure for benchmarking p
 However, analyzing the effect of different measures on benchmarking performance across algorithms exceeds the scope of this work.
 
 \subsubsection{A note on spatial autocorrelation structures in parametric models}
-In this work we assume that, on average, the predictive accuracy of parametric models with and without spatial autocorrelation structures is the same.
+In this work we expect that, on average, the predictive accuracy of parametric models with and without spatial autocorrelation structures is the same.
 However, there is little research on this specific topic \citep{Dormann2007b, Mets2017} and a detailed analysis goes beyond the scope of this work.
 In our view, a possible analysis would need to estimate the spatial autocorrelation structure of a model for every fold of a cross-validation using a data-driven approach (i.e. automatically estimate the spatial autocorrelation structure from each training set in the respective CV fold) and compare the results to the same model fitted without a spatial autocorrelation structure.
 Since we only focused on predictive accuracy in this work, we did not use spatial autocorrelation structures during model fitting for \ac{GLM} and \ac{GAM} to reduce runtime.
