@@ -296,7 +296,7 @@ The complete analysis including data is available as a research compendium at Ze
 	\midrule
 	\multirow{1}{*}{GAM (mgcv)}    & \texttt{sp}                & numeric & 0         & $10^{6}$ & -          \\
 	\midrule
-	\multirow{2}{*}{RF (ranger)}   & \texttt{mtry}              & integer & 1         & 11       & $\sqrt{p}$ \\
+	\multirow{2}{*}{RF (ranger)}   & \texttt{$m_{try}$}              & integer & 1         & 11       & $\sqrt{p}$ \\
 	                               & \texttt{min.node.size}     & integer & 1         & 10       & 1          \\
 	                               & \texttt{sample.fraction}   & numeric & 0.2       & 0.9      & 1          \\
 	\midrule
@@ -466,7 +466,7 @@ By contrast, the range of optimal settings in the non-spatial tuning case is muc
 For the spatial tuning case of RF, the estimated \texttt{$m_{try}$} values mainly ranged between 1 and 3 and \texttt{$m_{try}$} of 1 was most often the optimal value.
 This stands in strong contrast to the non-spatial tuning setting in which \texttt{$m_{try}$} mainly ranged between 3 and 5 and \texttt{$m_{try}$} of 3 was most often the optimal choice.
 Generally, we observed the tendency that spatially tuned hyperparameters are often close to the limits of the search space especially when compared to their non-spatial counterparts.
-The GAM results are not included in \autoref{fig:best_parameter_combs} as the estimated hyperparameter (smoothing parameter $\lambda$) is a vector of length eight (eight being the number of non-linear variables in the model formula) that cannot be visualized in a 2D space.
+The GAM results are not included in \autoref{fig:best_parameter_combs} as the estimated hyperparameter (smoothing parameter $\lambda$) is a vector of length eight (eight being the number of non-linear variables in the model formula) which cannot be visualized in two dimensions.
 
 \subsection{Predictive performance}
 \label{subsec:pred_perf}
@@ -555,25 +555,25 @@ Next, it should have a medium-high spatial autocorrelation, so that the model wi
 By selecting predictors with these characteristics, the algorithm is able to achieve good performances because the trained patterns appear almost identical in the test set.
 The resulting performances are then overoptimistic as they benefit highly from the non-spatial sampling scheme.
 
-In the pre-selection for the non-spatial tuning setting, \texttt{mtry} values around 3 - 5 are favored because they provide a fair chance of having one of the strong autocorrelated predictors included in the selection.
-At the same time, \texttt{mtry} is low enough to prevent overfitting on the training data because the autocorrelated predictors are not always available to the algorithm.
+In the pre-selection for the non-spatial tuning setting, \texttt{$m_{try}$} values around 3 - 5 are favored because they provide a fair chance of having one of the strong autocorrelated predictors included in the selection.
+At the same time, \texttt{$m_{try}$} is low enough to prevent overfitting on the training data because the autocorrelated predictors are not always available to the algorithm.
 
-In the spatial tuning setting, mainly \texttt{mtry = 1} is chosen.
-This specific value essentially removes the internal variable selection process by \texttt{mtry} as RF is forced to use the predictor that was randomly assigned.
+In the spatial tuning setting, mainly \texttt{$m_{try}$ = 1} is chosen.
+This specific value essentially removes the internal variable selection process by \texttt{$m_{try}$} as RF is forced to use the predictor that was randomly assigned.
 Subsequently, on average, each predictor will be chosen equally often and the higher weighting of spatially autocorrelated predictors in the final model (by choosing them more often in the trees) does not apply.
 This leads to a more general model that apparently performs better on heterogeneous datasets (e.g. if training and test data are less affected by spatial autocorrelation) as it is the case in a spatial sampling.
 
 (2) Even though the estimated hyperparameters from a spatial and non-spatial sampling differ, they roughly achieve the same performance when being evaluated at the performance estimation level of the CV.
 This outcome is not generalizable and highly depends on the dataset of this study.
 It needs to be verified by using other spatial datasets.
-Performance differences might be more substantial when using either \texttt{mtry = 1} or \texttt{mtry = 3} on datasets with different characteristics.
+Performance differences might be more substantial when using either \texttt{$m_{try}$ = 1} or \texttt{$m_{try}$ = 3} on datasets with different characteristics.
 This applies also to all other algorithms used in this study.
 In addition, if a model is going to be evaluated on a specific sampling scheme (here spatial sampling), we see no valid argument why its hyperparameters should be trained on a different sampling scheme if the predictive performances do not differ significantly.
 
 \subsection{Predictive Performance}
 
 \subsubsection{Non-spatial vs. spatial CV}
-Our findings agree with previous studies in that non-spatial performance estimates appear to be substantially "better" than spatial performance estimates \citep{Meyer2018, Micheletti2013, Roberts2017}.
+Our findings agree with previous studies in that non-spatial performance estimates appear to be substantially "better" than spatial performance estimates \citep{Meyer2018, MichelFetti2013, Roberts2017}.
 However, this difference can be attributed to an overoptimistic bias in non-spatial performance estimates in the presence of spatial autocorrelation \citep{Goetz2015, Meyer2018, Russ2010a, Steger2016}.
 Spatial cross-validation is therefore required for performance estimation in spatial predictive modeling, and similar grouped cross-validation strategies have been proposed elsewhere in environmental as well as medical contexts to reduce bias in predictive performance \citep{Brenning2008, Meyer2018, Pena2015, Pohjankukka2017, Roberts2017}.
 
