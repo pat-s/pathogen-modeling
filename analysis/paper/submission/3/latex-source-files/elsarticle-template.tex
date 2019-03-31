@@ -514,13 +514,13 @@ BRT and RF show the highest differences between these two settings (47\% and 46\
 \subsection{Tuning}
 
 \subsubsection{Tuning methods}
-The question on the most efficient approach of hyperparameter tuning has been discussed for decades \citep{Bengio2000, Probst2018a, Yang2017}.
+The question on the most efficient approach of hyperparameter tuning has often been discussed \citep{Bengio2000, Probst2018a, Yang2017}.
 The goal is to use as few computational resources as possible to find a nearly optimal hyperparameter setting of an algorithm for a specific dataset.
 In this respect, methods like \textit{random search} are particularly promising in multidimensional hyperparameter spaces with possibly redundant or insensitive hyperparameters (low effective dimensionality; \citep{Bergstra2012}).
 Adaptive search algorithms offer computationally efficient solutions to these difficult global optimization problems in which little prior knowledge on optimal subspaces is available.
 Approaches like Bayesian Optimization and F-racing are widely used for optimization of black-box models \citep{Birattari2002, mlrMBO, Brochu2010, Malkomes2016}.
 In this study, we used a sequential model-based optimization (Bayesian optimization) method.
-Other tuning methods would have yielded almost identical results but at the cost of increased computational efficiency and less robustness in terms of finding the local minimum.
+Other tuning methods would be expected to yield almost identical results but at the cost of increased computational efficiency and less robustness in terms of finding the local minimum.
 
 \subsubsection{Algorithm sensitivity to tuning}
 Some models (e.g. \ac{RF}) are known to be relatively insensitive to hyperparameter tuning \citep{Probst2018b}.
@@ -531,11 +531,11 @@ If no tuning is conducted, it cannot be ensured that the respective model showed
 Computational expense, especially when using tuning methods like random search, should focus on plausible parameter settings for each model.
 It should be ensured by visual inspection that the majority of the obtained optimal hyperparameter settings is not close to the ranges of the tuning space.
 If the optimal hyperparameter settings are clustered at the borders of the parameter search space, this implies that optimal hyperparameters may actually lie outside the given range.
-However, extending the tuning space is not always possible nor practical as (1) numerical problems within the algorithm may occur that may prohibit further extension of the tuning space; (2) some algorithms tend to mainly use the limits of the given search space although no significant increase is achieved (e.g. KNN in the \emph{spatial/spatial} setting).
+However, extending the tuning space is not always possible nor practical as (1) numerical problems within the algorithm may occur that may prohibit further extension of the tuning space; (2) some algorithms tend to mainly use the limits of the given search space although no substantial increase is achieved (e.g. KNN in the \emph{spatial/spatial} setting).
 
 We encountered exactly these problems in the \emph{spatial/spatial} setting for BRT, KNN and SVM.
 For example, in the \emph{spatial/spatial} setting, we should have further increased the search space for the mentioned models based on the distribution of the optimal hyperparameters of each fold (\autoref{fig:best_parameter_combs}).
-However, using the extended setting, the algorithms did not converge anymore for some folds and at the same time runtime increased without a significant increase in predictive performance.
+However, using the extended setting, the algorithms did not converge anymore for some folds and at the same time runtime increased without a substantial increase in predictive performance.
 
 All these points show the need for a thorough specification of parameter search spaces.
 As the optimal hyperparameter ranges also depend on the dataset characteristics, it is not possible to define a universal search space that works best on every dataset.
