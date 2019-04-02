@@ -508,48 +508,6 @@ lithology_preprocessing = function(data) {
 
 }
 
-#' @title Download pH data
-#' @template url
-ph_download = function(url) {
-
-  dir_create("data/ph")
-
-  if (!file.exists("data/ph/dblbnd.adf")) {
-    curl_download(url,
-                  destfile = glue(tempdir(), "/ph.zip"), quiet = FALSE)
-    unzip(glue(tempdir(), "/ph.zip"), exdir = "data/ph")
-  }
-
-  ph_raster <-
-    new("GDALReadOnlyDataset", "data/ph") %>%
-    asSGDF_GROD() %>%
-    raster()
-
-  return(ph_raster)
-
-}
-
-#' @title Preprocessing of pH data
-#' @param data Downloaded pH data
-ph_preprocessing = function(data,
-                            study_area) {
-
-  crs(data) <- CRS("+init=epsg:3035")
-
-  study_area_3035 <-
-    study_area %>%
-    st_transform(3035) %>%
-    as("Spatial")
-
-  data %<>%
-    crop(study_area_3035) %>%
-    mask(study_area_3035) %>%
-    projectRaster(crs = CRS("+init=epsg:32630"), method = "bilinear") %>%
-    writeRaster("data/ph/ph.tif", overwrite = TRUE)
-
-  return(data)
-}
-
 #' @title Preprocessing of elevation data
 #' @param data Downloaded elevation data
 elevation_preprocessing = function(data) {
@@ -683,18 +641,13 @@ slope_processing = function(data) {
 #' - Filtering of observations to a certain tree species
 mod_raw_data = function(data, drop_vars, response) {
 
-  # ## Import disease data and store as sf
-  #
-  # Raw data: Point shapefile in CRS 23030 with presense and absence observations of heterobasi and armillaria.
-  #
-  #
-  #
-  data %<>%
-    st_transform(32630)
 
+### Reason why the data is already transformed: We had to map variable ph to the
+### data because we were not allowed to put the raw data on Zenodo due to
+### license issues. To conduct a proper `raster::extract` call we transformed
+### the data already.
   # data %<>%
-  #   st_coordinates() %>%
-  #   cbind(data)
+  #   st_transform(32630)
 
   ## Change column names to lowercase
   colnames(data) <-
@@ -776,8 +729,6 @@ extract_variables <- function(data, temperature, precipitation, pisr, slope,
                               elevation, soil, lithology, hail, ph, study_area,
                               response, drop_vars = NULL, age = FALSE) {
 
-  browser()
-
   data_in = st_read(data, quiet = TRUE)
 
   data_in = mod_raw_data(data_in, drop_vars = drop_vars, response = response)
@@ -837,10 +788,12 @@ extract_variables <- function(data, temperature, precipitation, pisr, slope,
     ))
 
   # ph
+  ### Reason why ph is not extracted from the raw data: We were not allowed to
+  ### put the raw data on Zenodo due to license issues.
 
-  data_in$ph <-
-    ph %>%
-    raster::extract(data_in)
+  # data_in$ph <-
+  #   ph %>%
+  #   raster::extract(data_in)
 
   # Lithology
 
