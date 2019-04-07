@@ -68,13 +68,6 @@
   {{Optimization}}}.
 \newblock {\it \bibinfo{journal}{J. Mach. Learn. Res.}\/},  {\it
   \bibinfo{volume}{13}\/}, \bibinfo{pages}{281--305}.
-%Type = Article
-\bibitem[{Biau \& Scornet(2016)}]{Biau2016}
-\bibinfo{author}{Biau, G.}, \& \bibinfo{author}{Scornet, E.}
-  (\bibinfo{year}{2016}).
-\newblock \bibinfo{title}{A random forest guided tour}.
-\newblock {\it \bibinfo{journal}{TEST}\/},  {\it \bibinfo{volume}{25}\/},
-  \bibinfo{pages}{197--227}. \DOIprefix\doi{10/gdqdv3}.
 %Type = Inproceedings
 \bibitem[{Birattari et~al.(2002)Birattari, St\"utzle, Paquete \&
   Varrentrapp}]{Birattari2002}
@@ -576,6 +569,17 @@
   \bibinfo{volume}{101}\/}, \bibinfo{pages}{1--9}.
   \DOIprefix\doi{10.1016/j.envsoft.2017.12.001}.
 \newblock \bibinfo{note}{00004}.
+%Type = Article
+\bibitem[{Micheletti et~al.(2013)Micheletti, Foresti, Robert, Leuenberger,
+  Pedrazzini, Jaboyedoff \& Kanevski}]{Micheletti2013}
+\bibinfo{author}{Micheletti, N.}, \bibinfo{author}{Foresti, L.},
+  \bibinfo{author}{Robert, S.}, \bibinfo{author}{Leuenberger, M.},
+  \bibinfo{author}{Pedrazzini, A.}, \bibinfo{author}{Jaboyedoff, M.}, \&
+  \bibinfo{author}{Kanevski, M.} (\bibinfo{year}{2013}).
+\newblock \bibinfo{title}{Machine learning feature selection methods for
+  landslide susceptibility mapping}.
+\newblock {\it \bibinfo{journal}{Mathematical Geosciences}\/},  {\it
+  \bibinfo{volume}{46}\/}, \bibinfo{pages}{33--57}. \DOIprefix\doi{10/gdq9pf}.
 %Type = Article
 \bibitem[{Muenchow et~al.(2018)Muenchow, Dieker, Kluge, Kessler \& von
   Wehrden}]{muenchowReviewEcologicalGradient2018}

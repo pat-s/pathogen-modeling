@@ -576,9 +576,9 @@ In addition, if a model is going to be evaluated on a specific sampling scheme (
 \subsection{Predictive Performance}
 
 \subsubsection{Non-spatial vs. spatial CV}
-Our findings agree with previous studies in that non-spatial performance estimates appear to be substantially "better" than spatial performance estimates \citep{Meyer2018, MichelFetti2013, Roberts2017}.
+Our findings agree with previous studies in that non-spatial performance estimates appear to be substantially "better" than spatial performance estimates \citep{Meyer2018, Micheletti2013, Roberts2017}.
 However, this difference can be attributed to an overoptimistic bias in non-spatial performance estimates in the presence of spatial autocorrelation \citep{Goetz2015, Meyer2018, Russ2010a, Steger2016}.
-Spatial cross-validation is therefore required for performance estimation in spatial predictive modeling, and similar grouped cross-validation strategies have been proposed elsewhere in environmental as well as medical contexts to reduce bias in predictive performance \citep{Brenning2008, Meyer2018, Pena2015, Pohjankukka2017, Roberts2017}.
+Spatial cross-validation is therefore required for performance estimation in spatial predictive modeling, and similar grouped cross-validation strategies have been proposed elsewhere in environmental as well as medical contexts to reduce bias in predictive performance \citep{Brenning2008, Meyer2018, Pena2015, pohjankukkaEstimatingPredictionPerformance2017, Roberts2017}.
 
 \subsubsection{The effect of hyperparameter tuning on predictive accuracy}
 Although hyperparameter tuning certainly increased the predictive performance for BRT, GAM and KNN in our case, the magnitude always depends on the meaningful/arbitrary defaults of the respective algorithm and the characteristics of the dataset.
@@ -689,7 +689,7 @@ We thank two anonymous reviewers for their valuable comments to this manuscript.
 		\end{tabular}
 	\endgroup
 	\caption{Summary of numerical predictor variables. Precipitation (precip) in $\mathrm{mm/m^{2}}$, temperature (temp) in \degree C, solar radiation (pisr) in $\mathrm{kW/m^{2}}$, tree age (age) in years. Statistics show sample size ($\mathbf{n}$), minimum (\textbf{Min}), 25\% percentile ($\mathbf{q_1}$), median ($\mathbf{\widetilde{x}}$), mean ($\mathbf{\bar{x}}$), 75\% percentile ($\mathbf{q_3}$), maximum (\textbf{Max}), inner-quartile range (\textbf{IQR}) and NA Count (\textbf{\#NA}).}
-	\label{}
+	\label{table:descriptive_summary_numeric}
 	\end{table}
 
 % latex table generated in R 3.5.1 by xtable 1.8-3 package
@@ -734,7 +734,7 @@ We thank two anonymous reviewers for their valuable comments to this manuscript.
 	\end{tabular}
 	\endgroup
 	\caption{Summary of nominal predictor variables}
-	\label{}
+	\label{table:descriptive_summary_non_numeric}
 	\end{table}
 
 \pagebreak
