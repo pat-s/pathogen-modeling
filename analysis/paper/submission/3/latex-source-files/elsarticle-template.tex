@@ -586,7 +586,7 @@ Naturally, the tuning effect is higher for models without meaningful defaults (s
 To underline this statement, there was basically no tuning effect for SVM in this study (\autoref{fig:cv_final_boxplots}) although the SVM usually shows substantial increases when being tuned \citep{Rojas_Dominguez2018}.
 
 \subsubsection{Predictive performance across algorithms}
-Other studies also found that RF showed the best predictive performance (referring to setting \emph{spatial/spatial}) \citep{Bahn2012, Jarnevich2017, Smolinski2016, Vorpahl2012}.
+Other studies also found that RF showed the best predictive performance (referring to setting \emph{spatial/spatial}) \citep{Bahn2012, Jarnevich2017, Smolinski2016, Vorpahl2012} although this is not always the case \citep{Pena2015}.
 The fact that the GLM is showing a better performance than the GAM shows the heterogeneous train/test split introduced by spatial partitioning: The GAM is not able to generalize enough (i.e. it overfits on the training set) if the test set is substantially different to the training set.
 The high variance of the GAM performances in the spatial setting verify this: If the training set is somewhat similar to the test set, the GAM is able to achieve Brier score results around 0.19.
 In cases where training and test set are more heterogeneous, the predictive performance shows Brier score estimates up to 0.30.
