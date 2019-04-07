@@ -598,7 +598,7 @@ Highly flexible algorithms have a tendency to overfit when the test set differs 
 For instance, a test set located close to the sea might be hard to predict for models trained on data that was almost exclusively located in mountainous regions.
 In such a setting, a low degree of flexibility will result in better predictions.
 This example also shows the importance of traditional parametric approaches in ecological modeling: Often enough ecological datasets show a high degree of diversity and machine-learning models might suffer from overfitting.
-In this case, the interpretability, speed and generalization attributes of a GLM make this algorithm a valid choice, especially if the differences in predictive accuracy compared to black-box models is small.
+In this case, the interpretability, speed and generalization capabilities of a GLM make this algorithm a valid choice, especially if the differences in predictive accuracy compared to black-box models are small.
 
 \subsubsection{The influence of the performance measure}
 The choice of the scoring rule for the evaluation of binary classifications is an important decision \citep{Gneiting2007}.
@@ -608,6 +608,7 @@ In a previous version of this work we used \ac{AUROC} to rank the algorithms whi
 So by only changing the measure, GAM went from the best (AUROC) to the worst (Brier score) algorithm.
 This example highlights the importance of selecting a measure for benchmarking purposes that is classified as a proper scoring rule.
 However, analyzing the effect of different measures on benchmarking performance across algorithms exceeds the scope of this work.
+Nevertheless, the use of the AUROC is justifiable in situations where relative indices of susceptibility are sought instead of predicted probabilities (e.g., hazard susceptibility modeling, \cite{Goetz2015}).
 
 \subsubsection{A note on spatial autocorrelation structures in parametric models}
 In this work we expect that, on average, the predictive accuracy of parametric models with and without spatial autocorrelation structures is the same.
