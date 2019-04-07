@@ -622,16 +622,15 @@ However, if the aim is statistical inference, it is of utmost importance to incl
 In particular, reliable outcomes are indispensable in species distribution \citep{loehleDisequilibriumRelaxationTimes2018}, invasive species dispersal \citep{srivastavaMappingInvasionPotential2018}, and ecosystem service modeling \citep{watanabeDynamicEmergyAccounting2014}.
 Global change makes model predictions uncertain enough \citep{ipccSummaryPolicymakers2013}.
 Therefore, it is unnecessary to introduce an additional autocorrelation bias, especially since one can relatively easy account for it.
+We encourage the use of spatial CV for performance estimation \citep{Russ2010b, sperrorest}, variable importance assessment \citep{sperrorest, brenningDetectingRockGlacier2012} and hyperparameter tuning (this study).
 
 \subsection{Outlook}
 
 In this study, we focused on comparing resampling methods (spatial vs. non-spatial strategies) including hyperparameter tuning on a typical ecological dataset.
 Also we showed how to retrieve a bias-reduced performance estimate in the presence of spatial autocorrelation.
-Since we only used one dataset, our results are not generalizable.
+Since we only used one dataset, the numeric outcomes are not generalizable.
 Still, we believe that future studies adapting the approach presented in this work will help with finding general patterns.
 It would be interesting to see if a spatial hyperparameter tuning (\autoref{fig:nested_cv}) shows a more pronounced effect when other datasets are used.
-Initiatives like the \ac{CTF} by \cite{wikleCommonTaskFramework2017} are an approach to test methodologies on multiple datasets.
-However, outsourcing the analysis to a computing instance that is managed externally will not work for everyone.
 Most freely available datasets in the major repositories \citep{olsonPMLBLargeBenchmark2017, vanschorenOpenMLNetworkedScience2014} lack spatial information which obviously is the prerequisite for spatial data analysis.
 
 Finally, ecological observations are often sampled from the same locations over time.
