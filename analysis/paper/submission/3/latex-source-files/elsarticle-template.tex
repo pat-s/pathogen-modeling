@@ -10,12 +10,10 @@
 
 \documentclass[review]{elsarticle}
 
-% Figures Links, mittig und rechts platzieren
+% placement of figures
 \usepackage[export]{adjustbox}
 \usepackage{caption}
 \usepackage{subcaption}
-
-% \graphicspath{{../../../../04_figures/02_results/}{./}{../../../../04_figures/01_data/}}
 
 % prevents that appendices are moved behind references
 \usepackage{placeins}
@@ -116,10 +114,10 @@
 
 \linenumbers
 
-% längste Abkürzung steht hier!!! in eckigen Klammern
+% longest abbr. in brackets
 \begin{acronym}[AUROC]
 
-	% geringerer Zeilenabstand
+	% reduce line spacing
 	%\setlength{\itemsep}{-\parsep}
 	\acro{ANN}{Artificial Neural Network}
 	\acro{AUROC}{Area Under the Receiver Operating Characteristics Curve}
@@ -160,7 +158,7 @@ Infected forest stands cause economic as well as ecological damages worldwide \c
 In Spain, where timber production is regionally an important economic factor, about 25\% of the timber production stems from Monterrey pine (\textit{Pinus radiata}) plantations in northern Spain, and here mostly from the Basque Country \citep{Iturritxa2014}.
 Consequently, the early detection and subsequent containment of fungal diseases is of great importance.
 Statistical and machine-learning models can help in this process by mapping the current infection state and exploring relations between the pathogens and environmental variables.
-These findings can then be used for spatially predicting the risk of future outbreaks.
+These findings can then be used for spatially predicting the risk of future outbreaks. 
 
 \subsection{The special role of spatial autocorrelation in predictive modeling}
 \label{subsec:spcv_pred_mod}
@@ -410,7 +408,7 @@ To underline the crucial need for spatial \ac{CV} when assessing a model's perfo
 \begin{itemize}
 	\item Nested non-spatial \ac{CV} which uses random partitioning and non-spatial hyperparameter tuning (\emph{non-spatial/non-spatial})
 	\item Nested spatial \ac{CV} which uses k-means clustering for partitioning \citep{Brenning2005} and results in a spatial grouping of the observations in combination with non-spatial hyperparameter tuning (\emph{spatial/non-spatial})
-	\item Sested spatial \ac{CV} including spatial hyperparameter tuning (\emph{spatial/spatial})
+	\item Nested spatial \ac{CV} including spatial hyperparameter tuning (\emph{spatial/spatial})
 	\item Spatial \ac{CV} without hyperparameter tuning (\emph{spatial/no tuning})
 	\item Non-spatial \ac{CV} without hyperparameter tuning (\emph{non-spatial/no tuning})
 \end{itemize}
@@ -612,7 +610,7 @@ Nevertheless, the use of the AUROC is justifiable in situations where relative i
 
 \subsubsection{A note on spatial autocorrelation structures in parametric models}
 In this work we expect that, on average, parametric models with and without residual autocorrelation structures are comparable.
-However, since model comparisons have focused on model behaviour in statistical inference there is little research on this specific topic \citep{Dormann2007b, Mets2017} and a detailed analysis goes beyond the scope of this work.
+However, since model comparisons have focused on model behavior in statistical inference there is little research on this specific topic \citep{Dormann2007b, Mets2017} and a detailed analysis goes beyond the scope of this work.
 In our view, a possible analysis would need to re-estimate the spatial autocorrelation structure for every fold of a cross-validation using a data-driven approach (i.e. automatically fit a residual autocorrelation on each in the respective CV fold) and compare the results to the same model fitted without a spatial autocorrelation structure.
 Since we only focused on predictive accuracy in this work, we did not use spatial autocorrelation structures during model fitting for \ac{GLM} and \ac{GAM} to reduce runtime.
 However, if the aim is statistical inference, it is of utmost importance to include a spatial autocorrelation structure during model fitting.
@@ -688,7 +686,7 @@ We thank two anonymous reviewers for their valuable comments on an earlier versi
 	\endgroup
 	\caption{Summary of numerical predictor variables. Precipitation (precip) in $\mathrm{mm/m^{2}}$, temperature (temp) in \degree C, solar radiation (pisr) in $\mathrm{kW/m^{2}}$, tree age (age) in years. Statistics show sample size ($\mathbf{n}$), minimum (\textbf{Min}), 25th percentile ($\mathbf{q_1}$), median ($\mathbf{\widetilde{x}}$), mean ($\mathbf{\bar{x}}$), 75th percentile ($\mathbf{q_3}$), maximum (\textbf{Max}), inner-quartile range (\textbf{IQR}) and NA Count (\textbf{\#NA}).}
 	\label{table:descriptive_summary_numeric}
-	\end{table}
+	\end{table} 
 
 % latex table generated in R 3.5.1 by xtable 1.8-3 package
 % Mon Mar 18 14:56:49 2019
