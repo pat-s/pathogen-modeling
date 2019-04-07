@@ -587,10 +587,10 @@ To underline this statement, there was basically no tuning effect for SVM in thi
 
 \subsubsection{Predictive performance across algorithms}
 Other studies also found that RF showed the best predictive performance (referring to setting \emph{spatial/spatial}) \citep{Bahn2012, Jarnevich2017, Smolinski2016, Vorpahl2012} although this is not always the case \citep{Pena2015}.
-The fact that the GLM is showing a better performance than the GAM shows the heterogeneous train/test split introduced by spatial partitioning: The GAM was not able to generalize enough (i.e. it overfits on the training set) if the test set is substantially different from the training set.
-The high variance of the GAM performances in the spatial setting support this: If the training set is somewhat similar to the test set, the GAM is able to achieve Brier score results around 0.19.
-In cases where training and test set are more heterogeneous, the predictive performance shows Brier score estimates up to 0.30.
-Overall, the linear approach of the GLM is able to generalize better in this study and subsequently results in a better performance.
+The fact that the GLM is showing a better performance than the GAM shows the heterogeneous train/test split introduced by spatial partitioning: The GAM was probably not able to generalize enough (i.e. it overfitted on the training set) in the spatial resampling setting.
+The high variance of the GAM performances in the spatial setting support this assumption: If the training set is similar to the test set, the GAM is able to achieve Brier score results around 0.19.
+In cases where training and test set are more heterogeneous, the predictive performance showed Brier score estimates up to 0.30.
+The linear approach of the GLM was able to generalize better in this study and subsequently resulted in a better performance.
 
 It maybe surprising at first that the GLM is showing a showing a performance which is similar to that of BRT, KNN and SVM.
 This is most likely due to the ability of the algorithm to generalize.
