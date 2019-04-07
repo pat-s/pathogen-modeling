@@ -179,7 +179,7 @@ One approach to solve this, which has been applied in various studies in the las
 The naming of this concept varies with the scientific field in which it is applied: \cite{Burman1994, Roberts2017, Shao1993} label it "Block cross-validation", \cite{Brenning2005} as "spatial cross-validation", \cite{pohjankukkaEstimatingPredictionPerformance2017} "spatial k-fold cross-validation" and \cite{Meyer2018} "Leave-location-out cross-validation".
 In this work we use the term "spatial cross-validation" because it is the most generic wording to label this concept and hope that this naming convention will prevail.
 
-Although the importance of bias-reduced spatial resampling methods for performance estimation has been emphasized repeatedly in recent years \citep{Geiss2017, Meyer2018, Wenger2012}, unfortunately many studies have been published in recent years that did not account for this problem \citep{Bui2015, Pourghasemi2018, Smolinski2016, Wollan2008, Youssef2015}.
+Although the importance of bias-reduced spatial resampling methods for performance estimation has been emphasized repeatedly in recent years \citep{Geiss2017, Meyer2018, Wenger2012}, unfortunately many studies have been published in recent years that did not account for this problem \citep{Bui2015, Smolinski2016, Wollan2008, Youssef2015}.
 
 \subsection{Parametric vs. non-parametric algorithms}
 Supervised learning techniques can be broadly divided into parametric and non-parametric models.
@@ -633,31 +633,30 @@ Still, we believe that future studies adapting the approach presented in this wo
 It would be interesting to see if a spatial hyperparameter tuning (\autoref{fig:nested_cv}) shows a more pronounced effect when other datasets are used.
 Most freely available datasets in the major repositories \citep{olsonPMLBLargeBenchmark2017, vanschorenOpenMLNetworkedScience2014} lack spatial information which obviously is the prerequisite for spatial data analysis.
 
-Finally, ecological observations are often sampled from the same locations over time.
+Finally, ecological observations are often observed repeatedly at the same locations.
 In this case, the observations are most likely affected by both spatial and temporal autocorrelation.
 Therefore, one would have to adjust the methodology presented in this manuscript by incorporating the temporal dimension into the spatial resampling strategy.
-This means one has to make sure that all temporal observations of one location belong either to the test or the training dataset by applying dataset-aware resampling strategies \citep{Meyer2018}.
 
 \section{Conclusions}
 
 \noindent In this study, we compared six statistical and machine-learning models in terms of predictive performance.
 With the exception of SVM, all machine-learning models outperformed (semi-)parametric models.
-More important, we found that non-spatial partitioning yields largely overoptimistic performance results in the presence of spatial autocorrelation.
+More importantly, we found that non-spatial partitioning yields largely overoptimistic performance results in the presence of spatial autocorrelation.
 
 By contrast, the effect of hyperparameter tuning on the predictive performance was less obvious, varies by algorithm and was overall smaller than the performance differences between algorithms.
 Additionally, the performance differences between spatial and non-spatial hyperparameter tuning were rather small.
 %Still, hyperparameter tuning should always be performed using a sampling scheme that is consistent with the one used for the performance estimation.
 %% why??
-Still, we would recommend to use spatial \ac{CV} instead of non-spatial \ac{CV} when working with spatial data as only this ensures the assessment of bias-reduced predictive performance results for both hyperparameter tuning and performance estimation.
+Still, we would recommend to use spatial \ac{CV} instead of non-spatial \ac{CV} for hyperparameter tuning when working with spatial data as only this ensures the assessment of bias-reduced predictive performance results.
 This is especially important when the corresponding results form the basis of ecological and conservation decision making.
 
 Finally, we recommend to clearly identify the main goal of an analysis from the beginning:
 If the goal is to disentangle environmental-ecological relationships with the help of statistical inference, (semi-)parametric models should be favored even if they fare less well in terms of predictive accuracy.
-By contrast, if the intention is to produce highly accurate spatial prediction maps, spatially tuned machine-learning models might be the better choice.
+By contrast, if the intention is to produce highly accurate spatial prediction maps, spatially tuned machine-learning models may be the better choice.
 
 \section{Acknowledgments}
 This work was funded by the EU LIFE Healthy Forest project (LIFE14 ENV/ES/000179) and the German Scholars Organization/Carl Zeiss Foundation.
-We thank two anonymous reviewers for their valuable comments to this manuscript.
+We thank two anonymous reviewers for their valuable comments on an earlier version of this manuscript.
 
 \section{Appendix}
 
@@ -687,7 +686,7 @@ We thank two anonymous reviewers for their valuable comments to this manuscript.
 		age & 922 &  2.0 &  13.0 &  20.0 &  19.0 &  24.0 &  40.0 & 11.0 & 0 \\
 		\end{tabular}
 	\endgroup
-	\caption{Summary of numerical predictor variables. Precipitation (precip) in $\mathrm{mm/m^{2}}$, temperature (temp) in \degree C, solar radiation (pisr) in $\mathrm{kW/m^{2}}$, tree age (age) in years. Statistics show sample size ($\mathbf{n}$), minimum (\textbf{Min}), 25\% percentile ($\mathbf{q_1}$), median ($\mathbf{\widetilde{x}}$), mean ($\mathbf{\bar{x}}$), 75\% percentile ($\mathbf{q_3}$), maximum (\textbf{Max}), inner-quartile range (\textbf{IQR}) and NA Count (\textbf{\#NA}).}
+	\caption{Summary of numerical predictor variables. Precipitation (precip) in $\mathrm{mm/m^{2}}$, temperature (temp) in \degree C, solar radiation (pisr) in $\mathrm{kW/m^{2}}$, tree age (age) in years. Statistics show sample size ($\mathbf{n}$), minimum (\textbf{Min}), 25th percentile ($\mathbf{q_1}$), median ($\mathbf{\widetilde{x}}$), mean ($\mathbf{\bar{x}}$), 75th percentile ($\mathbf{q_3}$), maximum (\textbf{Max}), inner-quartile range (\textbf{IQR}) and NA Count (\textbf{\#NA}).}
 	\label{table:descriptive_summary_numeric}
 	\end{table}
 
@@ -697,7 +696,7 @@ We thank two anonymous reviewers for their valuable comments to this manuscript.
 	\centering
 	\begingroup\footnotesize
 	\begin{tabular}{ll|rr}
-	 \textbf{Variable} & \textbf{Levels} & $\mathbf{n}$ & $\mathbf{\%}$ \\
+	 \textbf{Variable} & \textbf{Levels} & $\mathbf{\#}$ & $\mathbf{\%}$ \\
 		\hline
 	diplo01 & 0 & 700 & 75.9 \\
 		 & 1 & 222 & 24.1 \\
