@@ -611,11 +611,11 @@ However, analyzing the effect of different measures on benchmarking performance 
 Nevertheless, the use of the AUROC is justifiable in situations where relative indices of susceptibility are sought instead of predicted probabilities (e.g., hazard susceptibility modeling, \cite{Goetz2015}).
 
 \subsubsection{A note on spatial autocorrelation structures in parametric models}
-In this work we expect that, on average, the predictive accuracy of parametric models with and without spatial autocorrelation structures is the same.
-However, there is little research on this specific topic \citep{Dormann2007b, Mets2017} and a detailed analysis goes beyond the scope of this work.
-In our view, a possible analysis would need to estimate the spatial autocorrelation structure of a model for every fold of a cross-validation using a data-driven approach (i.e. automatically estimate the spatial autocorrelation structure from each training set in the respective CV fold) and compare the results to the same model fitted without a spatial autocorrelation structure.
+In this work we expect that, on average, parametric models with and without residual autocorrelation structures are comparable.
+However, since model comparisons have focused on model behaviour in statistical inference there is little research on this specific topic \citep{Dormann2007b, Mets2017} and a detailed analysis goes beyond the scope of this work.
+In our view, a possible analysis would need to re-estimate the spatial autocorrelation structure for every fold of a cross-validation using a data-driven approach (i.e. automatically fit a residual autocorrelation on each in the respective CV fold) and compare the results to the same model fitted without a spatial autocorrelation structure.
 Since we only focused on predictive accuracy in this work, we did not use spatial autocorrelation structures during model fitting for \ac{GLM} and \ac{GAM} to reduce runtime.
-However, if the aim is statistical inference it is of utmost importance to include a spatial autocorrelation structure during model fitting.
+However, if the aim is statistical inference, it is of utmost importance to include a spatial autocorrelation structure during model fitting.
 
 \subsubsection{The effect of overoptimistic performance estimates on ecological decision making}
 \noindent Unbiased model outcomes are the foundation of informed ecological decision-making, biodiversity conservation as well as renaturation strategies \citep{muenchowReviewEcologicalGradient2018}.
