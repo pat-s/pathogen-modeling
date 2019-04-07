@@ -137,6 +137,16 @@
   \DOIprefix\doi{10/dq5s7q}.
 \newblock \bibinfo{note}{00017}.
 %Type = Article
+\bibitem[{Brenning et~al.(2012)Brenning, Long \&
+  Fieguth}]{brenningDetectingRockGlacier2012}
+\bibinfo{author}{Brenning, A.}, \bibinfo{author}{Long, S.}, \&
+  \bibinfo{author}{Fieguth, P.} (\bibinfo{year}{2012}).
+\newblock \bibinfo{title}{Detecting rock glacier flow structures using
+  {{Gabor}} filters and {{IKONOS}} imagery}.
+\newblock {\it \bibinfo{journal}{Remote Sensing of Environment}\/},  {\it
+  \bibinfo{volume}{125}\/}, \bibinfo{pages}{227--237}.
+  \DOIprefix\doi{10.1016/j.rse.2012.07.005}.
+%Type = Article
 \bibitem[{Brenning et~al.(2015)Brenning, Schwinn, {Ruiz-P\'aez} \&
   Muenchow}]{brenning_landslide_2015}
 \bibinfo{author}{Brenning, A.}, \bibinfo{author}{Schwinn, M.},
@@ -683,14 +693,6 @@
   Information Science}\/},  {\it \bibinfo{volume}{31}\/},
   \bibinfo{pages}{2001--2019}. \DOIprefix\doi{10/gdq9pg}.
 %Type = Article
-\bibitem[{Pourghasemi \& Rahmati(2018)}]{Pourghasemi2018}
-\bibinfo{author}{Pourghasemi, H.~R.}, \& \bibinfo{author}{Rahmati, O.}
-  (\bibinfo{year}{2018}).
-\newblock \bibinfo{title}{Prediction of the landslide susceptibility: {{Which}}
-  algorithm, which precision?}
-\newblock {\it \bibinfo{journal}{CATENA}\/},  {\it \bibinfo{volume}{162}\/},
-  \bibinfo{pages}{177--192}. \DOIprefix\doi{10/gcwqtx}.
-%Type = Article
 \bibitem[{Probst et~al.(2018{\natexlab{a}})Probst, Bischl \&
   Boulesteix}]{Probst2018a}
 \bibinfo{author}{Probst, P.}, \bibinfo{author}{Bischl, B.}, \&
@@ -782,6 +784,17 @@
   \bibinfo{pages}{184--195}).
 \newblock \bibinfo{publisher}{{Springer, Berlin, Heidelberg}}.
 \newblock \DOIprefix\doi{10.1007/978-3-642-13062-5_18} \bibinfo{note}{00010}.
+%Type = Incollection
+\bibitem[{Ru\ss \& Kruse(2010)}]{Russ2010b}
+\bibinfo{author}{Ru\ss, G.}, \& \bibinfo{author}{Kruse, R.}
+  (\bibinfo{year}{2010}).
+\newblock \bibinfo{title}{Regression {{Models}} for {{Spatial Data}}: {{An
+  Example}} from {{Precision Agriculture}}}.
+\newblock In {\it \bibinfo{booktitle}{Advances in {{Data Mining}}.
+  {{Applications}} and {{Theoretical Aspects}}}\/} (pp.
+  \bibinfo{pages}{450--463}).
+\newblock \bibinfo{publisher}{{Springer Berlin Heidelberg}}.
+\newblock \DOIprefix\doi{10.1007/978-3-642-14400-4_35} \bibinfo{note}{00007}.
 %Type = Book
 \bibitem[{Schliep \& Hechenbichler(2016)}]{kknn}
 \bibinfo{author}{Schliep, K.}, \& \bibinfo{author}{Hechenbichler, K.}
@@ -942,14 +955,6 @@
 \newblock {\it \bibinfo{journal}{Ecological Modelling}\/},  {\it
   \bibinfo{volume}{352}\/}, \bibinfo{pages}{108--112}.
   \DOIprefix\doi{10/f96529}.
-%Type = Misc
-\bibitem[{Wikle et~al.(2017)Wikle, Cressie, {Zammit-Mangion} \&
-  Shumack}]{wikleCommonTaskFramework2017}
-\bibinfo{author}{Wikle, C.~K.}, \bibinfo{author}{Cressie, N. A.~C.},
-  \bibinfo{author}{{Zammit-Mangion}, A.}, \& \bibinfo{author}{Shumack, C.}
-  (\bibinfo{year}{2017}).
-\newblock \bibinfo{title}{A {{Common Task Framework}} ({{CTF}}) for {{Objective
-  Comparison}} of {{Spatial Prediction Methodologies}} - {{Statistics Views}}}.
 %Type = Article
 \bibitem[{Wingfield et~al.(2008)Wingfield, Hammerbacher, Ganley, Steenkamp,
   Gordon, Wingfield \& Coutinho}]{Wingfield2008}
