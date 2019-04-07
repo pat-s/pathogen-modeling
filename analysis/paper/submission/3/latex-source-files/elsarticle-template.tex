@@ -547,27 +547,30 @@ No major differences in model performances were found when using spatial versus 
 
 The winning algorithm RF is used to discuss the optimal estimated hyperparameters per fold of the spatial and non-spatial tuning setting in more detail.
 Although the tuning of RF had no substantial effect on predictive performance (\autoref{fig:cv_final_boxplots}), the estimated optimal hyperparameters of RF differ for the non-spatial and spatial tuning setting (\autoref{fig:best_parameter_combs}).
-We split the following discussion into two points: (1) The nature of the algorithm and (2) the implications which method should be chosen.
+We split the following discussion into two points: (1) Explanation of the differences and (2) the implications of choosing a specific resampling method.
 
-(1) In a non-spatial tuning setting, RF will prioritize spatially autocorrelated predictors because these will yield the best performance results in the internal variable selection process that uses the \textit{Gini impurity measure} \citep{Biau2016, Gordon1984}.
-The conditions for being selected as an "important predictor" in a non-spatial tuning setting are two fold: First, the predictor needs to be important for the model in general (e.g. by having a strong correlation to the response).
-Next, it should have a medium-high spatial autocorrelation, so that the model will yield good test set results. 
-By selecting predictors with these characteristics, the algorithm is able to achieve good performances because the trained patterns appear almost identical in the test set.
-The resulting performances are then overoptimistic as they benefit highly from the non-spatial sampling scheme.
+(1) The resampling method has no direct effect on how RF prioritizes variables internally. 
+The Gini Impurity Index which is used to choose the variable that is used for splitting a node is calculated on a bootstrapped sample from the training data of the respective fold \citep{Breiman2001}. 
+This applies for both spatial and non-spatial tuning. 
+The Gini Index is not affected by spatial autocorrelation in this setting and RF will select the same variables in both resampling settings.
+Next RF is trained using the specific hyperparameter set which was given in this fold (for example \texttt{$m_{try}$ = 3} and \texttt{$min.node.size$ = 4}).
+Now the effect of choosing different resampling strategies applies: 
 
-In the pre-selection for the non-spatial tuning setting, \texttt{$m_{try}$} values around 3 - 5 are favored because they provide a fair chance of having one of the strong autocorrelated predictors included in the selection.
-At the same time, \texttt{$m_{try}$} is low enough to prevent overfitting on the training data because the autocorrelated predictors are not always available to the algorithm.
+\begin{itemize}
+	\item In the spatial setting, RF scored a low performance on the test set. The trained model overfitted on the training set.
+	\item In the non-spatial setting, RF scored a good performance on the test. Here, the test set was highly similar to the training set and fitting the model closely to the training data resulted in good test set results.
+\end{itemize}
 
-In the spatial tuning setting, mainly \texttt{$m_{try}$ = 1} is chosen.
-This specific value essentially removes the internal variable selection process by \texttt{$m_{try}$} as RF is forced to use the predictor that was randomly assigned.
-Subsequently, on average, each predictor will be chosen equally often and the higher weighting of spatially autocorrelated predictors in the final model (by choosing them more often in the trees) does not apply.
-This leads to a more general model that apparently performs better on heterogeneous datasets (e.g. if training and test data are less affected by spatial autocorrelation) as it is the case in a spatial sampling.
+The higher \texttt{$m_{try}$} and the lower \texttt{$min.node.size$} are chosen, the more RF will overfit on the given data.
+This statement is backed up by the visualization of the chosen hyperparameter settings in each fold (\autoref{fig:best_parameter_combs}).
 
-(2) Even though the estimated hyperparameters from a spatial and non-spatial sampling differ, they roughly achieve the same performance when being evaluated at the performance estimation level of the CV.
-However, this outcome may depend on the specific characteristics of this dataset.
-It needs to be verified by using other spatial datasets.
-Performance differences might be more substantial when using either \texttt{$m_{try}$ = 1} or \texttt{$m_{try}$ = 3} on datasets with different characteristics.
-This applies also to all other algorithms used in this study.
+\noindent Ultimately, a spatial resampling in the tuning setting forces the algorithm to create a model that is more regularized than it would be in the case of a non-spatial resampling setting.
+This applies to all algorithms.
+
+(2) Even though the estimated hyperparameters from a spatial and non-spatial sampling differ, they sometimes achieve the same performance when being evaluated at the performance estimation level of the CV (\autoref{fig:cv_final_boxplots}).
+This outcome depends on the specific characteristics of the chosen dataset and algorithm.
+For example, SVM showed substantial differences between the resampling methods chosen during tuning while the effect for KNN was negligible small.
+The findings of this work need to be verified by using other spatial datasets (and algorithms).
 In addition, if a model is going to be evaluated on a specific sampling scheme (here spatial sampling), we see no valid argument why its hyperparameters should be trained on a different sampling scheme if the predictive performances do not differ significantly.
 
 \subsection{Predictive Performance}
