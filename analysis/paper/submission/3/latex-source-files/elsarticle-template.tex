@@ -165,7 +165,7 @@ These findings can then be used for spatially predicting the risk of future outb
 All of the previously mentioned scientific fields have one thing in common: The observations inherit spatial information.
 One of the main challenges that comes with this information is the accounting for the influence of spatial autocorrelation in the data \citep{Legendre1993}.
 Cross-validation and bootstrapping are two widely used performance estimation techniques \citep{Efron1983, Gordon1984, Kohavi1995}.
-However, in the presence of spatial autocorrelation, estimates obtained using regular (non-spatial) random resampling may be biased and overoptimistic.
+However, in the presence of spatial autocorrelation, estimates obtained using regular (non-spatial) random resampling maybe biased and overoptimistic.
 This has led to the adoption of spatial resampling in cross-validation and bootstrapping for bias reduction.
 The mentioned bias inherits from the fact that training and test observations are located close to each other (in a geographical space) if a random sampling is used in \ac{CV} \citep{Legendre1993}.
 Random sampling in CV leads to the selection of test observations that are spatially close to training observations.
@@ -567,9 +567,9 @@ This applies to all algorithms.
 
 (2) Even though the estimated hyperparameters from a spatial and non-spatial sampling differ, they sometimes achieve the same performance when being evaluated at the performance estimation level of the CV (\autoref{fig:cv_final_boxplots}).
 This outcome depends on the specific characteristics of the chosen dataset and algorithm.
-For example, SVM showed substantial differences between the resampling methods chosen during tuning while the effect for KNN was negligible small.
+For example, SVM showed substantial differences between the resampling methods chosen during tuning while the effect for KNN was negligibly small.
 The findings of this work need to be verified by using other spatial datasets (and algorithms).
-In addition, if a model is going to be evaluated on a specific sampling scheme (here spatial sampling), we see no valid argument why its hyperparameters should be trained on a different sampling scheme if the predictive performances do not differ significantly.
+In addition, if a model is going to be evaluated on a specific sampling scheme (here spatial sampling), we see no valid argument why its hyperparameters should be trained on a different sampling scheme if the predictive performances do nlibot differ significantly.
 
 \subsection{Predictive Performance}
 
@@ -650,7 +650,7 @@ This is especially important when the corresponding results form the basis of ec
 
 Finally, we recommend to clearly identify the main goal of an analysis from the beginning:
 If the goal is to disentangle environmental-ecological relationships with the help of statistical inference, (semi-)parametric models should be favored even if they fare less well in terms of predictive accuracy.
-By contrast, if the intention is to produce highly accurate spatial prediction maps, spatially tuned machine-learning models may be the better choice.
+By contrast, if the intention is to produce highly accurate spatial prediction maps, spatially tuned machine-learning models maybe the better choice.
 
 \section{Acknowledgments}
 This work was funded by the EU LIFE Healthy Forest project (LIFE14 ENV/ES/000179) and the German Scholars Organization/Carl Zeiss Foundation.
