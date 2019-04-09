@@ -1,5 +1,5 @@
 
-[![Last-changedate](https://img.shields.io/badge/last%20change-2019--04--02-brightgreen.svg)](https://github.com/pat-s/pathogen-modeling/commits/master)
+[![Last-changedate](https://img.shields.io/badge/last%20change-2019--04--09-brightgreen.svg)](https://github.com/pat-s/pathogen-modeling/commits/master)
 [![minimal R
 version](https://img.shields.io/badge/R%3E%3D-3.5.0-brightgreen.svg)](https://cran.r-project.org/)
 [![Licence](https://img.shields.io/github/license/mashape/apistatus.svg)](http://choosealicense.com/licenses/mit/)  
@@ -85,18 +85,26 @@ r_make() # recreates the analysis
 Predicted total runtime. The time is based on all targets that have been
 created so far in the project. Estimated time will differ depending on
 the CPU speed and possible availability of a HPC. Here, we assume that
-the analysis is run on a cluster with three compute nodes (= “jobs”).
+the analysis is run on a cluster with three compute nodes (=
+    “jobs”).
 
 ``` r
 source("_drake.R")
 ```
 
+    ## The interface at https://ropenscilabs.github.io/drake-manual/plans.html#large-plans is better than evaluate_plan(), map_plan(), gather_by(), etc.
+
     ## cache /home/patrick/git/pathogen-modeling/.drake
 
     ## analyze environment
 
-    ## Unloading targets from environment:
-    ##   prediction_maps
+    ## analyze 59 imports: dataset_tables_plan, prediction_prob_plan, age_imput...
+
+    ## analyze 308 targets: armillaria_data, heterobasidion_data, diplodia_data...
+
+    ## construct graph edges
+
+    ## construct graph
 
 ``` r
 config = drake_config(plan, targets = "benchmark_evaluation_report_diplodia")
