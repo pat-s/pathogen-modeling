@@ -84,7 +84,7 @@ r_make() # recreates the analysis
 
 In the `drake` philosophy, every R object is a “target” with
 dependencies. This repository contains more targets than actually needed
-to replicate the associtated publication.
+to replicate the associated publication.
 
 If you want to replicate the publication, you need to build the
 following targets:
@@ -99,31 +99,6 @@ HPC infrastructure that was used to generate the outputs. This means
 that replicating this analysis sequentially will take weeks (\> 4).
 Unless you have a scalable system to run the analysis on, sequential
 replication is not encouraged.
-
-# Runtime
-
-Predicted total runtime. The time is based on all targets that have been
-created so far in the project. Estimated time will differ depending on
-the CPU speed and possible availability of a HPC. Here, we assume that
-the analysis is run on a cluster with three compute nodes (=
-    “jobs”).
-
-``` r
-source("_drake.R")
-```
-
-    ## The interface at https://ropenscilabs.github.io/drake-manual/plans.html#large-plans is better than evaluate_plan(), map_plan(), gather_by(), etc.
-
-    ## cache /home/patrick/git/pathogen-modeling/.drake
-
-    ## analyze environment
-
-``` r
-config = drake_config(plan, targets = "benchmark_evaluation_report_diplodia")
-predict_runtime(config, from_scratch = TRUE, jobs = 3)
-```
-
-    ## [1] "404.412s (~6.74 minutes)"
 
 # Licenses
 

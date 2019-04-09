@@ -64,7 +64,7 @@ r_make() # recreates the analysis
 # Structure of the analysis
 
 In the `drake` philosophy, every R object is a "target" with dependencies.
-This repository contains more targets than actually needed to replicate the associtated publication.
+This repository contains more targets than actually needed to replicate the associated publication.
 
 If you want to replicate the publication, you need to build the following targets:
 
@@ -76,19 +76,6 @@ If you want to replicate the publication, you need to build the following target
 Please note that when replicating these targets you cannot use the same HPC infrastructure that was used to generate the outputs. 
 This means that replicating this analysis sequentially will take weeks (> 4).
 Unless you have a scalable system to run the analysis on, sequential replication is not encouraged.
-
-# Runtime
-
-Predicted total runtime.
-The time is based on all targets that have been created so far in the project.
-Estimated time will differ depending on the CPU speed and possible availability of a HPC.
-Here, we assume that the analysis is run on a cluster with three compute nodes (= "jobs").
-
-```{r README-5, warning=FALSE}
-source("_drake.R")
-config = drake_config(plan, targets = "benchmark_evaluation_report_diplodia")
-predict_runtime(config, from_scratch = TRUE, jobs = 3)
-```
 
 # Licenses
 
