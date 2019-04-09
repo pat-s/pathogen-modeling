@@ -60,9 +60,7 @@ args_pred[7, "id"] = "prediction_gam_fusarium"
 args_pred[8, "id"] = "prediction_gam_armillaria"
 args_pred[9, "id"] = "prediction_gam_heterobasidion"
 
-prediction_prob = map_plan(args_pred, prediction_custom, trace = FALSE)
-
-rm(args_pred)
+prediction_prob_plan = map_plan(args_pred, prediction_custom, trace = FALSE)
 
 
 # prediction maps ---------------------------------------------------------
@@ -135,4 +133,6 @@ args_pred$id = suppressWarnings(paste0("maps_", gsub("prediction_", "", args_pre
 args_pred$prediction_raster = rlang::syms(args_pred$prediction_raster)
 args_pred$benchmark_object = rlang::syms(args_pred$benchmark_object)
 
-prediction_maps = map_plan(args_pred, create_prediction_map, trace = FALSE)
+prediction_maps_plan = map_plan(args_pred, create_prediction_map, trace = FALSE)
+
+rm(list=ls(pattern="args_pred"))

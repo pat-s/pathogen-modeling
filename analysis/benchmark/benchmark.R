@@ -326,3 +326,5 @@ benchmark_plan = bind_plans(benchmark_sp_sp_armillaria, benchmark_sp_sp_diplodia
 )
 
 rm(list=ls(pattern="args_"))
+rm(list=ls(pattern="benchmark_nsp"))
+rm(list=ls(pattern="benchmark_sp"))

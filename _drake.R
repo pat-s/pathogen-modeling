@@ -3,14 +3,14 @@ source("analysis/99-packages.R")
 sourceDirectory("R/")
 
 data_plan = code_to_plan("analysis/data/data.R")
-task = code_to_plan("analysis/data/task.R")
-learners = code_to_plan("analysis/mlr-settings/learner.R")
-resampling = code_to_plan("analysis/mlr-settings/resampling.R")
-param_set = code_to_plan("analysis/mlr-settings/param-set.R")
-tune_ctrl = code_to_plan("analysis/mlr-settings/tune_ctrl_mbo.R")
-tuning_wrapper = code_to_plan("analysis/mlr-settings/tuning.R")
-visualization = code_to_plan("analysis/visualization/vis-partitions.R")
-dataset_tables = code_to_plan("analysis/visualization/create_dataset_tables.R")
+task_plan = code_to_plan("analysis/data/task.R")
+learners_plan = code_to_plan("analysis/mlr-settings/learner.R")
+resampling_plan = code_to_plan("analysis/mlr-settings/resampling.R")
+param_set_plan = code_to_plan("analysis/mlr-settings/param-set.R")
+tune_ctrl_plan = code_to_plan("analysis/mlr-settings/tune_ctrl_mbo.R")
+tuning_wrapper_plan = code_to_plan("analysis/mlr-settings/tuning.R")
+visualization_plan = code_to_plan("analysis/visualization/vis-partitions.R")
+dataset_tables_plan = code_to_plan("analysis/visualization/create_dataset_tables.R")
 source("analysis/benchmark/aggregate-results.R")
 source("analysis/benchmark/benchmark.R")
 source("analysis/prediction/prediction.R")
@@ -20,38 +20,39 @@ source("https://raw.githubusercontent.com/mlr-org/mlr-extralearner/master/R/RLea
 
 # grouping for visualization
 data_plan$stage = "data"
-task$stage = "data"
-learners$stage = "learner"
-resampling$stage = "mlr_settings"
-param_set$stage = "mlr_settings"
-tune_ctrl$stage = "mlr_settings"
-tuning_wrapper$stage = "learner"
+task_plan$stage = "data"
+learners_plan$stage = "learner"
+resampling_plan$stage = "mlr_settings"
+param_set_plan$stage = "mlr_settings"
+tune_ctrl_plan$stage = "mlr_settings"
+tuning_wrapper_plan$stage = "learner"
 benchmark_plan$stage = "benchmark"
 bmr_aggr_path_resamp$stage = "benchmark"
 bmr_aggr_model_resamp$stage = "benchmark"
 no_extract_plan$stage = "benchmark"
 bm_all_pathogens_plan$stage = "benchmark"
-prediction_prob$stage = "prediction"
-prediction_maps$stage = "prediction"
+prediction_prob_plan$stage = "prediction"
+prediction_maps_plan$stage = "prediction"
 reports_plan$stage = "reports"
-visualization$stage = "visualization"
-dataset_tables$stage = "visualization"
+visualization_plan$stage = "visualization"
+dataset_tables_plan$stage = "visualization"
 
 # Combine all -------------------------------------------------------------
 
-plan = bind_plans(data_plan, task, learners, resampling, param_set,
-                  tune_ctrl, tuning_wrapper,
+plan = bind_plans(data_plan, task_plan, learners_plan, resampling_plan,
+                  param_set_plan, tune_ctrl_plan, tuning_wrapper_plan,
 
-                  bmr_aggr_path_resamp,
-                  bmr_aggr_model_resamp,
+                  bmr_aggr_path_resamp_plan,
+                  bmr_aggr_model_resamp_plan,
                   bm_all_pathogens_plan,
                   no_extract_plan,
                   benchmark_plan,
 
-                  prediction_prob,
-                  prediction_maps,
-                  reports_plan, visualization,
-                  dataset_tables)
+                  prediction_prob_plan,
+                  prediction_maps_plan,
+                  reports_plan,
+                  visualization_plan,
+                  dataset_tables_plan)
 
 plan %<>% mutate(stage = as.factor(stage))
 
@@ -63,27 +64,4 @@ options(
 ### Show log in console
 # watch -n .1 tail -n 40 ~/git/pathogen-modeling/drake.log
 
-# drake_config(plan, verbose = 2, targets = c("bm_nsp_nsp_diplodia_gam", "benchmark_evaluation_report_all", "bm_sp_sp_diplodia_brt"), console_log_file = "log/drake2.log",
-#              lazy_load = "promise", caching = "worker", template = list(log_file = "log/worker2-%a.log", n_cpus= 32),
-#              garbage_collection = TRUE, jobs = 3, parallelism = "clustermq")
-#
-drake_config(plan, verbose = 2, targets = c("benchmark_evaluation_report_all"),
-             cache_log_file = "log/cache_log.txt",
-             console_log_file = "log/drake.log",
-             lazy_load = "promise", caching = "worker",
-             memory_strategy = "memory",
-             template = list(log_file = "log/worker%a.log", n_cpus= 32),
-             garbage_collection = TRUE, jobs = 3, parallelism = "clustermq")
-
-# drake_config(plan, verbose = 2, targets = "bm_sp_non_diplodia_glm_old", console_log_file = stdout())
-
-# make(plan, verbose = 2, targets = c("bm_sp_sp_armillaria_xgboost", "bm_sp_sp_armillaria_brt", "bm_sp_sp_armillaria_kknn"),
-#      cache_log_file = "log/cache_log.txt",
-#      console_log_file = "log/drake.log",
-#      lazy_load = "promise", caching = "worker",
-#      template = list(log_file = "log/worker%a.log", n_cpus= 32),
-#      memory_strategy = "memory",
-#      garbage_collection = TRUE, jobs = 3, parallelism = "clustermq")
-
-#rm(list=ls(pattern="benchmark_"))
-#rm(list=ls(pattern="_plan"))
+drake_config(plan, verbose = 2)

@@ -1,7 +1,7 @@
 
 # Aggregate by pathogen + resampling --------------------------------------
 
-bmr_aggr_path_resamp = drake_plan(bm_sp_sp_diplodia = mergeBenchmarkResults(list(bm_sp_sp_diplodia_gam,
+bmr_aggr_path_resamp_plan = drake_plan(bm_sp_sp_diplodia = mergeBenchmarkResults(list(bm_sp_sp_diplodia_gam,
                                                                                  bm_sp_sp_diplodia_kknn, bm_sp_sp_diplodia_rf,
                                                                                  bm_sp_sp_diplodia_svm, bm_sp_sp_diplodia_brt)),
                                   bm_sp_sp_diplodia2 = mergeBenchmarkResults(list(bm_sp_sp_diplodia_gam,
@@ -124,7 +124,7 @@ bmr_aggr_path_resamp = drake_plan(bm_sp_sp_diplodia = mergeBenchmarkResults(list
 
 # Aggregate by model + resampling --------------------------------------
 
-bmr_aggr_model_resamp = drake_plan(
+bmr_aggr_model_resamp_plan = drake_plan(
 
   bm_sp_sp_svm = mergeBenchmarkResults(list(
     bm_sp_sp_armillaria_svm, bm_sp_sp_diplodia_svm,
