@@ -61,6 +61,22 @@ packrat::restore() # restores all R packages with their specific version
 r_make() # recreates the analysis
 ```
 
+# Structure of the analysis
+
+In the `drake` philosophy, every R object is a "target" with dependencies.
+This repository contains more targets than actually needed to replicate the associtated publication.
+
+If you want to replicate the publication, you need to build the following targets:
+
+- `benchmark_eval_diplodia_all` (Benchmark comparison report)
+- `visualize_opt_paths`(Optimization path figure)
+- `visualize_tuning_effects` (Tuning effects figure)
+- `visualize_partitions` (Partition figure)
+
+Please note that when replicating these targets you cannot use the same HPC infrastructure that was used to generate the outputs. 
+This means that replicating this analysis sequentially will take weeks (> 4).
+Unless you have a scalable system to run the analysis on, sequential replication is not encouraged.
+
 # Runtime
 
 Predicted total runtime.
