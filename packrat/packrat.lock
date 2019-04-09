@@ -5,7 +5,7 @@ Repos: BioCsoft=https://bioconductor.org/packages/3.8/bioc,
     BioCann=https://bioconductor.org/packages/3.8/data/annotation,
     BioCexp=https://bioconductor.org/packages/3.8/data/experiment,
     BioCworkflows=https://bioconductor.org/packages/3.8/workflows,
-    CRAN=https://cran.uni-muenster.de/
+    CRAN=https://ftp.fau.de/cran/
 
 Package: BBmisc
 Source: CRAN
