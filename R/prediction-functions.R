@@ -77,6 +77,8 @@ prediction_custom = function(..., learner, param_set, tune_ctrl, resampling,
 
     # Create predictions ---------------------------------------------------
 
+  fit = map(fit, ~ .x)
+
     # if (fit$learner.model == "xgboost") {
     #   fit <- fit[tasks[[1]]$learner.model$feature_names]
     # }
