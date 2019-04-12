@@ -56,10 +56,9 @@ plan = bind_plans(data_plan, task_plan, learners_plan, resampling_plan,
 
 plan %<>% mutate(stage = as.factor(stage))
 
-options(
-  clustermq.scheduler = "slurm",
-  clustermq.template = "~/git/pathogen-modeling/slurm_clustermq.tmpl"
-)
+options(clustermq.scheduler = "slurm",
+        clustermq.template = "~/papers/2018-model-comparison/slurm_clustermq.tmpl")
+
 
 ### Show log in console
 # watch -n .1 tail -n 40 ~/git/pathogen-modeling/drake.log
