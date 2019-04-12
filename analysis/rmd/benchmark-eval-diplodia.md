@@ -31,11 +31,11 @@ no_extract_bm_sp_sp_diplodia %>%
 
 ```
 ##    task.id           learner.id brier.test.mean timetrain.test.mean
-## 1 diplodia    classif.gam.tuned       0.2118220           170.01416
-## 2 diplodia    classif.svm.tuned       0.1972381           113.22662
-## 3 diplodia   classif.kknn.tuned       0.1956182            90.70678
-## 4 diplodia    classif.gbm.tuned       0.1780292           925.19630
-## 5 diplodia classif.ranger.tuned       0.1650495           150.69493
+## 1 diplodia    classif.gam.tuned       0.2118220            172.8907
+## 2 diplodia    classif.svm.tuned       0.1972381            121.7302
+## 3 diplodia   classif.kknn.tuned       0.1956182             89.7017
+## 4 diplodia    classif.gbm.tuned       0.1780292            914.8390
+## 5 diplodia classif.ranger.tuned       0.1650495            152.3016
 ```
 
 ### Visualize
@@ -89,11 +89,11 @@ no_extract_bm_sp_nsp_diplodia %>%
 
 ```
 ##    task.id           learner.id brier.test.mean timetrain.test.mean
-## 1 diplodia    classif.svm.tuned       0.2239936           195.40948
-## 2 diplodia    classif.gam.tuned       0.2126723           173.69348
-## 3 diplodia   classif.kknn.tuned       0.1949616            92.64619
-## 4 diplodia    classif.gbm.tuned       0.1926850          1428.34169
-## 5 diplodia classif.ranger.tuned       0.1607841           213.12914
+## 1 diplodia    classif.svm.tuned       0.2239936            193.1366
+## 2 diplodia    classif.gam.tuned       0.2126723            166.7119
+## 3 diplodia   classif.kknn.tuned       0.1949616             91.2443
+## 4 diplodia    classif.gbm.tuned       0.1926850           1415.8899
+## 5 diplodia classif.ranger.tuned       0.1607841            213.8969
 ```
 
 ### Visualize
@@ -148,11 +148,11 @@ no_extract_bm_nsp_nsp_diplodia %>%
 
 ```
 ##    task.id           learner.id brier.test.mean timetrain.test.mean
-## 1 diplodia    classif.gam.tuned      0.13828131           173.88212
-## 2 diplodia    classif.svm.tuned      0.12183801           201.08392
-## 3 diplodia   classif.kknn.tuned      0.11960121            92.65495
-## 4 diplodia    classif.gbm.tuned      0.09626146          1279.78120
-## 5 diplodia classif.ranger.tuned      0.08844688           219.48629
+## 1 diplodia    classif.gam.tuned      0.13828131           168.40803
+## 2 diplodia    classif.svm.tuned      0.12183801           198.81407
+## 3 diplodia   classif.kknn.tuned      0.11960121            90.90356
+## 4 diplodia    classif.gbm.tuned      0.09626146          1265.36845
+## 5 diplodia classif.ranger.tuned      0.08844688           222.10920
 ```
 
 ### Visualize
@@ -207,12 +207,12 @@ no_extract_bm_nsp_non_diplodia %>%
 
 ```
 ##    task.id       learner.id brier.test.mean timetrain.test.mean
-## 1 diplodia      classif.svm      0.15953720            0.251526
-## 2 diplodia      classif.gam      0.13784101            0.268174
-## 3 diplodia classif.binomial      0.11916360            0.020952
-## 4 diplodia     classif.kknn      0.11893981            0.000590
-## 5 diplodia      classif.gbm      0.10556276            0.049274
-## 6 diplodia   classif.ranger      0.09234835            0.278520
+## 1 diplodia      classif.svm      0.15953720            0.247544
+## 2 diplodia      classif.gam      0.13784101            0.248172
+## 3 diplodia classif.binomial      0.11916360            0.021568
+## 4 diplodia     classif.kknn      0.11893981            0.000880
+## 5 diplodia      classif.gbm      0.10556276            0.051542
+## 6 diplodia   classif.ranger      0.09234835            0.251736
 ```
 
 ### Visualize
@@ -279,12 +279,12 @@ no_extract_bm_sp_non_diplodia %>%
 
 ```
 ##    task.id       learner.id brier.test.mean timetrain.test.mean
-## 1 diplodia      classif.gam       0.2372448            0.251176
-## 2 diplodia      classif.svm       0.2008383            0.250330
-## 3 diplodia classif.binomial       0.1959824            0.035560
-## 4 diplodia      classif.gbm       0.1776288            0.048726
-## 5 diplodia     classif.kknn       0.1732633            0.000520
-## 6 diplodia   classif.ranger       0.1588658            0.275670
+## 1 diplodia      classif.gam       0.2372448            0.248700
+## 2 diplodia      classif.svm       0.2008383            0.240998
+## 3 diplodia classif.binomial       0.1959824            0.019416
+## 4 diplodia      classif.gbm       0.1776288            0.050382
+## 5 diplodia     classif.kknn       0.1732633            0.000854
+## 6 diplodia   classif.ranger       0.1588658            0.246136
 ```
 
 ### Visualize

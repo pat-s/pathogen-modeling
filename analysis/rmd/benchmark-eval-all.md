@@ -60,24 +60,24 @@ bm_all_pathogens_sp_sp %>%
 ## 17 heterobasidion     classif.gbm.tuned       0.1828938
 ## 18 heterobasidion  classif.ranger.tuned       0.1657267
 ##    timetrain.test.mean
-## 1            928.52180
-## 2            170.01416
-## 3            113.22662
-## 4             90.70678
-## 5            925.19630
-## 6            150.69493
-## 7            718.34417
-## 8            108.11546
-## 9            100.13127
-## 10           180.05010
-## 11          1236.72109
-## 12           198.59888
-## 13           161.43181
-## 14            88.70464
-## 15           822.48470
-## 16           135.53046
-## 17          1000.97538
-## 18           140.02765
+## 1            926.28370
+## 2            172.89070
+## 3            121.73020
+## 4             89.70170
+## 5            914.83904
+## 6            152.30163
+## 7            715.88053
+## 8             89.23967
+## 9             98.26001
+## 10           177.54682
+## 11          1229.79645
+## 12           130.69985
+## 13           147.98625
+## 14            83.88350
+## 15           816.28244
+## 16           123.99573
+## 17           999.13126
+## 18           128.88789
 ```
 
 ### Visualize
@@ -158,30 +158,30 @@ bm_all_pathogens_sp_nsp %>%
 ## 23 heterobasidion     classif.svm.tuned       0.1793335
 ## 24 heterobasidion  classif.ranger.tuned       0.1599481
 ##    timetrain.test.mean
-## 1             88.16312
-## 2            153.28864
-## 3           2158.87684
-## 4           1119.66581
-## 5            151.55299
-## 6            356.71093
-## 7            195.40948
-## 8           1025.46221
-## 9            173.69348
-## 10            92.64619
-## 11          1428.34169
-## 12           213.12914
-## 13           746.44306
-## 14            90.48085
-## 15           108.29220
-## 16           174.80830
-## 17          1539.47942
-## 18           155.34350
-## 19            88.07733
-## 20           160.52849
-## 21           898.70975
-## 22          1639.24550
-## 23           137.50787
-## 24           180.92813
+## 1             85.53943
+## 2            147.36127
+## 3           1353.07902
+## 4           1111.70393
+## 5            137.97026
+## 6            218.33032
+## 7            193.13660
+## 8           1023.47379
+## 9            166.71188
+## 10            91.24430
+## 11          1415.88988
+## 12           213.89695
+## 13           750.15063
+## 14            90.43071
+## 15           105.20960
+## 16           179.70380
+## 17          1536.52044
+## 18           156.06088
+## 19            85.59007
+## 20           147.88502
+## 21           895.26899
+## 22          1636.11106
+## 23           128.31889
+## 24           170.81731
 ```
 
 ### Visualize
@@ -268,30 +268,30 @@ bm_all_pathogens_nsp_nsp %>%
 ## 23 heterobasidion     classif.gbm.tuned      0.04366813
 ## 24 heterobasidion  classif.ranger.tuned      0.03974149
 ##    timetrain.test.mean
-## 1            153.71260
-## 2           1140.98963
-## 3            106.51399
-## 4            247.97309
-## 5           2110.47253
-## 6            367.15325
-## 7           1047.84021
-## 8            173.88212
-## 9            201.08392
-## 10            92.65495
-## 11          1279.78120
-## 12           219.48629
-## 13           766.93503
-## 14           174.18844
-## 15            98.38249
-## 16            90.71743
-## 17          1562.60230
-## 18           158.55614
-## 19           920.45337
-## 20           156.96366
-## 21            87.76763
-## 22           141.65380
-## 23          1683.62186
-## 24           187.54481
+## 1            150.32062
+## 2           1131.76400
+## 3             86.57693
+## 4            142.86293
+## 5           1324.94651
+## 6            225.62927
+## 7           1044.37612
+## 8            168.40803
+## 9            198.81407
+## 10            90.90356
+## 11          1265.36845
+## 12           222.10920
+## 13           768.25944
+## 14           173.69480
+## 15            97.75530
+## 16            90.38798
+## 17          1562.80627
+## 18           158.61889
+## 19           916.70034
+## 20           149.23387
+## 21            86.32215
+## 22           134.17752
+## 23          1681.02936
+## 24           179.05643
 ```
 
 ### Visualize
@@ -353,34 +353,34 @@ bm_all_pathogens_nsp_non %>%
 
 ```
 ##           task.id       learner.id brier.test.mean timetrain.test.mean
-## 1      armillaria classif.binomial      0.23292974            0.020256
-## 2      armillaria  classif.xgboost      0.18963637            1.295902
-## 3      armillaria      classif.gbm      0.16629378            0.047480
-## 4      armillaria      classif.gam      0.14250881            0.459406
-## 5      armillaria     classif.kknn      0.14164183            0.000592
-## 6      armillaria      classif.svm      0.13997486            0.223002
-## 7      armillaria   classif.ranger      0.10422809            0.377004
-## 8        diplodia  classif.xgboost      0.17769629            1.212052
-## 9        diplodia      classif.svm      0.15953720            0.251526
-## 10       diplodia      classif.gam      0.13784101            0.268174
-## 11       diplodia classif.binomial      0.11916360            0.020952
-## 12       diplodia     classif.kknn      0.11893981            0.000590
-## 13       diplodia      classif.gbm      0.10556276            0.049274
-## 14       diplodia   classif.ranger      0.09234835            0.278520
-## 15       fusarium  classif.xgboost      0.14439302            0.085006
-## 16       fusarium      classif.gam      0.07716688            0.335502
-## 17       fusarium      classif.svm      0.07454755            0.236698
+## 1      armillaria classif.binomial      0.23292974            0.144510
+## 2      armillaria  classif.xgboost      0.18963637            1.068238
+## 3      armillaria      classif.gbm      0.16629378            0.133606
+## 4      armillaria      classif.gam      0.14250881            0.568456
+## 5      armillaria     classif.kknn      0.14164183            0.003894
+## 6      armillaria      classif.svm      0.13997486            0.456014
+## 7      armillaria   classif.ranger      0.10422809            0.727516
+## 8        diplodia  classif.xgboost      0.17769629            0.415642
+## 9        diplodia      classif.svm      0.15953720            0.247544
+## 10       diplodia      classif.gam      0.13784101            0.248172
+## 11       diplodia classif.binomial      0.11916360            0.021568
+## 12       diplodia     classif.kknn      0.11893981            0.000880
+## 13       diplodia      classif.gbm      0.10556276            0.051542
+## 14       diplodia   classif.ranger      0.09234835            0.251736
+## 15       fusarium  classif.xgboost      0.14439302            0.102764
+## 16       fusarium      classif.gam      0.07716688            0.348294
+## 17       fusarium      classif.svm      0.07454755            0.240502
 ## 18       fusarium     classif.kknn      0.05459185            0.000494
-## 19       fusarium classif.binomial      0.04893514            0.023832
-## 20       fusarium      classif.gbm      0.03621696            0.049196
-## 21       fusarium   classif.ranger      0.02984426            0.166570
-## 22 heterobasidion classif.binomial      0.16126069            0.021696
-## 23 heterobasidion  classif.xgboost      0.15635915            0.362416
-## 24 heterobasidion      classif.gam      0.09450596            0.375880
-## 25 heterobasidion      classif.gbm      0.07987779            0.045124
-## 26 heterobasidion     classif.kknn      0.07047565            0.000500
-## 27 heterobasidion      classif.svm      0.06895227            0.177100
-## 28 heterobasidion   classif.ranger      0.04366729            0.205496
+## 19       fusarium classif.binomial      0.04893514            0.024454
+## 20       fusarium      classif.gbm      0.03621696            0.050936
+## 21       fusarium   classif.ranger      0.02984426            0.169444
+## 22 heterobasidion classif.binomial      0.16126069            0.060172
+## 23 heterobasidion  classif.xgboost      0.15635915            1.123374
+## 24 heterobasidion      classif.gam      0.09450596            0.590578
+## 25 heterobasidion      classif.gbm      0.07987779            0.078728
+## 26 heterobasidion     classif.kknn      0.07047565            0.001740
+## 27 heterobasidion      classif.svm      0.06895227            0.310736
+## 28 heterobasidion   classif.ranger      0.04366729            0.325412
 ```
 
 ### Visualize
@@ -437,34 +437,34 @@ bm_all_pathogens_sp_non %>%
 
 ```
 ##           task.id       learner.id brier.test.mean timetrain.test.mean
-## 1      armillaria      classif.gam       0.3153256            0.418764
-## 2      armillaria     classif.kknn       0.3050645            0.000636
-## 3      armillaria classif.binomial       0.2935126            0.022772
-## 4      armillaria      classif.gbm       0.2807682            0.048160
-## 5      armillaria      classif.svm       0.2510060            0.219146
-## 6      armillaria  classif.xgboost       0.2443365            1.269788
-## 7      armillaria   classif.ranger       0.2381671            0.367380
-## 8        diplodia      classif.gam       0.2372448            0.251176
-## 9        diplodia  classif.xgboost       0.2069464            1.237910
-## 10       diplodia      classif.svm       0.2008383            0.250330
-## 11       diplodia classif.binomial       0.1959824            0.035560
-## 12       diplodia      classif.gbm       0.1776288            0.048726
-## 13       diplodia     classif.kknn       0.1732633            0.000520
-## 14       diplodia   classif.ranger       0.1588658            0.275670
-## 15       fusarium  classif.xgboost       0.1718123            0.091642
-## 16       fusarium      classif.svm       0.1564700            0.228022
-## 17       fusarium     classif.kknn       0.1341897            0.000498
-## 18       fusarium      classif.gam       0.1287344            0.337176
-## 19       fusarium      classif.gbm       0.1181421            0.050476
-## 20       fusarium   classif.ranger       0.1167445            0.158228
-## 21       fusarium classif.binomial       0.1028080            0.043806
-## 22 heterobasidion      classif.gam       0.2741802            0.404308
-## 23 heterobasidion     classif.kknn       0.2123064            0.000522
-## 24 heterobasidion classif.binomial       0.2027726            0.018896
-## 25 heterobasidion  classif.xgboost       0.1981751            0.285728
-## 26 heterobasidion      classif.svm       0.1826196            0.170438
-## 27 heterobasidion      classif.gbm       0.1805687            0.045606
-## 28 heterobasidion   classif.ranger       0.1593167            0.191722
+## 1      armillaria      classif.gam       0.3153256            0.665194
+## 2      armillaria     classif.kknn       0.3050645            0.001866
+## 3      armillaria classif.binomial       0.2935126            0.076862
+## 4      armillaria      classif.gbm       0.2807682            0.073266
+## 5      armillaria      classif.svm       0.2510060            0.302472
+## 6      armillaria  classif.xgboost       0.2443365            1.021456
+## 7      armillaria   classif.ranger       0.2381671            0.545020
+## 8        diplodia      classif.gam       0.2372448            0.248700
+## 9        diplodia  classif.xgboost       0.2069464            0.443152
+## 10       diplodia      classif.svm       0.2008383            0.240998
+## 11       diplodia classif.binomial       0.1959824            0.019416
+## 12       diplodia      classif.gbm       0.1776288            0.050382
+## 13       diplodia     classif.kknn       0.1732633            0.000854
+## 14       diplodia   classif.ranger       0.1588658            0.246136
+## 15       fusarium  classif.xgboost       0.1718123            0.105188
+## 16       fusarium      classif.svm       0.1564700            0.231202
+## 17       fusarium     classif.kknn       0.1341897            0.000580
+## 18       fusarium      classif.gam       0.1287344            0.339390
+## 19       fusarium      classif.gbm       0.1181421            0.051066
+## 20       fusarium   classif.ranger       0.1167445            0.162094
+## 21       fusarium classif.binomial       0.1028080            0.025796
+## 22 heterobasidion      classif.gam       0.2741802            0.705316
+## 23 heterobasidion     classif.kknn       0.2123064            0.002064
+## 24 heterobasidion classif.binomial       0.2027726            0.061314
+## 25 heterobasidion  classif.xgboost       0.1981751            1.112480
+## 26 heterobasidion      classif.svm       0.1826196            0.293056
+## 27 heterobasidion      classif.gbm       0.1805687            0.078990
+## 28 heterobasidion   classif.ranger       0.1593167            0.309814
 ```
 
 ### Visualize
