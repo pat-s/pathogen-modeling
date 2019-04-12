@@ -1,0 +1,205 @@
+---
+title: "R Notebook"
+output: html_notebook
+---
+
+# Load packages and data
+
+```{r}
+pacman::p_load(car, tidyverse, vcd, ggplot2, hrbrthemes, reporttools)
+source("99-funs.R")
+```
+
+```{r}
+readRDS("/home/shares/data/LIFE/mod/survey_data/data-clean.rda") %>% 
+  as_tibble() -> df
+```
+
+# check for correlation of variables
+
+## continuous variables
+
+### 'my_pairs()' OK
+
+elevation + ph:   0.55 
+temp + p_sum:     0.31
+p_sum + slope:    0.24
+
+```{r }
+df %>% 
+  dplyr::select(temp, p_sum, r_sum, elevation, slope, age, ph) %>% 
+  my_pairs(cex.cor = 2)
+```
+
+### corVIF OK
+
+```{r }
+vif(glm(diplo01 ~ temp + p_sum + r_sum + elevation + slope + age + ph, data = df,
+             family = binomial(link = 'logit')))
+```
+
+## categorical variables OH?
+
+### Cramer's V
+
+- soil + lithology: 0.15
+- soil + hail:      0.117
+- lithology + hail: 0.578 (oh?) -> but does a correlation here make any sense? Probably fake-correlation
+
+https://stats.stackexchange.com/a/236056/101464
+
+```{r}
+vars <- c("soil", "lithology", "hail", "hail_new")
+catcorrm <- function(vars, dat) sapply(vars, function(y) 
+  sapply(vars, function(x) assocstats(table(dat[,x], dat[,y]))$cramer)) 
+
+catcorrm(vars, as.data.frame(df))
+```
+
+## continuous and categorical
+
+### Intraclass correlcation coefficient (ICC)
+
+```{r}
+df %>% 
+  dplyr::select(temp, p_sum, r_sum, elevation, slope, age, ph) %>%
+  ICC()
+```
+
+# Some plots
+
+## temp vs p_sum
+
+```{r}
+ggplot(data = df, aes(x = temp, y = p_sum)) + 
+  geom_point() + 
+  theme_ipsum_rc()
+```
+
+## temp vs r_sum
+```{r}
+ggplot(data = df, aes(x = temp, y = r_sum)) + 
+  geom_point() + 
+  theme_ipsum_rc()
+```
+## elevation vs p_sum
+```{r}
+ggplot(data = df, aes(x = elevation, y = p_sum)) + 
+  geom_point() + 
+  theme_ipsum_rc()
+```
+
+## elevation vs r_sum
+```{r}
+ggplot(data = df, aes(x = elevation, y = r_sum)) + 
+  geom_point() + 
+  theme_ipsum_rc()
+```
+
+## hail vs temp
+```{r}
+ggplot(data = df, aes(x = hail, y = temp)) + 
+  geom_boxplot() + 
+  theme_ipsum_rc()
+```
+
+## hail vs p_sum
+```{r}
+ggplot(data = df, aes(x = hail, y = p_sum)) + 
+  geom_boxplot() + 
+  theme_ipsum_rc()
+```
+
+## ph vs soil 
+
+```{r}
+ggplot(data = df, aes(x = soil, y = ph)) + 
+  geom_boxplot() + 
+  theme_ipsum_rc()
+```
+
+## ph vs lithology
+
+```{r}
+ggplot(data = df, aes(x = lithology, y = ph)) + 
+  geom_boxplot() + 
+  theme_ipsum_rc()
+```
+
+## diplo vs hail
+
+```{r}
+ggplot(df, aes(hail, ..count..)) + 
+  geom_bar(aes(fill = diplo01), position = "dodge") +
+  theme_ipsum_rc()
+```
+
+## fus vs hail
+
+```{r}
+ggplot(df, aes(hail, ..count..)) + 
+  geom_bar(aes(fill = fus01), position = "dodge") +
+  theme_ipsum_rc()
+```
+
+## diplo vs soil
+
+```{r}
+ggplot(df, aes(soil, ..count..)) + 
+  geom_bar(aes(fill = diplo01), position = "dodge") +
+  theme_ipsum_rc()
+```
+
+## fus vs soil
+
+```{r}
+ggplot(df, aes(soil, ..count..)) + 
+  geom_bar(aes(fill = fus01), position = "dodge") +
+  theme_ipsum_rc()
+```
+
+## diplo vs litho
+
+```{r}
+ggplot(df, aes(lithology, ..count..)) + 
+  geom_bar(aes(fill = diplo01), position = "dodge") +
+  theme_ipsum_rc()
+```
+
+## fus vs litho
+
+```{r}
+ggplot(df, aes(lithology, ..count..)) + 
+  geom_bar(aes(fill = fus01), position = "dodge") +
+  theme_ipsum_rc()
+```
+
+# Descriptive tables of data
+
+```{r}
+readRDS("/home/shares/data/LIFE/mod/survey_data/data-clean.rda") %>% 
+  as_tibble() %>% 
+  as.data.frame() -> df
+
+df$geometry <- NULL
+df$fus01 <- NULL
+df$id <- NULL
+df$y <- NULL
+df$x <- NULL
+df$hail <- NULL
+
+# summarize numeric variables
+tableContinuous(df[, sapply(df, is.numeric)],
+                longtable = FALSE, cumsum = FALSE,
+                cap = "Descriptive summary of numerical variables", 
+                label = "table:descriptive_summary_numeric")
+```
+
+```{r}
+# summarize non-numeric variables
+tableNominal(df[, !sapply(df, is.numeric)],
+             longtable = FALSE, cumsum = FALSE,
+             cap = "Descriptive summary of non-numerical variables",
+             label = "table:descriptive_summary_non_numeric")
+```
+
