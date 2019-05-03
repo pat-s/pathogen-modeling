@@ -31,7 +31,8 @@ loadd(maps_gam_diplodia, maps_glm_diplodia,
       maps_svm, maps_rf,
       # maps_xgboost, 
       maps_kknn, 
-      maps_brt)
+      maps_brt,
+      maps_debugging_diplodia_no_temp)
 ```
 
 # Pathogens {.tabset .tabset-fade}
@@ -168,6 +169,12 @@ maps_kknn[[3]]
 
 ```{r prediction-map-diplodia-xgboost }
 NA
+```
+
+### Debugging
+
+```{r prediction-map-diplodia-no-temp }
+maps_debugging_diplodia_no_temp
 ```
 
 ## Fusarium

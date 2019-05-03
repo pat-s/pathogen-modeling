@@ -174,10 +174,14 @@ create_prediction_map = function(prediction_raster, model_name, benchmark_object
 
   out_maps = imap(prediction_raster, ~ {
 
-    score = getBMRAggrPerformances(benchmark_object, as.df = TRUE) %>%
-      dplyr::filter(task.id == .y) %>%
-      dplyr::select(brier.test.mean) %>%
-      pull()
+    if (inherits(deparse(substitute(prediction_raster)), "debugging")) {
+      score = NA
+    } else {
+      score = getBMRAggrPerformances(benchmark_object, as.df = TRUE) %>%
+        dplyr::filter(task.id == .y) %>%
+        dplyr::select(brier.test.mean) %>%
+        pull()
+    }
 
     plot = ggplot() +
       annotation_map_tile(zoomin = -1, type = "cartolight") +
@@ -197,45 +201,4 @@ create_prediction_map = function(prediction_raster, model_name, benchmark_object
 
     return(plot)
   })
-
-  #   dir_create(c("data/prediction/maps/png", "data/prediction/maps/pdf"))
-  #
-  #   ggsave(glue("data/prediction/maps/png/maps-prediction-{.y}-{model_name}-{resampling_file}.png"),
-  #          height = 5.5, width = 8.5)
-  # })
-  #
-  # if (resampling == "spatial/spatial") {
-  #   resampling_file = "sp_sp"
-  # } else if (resampling == "spatial/no tuning") {
-  #   resampling_file = "sp_non"
-  # } else if (resampling == "spatial/non-spatial") {
-  #   resampling_file = "sp_nsp"
-  # } else if (resampling == "non-spatial/non-spatial") {
-  #   resampling_file = "nsp_nsp"
-  # } else if (resampling == "non-spatial/no tuning") {
-  #   resampling_file = "nsp_non"
-  # }
-  #
-  # imgs = imap_chr(prediction_raster, ~ {
-  #   glue("data/prediction/maps/png/maps-prediction-{.y}-{model_name}-{resampling_file}.png")
-  # })
-  #
-  #
-  # #plan(multiprocess, workers = length(imgs))
-  # walk(imgs, ~ image_write(image_read(.x),
-  #                          path = str_replace_all(.x, "png", "pdf"),
-  #                          format = "pdf"))
-
-  # system("cd /home/patrick/PhD/papers/01_model_comparison/04_figures/01_data && exec ls -1 *.png |
-  #      parallel convert '{}' '{.}.pdf'")
-  #
-  # system("cd /home/patrick/PhD/papers/01_model_comparison/04_figures/02_results/ && exec ls -1 *.png |
-  #      parallel convert '{}' '{.}.pdf'")
-  #
-  # system("cp /home/patrick/PhD/papers/01_model_comparison/04_figures/01_data/study_area.png /home/patrick/PhD/presentations/paper1/figs/study_area.png")
-  # system("cp /home/patrick/PhD/papers/01_model_comparison/04_figures/01_data/spcv_nspcv_folds_pres.png /home/patrick/PhD/presentations/paper1/figs/spcv_nspcv_folds_pres.png")
-  #
-  #
-
-  #return(out_maps)
 }
