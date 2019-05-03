@@ -1,54 +1,59 @@
-# Heterobasidion sp ----------------------------------------------------------
-
 heterobasidion_task_dummy <- task_custom(heterobasidion_data,
-                                         "heterobasidion", "heterobasi",
-                                         dummy_features = c("lithology", "soil"),
-                                         dummy.factors = TRUE
+  "heterobasidion", "heterobasi",
+  dummy_features = c("lithology", "soil"),
+  dummy.factors = TRUE
 )
 
 armillaria_task_dummy <- task_custom(armillaria_data,
-                                     "armillaria", "armillaria",
-                                     dummy_features = c("lithology", "soil"),
-                                     dummy.factors = TRUE
+  "armillaria", "armillaria",
+  dummy_features = c("lithology", "soil"),
+  dummy.factors = TRUE
 )
 
 diplodia_task_dummy <- task_custom(diplodia_data,
-                                   "diplodia", "diplo01",
-                                   dummy_features = c("lithology", "soil", "year"),
-                                   dummy.factors = TRUE
+  "diplodia", "diplo01",
+  dummy_features = c("lithology", "soil", "year"),
+  dummy.factors = TRUE
 )
 
 diplodia_task <- task_custom(diplodia_data,
-                             "diplodia", "diplo01",
-                             dummy_features = c("lithology", "soil", "year"),
-                             dummy.factors = FALSE
-)
-
-test_diplodia_task <- task_custom(test_diplodia_data,
-                                  "diplodia", "diplo01",
-                                  dummy_features = c("lithology", "soil", "year"),
-                                  dummy.factors = T
+  "diplodia", "diplo01",
+  dummy_features = c("lithology", "soil", "year"),
+  dummy.factors = FALSE
 )
 
 fusarium_task_dummy <- task_custom(fusarium_data,
-                                   "fusarium", "fus01",
-                                   dummy_features = c("lithology", "soil", "year"),
-                                   dummy.factors = TRUE
+  "fusarium", "fus01",
+  dummy_features = c("lithology", "soil", "year"),
+  dummy.factors = TRUE
 )
 
 diplodia_task_dummy_prediction <- task_custom_prediction(diplodia_data,
-                                                         "diplodia", "diplo01",
-                                                         dummy_features = c("lithology", "soil"),
-                                                         dummy.factors = TRUE,
-                                                         remove.vars = TRUE
+  "diplodia", "diplo01",
+  dummy_features = c("lithology", "soil"),
+  dummy.factors = TRUE,
+  remove.vars = TRUE
 )
 
 fusarium_task_dummy_prediction <- task_custom_prediction(fusarium_data,
-                                                         "fusarium", "fus01",
-                                                         dummy_features = c("lithology", "soil"),
-                                                         dummy.factors = TRUE,
-                                                         remove.vars = TRUE
+  "fusarium", "fus01",
+  dummy_features = c("lithology", "soil"),
+  dummy.factors = TRUE,
+  remove.vars = TRUE
 )
+
+# Debugging tasks ---------------------------------------------------------
+
+# We can't put them into a list because each one needs its own prediction task
+
+diplodia_task_dummy_prediction_no_temp <- task_custom_prediction(diplodia_data_no_temp,
+                                                                 "diplodia", "diplo01",
+                                                                 dummy_features = c("lithology", "soil"),
+                                                                 dummy.factors = TRUE,
+                                                                 remove.vars = TRUE
+)
+
+# Combined tasks ---------------------------------------------------------
 
 tasks <- list(
   armillaria_task_dummy,

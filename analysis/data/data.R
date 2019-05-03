@@ -23,13 +23,14 @@ diplodia_data = extract_variables("https://zenodo.org/record/2621996//files/dipl
                                   pisr = pisr, elevation = elevation, age = TRUE)
 
 # data with extracted temp, precip and pisr
-test_diplodia_data =  extract_variables_v2("data-clean.gpkg",
-                                           study_area = data_basque,
+diplodia_data_no_temp =  extract_variables("https://zenodo.org/record/2621996//files/diplodia-fusarium.gpkg",
+                                           study_area = data_basque, drop_vars = "fus01",
                                            response = "diplo01",
                                            soil = soil, lithology = lithology, slope = slope,
                                            temperature = temperature_mean, ph = ph,
                                            hail = hail_raw, precipitation = precipitation_sum,
-                                           pisr = pisr, elevation = elevation, age = TRUE)
+                                           pisr = pisr, elevation = elevation, age = TRUE,
+                                           remove_pred = "temp")
 
 
 fusarium_data = extract_variables("https://zenodo.org/record/2621996/files/diplodia-fusarium.gpkg",
@@ -60,6 +61,9 @@ soil_raw = soil_download("https://zenodo.org/record/2621996/files/soil.tif")
 soil = soil_preprocessing(data = soil_raw,
                           study_area = data_basque)
 
+# we cannot make ph public unfortunately so we load it locally from the repo
+ph = ph_preprocessing(data = "data/ph/", study_area = data_basque)
+
 atlas_climatico_raw = atlas_climatico_download("https://zenodo.org/record/2621996/files/atlas-climatico.zip")
 atlas_climatico = atlas_climatico_preprocessing(data = atlas_climatico_raw,
                                                 study_area = data_basque)
@@ -77,3 +81,14 @@ pred_data = create_prediction_data(temperature = temperature_mean,
                                    lithology = lithology,
                                    hail = hail_raw,
                                    ph = ph)
+
+pred_data_no_temp = create_prediction_data(temperature = temperature_mean,
+                                           precipitation = precipitation_sum,
+                                           pisr = pisr,
+                                           elevation = elevation,
+                                           soil = soil,
+                                           slope = slope,
+                                           lithology = lithology,
+                                           hail = hail_raw,
+                                           ph = ph,
+                                           drop_var = "temp")
