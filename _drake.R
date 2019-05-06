@@ -14,7 +14,7 @@ dataset_tables_plan = code_to_plan("analysis/visualization/create_dataset_tables
 source("analysis/benchmark/aggregate-results.R")
 source("analysis/benchmark/benchmark.R")
 source("analysis/prediction/prediction.R")
-source("analysis/reports/benchmark-eval.R")
+source("analysis/reports/reports.R")
 
 source("https://raw.githubusercontent.com/mlr-org/mlr-extralearner/master/R/RLearner_classif_gam.R")
 
