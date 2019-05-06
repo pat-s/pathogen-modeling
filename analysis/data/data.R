@@ -32,6 +32,75 @@ diplodia_data_no_temp =  extract_variables("https://zenodo.org/record/2621996//f
                                            pisr = pisr, elevation = elevation, age = TRUE,
                                            remove_pred = "temp")
 
+# data with extracted temp, precip and pisr
+diplodia_data_no_precip =  extract_variables("https://zenodo.org/record/2621996//files/diplodia-fusarium.gpkg",
+                                           study_area = data_basque, drop_vars = "fus01",
+                                           response = "diplo01",
+                                           soil = soil, lithology = lithology, slope = slope,
+                                           temperature = temperature_mean, ph = ph,
+                                           hail = hail_raw, precipitation = precipitation_sum,
+                                           pisr = pisr, elevation = elevation, age = TRUE,
+                                           remove_pred = "precip")
+
+# data with extracted temp, precip and pisr
+diplodia_data_no_hail =  extract_variables("https://zenodo.org/record/2621996//files/diplodia-fusarium.gpkg",
+                                           study_area = data_basque, drop_vars = "fus01",
+                                           response = "diplo01",
+                                           soil = soil, lithology = lithology, slope = slope,
+                                           temperature = temperature_mean, ph = ph,
+                                           hail = hail_raw, precipitation = precipitation_sum,
+                                           pisr = pisr, elevation = elevation, age = TRUE,
+                                           remove_pred = "hail_probability")
+
+# data with extracted temp, precip and pisr
+diplodia_data_no_ph =  extract_variables("https://zenodo.org/record/2621996//files/diplodia-fusarium.gpkg",
+                                           study_area = data_basque, drop_vars = "fus01",
+                                           response = "diplo01",
+                                           soil = soil, lithology = lithology, slope = slope,
+                                           temperature = temperature_mean, ph = ph,
+                                           hail = hail_raw, precipitation = precipitation_sum,
+                                           pisr = pisr, elevation = elevation, age = TRUE,
+                                           remove_pred = "ph")
+
+# data with extracted temp, precip and pisr
+diplodia_data_no_soil =  extract_variables("https://zenodo.org/record/2621996//files/diplodia-fusarium.gpkg",
+                                           study_area = data_basque, drop_vars = "fus01",
+                                           response = "diplo01",
+                                           soil = soil, lithology = lithology, slope = slope,
+                                           temperature = temperature_mean, ph = ph,
+                                           hail = hail_raw, precipitation = precipitation_sum,
+                                           pisr = pisr, elevation = elevation, age = TRUE,
+                                           remove_pred = "soil")
+
+# data with extracted temp, precip and pisr
+diplodia_data_no_lithology =  extract_variables("https://zenodo.org/record/2621996//files/diplodia-fusarium.gpkg",
+                                           study_area = data_basque, drop_vars = "fus01",
+                                           response = "diplo01",
+                                           soil = soil, lithology = lithology, slope = slope,
+                                           temperature = temperature_mean, ph = ph,
+                                           hail = hail_raw, precipitation = precipitation_sum,
+                                           pisr = pisr, elevation = elevation, age = TRUE,
+                                           remove_pred = "lithology")
+
+# data with extracted temp, precip and pisr
+diplodia_data_no_slope =  extract_variables("https://zenodo.org/record/2621996//files/diplodia-fusarium.gpkg",
+                                           study_area = data_basque, drop_vars = "fus01",
+                                           response = "diplo01",
+                                           soil = soil, lithology = lithology, slope = slope,
+                                           temperature = temperature_mean, ph = ph,
+                                           hail = hail_raw, precipitation = precipitation_sum,
+                                           pisr = pisr, elevation = elevation, age = TRUE,
+                                           remove_pred = "slope_degrees")
+
+# data with extracted temp, precip and pisr
+diplodia_data_no_pisr =  extract_variables("https://zenodo.org/record/2621996//files/diplodia-fusarium.gpkg",
+                                           study_area = data_basque, drop_vars = "fus01",
+                                           response = "diplo01",
+                                           soil = soil, lithology = lithology, slope = slope,
+                                           temperature = temperature_mean, ph = ph,
+                                           hail = hail_raw, precipitation = precipitation_sum,
+                                           pisr = pisr, elevation = elevation, age = TRUE,
+                                           remove_pred = "pisr")
 
 fusarium_data = extract_variables("https://zenodo.org/record/2621996/files/diplodia-fusarium.gpkg",
                                   study_area = data_basque, drop_vars = "diplo01",
@@ -92,3 +161,80 @@ pred_data_no_temp = create_prediction_data(temperature = temperature_mean,
                                            hail = hail_raw,
                                            ph = ph,
                                            drop_var = "temp")
+
+pred_data_no_precip = create_prediction_data(temperature = temperature_mean,
+                                             precipitation = precipitation_sum,
+                                             pisr = pisr,
+                                             elevation = elevation,
+                                             soil = soil,
+                                             slope = slope,
+                                             lithology = lithology,
+                                             hail = hail_raw,
+                                             ph = ph,
+                                             drop_var = "precip")
+
+pred_data_no_soil = create_prediction_data(temperature = temperature_mean,
+                                           precipitation = precipitation_sum,
+                                           pisr = pisr,
+                                           elevation = elevation,
+                                           soil = soil,
+                                           slope = slope,
+                                           lithology = lithology,
+                                           hail = hail_raw,
+                                           ph = ph,
+                                           drop_var = "soil")
+
+pred_data_no_ph = create_prediction_data(temperature = temperature_mean,
+                                         precipitation = precipitation_sum,
+                                         pisr = pisr,
+                                         elevation = elevation,
+                                         soil = soil,
+                                         slope = slope,
+                                         lithology = lithology,
+                                         hail = hail_raw,
+                                         ph = ph,
+                                         drop_var = "ph")
+
+pred_data_no_lithology = create_prediction_data(temperature = temperature_mean,
+                                                precipitation = precipitation_sum,
+                                                pisr = pisr,
+                                                elevation = elevation,
+                                                soil = soil,
+                                                slope = slope,
+                                                lithology = lithology,
+                                                hail = hail_raw,
+                                                ph = ph,
+                                                drop_var = "lithology")
+
+pred_data_no_hail = create_prediction_data(temperature = temperature_mean,
+                                           precipitation = precipitation_sum,
+                                           pisr = pisr,
+                                           elevation = elevation,
+                                           soil = soil,
+                                           slope = slope,
+                                           lithology = lithology,
+                                           hail = hail_raw,
+                                           ph = ph,
+                                           drop_var = "hail_probability")
+
+pred_data_no_slope = create_prediction_data(temperature = temperature_mean,
+                                            precipitation = precipitation_sum,
+                                            pisr = pisr,
+                                            elevation = elevation,
+                                            soil = soil,
+                                            slope = slope,
+                                            lithology = lithology,
+                                            hail = hail_raw,
+                                            ph = ph,
+                                            drop_var = "slope_degrees")
+
+pred_data_no_pisr = create_prediction_data(temperature = temperature_mean,
+                                           precipitation = precipitation_sum,
+                                           pisr = pisr,
+                                           elevation = elevation,
+                                           soil = soil,
+                                           slope = slope,
+                                           lithology = lithology,
+                                           hail = hail_raw,
+                                           ph = ph,
+                                           drop_var = "pisr")

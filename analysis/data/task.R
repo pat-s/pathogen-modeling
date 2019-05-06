@@ -47,6 +47,55 @@ fusarium_task_dummy_prediction <- task_custom_prediction(fusarium_data,
 # We can't put them into a list because each one needs its own prediction task
 
 diplodia_task_dummy_prediction_no_temp <- task_custom_prediction(diplodia_data_no_temp,
+  "diplodia", "diplo01",
+  dummy_features = c("lithology", "soil"),
+  dummy.factors = TRUE,
+  remove.vars = TRUE
+)
+
+diplodia_task_dummy_prediction_no_precip <- task_custom_prediction(diplodia_data_no_precip,
+  "diplodia", "diplo01",
+  dummy_features = c("lithology", "soil"),
+  dummy.factors = TRUE,
+  remove.vars = TRUE
+)
+
+diplodia_task_dummy_prediction_no_hail <- task_custom_prediction(diplodia_data_no_hail,
+                                                                 "diplodia", "diplo01",
+                                                                 dummy_features = c("lithology", "soil"),
+                                                                 dummy.factors = TRUE,
+                                                                 remove.vars = TRUE
+)
+
+diplodia_task_dummy_prediction_no_ph <- task_custom_prediction(diplodia_data_no_ph,
+                                                                 "diplodia", "diplo01",
+                                                                 dummy_features = c("lithology", "soil"),
+                                                                 dummy.factors = TRUE,
+                                                                 remove.vars = TRUE
+)
+
+diplodia_task_dummy_prediction_no_soil <- task_custom_prediction(diplodia_data_no_soil,
+                                                                 "diplodia", "diplo01",
+                                                                 dummy_features = c("lithology"),
+                                                                 dummy.factors = TRUE,
+                                                                 remove.vars = TRUE
+)
+
+diplodia_task_dummy_prediction_no_lithology <- task_custom_prediction(diplodia_data_no_lithology,
+                                                                 "diplodia", "diplo01",
+                                                                 dummy_features = c("soil"),
+                                                                 dummy.factors = TRUE,
+                                                                 remove.vars = TRUE
+)
+
+diplodia_task_dummy_prediction_no_slope <- task_custom_prediction(diplodia_data_no_slope,
+                                                                 "diplodia", "diplo01",
+                                                                 dummy_features = c("lithology", "soil"),
+                                                                 dummy.factors = TRUE,
+                                                                 remove.vars = TRUE
+)
+
+diplodia_task_dummy_prediction_no_pisr <- task_custom_prediction(diplodia_data_no_pisr,
                                                                  "diplodia", "diplo01",
                                                                  dummy_features = c("lithology", "soil"),
                                                                  dummy.factors = TRUE,
