@@ -19,20 +19,26 @@ knitr::opts_knit$set(base.dir = 'analysis/rmd/')
 knitr::opts_chunk$set(fig.retina = 3, fig.align = 'center', fig.width = 8.5, 
                       fig.height = 5.5, out.width = "100%",
                       fig.path = "../../analysis/paper/submission/3/appendices/")
-```
-
-```{r echo = FALSE}
-loadd(maps_gam_diplodia, maps_glm_diplodia, 
+loadd(maps_gam_diplodia, maps_glm_diplodia,
       maps_gam_fusarium, maps_glm_fusarium,
-      #maps_gam_armillaria, 
-      maps_glm_armillaria, 
-      maps_gam_heterobasidion, maps_glm_heterobasidion, 
-      
+      #maps_gam_armillaria,
+      maps_glm_armillaria,
+      maps_gam_heterobasidion, maps_glm_heterobasidion,
+
       maps_svm, maps_rf,
-      # maps_xgboost, 
-      maps_kknn, 
+      # maps_xgboost,
+      maps_kknn,
       maps_brt,
-      maps_debugging_diplodia_no_temp)
+
+      maps_debugging_diplodia_no_temp,
+      maps_debugging_diplodia_no_precip,
+      maps_debugging_diplodia_no_hail,
+      maps_debugging_diplodia_no_ph,
+      maps_debugging_diplodia_no_soil,
+      maps_debugging_diplodia_no_lithology,
+      maps_debugging_diplodia_no_slope,
+      maps_debugging_diplodia_no_pisr
+      )
 ```
 
 # Pathogens {.tabset .tabset-fade}
@@ -80,7 +86,6 @@ maps_kknn[[1]]
 ```{r prediction-map-armillaria-xgboost }
 NA
 ```
-
 
 ## Heterobasidion
 
@@ -175,6 +180,34 @@ NA
 
 ```{r prediction-map-diplodia-no-temp }
 maps_debugging_diplodia_no_temp
+```
+
+```{r prediction-map-diplodia-no-precip }
+maps_debugging_diplodia_no_precip
+```
+
+```{r prediction-map-diplodia-no-hail }
+maps_debugging_diplodia_no_hail
+```
+
+```{r prediction-map-diplodia-no-ph }
+maps_debugging_diplodia_no_ph
+```
+
+```{r prediction-map-diplodia-no-soil }
+maps_debugging_diplodia_no_soil
+```
+
+```{r prediction-map-diplodia-no-lithology }
+maps_debugging_diplodia_no_lithology
+```
+
+```{r prediction-map-diplodia-no-slope }
+maps_debugging_diplodia_no_slope
+```
+
+```{r prediction-map-diplodia-no-pisr }
+maps_debugging_diplodia_no_pisr
 ```
 
 ## Fusarium
