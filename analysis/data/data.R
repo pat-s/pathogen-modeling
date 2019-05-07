@@ -149,7 +149,9 @@ pred_data = create_prediction_data(temperature = temperature_mean,
                                    slope = slope,
                                    lithology = lithology,
                                    hail = hail_raw,
-                                   ph = ph)
+                                   ph = ph,
+                                   dummy_features = c("lithology", "soil")
+                                   )
 
 pred_data_no_temp = create_prediction_data(temperature = temperature_mean,
                                            precipitation = precipitation_sum,
@@ -160,6 +162,7 @@ pred_data_no_temp = create_prediction_data(temperature = temperature_mean,
                                            lithology = lithology,
                                            hail = hail_raw,
                                            ph = ph,
+                                           dummy_features = c("lithology", "soil"),
                                            drop_var = "temp")
 
 pred_data_no_precip = create_prediction_data(temperature = temperature_mean,
@@ -171,6 +174,7 @@ pred_data_no_precip = create_prediction_data(temperature = temperature_mean,
                                              lithology = lithology,
                                              hail = hail_raw,
                                              ph = ph,
+                                             dummy_features = c("lithology", "soil"),
                                              drop_var = "precip")
 
 pred_data_no_soil = create_prediction_data(temperature = temperature_mean,
@@ -182,6 +186,7 @@ pred_data_no_soil = create_prediction_data(temperature = temperature_mean,
                                            lithology = lithology,
                                            hail = hail_raw,
                                            ph = ph,
+                                           dummy_features = c("lithology"),
                                            drop_var = "soil")
 
 pred_data_no_ph = create_prediction_data(temperature = temperature_mean,
@@ -193,6 +198,7 @@ pred_data_no_ph = create_prediction_data(temperature = temperature_mean,
                                          lithology = lithology,
                                          hail = hail_raw,
                                          ph = ph,
+                                         dummy_features = c("lithology", "soil"),
                                          drop_var = "ph")
 
 pred_data_no_lithology = create_prediction_data(temperature = temperature_mean,
@@ -204,6 +210,7 @@ pred_data_no_lithology = create_prediction_data(temperature = temperature_mean,
                                                 lithology = lithology,
                                                 hail = hail_raw,
                                                 ph = ph,
+                                                dummy_features = c("soil"),
                                                 drop_var = "lithology")
 
 pred_data_no_hail = create_prediction_data(temperature = temperature_mean,
@@ -215,6 +222,7 @@ pred_data_no_hail = create_prediction_data(temperature = temperature_mean,
                                            lithology = lithology,
                                            hail = hail_raw,
                                            ph = ph,
+                                           dummy_features = c("lithology", "soil"),
                                            drop_var = "hail_probability")
 
 pred_data_no_slope = create_prediction_data(temperature = temperature_mean,
@@ -226,6 +234,7 @@ pred_data_no_slope = create_prediction_data(temperature = temperature_mean,
                                             lithology = lithology,
                                             hail = hail_raw,
                                             ph = ph,
+                                            dummy_features = c("lithology", "soil"),
                                             drop_var = "slope_degrees")
 
 pred_data_no_pisr = create_prediction_data(temperature = temperature_mean,
@@ -237,4 +246,5 @@ pred_data_no_pisr = create_prediction_data(temperature = temperature_mean,
                                            lithology = lithology,
                                            hail = hail_raw,
                                            ph = ph,
+                                           dummy_features = c("lithology", "soil"),
                                            drop_var = "pisr")

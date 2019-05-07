@@ -88,7 +88,7 @@ task_custom_prediction <- function(data, name, target, dummy_features,
 #'   left out in the model, we also need to leave it out in the pred data.
 create_prediction_data <- function(temperature, precipitation, pisr, slope,
                                    elevation, soil, lithology, hail, ph,
-                                   drop_var = NULL) {
+                                   drop_var = NULL, dummy_features = NULL) {
 
   # Its a square around the Basque Country.
   # This prevents error for the subsequent raster `extract` calls that may result
@@ -235,13 +235,12 @@ create_prediction_data <- function(temperature, precipitation, pisr, slope,
   pred_grid$y <- NULL
   pred_grid$index_1 <- NULL
 
-  pred_grid %<>% createDummyFeatures(
-    # target = "heterobasidion",
-    cols = c(
-      "lithology",
-      "soil"
+  if (!is.null(dummy_features)) {
+    pred_grid %<>% createDummyFeatures(
+      # target = "heterobasidion",
+      cols = dummy_features
     )
-  )
+  }
 
   pred_grid %<>%
     na.omit()

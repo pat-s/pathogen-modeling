@@ -16,8 +16,6 @@ Therefore, no prediction maps for XGBOOST as the prediction values are all NA.
 
 
 
-
-
 # Pathogens {.tabset .tabset-fade}
 
 ## Armillaria
@@ -122,7 +120,6 @@ NA
 ```
 ## [1] NA
 ```
-
 
 ## Heterobasidion
 
@@ -350,6 +347,160 @@ NA
 ```
 ## [1] NA
 ```
+
+### Debugging
+
+
+```r
+maps_debugging_diplodia_no_temp
+```
+
+```
+## $diplodia
+```
+
+```
+## Zoom: 8
+```
+
+```
+## Warning: Removed 230705 rows containing missing values (geom_raster).
+```
+
+<img src="../../analysis/paper/submission/3/appendices/prediction-map-diplodia-no-temp-1.png" title="plot of chunk prediction-map-diplodia-no-temp" alt="plot of chunk prediction-map-diplodia-no-temp" width="100%" style="display: block; margin: auto;" />
+
+
+```r
+maps_debugging_diplodia_no_precip
+```
+
+```
+## $diplodia
+```
+
+```
+## Zoom: 8
+```
+
+```
+## Warning: Removed 230705 rows containing missing values (geom_raster).
+```
+
+<img src="../../analysis/paper/submission/3/appendices/prediction-map-diplodia-no-precip-1.png" title="plot of chunk prediction-map-diplodia-no-precip" alt="plot of chunk prediction-map-diplodia-no-precip" width="100%" style="display: block; margin: auto;" />
+
+
+```r
+maps_debugging_diplodia_no_hail
+```
+
+```
+## $diplodia
+```
+
+```
+## Zoom: 8
+```
+
+```
+## Warning: Removed 230705 rows containing missing values (geom_raster).
+```
+
+<img src="../../analysis/paper/submission/3/appendices/prediction-map-diplodia-no-hail-1.png" title="plot of chunk prediction-map-diplodia-no-hail" alt="plot of chunk prediction-map-diplodia-no-hail" width="100%" style="display: block; margin: auto;" />
+
+
+```r
+maps_debugging_diplodia_no_ph
+```
+
+```
+## $diplodia
+```
+
+```
+## Zoom: 8
+```
+
+```
+## Warning: Removed 230705 rows containing missing values (geom_raster).
+```
+
+<img src="../../analysis/paper/submission/3/appendices/prediction-map-diplodia-no-ph-1.png" title="plot of chunk prediction-map-diplodia-no-ph" alt="plot of chunk prediction-map-diplodia-no-ph" width="100%" style="display: block; margin: auto;" />
+
+
+```r
+maps_debugging_diplodia_no_soil
+```
+
+```
+## $diplodia
+```
+
+```
+## Zoom: 8
+```
+
+```
+## Warning: Removed 230705 rows containing missing values (geom_raster).
+```
+
+<img src="../../analysis/paper/submission/3/appendices/prediction-map-diplodia-no-soil-1.png" title="plot of chunk prediction-map-diplodia-no-soil" alt="plot of chunk prediction-map-diplodia-no-soil" width="100%" style="display: block; margin: auto;" />
+
+
+```r
+maps_debugging_diplodia_no_lithology
+```
+
+```
+## $diplodia
+```
+
+```
+## Zoom: 8
+```
+
+```
+## Warning: Removed 230705 rows containing missing values (geom_raster).
+```
+
+<img src="../../analysis/paper/submission/3/appendices/prediction-map-diplodia-no-lithology-1.png" title="plot of chunk prediction-map-diplodia-no-lithology" alt="plot of chunk prediction-map-diplodia-no-lithology" width="100%" style="display: block; margin: auto;" />
+
+
+```r
+maps_debugging_diplodia_no_slope
+```
+
+```
+## $diplodia
+```
+
+```
+## Zoom: 8
+```
+
+```
+## Warning: Removed 230705 rows containing missing values (geom_raster).
+```
+
+<img src="../../analysis/paper/submission/3/appendices/prediction-map-diplodia-no-slope-1.png" title="plot of chunk prediction-map-diplodia-no-slope" alt="plot of chunk prediction-map-diplodia-no-slope" width="100%" style="display: block; margin: auto;" />
+
+
+```r
+maps_debugging_diplodia_no_pisr
+```
+
+```
+## $diplodia
+```
+
+```
+## Zoom: 8
+```
+
+```
+## Warning: Removed 230705 rows containing missing values (geom_raster).
+```
+
+<img src="../../analysis/paper/submission/3/appendices/prediction-map-diplodia-no-pisr-1.png" title="plot of chunk prediction-map-diplodia-no-pisr" alt="plot of chunk prediction-map-diplodia-no-pisr" width="100%" style="display: block; margin: auto;" />
 
 ## Fusarium
 

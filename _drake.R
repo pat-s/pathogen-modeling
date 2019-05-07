@@ -63,4 +63,11 @@ options(clustermq.scheduler = "slurm",
 ### Show log in console
 # watch -n .1 tail -n 40 ~/git/pathogen-modeling/drake.log
 
-drake_config(plan, verbose = 2)
+drake_config(plan,
+             verbose = 2, targets = "prediction_maps", lazy_load = "promise",
+             console_log_file = "log/drake.log", cache_log_file = "log/cache3.log",
+             caching = "worker",
+             template = list(log_file = "log/worker%a.log", n_cpus = 3, memory = 100001),
+             prework = quote(future::plan(future::multisession, workers = 3)),
+             garbage_collection = TRUE, jobs = 3, parallelism = "clustermq"
+)
