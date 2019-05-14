@@ -1,5 +1,5 @@
 
-[![Last-changedate](https://img.shields.io/badge/last%20change-2019--04--09-brightgreen.svg)](https://github.com/pat-s/pathogen-modeling/commits/master)
+[![Last-changedate](https://img.shields.io/badge/last%20change-2019--05--14-brightgreen.svg)](https://github.com/pat-s/pathogen-modeling/commits/master)
 [![minimal R
 version](https://img.shields.io/badge/R%3E%3D-3.5.0-brightgreen.svg)](https://cran.r-project.org/)
 [![Licence](https://img.shields.io/github/license/mashape/apistatus.svg)](http://choosealicense.com/licenses/mit/)  
@@ -28,6 +28,17 @@ paper.
 
   - [Paper](https://github.com/pat-s/pathogen-modeling/tree/master/analysis/paper/submission/3)  
   - [Appendices](https://github.com/pat-s/pathogen-modeling/tree/master/analysis/paper/submission/3/appendices)
+
+In addition, it contains code and results for the [LIFE Healthy
+Forest](http://www.lifehealthyforest.com/) project. The following
+reports are available:
+
+  - [Benchmark comparison of all pathogens]()
+  - [Benchmark comparison of *Diplodia sapinea*]()
+  - [Prediction maps of all
+    pathogens](https://jupiter.geogr.uni-jena.de/life-healthy-forest/action-B1-pathogen-infection/pathogen-prediction-report.html)
+  - [Visualization of (spatial) resampling partitions]()
+  - [Visualization of hyperparameter optimization paths]()
 
 # How to use
 
@@ -99,6 +110,15 @@ HPC infrastructure that was used to generate the outputs. This means
 that replicating this analysis sequentially will take weeks (\> 4).
 Unless you have a scalable system to run the analysis on, sequential
 replication is not encouraged.
+
+Other practical notes:
+
+  - All “diplodia” targets need to be built with `keep.extract = TRUE`
+    in
+    [benchmark\_custom](https://github.com/pat-s/pathogen-modeling/blob/335ca2c5bd92f04b6eba78f1b414fa61b1d6fb5c/R/benchmark-functions.R#L24),
+    otherwise the hyperparameter optimization paths cannot be
+    constructed. For all other targets, `keep.extract = FALSE` should be
+    used to save disk space of the resulting BenchmarkResult objects.
 
 # Licenses
 
