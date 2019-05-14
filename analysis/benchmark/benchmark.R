@@ -3,7 +3,7 @@
 
 # sp/sp -------------------------------------------------------------------
 
-args_bm_sp_sp_armillaria = tibble(task = rlang::syms("armillaria_task_dummy"),
+args_bm_sp_sp_armillaria = tibble(task = rlang::syms("armillaria_task_dummy_no_ph"),
                                   learner = c(c("wrapper_rf_sp",
                                                 "wrapper_svm_sp",
                                                 "wrapper_xgboost_sp",
@@ -16,7 +16,7 @@ args_bm_sp_sp_armillaria$learner = rlang::syms(args_bm_sp_sp_armillaria$learner)
 args_bm_sp_sp_armillaria$id = suppressWarnings(paste0("bm_sp_sp_armillaria_", str_split(args_bm_sp_sp_armillaria$learner, "_",
                                                                                         simplify = TRUE)[, 2]))
 
-args_bm_sp_sp_diplodia = tibble(task = rlang::syms("diplodia_task_dummy"),
+args_bm_sp_sp_diplodia = tibble(task = rlang::syms("diplodia_task_dummy_no_ph"),
                                 learner = c(c("wrapper_rf_sp",
                                               "wrapper_svm_sp",
                                               "wrapper_xgboost_sp",
@@ -29,7 +29,7 @@ args_bm_sp_sp_diplodia$learner = rlang::syms(args_bm_sp_sp_diplodia$learner)
 args_bm_sp_sp_diplodia$id = suppressWarnings(paste0("bm_sp_sp_diplodia_", str_split(args_bm_sp_sp_diplodia$learner, "_",
                                                                                     simplify = TRUE)[, 2]))
 
-args_bm_sp_sp_fusarium = tibble(task = rlang::syms("fusarium_task_dummy"),
+args_bm_sp_sp_fusarium = tibble(task = rlang::syms("fusarium_task_dummy_no_ph"),
                                 learner = c(c("wrapper_rf_sp",
                                               "wrapper_svm_sp",
                                               "wrapper_xgboost_sp",
@@ -42,7 +42,7 @@ args_bm_sp_sp_fusarium$learner = rlang::syms(args_bm_sp_sp_fusarium$learner)
 args_bm_sp_sp_fusarium$id = suppressWarnings(paste0("bm_sp_sp_fusarium_", str_split(args_bm_sp_sp_fusarium$learner, "_",
                                                                                     simplify = TRUE)[, 2]))
 
-args_bm_sp_sp_heterobasidion = tibble(task = rlang::syms("heterobasidion_task_dummy"),
+args_bm_sp_sp_heterobasidion = tibble(task = rlang::syms("heterobasidion_task_dummy_no_ph"),
                                       learner = c(c("wrapper_rf_sp",
                                                     "wrapper_svm_sp",
                                                     "wrapper_xgboost_sp",
@@ -58,7 +58,7 @@ args_bm_sp_sp_heterobasidion$id = suppressWarnings(paste0("bm_sp_sp_heterobasidi
 
 # sp/nsp ------------------------------------------------------------------
 
-args_bm_sp_nsp_armillaria = tibble(task = rlang::syms("armillaria_task_dummy"),
+args_bm_sp_nsp_armillaria = tibble(task = rlang::syms("armillaria_task_dummy_no_ph"),
                                    learner = c(c("wrapper_rf_nsp",
                                                  "wrapper_svm_nsp",
                                                  "wrapper_xgboost_nsp",
@@ -71,7 +71,7 @@ args_bm_sp_nsp_armillaria$learner = rlang::syms(args_bm_sp_nsp_armillaria$learne
 args_bm_sp_nsp_armillaria$id = suppressWarnings(paste0("bm_sp_nsp_armillaria_", str_split(args_bm_sp_nsp_armillaria$learner, "_",
                                                                                           simplify = TRUE)[, 2]))
 
-args_bm_sp_nsp_diplodia = tibble(task = rlang::syms("diplodia_task_dummy"),
+args_bm_sp_nsp_diplodia = tibble(task = rlang::syms("diplodia_task_dummy_no_ph"),
                                  learner = c(c("wrapper_rf_nsp",
                                                "wrapper_svm_nsp",
                                                "wrapper_xgboost_nsp",
@@ -84,7 +84,7 @@ args_bm_sp_nsp_diplodia$learner = rlang::syms(args_bm_sp_nsp_diplodia$learner)
 args_bm_sp_nsp_diplodia$id = suppressWarnings(paste0("bm_sp_nsp_diplodia_", str_split(args_bm_sp_nsp_diplodia$learner, "_",
                                                                                       simplify = TRUE)[, 2]))
 
-args_bm_sp_nsp_fusarium = tibble(task = rlang::syms("fusarium_task_dummy"),
+args_bm_sp_nsp_fusarium = tibble(task = rlang::syms("fusarium_task_dummy_no_ph"),
                                  learner = c(c("wrapper_rf_nsp",
                                                "wrapper_svm_nsp",
                                                "wrapper_xgboost_nsp",
@@ -97,7 +97,7 @@ args_bm_sp_nsp_fusarium$learner = rlang::syms(args_bm_sp_nsp_fusarium$learner)
 args_bm_sp_nsp_fusarium$id = suppressWarnings(paste0("bm_sp_nsp_fusarium_", str_split(args_bm_sp_nsp_fusarium$learner, "_",
                                                                                       simplify = TRUE)[, 2]))
 
-args_bm_sp_nsp_heterobasidion = tibble(task = rlang::syms("heterobasidion_task_dummy"),
+args_bm_sp_nsp_heterobasidion = tibble(task = rlang::syms("heterobasidion_task_dummy_no_ph"),
                                        learner = c(c("wrapper_rf_nsp",
                                                      "wrapper_svm_nsp",
                                                      "wrapper_xgboost_nsp",
@@ -113,28 +113,28 @@ args_bm_sp_nsp_heterobasidion$id = suppressWarnings(paste0("bm_sp_nsp_heterobasi
 
 # sp/non ------------------------------------------------------------------
 
-args_bm_sp_non_armillaria = tibble(task = rlang::syms("armillaria_task_dummy"),
+args_bm_sp_non_armillaria = tibble(task = rlang::syms("armillaria_task_dummy_no_ph"),
                                    learner = c(c("lrn_rf",
                                                  "lrn_svm",
                                                  "lrn_xgboost",
                                                  "lrn_brt",
                                                  "lrn_kknn",
                                                  "lrn_glm",
-                                                 "lrn_gam_armillaria_perf_non"
+                                                 "lrn_gam_armillaria_perf_non_no_ph"
                                    )),
                                    resampling = rlang::syms(rep("spcv_outer_fiveF_hundredR", 7)))
 args_bm_sp_non_armillaria$learner = rlang::syms(args_bm_sp_non_armillaria$learner)
 args_bm_sp_non_armillaria$id = suppressWarnings(paste0("bm_sp_non_armillaria_", str_split(args_bm_sp_non_armillaria$learner, "_",
                                                                                           simplify = TRUE)[, 2]))
 
-args_bm_sp_non_diplodia = tibble(task = "diplodia_task_dummy",
+args_bm_sp_non_diplodia = tibble(task = "diplodia_task_dummy_no_ph",
                                  learner = c(c("lrn_rf",
                                                "lrn_svm",
                                                "lrn_xgboost",
                                                "lrn_brt",
                                                "lrn_kknn",
                                                "lrn_glm",
-                                               "lrn_gam_diplodia_perf_non"
+                                               "lrn_gam_diplodia_perf_non_no_ph"
                                  )),
                                  resampling = rep("spcv_outer_fiveF_hundredR", 7))
 # manual add - only temporary
@@ -151,28 +151,28 @@ args_bm_sp_non_diplodia$id = suppressWarnings(paste0("bm_sp_non_diplodia_", str_
 args_bm_sp_non_diplodia[8,4] = "bm_sp_non_diplodia_glm_old"
 
 
-args_bm_sp_non_fusarium = tibble(task = rlang::syms("fusarium_task_dummy"),
+args_bm_sp_non_fusarium = tibble(task = rlang::syms("fusarium_task_dummy_no_ph"),
                                  learner = c(c("lrn_rf",
                                                "lrn_svm",
                                                "lrn_xgboost",
                                                "lrn_brt",
                                                "lrn_kknn",
                                                "lrn_glm",
-                                               "lrn_gam_fusarium_perf_non"
+                                               "lrn_gam_fusarium_perf_non_no_ph"
                                  )),
                                  resampling = rlang::syms(rep("spcv_outer_fiveF_hundredR", 7)))
 args_bm_sp_non_fusarium$learner = rlang::syms(args_bm_sp_non_fusarium$learner)
 args_bm_sp_non_fusarium$id = suppressWarnings(paste0("bm_sp_non_fusarium_", str_split(args_bm_sp_non_fusarium$learner, "_",
                                                                                       simplify = TRUE)[, 2]))
 
-args_bm_sp_non_heterobasidion = tibble(task = rlang::syms("heterobasidion_task_dummy"),
+args_bm_sp_non_heterobasidion = tibble(task = rlang::syms("heterobasidion_task_dummy_no_ph"),
                                        learner = c(c("lrn_rf",
                                                      "lrn_svm",
                                                      "lrn_xgboost",
                                                      "lrn_brt",
                                                      "lrn_kknn",
                                                      "lrn_glm",
-                                                     "lrn_gam_heterobasidion_perf_non"
+                                                     "lrn_gam_heterobasidion_perf_non_no_ph"
                                        )),
                                        resampling = rlang::syms(rep("spcv_outer_fiveF_hundredR", 7)))
 args_bm_sp_non_heterobasidion$learner = rlang::syms(args_bm_sp_non_heterobasidion$learner)
@@ -181,7 +181,7 @@ args_bm_sp_non_heterobasidion$id = suppressWarnings(paste0("bm_sp_non_heterobasi
 
 # nsp/nsp ------------------------------------------------------------------
 
-args_bm_nsp_nsp_armillaria = tibble(task = rlang::syms("armillaria_task_dummy"),
+args_bm_nsp_nsp_armillaria = tibble(task = rlang::syms("armillaria_task_dummy_no_ph"),
                                     learner = c(c("wrapper_rf_nsp",
                                                   "wrapper_svm_nsp",
                                                   "wrapper_xgboost_nsp",
@@ -194,7 +194,7 @@ args_bm_nsp_nsp_armillaria$learner = rlang::syms(args_bm_nsp_nsp_armillaria$lear
 args_bm_nsp_nsp_armillaria$id = suppressWarnings(paste0("bm_nsp_nsp_armillaria_", str_split(args_bm_nsp_nsp_armillaria$learner, "_",
                                                                                             simplify = TRUE)[, 2]))
 
-args_bm_nsp_nsp_diplodia = tibble(task = rlang::syms("diplodia_task_dummy"),
+args_bm_nsp_nsp_diplodia = tibble(task = rlang::syms("diplodia_task_dummy_no_ph"),
                                   learner = c(c("wrapper_rf_nsp",
                                                 "wrapper_svm_nsp",
                                                 "wrapper_xgboost_nsp",
@@ -207,7 +207,7 @@ args_bm_nsp_nsp_diplodia$learner = rlang::syms(args_bm_nsp_nsp_diplodia$learner)
 args_bm_nsp_nsp_diplodia$id = suppressWarnings(paste0("bm_nsp_nsp_diplodia_", str_split(args_bm_nsp_nsp_diplodia$learner, "_",
                                                                                         simplify = TRUE)[, 2]))
 
-args_bm_nsp_nsp_fusarium = tibble(task = rlang::syms("fusarium_task_dummy"),
+args_bm_nsp_nsp_fusarium = tibble(task = rlang::syms("fusarium_task_dummy_no_ph"),
                                   learner = c(c("wrapper_rf_nsp",
                                                 "wrapper_svm_nsp",
                                                 "wrapper_xgboost_nsp",
@@ -220,7 +220,7 @@ args_bm_nsp_nsp_fusarium$learner = rlang::syms(args_bm_nsp_nsp_fusarium$learner)
 args_bm_nsp_nsp_fusarium$id = suppressWarnings(paste0("bm_nsp_nsp_fusarium_", str_split(args_bm_nsp_nsp_fusarium$learner, "_",
                                                                                         simplify = TRUE)[, 2]))
 
-args_bm_nsp_nsp_heterobasidion = tibble(task = rlang::syms("heterobasidion_task_dummy"),
+args_bm_nsp_nsp_heterobasidion = tibble(task = rlang::syms("heterobasidion_task_dummy_no_ph"),
                                         learner = c(c("wrapper_rf_nsp",
                                                       "wrapper_svm_nsp",
                                                       "wrapper_xgboost_nsp",
@@ -235,56 +235,56 @@ args_bm_nsp_nsp_heterobasidion$id = suppressWarnings(paste0("bm_nsp_nsp_heteroba
 
 # nsp/non ------------------------------------------------------------------
 
-args_bm_nsp_non_armillaria = tibble(task = rlang::syms("armillaria_task_dummy"),
+args_bm_nsp_non_armillaria = tibble(task = rlang::syms("armillaria_task_dummy_no_ph"),
                                     learner = c(c("lrn_rf",
                                                   "lrn_svm",
                                                   "lrn_xgboost",
                                                   "lrn_brt",
                                                   "lrn_kknn",
                                                   "lrn_glm",
-                                                  "lrn_gam_armillaria_perf_non"
+                                                  "lrn_gam_armillaria_perf_non_no_ph"
                                     )),
                                     resampling = rlang::syms(rep("cv_outer_fiveF_hundredR", 7)))
 args_bm_nsp_non_armillaria$learner = rlang::syms(args_bm_nsp_non_armillaria$learner)
 args_bm_nsp_non_armillaria$id = suppressWarnings(paste0("bm_nsp_non_armillaria_", str_split(args_bm_nsp_non_armillaria$learner, "_",
                                                                                             simplify = TRUE)[, 2]))
 
-args_bm_nsp_non_diplodia = tibble(task = rlang::syms("diplodia_task_dummy"),
+args_bm_nsp_non_diplodia = tibble(task = rlang::syms("diplodia_task_dummy_no_ph"),
                                   learner = c(c("lrn_rf",
                                                 "lrn_svm",
                                                 "lrn_xgboost",
                                                 "lrn_brt",
                                                 "lrn_kknn",
                                                 "lrn_glm",
-                                                "lrn_gam_diplodia_perf_non"
+                                                "lrn_gam_diplodia_perf_non_no_ph"
                                   )),
                                   resampling = rlang::syms(rep("cv_outer_fiveF_hundredR", 7)))
 args_bm_nsp_non_diplodia$learner = rlang::syms(args_bm_nsp_non_diplodia$learner)
 args_bm_nsp_non_diplodia$id = suppressWarnings(paste0("bm_nsp_non_diplodia_", str_split(args_bm_nsp_non_diplodia$learner, "_",
                                                                                         simplify = TRUE)[, 2]))
 
-args_bm_nsp_non_fusarium = tibble(task = rlang::syms("fusarium_task_dummy"),
+args_bm_nsp_non_fusarium = tibble(task = rlang::syms("fusarium_task_dummy_no_ph"),
                                   learner = c(c("lrn_rf",
                                                 "lrn_svm",
                                                 "lrn_xgboost",
                                                 "lrn_brt",
                                                 "lrn_kknn",
                                                 "lrn_glm",
-                                                "lrn_gam_fusarium_perf_non"
+                                                "lrn_gam_fusarium_perf_non_no_ph"
                                   )),
                                   resampling = rlang::syms(rep("cv_outer_fiveF_hundredR", 7)))
 args_bm_nsp_non_fusarium$learner = rlang::syms(args_bm_nsp_non_fusarium$learner)
 args_bm_nsp_non_fusarium$id = suppressWarnings(paste0("bm_nsp_non_fusarium_", str_split(args_bm_nsp_non_fusarium$learner, "_",
                                                                                         simplify = TRUE)[, 2]))
 
-args_bm_nsp_non_heterobasidion = tibble(task = rlang::syms("heterobasidion_task_dummy"),
+args_bm_nsp_non_heterobasidion = tibble(task = rlang::syms("heterobasidion_task_dummy_no_ph"),
                                         learner = c(c("lrn_rf",
                                                       "lrn_svm",
                                                       "lrn_xgboost",
                                                       "lrn_brt",
                                                       "lrn_kknn",
                                                       "lrn_glm",
-                                                      "lrn_gam_heterobasidion_perf_non"
+                                                      "lrn_gam_heterobasidion_perf_non_no_ph"
                                         )),
                                         resampling = rlang::syms(rep("cv_outer_fiveF_hundredR", 7)))
 args_bm_nsp_non_heterobasidion$learner = rlang::syms(args_bm_nsp_non_heterobasidion$learner)
