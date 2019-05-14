@@ -168,6 +168,7 @@ create_prediction_map <- function(prediction_raster, model_name, benchmark_objec
   # account for missing armillaria object for xgboost
   if (model_name == "xgboost") {
     prediction_raster[[1]] <- NULL
+  }
 
   out_maps <- imap(prediction_raster, ~ {
 
@@ -182,10 +183,11 @@ create_prediction_map <- function(prediction_raster, model_name, benchmark_objec
     }
 
     plot <- ggplot() +
-      annotation_map_tile(zoomin = -1, type = "cartolight") +
+      annotation_map_tile(zoomin = -1, type = "cartolight", progress = "none") +
       layer_spatial(.x, aes(fill = stat(band1))) +
       # scale_alpha_continuous(na.value = 0) +
-      scale_fill_viridis_c(na.value = NA, name = "Probability of\n infection", limits = c(0, 1)) +
+      scale_fill_viridis_c(na.value = NA, name = "Probability of\n infection",
+                           limits = c(0, 1)) +
       # spatial-aware automagic scale bar
       annotation_scale(location = "tl") +
       # spatial-aware automagic north arrow

@@ -42,7 +42,7 @@ vis_partitions = function(data, resampling_sp, resampling_nsp) {
 }
 
 #' @title Visualization of optimization paths
-#' @param model2 List of Benchmark/Resample results
+#' @param models List of Benchmark/Resample results
 #' @param n_folds Number of folds to visualize (e.g. 1-5)
 vis_opt_path = function(models) {
 

@@ -21,7 +21,7 @@ benchmark_custom <- function(task, learner, resampling) {
   bmr <- benchmark(learner, task,
                    models = ignore(FALSE),
                    keep.pred = ignore(TRUE),
-                   keep.extract = ignore(FALSE),
+                   keep.extract = ignore(TRUE),
                    resampling = resampling,
                    show.info = ignore(TRUE), measures = list(brier, timetrain)
   )
