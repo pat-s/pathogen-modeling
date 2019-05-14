@@ -1,0 +1,318 @@
+---
+title: "Prediction maps of pathogens from various algorithms"
+output: 
+  html_document: 
+    css: style.css
+    theme: readable
+    number_sections: yes
+    toc: yes
+    toc_float: true
+    toc_collapsed: true
+    df_print: tibble
+    includes:
+      in_header: header.html
+author: "Patrick Schratz, Friedrich-Schiller-University Jena"
+---
+
+```{r setup, include=FALSE}
+knitr::opts_knit$set(base.dir = "analysis/rmd/")
+knitr::opts_chunk$set(
+  fig.retina = 3, fig.align = "center", fig.width = 8.5,
+  fig.height = 5.5, out.width = "100%",
+  fig.path = "../../analysis/paper/submission/3/appendices/",
+  echo = FALSE
+)
+loadd(
+  maps_gam_diplodia,
+  maps_gam_fusarium,
+  # maps_gam_armillaria, # not converged
+  maps_gam_heterobasidion,
+  
+  maps_glm,
+  maps_svm,
+  maps_rf,
+  # maps_xgboost, # not converged
+  maps_kknn,
+  maps_brt,
+  
+  maps_debugging_diplodia_no_temp,
+  maps_debugging_diplodia_no_precip,
+  maps_debugging_diplodia_no_hail,
+  maps_debugging_diplodia_no_ph,
+  maps_debugging_diplodia_no_soil,
+  maps_debugging_diplodia_no_lithology,
+  maps_debugging_diplodia_no_slope,
+  maps_debugging_diplodia_no_pisr
+)
+```
+
+# Introduction
+
+This document shows the prediction maps for the possible infection risk of trees in the Basque Country by the following pathogens:
+
+- _Armillaria mellea_
+- _Diplodia sapinea_
+- _Fusarium circinatum_
+- _Heterobasidion annosum_
+
+The following algorithms were used to create the predictions:
+
+- Boosted Regression Trees (BRT)
+- Generalized Additive Model (GAM)
+- Generalized Linear Model (GLM)
+- k-Nearest Neighbor (KNN)
+- Random Forests (RF)
+- Support Vector Machine (SVM)
+- Extreme Gradient Boosting (XGBOOST)
+
+The following "algorithm-pathogen-resampling" settings did not return a performance result during performance evaluation.
+Due to the missing performance result for these combinations no prediction maps were created.
+
+```{r}
+my_tbl <- tibble::tribble(
+  ~Pathogen, ~Algorithm,       ~Resampling,
+  "Armillaria",  "XGBOOST", "spatial/spatial",
+  "Armillaria",      "GAM", "spatial/spatial"
+)
+
+kable_styling(
+  kable(my_tbl, digits = 3, row.names = FALSE, align = "c",
+        caption = NULL, format = "html"),
+  bootstrap_options = c("striped", "hover", "condensed"),
+  position = "center", full_width = FALSE) 
+
+```
+
+Unfortunately, XGBOOST cannot handle new factor levels in prediction data.
+Since we predict to the whole Basque Country using environment variables, this case occurs quite often. 
+Variables like "soil type" and "lithology type" inherit instances which only occur in some parts of the prediction area but not within the training data.
+Therefore, it was not possible to create prediction maps for XGBOOST.
+
+# Prediction Maps {.tabset .tabset-fade}
+
+## Armillaria mellea
+
+### GAM
+
+```{r prediction-map-armillaria-gam }
+NA
+```
+
+### GLM
+
+```{r prediction-map-armillaria-glm , message = FALSE, warning=FALSE}
+suppressWarnings(print(maps_glm[[1]]))
+```
+
+### BRT
+
+```{r prediction-map-armillaria-brt }
+suppressWarnings(print(maps_brt[[1]]))
+```
+
+### RF
+
+```{r prediction-map-armillaria-rf }
+suppressWarnings(print(maps_rf[[1]]))
+```
+
+### SVM
+
+```{r prediction-map-armillaria-svm }
+suppressWarnings(print(maps_svm[[1]]))
+```
+
+### KNN
+
+```{r prediction-map-armillaria-knn }
+suppressWarnings(print(maps_kknn[[1]]))
+```
+
+### XGBOOST
+
+```{r prediction-map-armillaria-xgboost }
+NA
+```
+
+## Heterobasidion annosum
+
+### GAM
+
+```{r prediction-map-heterobasidion-gam }
+suppressWarnings(print(maps_gam_heterobasidion))
+```
+
+### GLM
+
+```{r prediction-map-heterobasidion-glm }
+suppressWarnings(print(maps_glm[[2]]))
+```
+
+### BRT
+
+```{r prediction-map-heterobasidion-brt }
+suppressWarnings(print(maps_brt[[2]]))
+```
+
+### RF
+
+```{r prediction-map-heterobasidion-rf }
+suppressWarnings(print(maps_rf[[2]]))
+```
+
+### SVM
+
+```{r prediction-map-heterobasidion-svm }
+suppressWarnings(print(maps_svm[[2]]))
+```
+
+### KNN
+
+```{r prediction-map-heterobasidion-knn }
+suppressWarnings(print(maps_kknn[[2]]))
+```
+
+### XGBOOST
+
+```{r prediction-map-heterobasidion-xgboost }
+NA
+```
+
+
+## Diplodia sapinea
+
+### GAM
+
+```{r prediction-map-diplodia-gam }
+suppressWarnings(print(maps_gam_diplodia))
+```
+
+### GLM
+
+```{r prediction-map-diplodia-glm }
+suppressWarnings(print(maps_glm[[3]]))
+```
+
+### BRT
+
+```{r prediction-map-diplodia-brt }
+suppressWarnings(print(maps_brt[[3]]))
+```
+
+### RF
+
+```{r prediction-map-diplodia-rf }
+suppressWarnings(print(maps_rf[[3]]))
+```
+
+### SVM
+
+```{r prediction-map-diplodia-svm }
+suppressWarnings(print(maps_svm[[3]]))
+```
+
+### KNN
+
+```{r prediction-map-diplodia-knn }
+suppressWarnings(print(maps_kknn[[3]]))
+```
+
+### XGBOOST
+
+```{r prediction-map-diplodia-xgboost }
+NA
+```
+
+### Debugging
+
+No Temperature
+
+```{r prediction-map-diplodia-no-temp }
+suppressWarnings(print(maps_debugging_diplodia_no_temp[[1]]))
+```
+
+No Precipitation
+
+```{r prediction-map-diplodia-no-precip }
+suppressWarnings(print(maps_debugging_diplodia_no_precip[[1]]))
+```
+
+No hail
+
+```{r prediction-map-diplodia-no-hail }
+suppressWarnings(print(maps_debugging_diplodia_no_hail[[1]]))
+```
+
+No ph
+
+```{r prediction-map-diplodia-no-ph }
+suppressWarnings(print(maps_debugging_diplodia_no_ph[[1]]))
+```
+
+No soil
+
+```{r prediction-map-diplodia-no-soil }
+suppressWarnings(print(maps_debugging_diplodia_no_soil[[1]]))
+```
+
+No lithology
+
+```{r prediction-map-diplodia-no-lithology }
+suppressWarnings(print(maps_debugging_diplodia_no_lithology[[1]]))
+```
+
+No slope
+
+```{r prediction-map-diplodia-no-slope }
+suppressWarnings(print(maps_debugging_diplodia_no_slope[[1]]))
+```
+
+No pisr
+
+```{r prediction-map-diplodia-no-pisr }
+suppressWarnings(print(maps_debugging_diplodia_no_pisr[[1]]))
+```
+
+## Fusarium circinatum
+
+### GAM
+
+```{r prediction-map-fusarium-gam }
+suppressWarnings(print(maps_gam_fusarium))
+```
+
+### GLM
+
+```{r prediction-map-fusarium-glm }
+suppressWarnings(print(maps_glm[[4]]))
+```
+
+### BRT
+
+```{r prediction-map-fusarium-brt }
+suppressWarnings(print(maps_brt[[4]]))
+```
+
+### RF
+
+```{r prediction-map-fusarium-rf }
+suppressWarnings(print(maps_rf[[4]]))
+```
+
+### SVM
+
+```{r prediction-map-fusarium-svm }
+suppressWarnings(print(maps_svm[[4]]))
+```
+
+### KNN
+
+```{r prediction-map-fusarium-knn }
+suppressWarnings(print(maps_kknn[[4]]))
+```
+
+### XGBOOST
+
+```{r prediction-map-fusarium-xgboost }
+NA
+```

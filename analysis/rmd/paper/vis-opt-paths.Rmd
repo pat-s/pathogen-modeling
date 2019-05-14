@@ -1,0 +1,158 @@
+---
+title: "Visualization of optimization paths during hyperparameter tuning"
+output: 
+  html_document: 
+    css: ../style.css
+    theme: readable
+    number_sections: yes
+    toc: yes
+    toc_float: true
+    toc_collapsed: true
+    df_print: tibble
+    includes:
+      in_header: ../header.html
+author: "Patrick Schratz, FSU Jena"
+---
+
+```{r setup}
+knitr::opts_knit$set(base.dir = 'analysis/rmd/')
+knitr::opts_chunk$set(fig.retina = 3, 
+                      fig.align = 'center',
+                      fig.width = 9.93, 
+                      fig.height = 4.13,
+                      out.width = "100%",
+                      fig.path = "../../../analysis/reports/figures-benchmark-eval-diplodia/",
+                      echo = FALSE
+                      )
+
+loadd(bm_sp_sp_diplodia)
+```
+
+Visualization of optimization paths for the first five folds.
+
+# Resampling strategies {.tabset .tabset-fade}
+
+## Spatial/Spatial
+
+```{r}
+opt_path_diplodia_sp_sp = vis_opt_path(bm_sp_sp_diplodia$results$diplodia)
+```
+
+### GAM
+
+```{r opt-path-gam-sp-sp, dev = c("png")}
+opt_path_diplodia_sp_sp[[1]]
+```
+
+### KKNN
+
+```{r opt-path-knn-sp-sp, dev = c("png")}
+opt_path_diplodia_sp_sp[[2]]
+```
+
+### RF 
+
+```{r opt-path-rf-sp-sp, dev = c("png")}
+opt_path_diplodia_sp_sp[[3]]
+```
+
+### SVM 
+
+```{r opt-path-svm-sp-sp, dev = c("png")}
+opt_path_diplodia_sp_sp[[4]]
+```
+
+### BRT 
+
+```{r opt-path-brt-sp-sp, dev = c("png")}
+opt_path_diplodia_sp_sp[[5]]
+```
+
+## Spatial/Non-Spatial
+
+```{r}
+loadd(bm_sp_nsp_diplodia)
+
+opt_path_diplodia_sp_nsp = vis_opt_path(bm_sp_nsp_diplodia$results$diplodia)
+```
+
+### GAM
+
+```{r opt-path-gam-sp-nsp, dev = c("png")}
+opt_path_diplodia_sp_nsp[[1]]
+```
+
+### KKNN
+
+```{r opt-path-knn-sp-nsp,  fig.path="../../../analysis/paper/submission/3/appendices/", dev = c("png")}
+opt_path_diplodia_sp_nsp[[2]]
+```
+
+### RF 
+
+```{r opt-path-rf-sp-nsp, dev = c("png")}
+opt_path_diplodia_sp_nsp[[3]]
+```
+
+### SVM 
+
+```{r opt-path-svm-sp-nsp, dev = c("png")}
+opt_path_diplodia_sp_nsp[[4]]
+```
+
+### BRT 
+
+```{r opt-path-brt-sp-nsp, dev = c("png")}
+opt_path_diplodia_sp_nsp[[5]]
+```
+
+## Non-Spatial/Non-Spatial
+
+```{r}
+loadd(bm_nsp_nsp_diplodia)
+
+opt_path_diplodia_nsp_nsp = vis_opt_path(bm_nsp_nsp_diplodia$results$diplodia)
+```
+
+### GAM
+
+```{r opt-path-gam-nsp-nsp, dev = c("png")}
+opt_path_diplodia_nsp_nsp[[1]]
+```
+
+### KKNN
+
+```{r opt-path-knn-nsp-nsp, dev = c("png")}
+opt_path_diplodia_nsp_nsp[[2]]
+```
+
+### RF 
+
+```{r opt-path-rf-nsp-nsp, dev = c("png")}
+opt_path_diplodia_nsp_nsp[[3]]
+```
+
+### SVM 
+
+```{r opt-path-svm-nsp-nsp, dev = c("png")}
+opt_path_diplodia_nsp_nsp[[4]]
+```
+
+### BRT 
+
+```{r opt-path-brt-nsp-nsp, dev = c("png")}
+opt_path_diplodia_nsp_nsp[[5]]
+```
+
+# Comparison RF sp vs nsp
+
+```{r opt-paths-RF-sp-vs-nsp, fig.path="../../../analysis/paper/submission/3/latex-source-files", fig.width = 12, dev = c("png", "pdf")}
+# remove title, we use cowplot labels
+opt_path_diplodia_sp_sp[[3]] = opt_path_diplodia_sp_sp[[3]] + ggtitle("")
+opt_path_diplodia_sp_nsp[[3]] = opt_path_diplodia_sp_nsp[[3]] + ggtitle("")
+
+plot_grid(opt_path_diplodia_sp_sp[[3]], opt_path_diplodia_sp_nsp[[3]],
+          labels = c("RF (sp/sp)", "RF (sp/nsp)"),
+          ncol = 1, nrow = 2
+)
+```

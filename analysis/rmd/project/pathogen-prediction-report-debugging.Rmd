@@ -1,0 +1,94 @@
+---
+title: "Prediction maps of pathogens from various algorithms"
+output: 
+  html_document: 
+    css: style.css
+    theme: readable
+    number_sections: yes
+    toc: yes
+    toc_float: true
+    toc_collapsed: true
+    df_print: tibble
+    includes:
+      in_header: header.html
+author: "Patrick Schratz, Friedrich-Schiller-University Jena"
+---
+
+```{r setup, include=FALSE}
+knitr::opts_knit$set(base.dir = "analysis/rmd/")
+knitr::opts_chunk$set(
+  fig.retina = 3, fig.align = "center", fig.width = 8.5,
+  fig.height = 5.5, out.width = "100%",
+  fig.path = "../../analysis/paper/submission/3/appendices/",
+  echo = FALSE
+)
+loadd(
+  maps_debugging_diplodia_no_temp,
+  maps_debugging_diplodia_no_precip,
+  maps_debugging_diplodia_no_hail,
+  maps_debugging_diplodia_no_ph,
+  maps_debugging_diplodia_no_soil,
+  maps_debugging_diplodia_no_lithology,
+  maps_debugging_diplodia_no_slope,
+  maps_debugging_diplodia_no_pisr
+)
+```
+
+# Introduction
+
+This reports is for debugging purposes only.
+Its purpose was to identify the predictors responsbile for the artifacts in the prediction maps.
+
+"ph" was found to be the variable causing the artifacts.
+
+Random Forest was used as the algorithm in this case.
+
+# Prediction Maps {.tabset .tabset-fade}
+
+## No Temperature
+
+```{r prediction-map-diplodia-no-temp }
+suppressWarnings(print(maps_debugging_diplodia_no_temp[[1]]))
+```
+
+## No Precipitation
+
+```{r prediction-map-diplodia-no-precip }
+suppressWarnings(print(maps_debugging_diplodia_no_precip[[1]]))
+```
+
+##No hail
+
+```{r prediction-map-diplodia-no-hail }
+suppressWarnings(print(maps_debugging_diplodia_no_hail[[1]]))
+```
+
+## No ph
+
+```{r prediction-map-diplodia-no-ph }
+suppressWarnings(print(maps_debugging_diplodia_no_ph[[1]]))
+```
+
+## No soil
+
+```{r prediction-map-diplodia-no-soil }
+suppressWarnings(print(maps_debugging_diplodia_no_soil[[1]]))
+```
+
+## No lithology
+
+```{r prediction-map-diplodia-no-lithology }
+suppressWarnings(print(maps_debugging_diplodia_no_lithology[[1]]))
+```
+
+## No slope
+
+```{r prediction-map-diplodia-no-slope }
+suppressWarnings(print(maps_debugging_diplodia_no_slope[[1]]))
+```
+
+## No pisr
+
+```{r prediction-map-diplodia-no-pisr }
+suppressWarnings(print(maps_debugging_diplodia_no_pisr[[1]]))
+```

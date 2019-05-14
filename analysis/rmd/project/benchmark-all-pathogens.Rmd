@@ -1,0 +1,341 @@
+---
+title: "Evaluating classifier performance on pathogens"
+output: 
+  html_document: 
+    css: ../style.css
+    theme: readable
+    number_sections: yes
+    toc: yes
+    toc_float: true
+    toc_collapsed: true
+    df_print: tibble
+    includes:
+      in_header: ../header.html
+author: "Patrick Schratz, Friedrich-Schiller-University Jena"
+bibliography: ../bibliography.bib
+link-citations: yes
+---
+
+```{r setup, include=FALSE}
+knitr::opts_knit$set(base.dir = "analysis/rmd/")
+knitr::opts_chunk$set(
+  fig.retina = 3,
+  fig.align = "center",
+  fig.width = 6.93,
+  fig.height = 6.13,
+  out.width = "100%",
+  fig.path = "../../../analysis/paper/submission/3/appendices/",
+  echo = FALSE
+)
+
+loadd(
+  bm_all_pathogens_sp_sp, bm_all_pathogens_sp_nsp,
+  bm_all_pathogens_nsp_nsp, bm_all_pathogens_sp_non,
+  bm_all_pathogens_nsp_non,
+
+  no_extract_bm_sp_sp_armillaria
+)
+```
+
+# Introduction
+
+This document shows the predictive performances for the possible infection risk of trees in the Basque Country by the following pathogens:
+
+- _Armillaria mellea_
+- _Diplodia sapinea_
+- _Fusarium circinatum_
+- _Heterobasidion annosum_
+
+The following algorithms were benchmarked:
+
+- Boosted Regression Trees (BRT)
+- Generalized Additive Model (GAM)
+- Generalized Linear Model (GLM)
+- k-Nearest Neighbor (KNN)
+- Random Forests (RF)
+- Support Vector Machine (SVM)
+- Extreme Gradient Boosting (XGBOOST)
+
+The following "algorithm-pathogen-resampling" settings did not return a performance result during performance evaluation.
+Due to the missing performance result for these combinations no prediction maps were created.
+
+```{r}
+my_tbl <- tibble::tribble(
+  ~Pathogen, ~Algorithm, ~Resampling,
+  "Armillaria", "XGBOOST", "spatial/spatial",
+  "Armillaria", "GAM", "spatial/spatial"
+)
+
+kable_styling(
+  kable(my_tbl,
+    digits = 3, row.names = FALSE, align = "c",
+    caption = NULL, format = "html"
+  ),
+  bootstrap_options = c("striped", "hover", "condensed"),
+  position = "center", full_width = FALSE
+)
+```
+
+Due to two missing results for the pathogen _Armillaria mellea_, this pathogen could not be included in the plots comparing all pathogens against each other.
+
+# Resampling Strategies
+
+The abbreviations of the tabbed resampling strategies follow the scheme:
+
+`<outer resampling> / <inner resampling>`
+
+For example, setting "Spatial-Spatial" means that in both levels a "spatial cross-validation" (@Brenning2012) has been applied.
+
+The inner resampling refers to the hyperparameter tuning level of the nested cross-validation that was applied.
+
+# Results structure
+
+The structure of the following results presentation is as follows:
+
+- Table view of all performances for each resampling setting
+- Boxplot comparison for each pathogen and algorithm
+- Aggregated performances for each pathogen and algorithm
+
+# Resampling strategies {.tabset .tabset-fade}
+
+## Spatial-Spatial
+
+```{r benchmark-eval-all-2 }
+bm_all_pathogens_sp_sp %>%
+  getBMRAggrPerformances(as.df = TRUE) %>%
+  arrange(task.id, desc(brier.test.mean))
+```
+
+### Boxplot comparison
+
+```{r benchmark-eval-all-3 }
+plt <- plotBMRBoxplots(bm_all_pathogens_sp_sp,
+  measure = brier, pretty.names = F,
+  order.lrn = c(
+    "classif.gam.tuned", 
+    "classif.kknn.tuned",
+    "classif.ranger.tuned",
+    "classif.svm.tuned", 
+    "classif.gbm.tuned",
+    "classif.xgboost.tuned"
+  )
+) +
+  aes(color = learner.id) +
+  geom_boxplot(width = 0.6, outlier.size = 0.3, outlier.shape = 19) +
+  scale_colour_nejm() +
+  labs(y = "Brier score", x = "") +
+  theme_pubr() +
+  theme(strip.text.x = element_text(size = 8),
+        axis.text.x = element_text(size = 7)
+        )
+
+levels(plt$data$learner.id) <- c("GAM", "KNN", "RF", "SVM", "BRT", "XGBOOST")
+
+plt
+```
+
+### Aggregated performances
+
+```{r benchmark-eval-all-4 }
+plt2 <- plotBMRSummary(bm_all_pathogens_sp_sp, pretty.names = FALSE) +
+  scale_colour_nejm() +
+  theme_pubr()
+
+levels(plt$data$learner.id) <- c("GAM", "KNN", "RF", "SVM", "BRT", "XGBOOST")
+
+plt2
+```
+
+## Spatial-Non-Spatial
+
+```{r benchmark-eval-all-5 }
+bm_all_pathogens_sp_nsp %>%
+  getBMRAggrPerformances(as.df = TRUE) %>%
+  arrange(task.id, desc(brier.test.mean))
+```
+
+### Boxplot comparison
+
+```{r benchmark-eval-all-6 }
+plt <- plotBMRBoxplots(bm_all_pathogens_sp_nsp,
+  measure = brier, pretty.names = F,
+  order.lrn = c(
+    "classif.gam.tuned", 
+    "classif.kknn.tuned",
+    "classif.ranger.tuned",
+    "classif.svm.tuned", 
+    "classif.gbm.tuned",
+    "classif.xgboost.tuned"
+  )
+) +
+  aes(color = learner.id) +
+  geom_boxplot(width = 0.6, outlier.size = 0.3, outlier.shape = 19) +
+  scale_colour_nejm() +
+  labs(y = "Brier score", x = "") +
+  theme_pubr() +
+  theme(strip.text.x = element_text(size = 8),
+        axis.text.x = element_text(size = 7)
+        )
+
+levels(plt$data$learner.id) <- c("GAM", "KNN", "RF", "SVM", "BRT", "XGBOOST")
+
+plt
+```
+
+### Aggregated performances
+
+```{r benchmark-eval-all-7 }
+plt2 <- plotBMRSummary(bm_all_pathogens_sp_nsp, pretty.names = FALSE) +
+  scale_colour_nejm() +
+  theme_pubr()
+
+levels(plt2$data$learner.id) <- c("GAM", "KNN", "RF", "SVM", "BRT", "XGBOOST")
+
+plt2
+```
+
+## Non-Spatial-Non-Spatial
+
+```{r benchmark-eval-all-8 }
+bm_all_pathogens_nsp_nsp %>%
+  getBMRAggrPerformances(as.df = TRUE) %>%
+  arrange(task.id, desc(brier.test.mean))
+```
+
+### Boxplot comparison
+
+```{r benchmark-eval-all-9 }
+plt <- plotBMRBoxplots(bm_all_pathogens_nsp_nsp,
+  measure = brier, pretty.names = F,
+  order.lrn = c(
+    "classif.gam.tuned", "classif.kknn.tuned",
+    "classif.ranger.tuned",
+    "classif.svm.tuned", "classif.gbm.tuned",
+    "classif.xgboost.tuned"
+  )
+) +
+  aes(color = learner.id) +
+  geom_boxplot(width = 0.6, outlier.size = 0.3, outlier.shape = 19) +
+  scale_colour_nejm() +
+  labs(y = "Brier score", x = "") +
+  theme_pubr() +
+  theme(strip.text.x = element_text(size = 8),
+        axis.text.x = element_text(size = 7)
+        )
+
+levels(plt$data$learner.id) <- c("GAM", "KNN", "RF", "SVM", "BRT", "XGBOOST")
+
+plt
+```
+
+### Aggregated performances
+
+```{r benchmark-eval-all-10 }
+plt2 <- plotBMRSummary(bm_all_pathogens_nsp_nsp, pretty.names = FALSE) +
+  scale_colour_nejm() +
+  theme_pubr()
+
+levels(plt2$data$learner.id) <- c("GAM", "KNN", "RF", "SVM", "BRT", "XGBOOST")
+
+plt2
+```
+
+## Non-Spatial-No Tuning
+
+```{r benchmark-eval-all-11 }
+bm_all_pathogens_nsp_non %>%
+  getBMRAggrPerformances(as.df = TRUE) %>%
+  arrange(task.id, desc(brier.test.mean))
+```
+
+### Boxplot comparison
+
+```{r benchmark-eval-all-12 }
+plt <- plotBMRBoxplots(bm_all_pathogens_nsp_non,
+  measure = brier, pretty.names = F,
+  order.lrn = c(
+    "classif.gam", 
+    "classif.binomial",
+    "classif.kknn",
+    "classif.ranger",
+    "classif.svm", 
+    "classif.gbm",
+    "classif.xgboost"
+  )
+) +
+  aes(color = learner.id) +
+  geom_boxplot(width = 0.6, outlier.size = 0.3, outlier.shape = 19) +
+  scale_colour_nejm() +
+  labs(y = "Brier score", x = "") +
+  theme_pubr() +
+  theme(strip.text.x = element_text(size = 8),
+        axis.text.x = element_text(size = 7)
+        )
+
+levels(plt$data$learner.id) <- c("GAM", "GLM", "KNN", "RF", "SVM", "BRT", "XGBOOST")
+
+plt
+```
+
+### Aggregated performances
+
+```{r benchmark-eval-all-13 }
+plt2 <- plotBMRSummary(bm_all_pathogens_nsp_non, pretty.names = FALSE) +
+  scale_colour_nejm() +
+  theme_pubr()
+
+levels(plt2$data$learner.id) <- c("GAM", "GLM", "KNN", "RF", "SVM", "BRT", "XGBOOST")
+
+plt2
+```
+
+## Spatial-No Tuning
+
+```{r benchmark-eval-all-14 }
+bm_all_pathogens_sp_non %>%
+  getBMRAggrPerformances(as.df = TRUE) %>%
+  arrange(task.id, desc(brier.test.mean))
+```
+
+### Boxplot comparison
+
+```{r benchmark-eval-all-15 }
+plt <- plotBMRBoxplots(bm_all_pathogens_sp_non,
+  measure = brier, pretty.names = F,
+  order.lrn = c(
+    "classif.gam", 
+    "classif.binomial",
+    "classif.kknn",
+    "classif.ranger",
+    "classif.svm", 
+    "classif.gbm",
+    "classif.xgboost"
+  )
+) +
+  aes(color = learner.id) +
+  geom_boxplot(width = 0.6, outlier.size = 0.3, outlier.shape = 19) +
+  scale_colour_nejm() +
+  labs(y = "Brier score", x = "") ++
+  theme_pubr() +
+  theme(strip.text.x = element_text(size = 8),
+        axis.text.x = element_text(size = 7)
+        )
+
+levels(plt$data$learner.id) <- c("GAM", "GLM", "KNN", "RF", "SVM", "BRT", "XGBOOST")
+
+plt
+```
+
+### Aggregated performances
+
+```{r benchmark-eval-all-16 }
+plt2 <- plotBMRSummary(bm_all_pathogens_sp_non, pretty.names = FALSE) +
+  scale_colour_nejm() +
+  theme_pubr()
+
+levels(plt2$data$learner.id) <- c("GAM", "GLM", "KNN", "RF", "SVM", "BRT", "XGBOOST")
+
+plt2
+```
+
+# References
