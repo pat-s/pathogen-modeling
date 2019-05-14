@@ -150,6 +150,11 @@ Source: CRAN
 Version: 2.2.2
 Hash: b2366cd9d2f3851a5704b4e192b985c2
 
+Package: RApiDatetime
+Source: CRAN
+Version: 0.0.4
+Hash: fe7835da41d82d9b6d24842f313beeb7
+
 Package: RColorBrewer
 Source: CRAN
 Version: 1.1-2
@@ -215,6 +220,12 @@ Version: 0.2
 Hash: 87f13b1d7bb02fef1c734a1e96182798
 Requires: DT, curl, devtools, miniUI, rappdirs, rmarkdown, rvest,
     shiny, shinyjs, xml2
+
+Package: anytime
+Source: CRAN
+Version: 0.3.3
+Hash: 3a69382d876ac9535f2daad14807f7ed
+Requires: BH, RApiDatetime, Rcpp
 
 Package: aqp
 Source: CRAN
@@ -404,6 +415,12 @@ Package: data.table
 Source: CRAN
 Version: 1.11.8
 Hash: 67c877937c790a0cadb71284febb6b34
+
+Package: datapasta
+Source: CRAN
+Version: 3.0.0
+Hash: 053511aa0e70b9bfc4a640a5af05f983
+Requires: clipr, readr, rstudioapi
 
 Package: debugme
 Source: CRAN
@@ -762,6 +779,22 @@ Source: CRAN
 Version: 0.3.1
 Hash: 9d6de5178c1cedabfb24e7d2acc9a092
 
+Package: inserttable
+Source: github
+Version: 0.0.4
+Hash: 2b1938f4cd72a32f231d6546a350b898
+Requires: anytime, assertthat, datapasta, miniUI, rhandsontable,
+    rstudioapi, shiny, tibble
+GithubRepo: insert_table
+GithubUsername: lbusett
+GithubRef: master
+GithubSha1: 2be448210a75cef4cac3b5d8f4a902ac99add1c6
+RemoteHost: api.github.com
+RemoteRepo: insert_table
+RemoteUsername: lbusett
+RemoteRef: master
+RemoteSha: 2be448210a75cef4cac3b5d8f4a902ac99add1c6
+
 Package: intervals
 Source: CRAN
 Version: 0.15.1
@@ -776,6 +809,13 @@ Package: jsonlite
 Source: CRAN
 Version: 1.5
 Hash: 9c51936d8dd00b2f1d4fe9d10499694c
+
+Package: kableExtra
+Source: CRAN
+Version: 1.1.0
+Hash: 653aaaf9b80417823e9c8a5c39fe7134
+Requires: digest, glue, htmltools, knitr, magrittr, readr, rmarkdown,
+    rstudioapi, rvest, scales, stringr, viridisLite, webshot, xml2
 
 Package: kknn
 Source: CRAN
@@ -848,7 +888,7 @@ Requires: Rcpp, stringr
 Package: lwgeom
 Source: CRAN
 Version: 0.1-6
-Hash: bb94690dbe474e8817c0a7fdee599781
+Hash: 8e9ac5801d7dd8432f4510e3e4454ea1
 Requires: Rcpp, sf, units
 
 Package: magick
@@ -1268,6 +1308,12 @@ Version: 0.3-28
 Hash: eda0c83906dafebbbbc02b2c9898f6cb
 Requires: sp
 
+Package: rhandsontable
+Source: CRAN
+Version: 0.3.7
+Hash: 684b6e2edd72ff7ed37b8ba1461b44b5
+Requires: htmlwidgets, jsonlite, magrittr
+
 Package: rio
 Source: CRAN
 Version: 0.5.16
@@ -1358,8 +1404,8 @@ Requires: cli, withr
 
 Package: sf
 Source: CRAN
-Version: 0.7-3
-Hash: 418bdba8780233fd55a8bfb5c64e6db9
+Version: 0.7-4
+Hash: 30b78ce0d688b9a080a3a51d1fbbdd70
 Requires: DBI, Rcpp, classInt, magrittr, units
 
 Package: shapefiles

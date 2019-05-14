@@ -165,13 +165,14 @@ create_prediction_map <- function(prediction_raster, model_name, benchmark_objec
     resampling_file <- "nsp_non"
   }
 
-  # accoutn for missing armillaria object for xgboost
+  # account for missing armillaria object for xgboost
   if (model_name == "xgboost") {
     prediction_raster[[1]] <- NULL
-  }
 
   out_maps <- imap(prediction_raster, ~ {
-    if (inherits(deparse(substitute(prediction_raster)), "debugging")) {
+
+    # set info fields for debugging models to NA
+    if (is.na(resampling)) {
       score <- NA
     } else {
       score <- getBMRAggrPerformances(benchmark_object, as.df = TRUE) %>%
