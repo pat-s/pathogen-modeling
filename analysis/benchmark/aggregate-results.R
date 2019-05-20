@@ -45,10 +45,10 @@ bmr_aggr_path_resamp_plan = drake_plan(bm_sp_sp_diplodia = mergeBenchmarkResults
                                                                                          bm_nsp_non_diplodia_svm, bm_nsp_non_diplodia_brt,
                                                                                          bm_nsp_non_diplodia_xgboost)),
 
-                                       bm_sp_sp_armillaria = mergeBenchmarkResults(list(#bm_sp_sp_armillaria_gam,
+                                       bm_sp_sp_armillaria = mergeBenchmarkResults(list(bm_sp_sp_armillaria_gam,
                                          bm_sp_sp_armillaria_kknn, bm_sp_sp_armillaria_rf,
-                                         bm_sp_sp_armillaria_svm, bm_sp_sp_armillaria_brt
-                                         #bm_sp_sp_armillaria_xgboost
+                                         bm_sp_sp_armillaria_svm, bm_sp_sp_armillaria_brt,
+                                         bm_sp_sp_armillaria_xgboost
                                        )),
 
                                        bm_sp_nsp_armillaria = mergeBenchmarkResults(list(bm_sp_nsp_armillaria_gam,
@@ -143,13 +143,13 @@ bmr_aggr_model_resamp_plan = drake_plan(
     bm_sp_sp_fusarium_brt, bm_sp_sp_heterobasidion_brt
   )),
   bm_sp_sp_xgboost = mergeBenchmarkResults(list(
-    # bm_sp_sp_armillaria_xgboost,
+    bm_sp_sp_armillaria_xgboost,
     bm_sp_sp_diplodia_xgboost,
     bm_sp_sp_fusarium_xgboost,
     bm_sp_sp_heterobasidion_xgboost
   )),
   bm_sp_sp_gam = mergeBenchmarkResults(list(
-    # bm_sp_sp_armillaria_gam,
+    bm_sp_sp_armillaria_gam,
     bm_sp_sp_diplodia_gam,
     bm_sp_sp_fusarium_gam,
     bm_sp_sp_heterobasidion_gam
@@ -200,7 +200,7 @@ no_extract_plan = drake_plan(
 
 bm_all_pathogens_plan = drake_plan(
   bm_all_pathogens_sp_sp = mergeBenchmarkResults(list(no_extract_bm_sp_sp_diplodia2,
-                                                      #no_extract_bm_sp_sp_armillaria,
+                                                      no_extract_bm_sp_sp_armillaria,
                                                       no_extract_bm_sp_sp_fusarium,
                                                       no_extract_bm_sp_sp_heterobasidion)),
   bm_all_pathogens_sp_nsp = mergeBenchmarkResults(list(no_extract_bm_sp_nsp_diplodia2, no_extract_bm_sp_nsp_armillaria,
