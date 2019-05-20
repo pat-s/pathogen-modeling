@@ -488,9 +488,8 @@ Hash: 0b5710f4cb576ada4c0449fbb62fd5ee
 
 Package: evaluate
 Source: CRAN
-Version: 0.11
-Hash: 2d90e734f5c12a3473f4be8ef3c15ebb
-Requires: stringr
+Version: 0.13
+Hash: 1853557a0ea0db2daebf597c7ce58d70
 
 Package: expm
 Source: CRAN
@@ -825,9 +824,9 @@ Requires: Matrix, igraph
 
 Package: knitr
 Source: CRAN
-Version: 1.20
-Hash: 9c6b215d1d02b97586c8232e94533e6a
-Requires: evaluate, highr, markdown, stringr, yaml
+Version: 1.23
+Hash: 97e380b89b7561ff23821e60296b394c
+Requires: evaluate, highr, markdown, stringr, xfun, yaml
 
 Package: labeling
 Source: CRAN
@@ -1332,10 +1331,10 @@ Hash: 1176a91e0c23d4fc8f48bc5704a6f826
 
 Package: rmarkdown
 Source: CRAN
-Version: 1.10
-Hash: 02f1aac33000c63986c6b5585e36e7ae
+Version: 1.12
+Hash: 241424e590a32decf6e9f0cd32a5760b
 Requires: base64enc, evaluate, htmltools, jsonlite, knitr, mime,
-    rprojroot, stringr, tinytex, yaml
+    stringr, tinytex, yaml
 
 Package: rosm
 Source: CRAN
@@ -1571,8 +1570,8 @@ Requires: Rcpp, glue, purrr, rlang
 
 Package: tinytex
 Source: CRAN
-Version: 0.6
-Hash: a149d4e6a2f7d6422e063a19cca52bb9
+Version: 0.13
+Hash: 02daeb43f4d59934cf66533c3e2993f6
 Requires: xfun
 
 Package: travis
@@ -1653,8 +1652,8 @@ Hash: d534108bcd5f34ec73e9eb523751ba20
 
 Package: xfun
 Source: CRAN
-Version: 0.3
-Hash: 3b1cb5fdcfb96c88e3f9ab0239fbd048
+Version: 0.7
+Hash: f615e6607b290cfbc05bbda2a9e201b7
 
 Package: xgboost
 Source: CRAN
