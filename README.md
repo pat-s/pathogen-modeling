@@ -1,5 +1,5 @@
 
-[![Last-changedate](https://img.shields.io/badge/last%20change-2019--05--14-brightgreen.svg)](https://github.com/pat-s/pathogen-modeling/commits/master)
+[![Last-changedate](https://img.shields.io/badge/last%20change-2019--05--20-brightgreen.svg)](https://github.com/pat-s/pathogen-modeling/commits/master)
 [![minimal R
 version](https://img.shields.io/badge/R%3E%3D-3.5.0-brightgreen.svg)](https://cran.r-project.org/)
 [![Licence](https://img.shields.io/github/license/mashape/apistatus.svg)](http://choosealicense.com/licenses/mit/)  
@@ -34,7 +34,7 @@ Forest](http://www.lifehealthyforest.com/) project. The following
 reports are available:
 
   - [Benchmark comparison of all pathogens]()
-  - [Benchmark comparison of *Diplodia sapinea*]()
+  - [Benchmark comparison of *Diplodia sapinea* only]()
   - [Prediction maps of all
     pathogens](https://jupiter.geogr.uni-jena.de/life-healthy-forest/action-B1-pathogen-infection/pathogen-prediction-report.html)
   - [Visualization of (spatial) resampling partitions]()
@@ -100,7 +100,7 @@ to replicate the associated publication.
 If you want to replicate the publication, you need to build the
 following targets:
 
-  - `benchmark_eval_diplodia_all` (Benchmark comparison report)
+  - `pathogens_performance_diplodia` (Benchmark comparison report)
   - `visualize_opt_paths`(Optimization path figure)
   - `visualize_tuning_effects` (Tuning effects figure)
   - `visualize_partitions` (Partition figure)
@@ -111,21 +111,28 @@ that replicating this analysis sequentially will take weeks (\> 4).
 Unless you have a scalable system to run the analysis on, sequential
 replication is not encouraged.
 
-Other practical notes:
+#### Other practical notes
 
-  - All “diplodia” targets need to be built with `keep.extract = TRUE`
-    in
-    [benchmark\_custom](https://github.com/pat-s/pathogen-modeling/blob/335ca2c5bd92f04b6eba78f1b414fa61b1d6fb5c/R/benchmark-functions.R#L24),
-    otherwise the hyperparameter optimization paths cannot be
-    constructed. For all other targets, `keep.extract = FALSE` should be
-    used to save disk space of the resulting BenchmarkResult objects.
+  - All “diplodia” targets (`bm_sp_sp_diplodia`, `bm_sp_nsp_diplodia`
+    and `bm_nsp_nsp_diplodia`) are built with
+    `mlr::benchmark(keep.extract = TRUE)` in
+    [benchmark\_custom](https://github.com/pat-s/pathogen-modeling/blob/335ca2c5bd92f04b6eba78f1b414fa61b1d6fb5c/R/benchmark-functions.R).
+    This slot is needed to perform analysis on the tuning results. All
+    other pathogens are built with `mlr::benchmark(keep.extract =
+    FALSE)` to save disk space of the resulting R objects. BMR + tuning
+    results = ~ 3 GB, BMR - tuning results = xx
+MB.
 
 # Licenses
 
+| Text                                                    | Code                                                                                                | Data                                                   |
+| ------------------------------------------------------- | --------------------------------------------------------------------------------------------------- | ------------------------------------------------------ |
+| CC-BY-4.0 <http://creativecommons.org/licenses/by/4.0/> | MIT <http://opensource.org/licenses/MIT><br>year: 2018 - 2019,<br>copyright holder: Patrick Schratz | CC0 <http://creativecommons.org/publicdomain/zero/1.0> |
+
 Text: CC-BY-4.0 <http://creativecommons.org/licenses/by/4.0/>
 
-Code: MIT <http://opensource.org/licenses/MIT> year: 2019, copyright
-holder: Patrick Schratz
+Code: MIT <http://opensource.org/licenses/MIT> year: 2018 - 2019,
+copyright holder: Patrick Schratz
 
 Data: CC0 <http://creativecommons.org/publicdomain/zero/1.0/>
 

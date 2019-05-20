@@ -293,30 +293,30 @@ args_bm_nsp_non_heterobasidion$id = suppressWarnings(paste0("bm_nsp_non_heteroba
 
 # combine -----------------------------------------------------------------
 
-benchmark_sp_sp_armillaria = map_plan(args_bm_sp_sp_armillaria, benchmark_custom, trace = FALSE)
-benchmark_sp_sp_diplodia = map_plan(args_bm_sp_sp_diplodia, benchmark_custom, trace = FALSE)
-benchmark_sp_sp_fusarium = map_plan(args_bm_sp_sp_fusarium, benchmark_custom, trace = FALSE)
-benchmark_sp_sp_heterobasidion = map_plan(args_bm_sp_sp_heterobasidion, benchmark_custom, trace = FALSE)
+benchmark_sp_sp_armillaria = map_plan(args_bm_sp_sp_armillaria, benchmark_custom_no_extract_no_pred_no_models, trace = FALSE)
+benchmark_sp_sp_diplodia = map_plan(args_bm_sp_sp_diplodia, benchmark_custom_no_pred_no_models, trace = FALSE)
+benchmark_sp_sp_fusarium = map_plan(args_bm_sp_sp_fusarium, benchmark_custom_no_extract_no_pred_no_models, trace = FALSE)
+benchmark_sp_sp_heterobasidion = map_plan(args_bm_sp_sp_heterobasidion, benchmark_custom_no_extract_no_pred_no_models, trace = FALSE)
 
-benchmark_sp_nsp_armillaria = map_plan(args_bm_sp_nsp_armillaria, benchmark_custom, trace = FALSE)
-benchmark_sp_nsp_diplodia = map_plan(args_bm_sp_nsp_diplodia, benchmark_custom, trace = FALSE)
-benchmark_sp_nsp_fusarium = map_plan(args_bm_sp_nsp_fusarium, benchmark_custom, trace = FALSE)
-benchmark_sp_nsp_heterobasidion = map_plan(args_bm_sp_nsp_heterobasidion, benchmark_custom, trace = FALSE)
+benchmark_sp_nsp_armillaria = map_plan(args_bm_sp_nsp_armillaria, benchmark_custom_no_extract_no_pred_no_models, trace = FALSE)
+benchmark_sp_nsp_diplodia = map_plan(args_bm_sp_nsp_diplodia, benchmark_custom_no_pred_no_models, trace = FALSE)
+benchmark_sp_nsp_fusarium = map_plan(args_bm_sp_nsp_fusarium, benchmark_custom_no_extract_no_pred_no_models, trace = FALSE)
+benchmark_sp_nsp_heterobasidion = map_plan(args_bm_sp_nsp_heterobasidion, benchmark_custom_no_extract_no_pred_no_models, trace = FALSE)
 
-benchmark_sp_non_armillaria = map_plan(args_bm_sp_non_armillaria, benchmark_custom, trace = FALSE)
-benchmark_sp_non_diplodia = map_plan(args_bm_sp_non_diplodia, benchmark_custom, trace = FALSE)
-benchmark_sp_non_fusarium = map_plan(args_bm_sp_non_fusarium, benchmark_custom, trace = FALSE)
-benchmark_sp_non_heterobasidion = map_plan(args_bm_sp_non_heterobasidion, benchmark_custom, trace = FALSE)
+benchmark_sp_non_armillaria = map_plan(args_bm_sp_non_armillaria, benchmark_custom_no_extract_no_pred_no_models, trace = FALSE)
+benchmark_sp_non_diplodia = map_plan(args_bm_sp_non_diplodia, benchmark_custom_no_pred_no_models, trace = FALSE)
+benchmark_sp_non_fusarium = map_plan(args_bm_sp_non_fusarium, benchmark_custom_no_extract_no_pred_no_models, trace = FALSE)
+benchmark_sp_non_heterobasidion = map_plan(args_bm_sp_non_heterobasidion, benchmark_custom_no_extract_no_pred_no_models, trace = FALSE)
 
-benchmark_nsp_nsp_armillaria = map_plan(args_bm_nsp_nsp_armillaria, benchmark_custom, trace = FALSE)
-benchmark_nsp_nsp_diplodia = map_plan(args_bm_nsp_nsp_diplodia, benchmark_custom, trace = FALSE)
-benchmark_nsp_nsp_fusarium = map_plan(args_bm_nsp_nsp_fusarium, benchmark_custom, trace = FALSE)
-benchmark_nsp_nsp_heterobasidion = map_plan(args_bm_nsp_nsp_heterobasidion, benchmark_custom, trace = FALSE)
+benchmark_nsp_nsp_armillaria = map_plan(args_bm_nsp_nsp_armillaria, benchmark_custom_no_extract_no_pred_no_models, trace = FALSE)
+benchmark_nsp_nsp_diplodia = map_plan(args_bm_nsp_nsp_diplodia, benchmark_custom_no_pred_no_models, trace = FALSE)
+benchmark_nsp_nsp_fusarium = map_plan(args_bm_nsp_nsp_fusarium, benchmark_custom_no_extract_no_pred_no_models, trace = FALSE)
+benchmark_nsp_nsp_heterobasidion = map_plan(args_bm_nsp_nsp_heterobasidion, benchmark_custom_no_extract_no_pred_no_models, trace = FALSE)
 
-benchmark_nsp_non_armillaria = map_plan(args_bm_nsp_non_armillaria, benchmark_custom, trace = FALSE)
-benchmark_nsp_non_diplodia = map_plan(args_bm_nsp_non_diplodia, benchmark_custom, trace = FALSE)
-benchmark_nsp_non_fusarium = map_plan(args_bm_nsp_non_fusarium, benchmark_custom, trace = FALSE)
-benchmark_nsp_non_heterobasidion = map_plan(args_bm_nsp_non_heterobasidion, benchmark_custom, trace = FALSE)
+benchmark_nsp_non_armillaria = map_plan(args_bm_nsp_non_armillaria, benchmark_custom_no_extract_no_pred_no_models, trace = FALSE)
+benchmark_nsp_non_diplodia = map_plan(args_bm_nsp_non_diplodia, benchmark_custom_no_pred_no_models, trace = FALSE)
+benchmark_nsp_non_fusarium = map_plan(args_bm_nsp_non_fusarium, benchmark_custom_no_extract_no_pred_no_models, trace = FALSE)
+benchmark_nsp_non_heterobasidion = map_plan(args_bm_nsp_non_heterobasidion, benchmark_custom_no_extract_no_pred_no_models, trace = FALSE)
 
 benchmark_plan = bind_plans(benchmark_sp_sp_armillaria, benchmark_sp_sp_diplodia, benchmark_sp_sp_fusarium, benchmark_sp_sp_heterobasidion,
                             benchmark_sp_nsp_armillaria, benchmark_sp_nsp_diplodia, benchmark_sp_nsp_fusarium, benchmark_sp_nsp_heterobasidion,
