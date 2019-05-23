@@ -601,6 +601,12 @@ Source: CRAN
 Version: 0.0.2
 Hash: 4aaf002dd434e8c854611c5d11a1d58e
 
+Package: getPass
+Source: CRAN
+Version: 0.2-2
+Hash: 0000fb79893c1b2c226fa79f6b2e60f2
+Requires: rstudioapi
+
 Package: ggExtra
 Source: CRAN
 Version: 0.8
@@ -1649,6 +1655,13 @@ Package: withr
 Source: CRAN
 Version: 2.1.2
 Hash: d534108bcd5f34ec73e9eb523751ba20
+
+Package: workflowr
+Source: CRAN
+Version: 1.3.0
+Hash: 4745774f7be3277b65e74f0473d71927
+Requires: callr, fs, getPass, git2r, glue, knitr, rmarkdown, rprojroot,
+    rstudioapi, stringr, whisker, yaml
 
 Package: xfun
 Source: CRAN
