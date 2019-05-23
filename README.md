@@ -3,4 +3,4 @@
 
 **Hyperparameter tuning and performance assessment of statistical and machine-learning models using spatial data.**
 
-Please go to [2018-model-comparison.pjs-web.de](2018-model-comparison.pjs-web.de) for a detailed description of this research project.
+Please go to [2018-model-comparison.pjs-web.de](https://2018-model-comparison.pjs-web.de) for a detailed description of this research project.
