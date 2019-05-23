@@ -79,14 +79,13 @@ This repository contains more targets than actually needed to replicate the asso
 
 If you want to replicate the publication, you need to build the following targets:
 
-- `pathogens_performance_diplodia` (Benchmark comparison report)
-- `visualize_opt_paths`(Optimization path figure)
-- `visualize_tuning_effects` (Tuning effects figure)
-- `visualize_partitions` (Partition figure)
+- `benchmark_diplodia` (Benchmark report for pathogen _Diplodia sapinea_)
+- `vis_opt_paths`(Optimization path figure)
+- `vis_tuning_effects` (Tuning effects figure)
+- `vis_partitions` (Partition figure)
 
-Please note that when replicating these targets you cannot use the same HPC infrastructure that was used to generate the outputs. 
-This means that replicating this analysis sequentially will take weeks (> 4).
-Unless you have a scalable system to run the analysis on, sequential replication is not encouraged.
+Please note that the attached runtime of these targets are derived from a parallel execution on a HPC with 16 cores (AMD Threadripper 2950X) and 126 GB RAM (DDR4) per node.
+Reproducing these targets sequentially on a local machine might take weeks.
 
 #### Other practical notes
 
