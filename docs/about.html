@@ -1,0 +1,732 @@
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+
+<meta charset="utf-8" />
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="generator" content="pandoc" />
+
+
+
+
+<title>About</title>
+
+<script src="site_libs/jquery-1.11.3/jquery.min.js"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link href="site_libs/bootstrap-3.3.5/css/readable.min.css" rel="stylesheet" />
+<script src="site_libs/bootstrap-3.3.5/js/bootstrap.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/html5shiv.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/respond.min.js"></script>
+<script src="site_libs/navigation-1.1/tabsets.js"></script>
+<link href="site_libs/highlightjs-9.12.0/textmate.css" rel="stylesheet" />
+<script src="site_libs/highlightjs-9.12.0/highlight.js"></script>
+
+<style type="text/css">code{white-space: pre;}</style>
+<style type="text/css">
+  pre:not([class]) {
+    background-color: white;
+  }
+</style>
+<script type="text/javascript">
+if (window.hljs) {
+  hljs.configure({languages: []});
+  hljs.initHighlightingOnLoad();
+  if (document.readyState && document.readyState === "complete") {
+    window.setTimeout(function() { hljs.initHighlighting(); }, 0);
+  }
+}
+</script>
+
+
+
+<style type="text/css">
+h1 {
+  font-size: 34px;
+}
+h1.title {
+  font-size: 38px;
+}
+h2 {
+  font-size: 30px;
+}
+h3 {
+  font-size: 24px;
+}
+h4 {
+  font-size: 18px;
+}
+h5 {
+  font-size: 16px;
+}
+h6 {
+  font-size: 12px;
+}
+.table th:not([align]) {
+  text-align: left;
+}
+</style>
+
+
+
+
+<style type = "text/css">
+.main-container {
+  max-width: 940px;
+  margin-left: auto;
+  margin-right: auto;
+}
+code {
+  color: inherit;
+  background-color: rgba(0, 0, 0, 0.04);
+}
+img {
+  max-width:100%;
+  height: auto;
+}
+.tabbed-pane {
+  padding-top: 12px;
+}
+.html-widget {
+  margin-bottom: 20px;
+}
+button.code-folding-btn:focus {
+  outline: none;
+}
+summary {
+  display: list-item;
+}
+</style>
+
+
+<style type="text/css">
+/* padding for bootstrap navbar */
+body {
+  padding-top: 51px;
+  padding-bottom: 40px;
+}
+/* offset scroll position for anchor links (for fixed navbar)  */
+.section h1 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+.section h2 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+.section h3 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+.section h4 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+.section h5 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+.section h6 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+.dropdown-submenu {
+  position: relative;
+}
+.dropdown-submenu>.dropdown-menu {
+  top: 0;
+  left: 100%;
+  margin-top: -6px;
+  margin-left: -1px;
+  border-radius: 0 6px 6px 6px;
+}
+.dropdown-submenu:hover>.dropdown-menu {
+  display: block;
+}
+.dropdown-submenu>a:after {
+  display: block;
+  content: " ";
+  float: right;
+  width: 0;
+  height: 0;
+  border-color: transparent;
+  border-style: solid;
+  border-width: 5px 0 5px 5px;
+  border-left-color: #cccccc;
+  margin-top: 5px;
+  margin-right: -10px;
+}
+.dropdown-submenu:hover>a:after {
+  border-left-color: #ffffff;
+}
+.dropdown-submenu.pull-left {
+  float: none;
+}
+.dropdown-submenu.pull-left>.dropdown-menu {
+  left: -100%;
+  margin-left: 10px;
+  border-radius: 6px 0 6px 6px;
+}
+</style>
+
+<script>
+// manage active state of menu based on current page
+$(document).ready(function () {
+  // active menu anchor
+  href = window.location.pathname
+  href = href.substr(href.lastIndexOf('/') + 1)
+  if (href === "")
+    href = "index.html";
+  var menuAnchor = $('a[href="' + href + '"]');
+
+  // mark it active
+  menuAnchor.parent().addClass('active');
+
+  // if it's got a parent navbar menu mark it active as well
+  menuAnchor.closest('li.dropdown').addClass('active');
+});
+</script>
+
+<!-- tabsets -->
+
+<style type="text/css">
+.tabset-dropdown > .nav-tabs {
+  display: inline-table;
+  max-height: 500px;
+  min-height: 44px;
+  overflow-y: auto;
+  background: white;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+}
+
+.tabset-dropdown > .nav-tabs > li.active:before {
+  content: "";
+  font-family: 'Glyphicons Halflings';
+  display: inline-block;
+  padding: 10px;
+  border-right: 1px solid #ddd;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li.active:before {
+  content: "&#xe258;";
+  border: none;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open:before {
+  content: "";
+  font-family: 'Glyphicons Halflings';
+  display: inline-block;
+  padding: 10px;
+  border-right: 1px solid #ddd;
+}
+
+.tabset-dropdown > .nav-tabs > li.active {
+  display: block;
+}
+
+.tabset-dropdown > .nav-tabs > li > a,
+.tabset-dropdown > .nav-tabs > li > a:focus,
+.tabset-dropdown > .nav-tabs > li > a:hover {
+  border: none;
+  display: inline-block;
+  border-radius: 4px;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li {
+  display: block;
+  float: none;
+}
+
+.tabset-dropdown > .nav-tabs > li {
+  display: none;
+}
+</style>
+
+<script>
+$(document).ready(function () {
+  window.buildTabsets("TOC");
+});
+
+$(document).ready(function () {
+  $('.tabset-dropdown > .nav-tabs > li').click(function () {
+    $(this).parent().toggleClass('nav-tabs-open')
+  });
+});
+</script>
+
+<!-- code folding -->
+
+
+
+
+</head>
+
+<body>
+
+
+<div class="container-fluid main-container">
+
+
+
+
+<div class="navbar navbar-default  navbar-fixed-top" role="navigation">
+  <div class="container">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="index.html">2018-model-comparison</a>
+    </div>
+    <div id="navbar" class="navbar-collapse collapse">
+      <ul class="nav navbar-nav">
+        <li>
+  <a href="index.html">Home</a>
+</li>
+<li>
+  <a href="about.html">About</a>
+</li>
+<li>
+  <a href="license.html">License</a>
+</li>
+<li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+    Project
+     
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu">
+    <li>
+      <a href="benchmark-pathogens.html">Benchmark results</a>
+    </li>
+    <li>
+      <a href="prediction-pathogens.html">Prediction results and maps</a>
+    </li>
+  </ul>
+</li>
+<li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+    Paper
+     
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu">
+    <li>
+      <a href="benchmark-diplodia.html">Benchmark results Diplodia</a>
+    </li>
+    <li>
+      <a href="vis-opt-paths.html">Visualization of optimization paths (tuning)</a>
+    </li>
+    <li>
+      <a href="vis-tuning-effects.html">Visualization of hyperparameter tuning effects</a>
+    </li>
+    <li>
+      <a href="vis-partitions.html">Visualization of spatial partitions</a>
+    </li>
+  </ul>
+</li>
+      </ul>
+      <ul class="nav navbar-nav navbar-right">
+        
+      </ul>
+    </div><!--/.nav-collapse -->
+  </div><!--/.container -->
+</div><!--/.navbar -->
+
+<!-- Add a small amount of space between sections. -->
+<style type="text/css">
+div.section {
+  padding-top: 12px;
+}
+</style>
+
+<div class="fluid-row" id="header">
+
+
+
+<h1 class="title toc-ignore">About</h1>
+
+</div>
+
+
+<p>
+<button type="button" class="btn btn-default btn-workflowr btn-workflowr-report" data-toggle="collapse" data-target="#workflowr-report">
+<span class="glyphicon glyphicon-list" aria-hidden="true"></span> workflowr <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span>
+</button>
+</p>
+<div id="workflowr-report" class="collapse">
+<ul class="nav nav-tabs">
+<li class="active">
+<a data-toggle="tab" href="#summary">Summary</a>
+</li>
+<li>
+<a data-toggle="tab" href="#checks"> Checks <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> </a>
+</li>
+<li>
+<a data-toggle="tab" href="#versions">Past versions</a>
+</li>
+</ul>
+<div class="tab-content">
+<div id="summary" class="tab-pane fade in active">
+<p>
+<strong>Last updated:</strong> 2019-05-23
+</p>
+<p>
+<strong>Checks:</strong> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> 6 <span class="glyphicon glyphicon-exclamation-sign text-danger" aria-hidden="true"></span> 0
+</p>
+<p>
+<strong>Knit directory:</strong> <code>2018-model-comparison/</code> <span class="glyphicon glyphicon-question-sign" aria-hidden="true" title="This is the local directory in which the code in this file was executed."> </span>
+</p>
+<p>
+This reproducible <a href="http://rmarkdown.rstudio.com">R Markdown</a> analysis was created with <a
+  href="https://github.com/jdblischak/workflowr">workflowr</a> (version 1.3.0). The <em>Checks</em> tab describes the reproducibility checks that were applied when the results were created. The <em>Past versions</em> tab lists the development history.
+</p>
+<hr>
+</div>
+<div id="checks" class="tab-pane fade">
+<div id="workflowr-checks" class="panel-group">
+<div class="panel panel-default">
+<div class="panel-heading">
+<p class="panel-title">
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRMarkdownfilestronguptodate"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>R Markdown file:</strong> up-to-date </a>
+</p>
+</div>
+<div id="strongRMarkdownfilestronguptodate" class="panel-collapse collapse">
+<div class="panel-body">
+<p>Great! Since the R Markdown file has been committed to the Git repository, you know the exact version of the code that produced these results.</p>
+</div>
+</div>
+</div>
+<div class="panel panel-default">
+<div class="panel-heading">
+<p class="panel-title">
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongEnvironmentstrongempty"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Environment:</strong> empty </a>
+</p>
+</div>
+<div id="strongEnvironmentstrongempty" class="panel-collapse collapse">
+<div class="panel-body">
+<p>Great job! The global environment was empty. Objects defined in the global environment can affect the analysis in your R Markdown file in unknown ways. For reproduciblity it’s best to always run the code in an empty environment.</p>
+</div>
+</div>
+</div>
+<div class="panel panel-default">
+<div class="panel-heading">
+<p class="panel-title">
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongSeedstrongcodesetseed20190523code"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Seed:</strong> <code>set.seed(20190523)</code> </a>
+</p>
+</div>
+<div id="strongSeedstrongcodesetseed20190523code" class="panel-collapse collapse">
+<div class="panel-body">
+<p>The command <code>set.seed(20190523)</code> was run prior to running the code in the R Markdown file. Setting a seed ensures that any results that rely on randomness, e.g. subsampling or permutations, are reproducible.</p>
+</div>
+</div>
+</div>
+<div class="panel panel-default">
+<div class="panel-heading">
+<p class="panel-title">
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongSessioninformationstrongrecorded"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Session information:</strong> recorded </a>
+</p>
+</div>
+<div id="strongSessioninformationstrongrecorded" class="panel-collapse collapse">
+<div class="panel-body">
+<p>Great job! Recording the operating system, R version, and package versions is critical for reproducibility.</p>
+</div>
+</div>
+</div>
+<div class="panel panel-default">
+<div class="panel-heading">
+<p class="panel-title">
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongCachestrongnone"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Cache:</strong> none </a>
+</p>
+</div>
+<div id="strongCachestrongnone" class="panel-collapse collapse">
+<div class="panel-body">
+<p>Nice! There were no cached chunks for this analysis, so you can be confident that you successfully produced the results during this run.</p>
+</div>
+</div>
+</div>
+<div class="panel panel-default">
+<div class="panel-heading">
+<p class="panel-title">
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcompatspathogenmodelingtree83948155ab14e752fe7b132b7c0a03709bc0e711targetblank8394815a"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Repository version:</strong> <a href="https://github.com/pat-s/pathogen-modeling/tree/83948155ab14e752fe7b132b7c0a03709bc0e711" target="_blank">8394815</a> </a>
+</p>
+</div>
+<div id="strongRepositoryversionstrongahrefhttpsgithubcompatspathogenmodelingtree83948155ab14e752fe7b132b7c0a03709bc0e711targetblank8394815a" class="panel-collapse collapse">
+<div class="panel-body">
+<p>
+Great! You are using Git for version control. Tracking code development and connecting the code version to the results is critical for reproducibility. The version displayed above was the version of the Git repository at the time these results were generated. <br><br> Note that you need to be careful to ensure that all relevant files for the analysis have been committed to Git prior to generating the results (you can use <code>wflow_publish</code> or <code>wflow_git_commit</code>). workflowr only checks the R Markdown file, but you know if there are other scripts or data files that it depends on. Below is the status of the Git repository when the results were generated:
+</p>
+<pre><code>
+Ignored files:
+    Ignored:    .Rproj.user/
+    Ignored:    .drake/
+    Ignored:    code/07-paper/._files
+    Ignored:    data/
+    Ignored:    log/
+    Ignored:    packrat/lib-R/
+    Ignored:    packrat/lib-ext/
+    Ignored:    packrat/lib/
+    Ignored:    rosm.cache/
+    Ignored:    tests/testthat/
+
+Untracked files:
+    Untracked:  packrat/src/getPass/
+    Untracked:  packrat/src/workflowr/
+
+Unstaged changes:
+    Modified:   analysis/_site.yml
+    Modified:   analysis/benchmark-diplodia.Rmd
+    Modified:   analysis/benchmark-pathogens.Rmd
+    Modified:   analysis/pathogen-maps-debugging.Rmd
+    Modified:   analysis/prediction-pathogens.Rmd
+    Modified:   analysis/vis-opt-paths.Rmd
+    Modified:   analysis/vis-partitions.Rmd
+    Modified:   analysis/vis-tuning-effects.Rmd
+    Modified:   code/06-reports.R
+    Modified:   inst/rsync-jupiter.sh
+    Modified:   packrat/packrat.lock
+
+</code></pre>
+<p>
+Note that any generated files, e.g. HTML, png, CSS, etc., are not included in this status report because it is ok for generated content to have uncommitted changes.
+</p>
+</div>
+</div>
+</div>
+</div>
+<hr>
+</div>
+<div id="versions" class="tab-pane fade">
+
+<p>
+These are the previous versions of the R Markdown and HTML files. If you’ve configured a remote Git repository (see <code>?wflow_git_remote</code>), click on the hyperlinks in the table below to view them.
+</p>
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+File
+</th>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+<th>
+Message
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+Rmd
+</td>
+<td>
+<a href="https://github.com/pat-s/pathogen-modeling/blob/83948155ab14e752fe7b132b7c0a03709bc0e711/analysis/about.Rmd" target="_blank">8394815</a>
+</td>
+<td>
+pat-s
+</td>
+<td>
+2019-05-23
+</td>
+<td>
+wflow_publish(c(“analysis/about.Rmd”, “analysis/index.Rmd”, “analysis/license.Rmd”))
+</td>
+</tr>
+<tr>
+<td>
+Rmd
+</td>
+<td>
+<a href="https://github.com/pat-s/pathogen-modeling/blob/eb209848660b980b0e20813a29310dfda8505d3d/analysis/about.Rmd" target="_blank">eb20984</a>
+</td>
+<td>
+pat-s
+</td>
+<td>
+2019-05-23
+</td>
+<td>
+add workflowr structure
+</td>
+</tr>
+<tr>
+<td>
+Rmd
+</td>
+<td>
+<a href="https://github.com/pat-s/pathogen-modeling/blob/769718b47c6c487cbf63ccb89ecb220ca30b4367/analysis/about.Rmd" target="_blank">769718b</a>
+</td>
+<td>
+pat-s
+</td>
+<td>
+2019-05-23
+</td>
+<td>
+Start workflowr project.
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+<hr>
+</div>
+</div>
+</div>
+<p><strong>Hyperparameter tuning and performance assessment of statistical and machine-learning models using spatial data.</strong></p>
+<div id="authors" class="section level1">
+<h1><span class="header-section-number">1</span> Authors</h1>
+<p><strong>Patrick Schratz</strong> (<a href="mailto:patrick.schratz@gmail.com" class="email">patrick.schratz@gmail.com</a>) <a href="http://orcid.org/0000-0003-0748-6624"><img src="https://orcid.org/sites/default/files/images/orcid_16x16.png" /></a><br />
+Jannes Muenchow <a href="http://orcid.org/0000-0001-7834-4717"><img src="https://orcid.org/sites/default/files/images/orcid_16x16.png" /></a><br />
+Eugenia Iturritxa <a href="http://orcid.org/0000-0002-0577-3315"><img src="https://orcid.org/sites/default/files/images/orcid_16x16.png" /></a><br />
+Jakob Richter <a href="http://orcid.org/0000-0003-4481-5554"><img src="https://orcid.org/sites/default/files/images/orcid_16x16.png" /></a><br />
+Alexander Brenning <a href="http://orcid.org/0000-0001-6640-679X"><img src="https://orcid.org/sites/default/files/images/orcid_16x16.png" /></a></p>
+</div>
+<div id="contents" class="section level1">
+<h1><span class="header-section-number">2</span> Contents</h1>
+<p>This repository contains the research compendium of the above mentioned paper.</p>
+<ul>
+<li><a href="https://github.com/pat-s/pathogen-modeling/tree/master/code/07-paper/submission/3">Paper</a><br />
+</li>
+<li><a href="https://github.com/pat-s/pathogen-modeling/tree/master/code/07-paper/submission/3/appendices">Appendices</a></li>
+</ul>
+<p>In addition, it contains code and results for the <a href="http://www.lifehealthyforest.com/">LIFE Healthy Forest</a> project. The following reports are available:</p>
+<ul>
+<li><a href="">Benchmark comparison of all pathogens</a></li>
+<li><a href="">Benchmark comparison of <em>Diplodia sapinea</em> only</a></li>
+<li><a href="https://jupiter.geogr.uni-jena.de/life-healthy-forest/action-B1-pathogen-infection/pathogen-prediction-report.html">Prediction maps of all pathogens</a></li>
+<li><a href="">Visualization of (spatial) resampling partitions</a></li>
+<li><a href="">Visualization of hyperparameter optimization paths</a></li>
+</ul>
+</div>
+<div id="how-to-use" class="section level1">
+<h1><span class="header-section-number">3</span> How to use</h1>
+<div id="read-the-code-access-the-data" class="section level2">
+<h2><span class="header-section-number">3.1</span> Read the code, access the data</h2>
+<p>See the <a href="https://github.com/pat-s/pathogen-modeling/tree/master/analysis"><code>code</code></a> directory on GitHub for the source code that generated the figures and statistical results contained in the manuscript. The raw data is stored on <a href="https://doi.org/10.5281/zenodo.2582970">Zenodo</a> and will be downloaded when starting the analysis.</p>
+</div>
+<div id="install-the-r-package" class="section level2">
+<h2><span class="header-section-number">3.2</span> Install the R package</h2>
+<p><a href="https://travis-ci.org/pat-s/pathogen-modeling"><img src="https://travis-ci.org/pat-s/pathogen-modeling.svg?branch=master" alt="Build Status" /></a></p>
+<p>This repository is organized as an R package, providing functions and raw data to reproduce and extend the analysis reported in the publication. Note that this package has been written explicitly for this project and may not be suitable for general use.</p>
+<p>This project is setup with a <a href="https://github.com/ropensci/drake">drake workflow</a>, ensuring reproducibility. Intermediate targets/objects will be stored in a hidden <code>.drake</code> directory.</p>
+<p>The R library of this project is managed by <a href="https://rstudio.github.io/packrat/">packrat</a>. This makes sure that the exact same package versions are used when recreating the project. When calling <code>packrat::restore()</code>, all required packages will be installed with their specific version.</p>
+<p>Please note that this project was built with R version 3.5.1 on a CentOS 7.5 operating system. The packrat packages from this project <strong>are not compatible with R versions prior version 3.5.0.</strong> (In general, it should be possible to reproduce the analysis on any other operating system.)</p>
+<p>To clone the project, a working installation of <code>git</code> is required. Open a terminal in the directory of your choice and execute:</p>
+<pre class="sh"><code>git clone git@github.com:pat-s/pathogen-modeling.git</code></pre>
+<p>Then start R in this directory and run</p>
+<pre class="r"><code>packrat::restore() # restores all R packages with their specific version
+r_make() # recreates the analysis</code></pre>
+</div>
+</div>
+<div id="structure-of-the-analysis" class="section level1">
+<h1><span class="header-section-number">4</span> Structure of the analysis</h1>
+<p>In the <code>drake</code> philosophy, every R object is a “target” with dependencies. This repository contains more targets than actually needed to replicate the associated publication.</p>
+<p>If you want to replicate the publication, you need to build the following targets:</p>
+<ul>
+<li><code>benchmark_diplodia</code> (Benchmark report for pathogen <em>Diplodia sapinea</em>)</li>
+<li><code>vis_opt_paths</code>(Optimization path figure)</li>
+<li><code>vis_tuning_effects</code> (Tuning effects figure)</li>
+<li><code>vis_partitions</code> (Partition figure)</li>
+</ul>
+<p>Please note that the attached runtime of these targets are derived from a parallel execution on a HPC with 16 cores (AMD Threadripper 2950X) and 126 GB RAM (DDR4) per node. Reproducing these targets sequentially on a local machine might take weeks.</p>
+<div id="other-practical-notes" class="section level4">
+<h4><span class="header-section-number">4.0.0.1</span> Other practical notes</h4>
+<p>All “diplodia” targets (<code>bm_sp_sp_diplodia</code>, <code>bm_sp_nsp_diplodia</code> and <code>bm_nsp_nsp_diplodia</code>) are built with <code>mlr::benchmark(keep.extract = TRUE)</code> in <a href="https://github.com/pat-s/pathogen-modeling/blob/335ca2c5bd92f04b6eba78f1b414fa61b1d6fb5c/R/benchmark-functions.R">benchmark_custom</a>. This slot is needed to perform analysis on the tuning results. All other pathogens are built with <code>mlr::benchmark(keep.extract = FALSE)</code> to save disk space of the resulting R objects. BMR + tuning results = ~ 3 GB, BMR - tuning results = xx MB.</p>
+</div>
+</div>
+<div id="notes-and-resources" class="section level1">
+<h1><span class="header-section-number">5</span> Notes and resources</h1>
+<ul>
+<li><p>The <a href="https://github.com/pat-s/pathogen-modeling/issues">issues tracker</a> is the place to report problems or ask questions</p></li>
+<li><p>See the repository <a href="https://github.com/pat-s/pathogen-modeling/commits/master">history</a> for a fine-grained view of progress and changes.</p></li>
+<li><p>The structure of this compendium is based on the work of <a href="http://www.carlboettiger.info/">Carl Boettiger</a>, <a href="https://github.com/benmarwick">Ben Marwick</a> and the <a href="https://github.com/jdblischak/workflowr">workflowr</a> package.</p></li>
+</ul>
+<br>
+<p>
+<button type="button" class="btn btn-default btn-workflowr btn-workflowr-sessioninfo" data-toggle="collapse" data-target="#workflowr-sessioninfo" style="display: block;">
+<span class="glyphicon glyphicon-wrench" aria-hidden="true"></span> Session information
+</button>
+</p>
+<div id="workflowr-sessioninfo" class="collapse">
+<pre class="r"><code>sessionInfo()</code></pre>
+<pre><code>R version 3.5.1 (2018-07-02)
+Platform: x86_64-pc-linux-gnu (64-bit)
+Running under: CentOS Linux 7 (Core)
+
+Matrix products: default
+BLAS/LAPACK: /opt/spack/opt/spack/linux-centos7-x86_64/gcc-7.3.0/openblas-0.3.5-zncvk4jccaqyfl4z3vszaboeps6hyzta/lib/libopenblas_zen-r0.3.5.so
+
+locale:
+ [1] LC_CTYPE=en_GB.UTF-8       LC_NUMERIC=C              
+ [3] LC_TIME=en_GB.UTF-8        LC_COLLATE=en_GB.UTF-8    
+ [5] LC_MONETARY=en_GB.UTF-8    LC_MESSAGES=en_GB.UTF-8   
+ [7] LC_PAPER=en_GB.UTF-8       LC_NAME=C                 
+ [9] LC_ADDRESS=C               LC_TELEPHONE=C            
+[11] LC_MEASUREMENT=en_GB.UTF-8 LC_IDENTIFICATION=C       
+
+attached base packages:
+[1] stats     graphics  grDevices utils     datasets  methods   base     
+
+loaded via a namespace (and not attached):
+ [1] workflowr_1.3.0 Rcpp_1.0.0      digest_0.6.15   rprojroot_1.3-2
+ [5] backports_1.1.2 git2r_0.23.0    magrittr_1.5    evaluate_0.13  
+ [9] stringi_1.2.4   fs_1.2.6        whisker_0.3-2   rmarkdown_1.12 
+[13] tools_3.5.1     stringr_1.3.1   glue_1.3.0      xfun_0.7       
+[17] yaml_2.2.0      compiler_3.5.1  htmltools_0.3.6 knitr_1.23     </code></pre>
+</div>
+</div>
+
+
+<!-- Adjust MathJax settings so that all math formulae are shown using
+TeX fonts only; see
+http://docs.mathjax.org/en/latest/configuration.html.  This will make
+the presentation more consistent at the cost of the webpage sometimes
+taking slightly longer to load. Note that this only works because the
+footer is added to webpages before the MathJax javascript. -->
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({
+    "HTML-CSS": { availableFonts: ["TeX"] }
+  });
+</script>
+
+
+
+</div>
+
+<script>
+
+// add bootstrap table styles to pandoc tables
+function bootstrapStylePandocTables() {
+  $('tr.header').parent('thead').parent('table').addClass('table table-condensed');
+}
+$(document).ready(function () {
+  bootstrapStylePandocTables();
+});
+
+
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src  = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+
+</body>
+</html>
