@@ -9,9 +9,26 @@ navbar:
     href: about.html
   - text: License
     href: license.html
+  - text: Project
+    menu:
+    - text: "Benchmark results"
+      href: benchmark-pathogens.html
+    - text: "Prediction results and maps"
+      href: prediction-pathogens.html
+  - text: Paper
+    menu:
+    - text: "Benchmark results Diplodia"
+      href: benchmark-diplodia.html
+    - text: "Visualization of optimization paths (tuning)"
+      href: vis-opt-paths.html
+    - text: "Visualization of hyperparameter tuning effects"
+      href: vis-tuning-effects.html
+    - text: "Visualization of spatial partitions"
+      href: vis-partitions.html
 output:
   workflowr::wflow_html:
     toc: yes
     toc_float: yes
-    theme: cosmo
+    theme: readable
     highlight: textmate
+    number_sections: yes

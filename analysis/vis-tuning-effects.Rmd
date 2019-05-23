@@ -1,16 +1,6 @@
 ---
 title: "Visualization of partitions"
-output: 
-  html_document: 
-    css: ../style.css
-    theme: readable
-    number_sections: yes
-    toc: yes
-    toc_float: true
-    toc_collapsed: true
-    df_print: tibble
-    includes:
-      in_header: ../header.html
+output: workflowr::wflow_html
 author: "Patrick Schratz, FSU Jena"
 ---
 

@@ -1,16 +1,6 @@
 ---
 title: "Evaluating classifier performance on pathogens"
-output: 
-  html_document: 
-    css: ../style.css
-    theme: readable
-    number_sections: yes
-    toc: yes
-    toc_float: true
-    toc_collapsed: true
-    df_print: tibble
-    includes:
-      in_header: ../header.html
+output: workflowr::wflow_html
 author: "Patrick Schratz, Friedrich-Schiller-University Jena"
 bibliography: ../bibliography.bib
 link-citations: yes
