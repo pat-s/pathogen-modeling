@@ -21,7 +21,7 @@ benchmark_custom_no_extract_no_pred_no_models <- function(task, learner, resampl
 
   bmr <- benchmark(learner, task,
                    models = FALSE,
-                   keep.pred = FALSE,
+                   keep.pred = TRUE,
                    keep.extract = FALSE,
                    resampling = resampling,
                    show.info = TRUE,
@@ -55,7 +55,7 @@ benchmark_custom_no_pred_no_models <- function(task, learner, resampling) {
 
   bmr <- benchmark(learner, task,
                    models = FALSE,
-                   keep.pred = FALSE,
+                   keep.pred = TRUE,
                    keep.extract = TRUE,
                    resampling = resampling,
                    show.info = TRUE,
