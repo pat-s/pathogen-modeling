@@ -1,20 +1,20 @@
 # Plans -----------------------------------------------------------
-source("analysis/99-packages.R")
+source("code/99-packages.R")
 sourceDirectory("R/")
 
-data_plan = code_to_plan("analysis/data/data.R")
-task_plan = code_to_plan("analysis/data/task.R")
-learners_plan = code_to_plan("analysis/mlr-settings/learner.R")
-resampling_plan = code_to_plan("analysis/mlr-settings/resampling.R")
-param_set_plan = code_to_plan("analysis/mlr-settings/param-set.R")
-tune_ctrl_plan = code_to_plan("analysis/mlr-settings/tune_ctrl_mbo.R")
-tuning_wrapper_plan = code_to_plan("analysis/mlr-settings/tuning.R")
-visualization_plan = code_to_plan("analysis/visualization/vis-partitions.R")
-dataset_tables_plan = code_to_plan("analysis/visualization/create_dataset_tables.R")
-source("analysis/benchmark/aggregate-results.R")
-source("analysis/benchmark/benchmark.R")
-source("analysis/prediction/prediction.R")
-source("analysis/reports/reports.R")
+data_plan = code_to_plan("code/01-data/data.R")
+task_plan = code_to_plan("code/01-data/task.R")
+learners_plan = code_to_plan("code/02-mlr-settings/learner.R")
+resampling_plan = code_to_plan("code/02-mlr-settings/resampling.R")
+param_set_plan = code_to_plan("code/02-mlr-settings/param-set.R")
+tune_ctrl_plan = code_to_plan("code/02-mlr-settings/tune_ctrl_mbo.R")
+tuning_wrapper_plan = code_to_plan("code/02-mlr-settings/tuning.R")
+source("code/03-benchmark/aggregate-results.R")
+source("code/03-benchmark/benchmark.R")
+source("code/04-prediction/prediction.R")
+visualization_plan = code_to_plan("code/05-visualization/vis-partitions.R")
+dataset_tables_plan = code_to_plan("code/05-visualization/create_dataset_tables.R")
+source("code/06-reports.R")
 
 source("https://raw.githubusercontent.com/mlr-org/mlr-extralearner/master/R/RLearner_classif_gam.R")
 
@@ -64,10 +64,10 @@ options(clustermq.scheduler = "slurm",
 # watch -n .1 tail -n 40 ~/git/pathogen-modeling/drake.log
 
 drake_config(plan,
-             verbose = 2, targets = "prediction_maps", lazy_load = "promise",
+             verbose = 2, targets = c("bm_sp_nsp_diplodia", "bm_nsp_nsp_diplodia", "bm_sp_sp_diplodia", "pathogens_performance"), lazy_load = "promise",
              console_log_file = "log/drake.log", cache_log_file = "log/cache3.log",
              caching = "worker",
-             template = list(log_file = "log/worker%a.log", n_cpus = 3, memory = 100001),
-             prework = quote(future::plan(future::multisession, workers = 3)),
+             template = list(log_file = "log/worker%a.log", n_cpus = 16, memory = 120001),
+             prework = quote(future::plan(future::multisession, workers = 16)),
              garbage_collection = TRUE, jobs = 3, parallelism = "clustermq"
 )
