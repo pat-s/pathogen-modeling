@@ -2,15 +2,11 @@
 title: "Evaluating classifier performance on _Diplodia sapinea_"
 output: workflowr::wflow_html
 author: "Patrick Schratz, Friedrich-Schiller-University Jena"
-bibliography: ../bibliography.bib
+bibliography: bibliography.bib
 link-citations: yes
 ---
 
 ```{r setup, include=FALSE}
-knitr::opts_knit$set(
-  base.dir = "analysis/rmd/",
-  fig.path = "../../../analysis/reports/figures-benchmark-eval-diplodia/"
-)
 knitr::opts_chunk$set(
   fig.retina = 3,
   fig.align = "center",
@@ -19,6 +15,9 @@ knitr::opts_chunk$set(
   out.width = "100%",
   echo = FALSE
 )
+
+source(here::here("code/99-packages.R"))
+sourceDirectory("R")
 
 loadd(
   no_extract_bm_sp_sp_diplodia, no_extract_bm_sp_nsp_diplodia,
