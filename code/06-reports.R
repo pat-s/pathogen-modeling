@@ -1,8 +1,8 @@
 reports_plan = drake_plan(
 
-  benchmark_diplodia = wflow_build(knitr_in("analysis/benchmark_diplodia.Rmd"), view = FALSE),
+  benchmark_diplodia = wflow_build(knitr_in("analysis/benchmark-diplodia.Rmd"), view = FALSE),
 
-  benchmark_pathogens = wflow_build(knitr_in("analysis/benchmark_pathogens.Rmd"), view = FALSE),
+  benchmark_pathogens = wflow_build(knitr_in("analysis/benchmark-pathogens.Rmd"), view = FALSE),
 
   prediction_pathogens = wflow_build(knitr_in("analysis/prediction-pathogens.Rmd"), view = FALSE),
 
