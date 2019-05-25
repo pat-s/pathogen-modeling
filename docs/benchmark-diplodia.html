@@ -473,7 +473,7 @@ div.section {
 <div class="tab-content">
 <div id="summary" class="tab-pane fade in active">
 <p>
-<strong>Last updated:</strong> 2019-05-24
+<strong>Last updated:</strong> 2019-05-25
 </p>
 <p>
 <strong>Checks:</strong> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> 6 <span class="glyphicon glyphicon-exclamation-sign text-danger" aria-hidden="true"></span> 0
@@ -552,10 +552,10 @@ This reproducible <a href="http://rmarkdown.rstudio.com">R Markdown</a> analysis
 <div class="panel panel-default">
 <div class="panel-heading">
 <p class="panel-title">
-<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcompatspathogenmodelingtreeac7224ec08871215d9eca88ca3e664a89e3f98aetargetblankac7224ea"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Repository version:</strong> <a href="https://github.com/pat-s/pathogen-modeling/tree/ac7224ec08871215d9eca88ca3e664a89e3f98ae" target="_blank">ac7224e</a> </a>
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcompatspathogenmodelingtree2fac1aae9d354ff11cd5bf04a1a69451dcd1221ctargetblank2fac1aaa"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Repository version:</strong> <a href="https://github.com/pat-s/pathogen-modeling/tree/2fac1aae9d354ff11cd5bf04a1a69451dcd1221c" target="_blank">2fac1aa</a> </a>
 </p>
 </div>
-<div id="strongRepositoryversionstrongahrefhttpsgithubcompatspathogenmodelingtreeac7224ec08871215d9eca88ca3e664a89e3f98aetargetblankac7224ea" class="panel-collapse collapse">
+<div id="strongRepositoryversionstrongahrefhttpsgithubcompatspathogenmodelingtree2fac1aae9d354ff11cd5bf04a1a69451dcd1221ctargetblank2fac1aaa" class="panel-collapse collapse">
 <div class="panel-body">
 <p>
 Great! You are using Git for version control. Tracking code development and connecting the code version to the results is critical for reproducibility. The version displayed above was the version of the Git repository at the time these results were generated. <br><br> Note that you need to be careful to ensure that all relevant files for the analysis have been committed to Git prior to generating the results (you can use <code>wflow_publish</code> or <code>wflow_git_commit</code>). workflowr only checks the R Markdown file, but you know if there are other scripts or data files that it depends on. Below is the status of the Git repository when the results were generated:
@@ -576,6 +576,8 @@ Ignored files:
 
 Untracked files:
     Untracked:  analysis/bibliography.bib
+    Untracked:  code/07-paper/submission/3/latex-source-files/appendices
+    Untracked:  docs/figure/vis-partitions.Rmd/
     Untracked:  packrat/src/here/
 
 Unstaged changes:
@@ -583,8 +585,15 @@ Unstaged changes:
     Modified:   analysis/about.Rmd
     Modified:   analysis/benchmark-pathogens.Rmd
     Modified:   analysis/index.Rmd
+    Modified:   analysis/pathogen-maps-debugging.Rmd
+    Modified:   analysis/prediction-pathogens.Rmd
+    Modified:   analysis/vis-opt-paths.Rmd
+    Modified:   analysis/vis-partitions.Rmd
+    Modified:   analysis/vis-tuning-effects.Rmd
     Modified:   code/06-reports.R
+    Modified:   code/07-paper/submission/3/latex-source-files/cv_boxplots_final_brier-1.pdf
     Modified:   code/99-packages.R
+    Deleted:    docs/figure/benchmark-diplodia.Rmd/cv_boxplots_final_brier-1.pdf
     Modified:   inst/rsync-jupiter.sh
     Modified:   packrat/packrat.lock
 
@@ -625,6 +634,40 @@ Message
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+Rmd
+</td>
+<td>
+<a href="https://github.com/pat-s/pathogen-modeling/blob/2fac1aae9d354ff11cd5bf04a1a69451dcd1221c/analysis/benchmark-diplodia.Rmd" target="_blank">2fac1aa</a>
+</td>
+<td>
+pat-s
+</td>
+<td>
+2019-05-25
+</td>
+<td>
+wflow_publish(knitr_in(“analysis/benchmark-diplodia.Rmd”), view =
+</td>
+</tr>
+<tr>
+<td>
+html
+</td>
+<td>
+<a href="https://rawcdn.githack.com/pat-s/pathogen-modeling/a4a08a24405a12fd68603b8a8bbe3a6c23b6ad2d/docs/benchmark-diplodia.html" target="_blank">a4a08a2</a>
+</td>
+<td>
+pat-s
+</td>
+<td>
+2019-05-24
+</td>
+<td>
+Build site.
+</td>
+</tr>
 <tr>
 <td>
 Rmd
@@ -706,12 +749,28 @@ Start workflowr project.
 </div>
 <div id="results-structure" class="section level1">
 <h1><span class="header-section-number">3</span> Results structure</h1>
-<p>The structure of the following results presentation is as follows:</p>
+<p>Teh results are structured as follows:</p>
 <ul>
-<li>Table view of all performances for each resampling setting</li>
-<li>Boxplot comparison for each pathogen and algorithm</li>
-<li>Aggregated performances for each pathogen and algorithm</li>
+<li>Results table of all performances for each resampling setting</li>
+<li>Boxplot comparison across all algorithms</li>
+<li>Aggregated performances across all algorithms</li>
 </ul>
+<p>Even though GBM shows the best performance here, RF was the winning model as long as predictor <code>pH</code> was included in the model. This predictor was removed after causing block artifacts in the prediction maps. The following results do not include predictor <code>pH</code>.</p>
+<pre><code># A tibble: 922 x 13
+   diplo01  temp precip hail_probability    ph soil  lithology
+   &lt;fct&gt;   &lt;dbl&gt;  &lt;dbl&gt;            &lt;dbl&gt; &lt;dbl&gt; &lt;fct&gt; &lt;fct&gt;    
+ 1 0        16.1   249.           0.694   4.06 soil… clastic …
+ 2 0        16.0   237.           0.646   4.06 soil… clastic …
+ 3 0        16.0   237.           0.646   4.06 soil… clastic …
+ 4 0        12.6   152.           0.0238  4.96 soil… chemical…
+ 5 0        13.8   163.           0.0996  4.96 soil… clastic …
+ 6 0        13.7   149.           0.0532  5.14 soil… clastic …
+ 7 0        13.7   146.           0.0637  5.14 soil… clastic …
+ 8 0        13.8   146.           0.0743  5.14 soil… clastic …
+ 9 0        13.7   144.           0.0901  5.14 soil… clastic …
+10 0        13.9   147.           0.0692  4.98 soil… clastic …
+# … with 912 more rows, and 6 more variables: slope_degrees &lt;dbl&gt;,
+#   pisr &lt;dbl&gt;, x &lt;dbl&gt;, y &lt;dbl&gt;, year &lt;fct&gt;, age &lt;dbl&gt;</code></pre>
 </div>
 <div id="performance-results" class="section level1 tabset tabset-fade">
 <h1><span class="header-section-number">4</span> Performance results</h1>
@@ -726,10 +785,84 @@ Start workflowr project.
 <div id="boxplot-comparison" class="section level3">
 <h3><span class="header-section-number">4.1.1</span> Boxplot comparison</h3>
 <p><img src="figure/benchmark-diplodia.Rmd/benchmark-eval-diplodia-3-1.png" width="100%" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-benchmark-eval-diplodia-3-1">
+Past versions of benchmark-eval-diplodia-3-1.png
+</button>
+</p>
+<div id="fig-benchmark-eval-diplodia-3-1" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/pat-s/pathogen-modeling/blob/a4a08a24405a12fd68603b8a8bbe3a6c23b6ad2d/docs/figure/benchmark-diplodia.Rmd/benchmark-eval-diplodia-3-1.png" target="_blank">a4a08a2</a>
+</td>
+<td>
+pat-s
+</td>
+<td>
+2019-05-24
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
 </div>
 <div id="aggregated-performances" class="section level3">
 <h3><span class="header-section-number">4.1.2</span> Aggregated performances</h3>
 <p><img src="figure/benchmark-diplodia.Rmd/benchmark-eval-diplodia-4-1.png" width="100%" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-benchmark-eval-diplodia-4-1">
+Past versions of benchmark-eval-diplodia-4-1.png
+</button>
+</p>
+<div id="fig-benchmark-eval-diplodia-4-1" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/pat-s/pathogen-modeling/blob/a4a08a24405a12fd68603b8a8bbe3a6c23b6ad2d/docs/figure/benchmark-diplodia.Rmd/benchmark-eval-diplodia-4-1.png" target="_blank">a4a08a2</a>
+</td>
+<td>
+pat-s
+</td>
+<td>
+2019-05-24
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
 </div>
 </div>
 <div id="spatial-non-spatial" class="section level2">
@@ -743,10 +876,84 @@ Start workflowr project.
 <div id="boxplot-comparison-1" class="section level3">
 <h3><span class="header-section-number">4.2.1</span> Boxplot comparison</h3>
 <p><img src="figure/benchmark-diplodia.Rmd/benchmark-eval-diplodia-6-1.png" width="100%" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-benchmark-eval-diplodia-6-1">
+Past versions of benchmark-eval-diplodia-6-1.png
+</button>
+</p>
+<div id="fig-benchmark-eval-diplodia-6-1" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/pat-s/pathogen-modeling/blob/a4a08a24405a12fd68603b8a8bbe3a6c23b6ad2d/docs/figure/benchmark-diplodia.Rmd/benchmark-eval-diplodia-6-1.png" target="_blank">a4a08a2</a>
+</td>
+<td>
+pat-s
+</td>
+<td>
+2019-05-24
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
 </div>
 <div id="aggregated-performances-1" class="section level3">
 <h3><span class="header-section-number">4.2.2</span> Aggregated performances</h3>
 <p><img src="figure/benchmark-diplodia.Rmd/benchmark-eval-diplodia-7-1.png" width="100%" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-benchmark-eval-diplodia-7-1">
+Past versions of benchmark-eval-diplodia-7-1.png
+</button>
+</p>
+<div id="fig-benchmark-eval-diplodia-7-1" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/pat-s/pathogen-modeling/blob/a4a08a24405a12fd68603b8a8bbe3a6c23b6ad2d/docs/figure/benchmark-diplodia.Rmd/benchmark-eval-diplodia-7-1.png" target="_blank">a4a08a2</a>
+</td>
+<td>
+pat-s
+</td>
+<td>
+2019-05-24
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
 </div>
 </div>
 <div id="non-spatial-non-spatial" class="section level2">
@@ -760,10 +967,84 @@ Start workflowr project.
 <div id="boxplot-comparison-2" class="section level3">
 <h3><span class="header-section-number">4.3.1</span> Boxplot comparison</h3>
 <p><img src="figure/benchmark-diplodia.Rmd/benchmark-eval-diplodia-9-1.png" width="100%" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-benchmark-eval-diplodia-9-1">
+Past versions of benchmark-eval-diplodia-9-1.png
+</button>
+</p>
+<div id="fig-benchmark-eval-diplodia-9-1" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/pat-s/pathogen-modeling/blob/a4a08a24405a12fd68603b8a8bbe3a6c23b6ad2d/docs/figure/benchmark-diplodia.Rmd/benchmark-eval-diplodia-9-1.png" target="_blank">a4a08a2</a>
+</td>
+<td>
+pat-s
+</td>
+<td>
+2019-05-24
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
 </div>
 <div id="aggregated-performances-2" class="section level3">
 <h3><span class="header-section-number">4.3.2</span> Aggregated performances</h3>
 <p><img src="figure/benchmark-diplodia.Rmd/benchmark-eval-diplodia-10-1.png" width="100%" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-benchmark-eval-diplodia-10-1">
+Past versions of benchmark-eval-diplodia-10-1.png
+</button>
+</p>
+<div id="fig-benchmark-eval-diplodia-10-1" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/pat-s/pathogen-modeling/blob/a4a08a24405a12fd68603b8a8bbe3a6c23b6ad2d/docs/figure/benchmark-diplodia.Rmd/benchmark-eval-diplodia-10-1.png" target="_blank">a4a08a2</a>
+</td>
+<td>
+pat-s
+</td>
+<td>
+2019-05-24
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
 </div>
 </div>
 <div id="non-spatial-no-tuning" class="section level2">
@@ -778,10 +1059,84 @@ Start workflowr project.
 <div id="boxplot-comparison-3" class="section level3">
 <h3><span class="header-section-number">4.4.1</span> Boxplot comparison</h3>
 <p><img src="figure/benchmark-diplodia.Rmd/benchmark-eval-diplodia-12-1.png" width="100%" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-benchmark-eval-diplodia-12-1">
+Past versions of benchmark-eval-diplodia-12-1.png
+</button>
+</p>
+<div id="fig-benchmark-eval-diplodia-12-1" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/pat-s/pathogen-modeling/blob/a4a08a24405a12fd68603b8a8bbe3a6c23b6ad2d/docs/figure/benchmark-diplodia.Rmd/benchmark-eval-diplodia-12-1.png" target="_blank">a4a08a2</a>
+</td>
+<td>
+pat-s
+</td>
+<td>
+2019-05-24
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
 </div>
 <div id="aggregated-performances-3" class="section level3">
 <h3><span class="header-section-number">4.4.2</span> Aggregated performances</h3>
 <p><img src="figure/benchmark-diplodia.Rmd/benchmark-eval-diplodia-13-1.png" width="100%" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-benchmark-eval-diplodia-13-1">
+Past versions of benchmark-eval-diplodia-13-1.png
+</button>
+</p>
+<div id="fig-benchmark-eval-diplodia-13-1" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/pat-s/pathogen-modeling/blob/a4a08a24405a12fd68603b8a8bbe3a6c23b6ad2d/docs/figure/benchmark-diplodia.Rmd/benchmark-eval-diplodia-13-1.png" target="_blank">a4a08a2</a>
+</td>
+<td>
+pat-s
+</td>
+<td>
+2019-05-24
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
 </div>
 </div>
 <div id="spatial-no-tuning" class="section level2">
@@ -796,10 +1151,84 @@ Start workflowr project.
 <div id="boxplot-comparison-4" class="section level3">
 <h3><span class="header-section-number">4.5.1</span> Boxplot comparison</h3>
 <p><img src="figure/benchmark-diplodia.Rmd/benchmark-eval-diplodia-15-1.png" width="100%" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-benchmark-eval-diplodia-15-1">
+Past versions of benchmark-eval-diplodia-15-1.png
+</button>
+</p>
+<div id="fig-benchmark-eval-diplodia-15-1" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/pat-s/pathogen-modeling/blob/a4a08a24405a12fd68603b8a8bbe3a6c23b6ad2d/docs/figure/benchmark-diplodia.Rmd/benchmark-eval-diplodia-15-1.png" target="_blank">a4a08a2</a>
+</td>
+<td>
+pat-s
+</td>
+<td>
+2019-05-24
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
 </div>
 <div id="aggregated-performances-4" class="section level3">
 <h3><span class="header-section-number">4.5.2</span> Aggregated performances</h3>
 <p><img src="figure/benchmark-diplodia.Rmd/benchmark-eval-diplodia-16-1.png" width="100%" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-benchmark-eval-diplodia-16-1">
+Past versions of benchmark-eval-diplodia-16-1.png
+</button>
+</p>
+<div id="fig-benchmark-eval-diplodia-16-1" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/pat-s/pathogen-modeling/blob/a4a08a24405a12fd68603b8a8bbe3a6c23b6ad2d/docs/figure/benchmark-diplodia.Rmd/benchmark-eval-diplodia-16-1.png" target="_blank">a4a08a2</a>
+</td>
+<td>
+pat-s
+</td>
+<td>
+2019-05-24
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
 </div>
 </div>
 </div>
@@ -808,6 +1237,43 @@ Start workflowr project.
 <img src="figure/benchmark-diplodia.Rmd/cv_boxplots_final_brier-1.png" width="100%" style="display: block; margin: auto;" />
 <div class="alert alert-warning">
 <p><strong>Warning!</strong> The custom <code>fig.path</code> you set was ignored by workflowr.</p>
+</div>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-cv_boxplots_final_brier-1">
+Past versions of cv_boxplots_final_brier-1.png
+</button>
+</p>
+<div id="fig-cv_boxplots_final_brier-1" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/pat-s/pathogen-modeling/blob/a4a08a24405a12fd68603b8a8bbe3a6c23b6ad2d/docs/figure/benchmark-diplodia.Rmd/cv_boxplots_final_brier-1.png" target="_blank">a4a08a2</a>
+</td>
+<td>
+pat-s
+</td>
+<td>
+2019-05-24
+</td>
+</tr>
+</tbody>
+</table>
+</div>
 </div>
 </div>
 <div id="references" class="section level1">
@@ -867,37 +1333,38 @@ loaded via a namespace (and not attached):
   [1] backports_1.1.2   Hmisc_4.2-0       fastmatch_1.1-0  
   [4] igraph_1.2.2      lazyeval_0.2.1    splines_3.5.1    
   [7] storr_1.2.1       listenv_0.7.0     digest_0.6.15    
- [10] htmltools_0.3.6   base64url_1.4     cluster_2.0.7-1  
- [13] readr_1.3.1       globals_0.12.4    extrafont_0.17   
- [16] xts_0.11-0        extrafontdb_1.0   colorspace_1.3-2 
- [19] rvest_0.3.2       pixmap_0.4-11     xfun_0.7         
- [22] callr_3.1.0       crayon_1.3.4      jsonlite_1.5     
- [25] hexbin_1.27.2     survival_2.42-3   zoo_1.8-3        
- [28] gtable_0.2.0      webshot_0.5.1     Rttf2pt1_1.3.7   
- [31] scales_1.0.0      DBI_1.0.0         miniUI_0.1.1.1   
- [34] Rcpp_1.0.0        plotrix_3.7-4     spData_0.2.9.0   
- [37] htmlTable_1.12    units_0.6-2       Formula_1.2-3    
- [40] intervals_0.15.1  dismo_1.1-4       htmlwidgets_1.3  
- [43] httr_1.3.1        FNN_1.1           aqp_1.17         
- [46] acepack_1.4.1     pkgconfig_2.0.2   reshape_0.8.8    
- [49] XML_3.98-1.16     nnet_7.3-12       RJSONIO_1.3-1.1  
- [52] labeling_0.3      later_0.7.5       rlang_0.3.1      
- [55] munsell_0.5.0     tools_3.5.1       evaluate_0.13    
- [58] yaml_2.2.0        processx_3.2.1    knitr_1.23       
- [61] mime_0.5          whisker_0.3-2     xml2_1.2.0       
- [64] compiler_3.5.1    rstudioapi_0.10   plotly_4.8.0     
- [67] e1071_1.7-0       spacetime_1.2-2   lhs_0.16         
- [70] stringi_1.2.4     ps_1.2.1          gdtools_0.1.7    
- [73] plot3D_1.1.1      Matrix_1.2-14     classInt_0.2-3   
- [76] pillar_1.3.1      plotKML_0.5-9     data.table_1.11.8
- [79] httpuv_1.4.5      colorRamps_2.3    R6_2.2.2         
- [82] promises_1.0.1    gridExtra_2.3     codetools_0.2-15 
- [85] MASS_7.3-50       assertthat_0.2.0  rprojroot_1.3-2  
- [88] withr_2.1.2       hms_0.4.2         parallel_3.5.1   
- [91] grid_3.5.1        rpart_4.1-13      tidyr_0.8.2      
- [94] class_7.3-14      rmarkdown_1.12    misc3d_0.8-4     
- [97] mco_1.0-15.1      git2r_0.23.0      shiny_1.2.0      
-[100] base64enc_0.1-3  </code></pre>
+ [10] htmltools_0.3.6   fansi_0.4.0       base64url_1.4    
+ [13] cluster_2.0.7-1   readr_1.3.1       globals_0.12.4   
+ [16] extrafont_0.17    xts_0.11-0        extrafontdb_1.0  
+ [19] colorspace_1.3-2  rvest_0.3.2       pixmap_0.4-11    
+ [22] xfun_0.7          callr_3.1.0       crayon_1.3.4     
+ [25] jsonlite_1.5      hexbin_1.27.2     survival_2.42-3  
+ [28] zoo_1.8-3         gtable_0.2.0      webshot_0.5.1    
+ [31] Rttf2pt1_1.3.7    scales_1.0.0      DBI_1.0.0        
+ [34] miniUI_0.1.1.1    Rcpp_1.0.0        plotrix_3.7-4    
+ [37] spData_0.2.9.0    htmlTable_1.12    units_0.6-2      
+ [40] Formula_1.2-3     intervals_0.15.1  dismo_1.1-4      
+ [43] htmlwidgets_1.3   httr_1.3.1        FNN_1.1          
+ [46] aqp_1.17          acepack_1.4.1     pkgconfig_2.0.2  
+ [49] reshape_0.8.8     XML_3.98-1.16     nnet_7.3-12      
+ [52] utf8_1.1.4        RJSONIO_1.3-1.1   labeling_0.3     
+ [55] later_0.7.5       rlang_0.3.1       munsell_0.5.0    
+ [58] tools_3.5.1       cli_1.1.0         evaluate_0.13    
+ [61] yaml_2.2.0        processx_3.2.1    knitr_1.23       
+ [64] mime_0.5          whisker_0.3-2     xml2_1.2.0       
+ [67] compiler_3.5.1    rstudioapi_0.10   plotly_4.8.0     
+ [70] e1071_1.7-0       spacetime_1.2-2   lhs_0.16         
+ [73] stringi_1.2.4     ps_1.2.1          gdtools_0.1.7    
+ [76] plot3D_1.1.1      Matrix_1.2-14     classInt_0.2-3   
+ [79] pillar_1.3.1      plotKML_0.5-9     data.table_1.11.8
+ [82] httpuv_1.4.5      colorRamps_2.3    R6_2.2.2         
+ [85] promises_1.0.1    gridExtra_2.3     codetools_0.2-15 
+ [88] MASS_7.3-50       assertthat_0.2.0  rprojroot_1.3-2  
+ [91] withr_2.1.2       hms_0.4.2         parallel_3.5.1   
+ [94] grid_3.5.1        rpart_4.1-13      tidyr_0.8.2      
+ [97] class_7.3-14      rmarkdown_1.12    misc3d_0.8-4     
+[100] mco_1.0-15.1      git2r_0.23.0      shiny_1.2.0      
+[103] base64enc_0.1-3  </code></pre>
 </div>
 </div>
 
