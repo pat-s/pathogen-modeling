@@ -455,7 +455,7 @@ div.section {
 
 <p>
 <button type="button" class="btn btn-default btn-workflowr btn-workflowr-report" data-toggle="collapse" data-target="#workflowr-report">
-<span class="glyphicon glyphicon-list" aria-hidden="true"></span> workflowr <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span>
+<span class="glyphicon glyphicon-list" aria-hidden="true"></span> workflowr <span class="glyphicon glyphicon-exclamation-sign text-danger" aria-hidden="true"></span>
 </button>
 </p>
 <div id="workflowr-report" class="collapse">
@@ -464,7 +464,7 @@ div.section {
 <a data-toggle="tab" href="#summary">Summary</a>
 </li>
 <li>
-<a data-toggle="tab" href="#checks"> Checks <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> </a>
+<a data-toggle="tab" href="#checks"> Checks <span class="glyphicon glyphicon-exclamation-sign text-danger" aria-hidden="true"></span> </a>
 </li>
 <li>
 <a data-toggle="tab" href="#versions">Past versions</a>
@@ -476,7 +476,7 @@ div.section {
 <strong>Last updated:</strong> 2019-05-25
 </p>
 <p>
-<strong>Checks:</strong> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> 6 <span class="glyphicon glyphicon-exclamation-sign text-danger" aria-hidden="true"></span> 0
+<strong>Checks:</strong> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> 5 <span class="glyphicon glyphicon-exclamation-sign text-danger" aria-hidden="true"></span> 1
 </p>
 <p>
 <strong>Knit directory:</strong> <code>2018-model-comparison/</code> <span class="glyphicon glyphicon-question-sign" aria-hidden="true" title="This is the local directory in which the code in this file was executed."> </span>
@@ -492,12 +492,12 @@ This reproducible <a href="http://rmarkdown.rstudio.com">R Markdown</a> analysis
 <div class="panel panel-default">
 <div class="panel-heading">
 <p class="panel-title">
-<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRMarkdownfilestronguptodate"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>R Markdown file:</strong> up-to-date </a>
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRMarkdownfilestronguncommittedchanges"> <span class="glyphicon glyphicon-exclamation-sign text-danger" aria-hidden="true"></span> <strong>R Markdown file:</strong> uncommitted changes </a>
 </p>
 </div>
-<div id="strongRMarkdownfilestronguptodate" class="panel-collapse collapse">
+<div id="strongRMarkdownfilestronguncommittedchanges" class="panel-collapse collapse">
 <div class="panel-body">
-<p>Great! Since the R Markdown file has been committed to the Git repository, you know the exact version of the code that produced these results.</p>
+<p>The R Markdown file has unstaged changes. To know which version of the R Markdown file created these results, you’ll want to first commit it to the Git repo. If you’re still working on the analysis, you can ignore this warning. When you’re finished, you can run <code>wflow_publish</code> to commit the R Markdown file and build the HTML.</p>
 </div>
 </div>
 </div>
@@ -552,10 +552,10 @@ This reproducible <a href="http://rmarkdown.rstudio.com">R Markdown</a> analysis
 <div class="panel panel-default">
 <div class="panel-heading">
 <p class="panel-title">
-<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcompatspathogenmodelingtree0c294755bd738a923dc66e40a5fbc45c0aa68e67targetblank0c29475a"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Repository version:</strong> <a href="https://github.com/pat-s/pathogen-modeling/tree/0c294755bd738a923dc66e40a5fbc45c0aa68e67" target="_blank">0c29475</a> </a>
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcompatspathogenmodelingtreef9f121423de6735bbd71262a941c6825755be669targetblankf9f1214a"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Repository version:</strong> <a href="https://github.com/pat-s/pathogen-modeling/tree/f9f121423de6735bbd71262a941c6825755be669" target="_blank">f9f1214</a> </a>
 </p>
 </div>
-<div id="strongRepositoryversionstrongahrefhttpsgithubcompatspathogenmodelingtree0c294755bd738a923dc66e40a5fbc45c0aa68e67targetblank0c29475a" class="panel-collapse collapse">
+<div id="strongRepositoryversionstrongahrefhttpsgithubcompatspathogenmodelingtreef9f121423de6735bbd71262a941c6825755be669targetblankf9f1214a" class="panel-collapse collapse">
 <div class="panel-body">
 <p>
 Great! You are using Git for version control. Tracking code development and connecting the code version to the results is critical for reproducibility. The version displayed above was the version of the Git repository at the time these results were generated. <br><br> Note that you need to be careful to ensure that all relevant files for the analysis have been committed to Git prior to generating the results (you can use <code>wflow_publish</code> or <code>wflow_git_commit</code>). workflowr only checks the R Markdown file, but you know if there are other scripts or data files that it depends on. Below is the status of the Git repository when the results were generated:
@@ -575,23 +575,26 @@ Ignored files:
 
 Untracked files:
     Untracked:  analysis/bibliography.bib
-    Untracked:  code/07-paper/submission/3/latex-source-files/appendices
-    Untracked:  docs/figure/vis-opt-paths.Rmd/
     Untracked:  docs/figure/vis-tuning-effects.Rmd/
     Untracked:  packrat/src/here/
 
 Unstaged changes:
     Modified:   _drake.R
     Modified:   analysis/about.Rmd
+    Modified:   analysis/benchmark-diplodia.Rmd
     Modified:   analysis/benchmark-pathogens.Rmd
     Modified:   analysis/index.Rmd
     Modified:   analysis/pathogen-maps-debugging.Rmd
     Modified:   analysis/prediction-pathogens.Rmd
     Modified:   analysis/vis-opt-paths.Rmd
+    Modified:   analysis/vis-partitions.Rmd
     Modified:   analysis/vis-tuning-effects.Rmd
     Modified:   code/06-reports.R
     Modified:   code/07-paper/submission/3/latex-source-files/cv_boxplots_final_brier-1.pdf
     Modified:   code/99-packages.R
+    Modified:   docs/figure/benchmark-diplodia.Rmd/cv_boxplots_final_brier-1.pdf
+    Modified:   docs/figure/vis-opt-paths.Rmd/opt-paths-RF-sp-vs-nsp-1.pdf
+    Deleted:    docs/figure/vis-partitions.Rmd/spcv_nspcv_folds-1.pdf
     Modified:   inst/rsync-jupiter.sh
     Modified:   packrat/packrat.lock
 
@@ -632,6 +635,23 @@ Message
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+html
+</td>
+<td>
+<a href="https://rawcdn.githack.com/pat-s/pathogen-modeling/be8a48b2270c5ea16137d0438427e0a3cd9ecae7/docs/vis-partitions.html" target="_blank">be8a48b</a>
+</td>
+<td>
+pat-s
+</td>
+<td>
+2019-05-25
+</td>
+<td>
+Build site.
+</td>
+</tr>
 <tr>
 <td>
 Rmd
@@ -691,9 +711,43 @@ Start workflowr project.
 </div>
 </div>
 <p>Visualization of the first five folds of each resampling setting.</p>
-<img src="figure/vis-partitions.Rmd/spcv_nspcv_folds-1.png" width="100%" style="display: block; margin: auto;" />
-<div class="alert alert-warning">
-<p><strong>Warning!</strong> The custom <code>fig.path</code> you set was ignored by workflowr.</p>
+<p><img src="figure/vis-partitions.Rmd/spcv_nspcv_folds-1.png" width="100%" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-spcv_nspcv_folds-1">
+Past versions of spcv_nspcv_folds-1.png
+</button>
+</p>
+<div id="fig-spcv_nspcv_folds-1" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/pat-s/pathogen-modeling/blob/be8a48b2270c5ea16137d0438427e0a3cd9ecae7/docs/figure/vis-partitions.Rmd/spcv_nspcv_folds-1.png" target="_blank">be8a48b</a>
+</td>
+<td>
+pat-s
+</td>
+<td>
+2019-05-25
+</td>
+</tr>
+</tbody>
+</table>
+</div>
 </div>
 <br>
 <p>
