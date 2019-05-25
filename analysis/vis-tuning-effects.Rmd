@@ -1,24 +1,30 @@
 ---
-title: "Visualization of partitions"
+title: "Visualization of hyperparameter tuning effects"
 output: workflowr::wflow_html
 author: "Patrick Schratz, FSU Jena"
 ---
 
-Visualization of optimization paths for the first five folds.
-
-```{r setup}
-knitr::opts_knit$set(base.dir = "analysis/rmd/")
+```{r setup, include=FALSE}
 knitr::opts_chunk$set(
-  fig.retina = 3, 
+  fig.retina = 3,
   fig.align = "center",
   out.width = "100%",
-  echo = FALSE,
-  fig.path="../../../analysis/paper/submission/3/appendices/"
+  echo = FALSE
 )
+source(here::here("code/99-packages.R"))
+sourceDirectory("R")
 
-loadd(bm_sp_sp_diplodia, bm_sp_nsp_diplodia,
-      bm_nsp_nsp_diplodia)
+loadd(
+  bm_sp_sp_diplodia, bm_sp_nsp_diplodia,
+  bm_nsp_nsp_diplodia
+)
 ```
+
+Hyperparameter tuning results are plotted in a 2D space.
+Each dot represents the optimal setting for a specific fold during cross-validation.
+The red cross denotes the default setting for the respective hyperparameter combination of the algorithm.
+
+The numbers 1-5 show the selected settings for the first five folds of the cross-valdiation (= the first repetition).
 
 # Resampling strategies {.tabset .tabset-fade}
 
@@ -61,6 +67,8 @@ tuning_effects_diplodia_sp_sp <- vis_tuning_effects(bm_sp_sp_diplodia$results$di
 ```
 
 ### KKNN
+
+Here something seems to have gone wrong - when looking at the [optimization path results](vis-opt-paths.html#112_kknn) of this combination, only around 25 of 100 MBO iterations completed successfully. 
 
 ```{r tuning-effects-knn-sp-sp, dev = c("png")}
 tuning_effects_diplodia_sp_sp[[1]]
@@ -212,7 +220,7 @@ tuning_effects_diplodia_nsp_nsp[[4]]
 
 # Grid of most settings
 
-```{r tuning_effects_all_models_mbo, fig.width=15, fig.path="../../../analysis/paper/submission/3/latex-source-files/", dev = c("png", "pdf")}
+```{r tuning_effects_all_models_mbo, fig.width=15, fig.height=10, dev = c("png", "pdf")}
 plot_grid(tuning_effects_diplodia_nsp_nsp[[4]], tuning_effects_diplodia_nsp_nsp[[2]],
           tuning_effects_diplodia_nsp_nsp[[3]], tuning_effects_diplodia_nsp_nsp[[1]],
           
@@ -223,4 +231,22 @@ plot_grid(tuning_effects_diplodia_nsp_nsp[[4]], tuning_effects_diplodia_nsp_nsp[
           tuning_effects_diplodia_sp_sp[[3]], tuning_effects_diplodia_sp_sp[[1]],
           ncol = 4, nrow = 3
 )
+```
+
+```{r echo = FALSE}
+files_in = list.files(here("docs/figure/figure/vis-tuning-effects.Rmd/"), 
+                      pattern = "tuning-effect", 
+                      full.names = TRUE)
+file_copy(files_in,
+          rep(here("code/07-paper/submission/3/latex-source-files/appendices/"), 
+              length(files_in)),
+          overwrite = TRUE)
+```
+
+```{r echo = FALSE}
+file_move(list.files(here("code/07-paper/submission/3/latex-source-files/appendices"),
+                     pattern = "tuning_effects_all_models_mbo",
+                     full.names = TRUE),
+          here("code/07-paper/submission/3/latex-source-files/")
+          )
 ```
