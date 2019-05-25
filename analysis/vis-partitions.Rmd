@@ -5,10 +5,6 @@ author: "Patrick Schratz, Friedrich-Schiller-University Jena"
 ---
 
 ```{r setup, include=FALSE}
-knitr::opts_knit$set(
-  base.dir = "analysis/rmd/"
-
-)
 knitr::opts_chunk$set(
   fig.retina = 3,
   fig.align = "center",
@@ -17,11 +13,14 @@ knitr::opts_chunk$set(
   out.width = "100%",
   echo = FALSE
 )
-hrbrthemes::update_geom_font_defaults()
-import_roboto_condensed()
+source(here::here("code/99-packages.R"))
+sourceDirectory("R")
+# hrbrthemes::update_geom_font_defaults()
+# import_roboto_condensed()
 loadd(diplodia_data, bm_sp_non_diplodia_glm, bm_nsp_non_diplodia_glm)
 ```
 
+Visualization of the first five folds of each resampling setting.
 
 ```{r visualize-partitions-1}
 coordinates <- diplodia_data[, c("x", "y")]
@@ -67,4 +66,12 @@ nsp2 <- plot_grid(plist[["Plots"]][[9]], plist[["Plots"]][[10]], NULL,
 
 ```{r spcv_nspcv_folds, fig.width = 5.93, fig.height = 6.13, fig.path="../../../analysis/paper/submission/3/latex-source-files/", dev = c("png", "pdf")}
 plot_grid(sp, sp2, nsp, nsp2, ncol = 1)
+```
+
+```{r echo = FALSE}
+file_copy(list.files(here("docs/figure/vis-partitions.Rmd/"), 
+                     pattern = "spcv_nspcv_folds", 
+                     full.names = TRUE),
+          here("code/07-paper/submission/3/latex-source-files/"),
+          overwrite = TRUE)
 ```
