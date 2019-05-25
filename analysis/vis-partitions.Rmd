@@ -64,7 +64,7 @@ nsp2 <- plot_grid(plist[["Plots"]][[9]], plist[["Plots"]][[10]], NULL,
                   label_size = 8, hjust = -0.1)
 ```
 
-```{r spcv_nspcv_folds, fig.width = 5.93, fig.height = 6.13, fig.path="../../../analysis/paper/submission/3/latex-source-files/", dev = c("png", "pdf")}
+```{r spcv_nspcv_folds, fig.width = 5.93, fig.height = 6.13, dev = c("png", "pdf")}
 plot_grid(sp, sp2, nsp, nsp2, ncol = 1)
 ```
 
