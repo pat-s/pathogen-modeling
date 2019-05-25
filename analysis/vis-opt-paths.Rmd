@@ -5,15 +5,16 @@ author: "Patrick Schratz, FSU Jena"
 ---
 
 ```{r setup, include=FALSE}
-knitr::opts_knit$set(base.dir = 'analysis/rmd/')
 knitr::opts_chunk$set(fig.retina = 3, 
                       fig.align = 'center',
                       fig.width = 9.93, 
                       fig.height = 4.13,
                       out.width = "100%",
-                      fig.path = "../../../analysis/reports/figures-pathogen-performance-diplodia/",
                       echo = FALSE
                       )
+
+source(here::here("code/99-packages.R"))
+sourceDirectory("R")
 
 loadd(bm_sp_sp_diplodia, bm_sp_nsp_diplodia, bm_nsp_nsp_diplodia)
 ```
@@ -72,7 +73,7 @@ opt_path_diplodia_sp_nsp[[1]]
 
 ### KKNN
 
-```{r opt-path-knn-sp-nsp,  fig.path="../../../analysis/paper/submission/3/appendices/", dev = c("png")}
+```{r opt-path-knn-sp-nsp, dev = c("png")}
 opt_path_diplodia_sp_nsp[[2]]
 ```
 
@@ -132,7 +133,7 @@ opt_path_diplodia_nsp_nsp[[5]]
 
 # Comparison RF sp vs nsp
 
-```{r opt-paths-RF-sp-vs-nsp, fig.path="../../../analysis/paper/submission/3/latex-source-files", fig.width = 12, dev = c("png", "pdf")}
+```{r opt-paths-RF-sp-vs-nsp, fig.width = 12, fig.height = 10, dev = c("png", "pdf")}
 # remove title, we use cowplot labels
 opt_path_diplodia_sp_sp[[3]] = opt_path_diplodia_sp_sp[[3]] + ggtitle("")
 opt_path_diplodia_sp_nsp[[3]] = opt_path_diplodia_sp_nsp[[3]] + ggtitle("")
@@ -141,4 +142,21 @@ plot_grid(opt_path_diplodia_sp_sp[[3]], opt_path_diplodia_sp_nsp[[3]],
           labels = c("RF (sp/sp)", "RF (sp/nsp)"),
           ncol = 1, nrow = 2
 )
+```
+
+```{r echo = FALSE}
+files_in = list.files(here("docs/figure/figure/vis-opt-paths.Rmd/"), 
+                      pattern = "opt-paths", 
+                      full.names = TRUE)
+file_copy(files_in,
+          rep(here("code/07-paper/submission/3/latex-source-files/appendices/"), 
+              length(files_in)),
+          overwrite = TRUE)
+```
+
+```{r echo = FALSE}
+file_move(list.files(here("code/07-paper/submission/3/latex-source-files/appendices"), 
+                     pattern = "opt-paths-RF-sp-vs-nsp", 
+                     full.names = TRUE),
+          here("code/07-paper/submission/3/latex-source-files/"))
 ```
