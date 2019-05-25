@@ -5,13 +5,15 @@ author: "Patrick Schratz, Friedrich-Schiller-University Jena"
 ---
 
 ```{r setup, include=FALSE}
-knitr::opts_knit$set(base.dir = "analysis/rmd/")
 knitr::opts_chunk$set(
   fig.retina = 3, fig.align = "center", fig.width = 8.5,
   fig.height = 5.5, out.width = "100%",
-  fig.path = "../../analysis/paper/submission/3/appendices/",
   echo = FALSE
 )
+
+source(here::here("code/99-packages.R"))
+sourceDirectory("R")
+
 loadd(
   maps_debugging_diplodia_no_temp,
   maps_debugging_diplodia_no_precip,

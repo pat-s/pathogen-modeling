@@ -238,13 +238,13 @@ files_in = list.files(here("docs/figure/figure/vis-tuning-effects.Rmd/"),
                       pattern = "tuning-effect", 
                       full.names = TRUE)
 file_copy(files_in,
-          rep(here("code/07-paper/submission/3/latex-source-files/appendices/"), 
+          rep(here("code/07-paper/submission/3/appendices/"), 
               length(files_in)),
           overwrite = TRUE)
 ```
 
 ```{r echo = FALSE}
-file_move(list.files(here("code/07-paper/submission/3/latex-source-files/appendices"),
+file_move(list.files(here("code/07-paper/submission/3/appendices"),
                      pattern = "tuning_effects_all_models_mbo",
                      full.names = TRUE),
           here("code/07-paper/submission/3/latex-source-files/")

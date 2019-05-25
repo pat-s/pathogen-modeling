@@ -422,7 +422,7 @@ all_diplodia %<>%
   mutate(learner.id = fct_recode(learner.id, "KNN" = "classif.kknn"))
 ```
 
-```{r cv_boxplots_final_brier, fig.width = 6.93, fig.height = 6.13, fig.path="../../analysis/paper/submission/3/latex-source-files/", dev = c("png", "pdf")}
+```{r cv_boxplots_final_brier, fig.width = 6.93, fig.height = 6.13, dev = c("png", "pdf")}
 ggplot(all_diplodia, aes(learner.id, brier, fill = setting)) +
   geom_boxplot(width = 0.6, outlier.size = 0.3, outlier.shape = 19) +
   scale_fill_nejm() +
@@ -456,12 +456,12 @@ files_in = list.files(here("docs/figure/benchmark-diplodia.Rmd/"),
                      pattern = "cv_boxplots_final_brier", 
                      full.names = TRUE)
 file_copy(files_in,
-          rep(here("code/07-paper/submission/3/latex-source-files/appendices/"), length(files_in)),
+          rep(here("code/07-paper/submission/3/appendices/"), length(files_in)),
           overwrite = TRUE)
 ```
 
 ```{r echo = FALSE}
-file_move(list.files(here("code/07-paper/submission/3/latex-source-files/appendices"), 
+file_move(list.files(here("code/07-paper/submission/3/appendices"), 
                      pattern = "cv_boxplots_final_brier", 
                      full.names = TRUE),
           here("code/07-paper/submission/3/latex-source-files/"))

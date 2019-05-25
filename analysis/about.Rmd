@@ -27,11 +27,12 @@ This repository contains the research compendium of the above mentioned paper.
 In addition, it contains code and results for the [LIFE Healthy Forest](http://www.lifehealthyforest.com/) project.
 The following reports are available:
 
-- [Benchmark comparison of all pathogens]()
-- [Benchmark comparison of _Diplodia sapinea_ only]()
-- [Prediction maps of all pathogens](https://jupiter.geogr.uni-jena.de/life-healthy-forest/action-B1-pathogen-infection/pathogen-prediction-report.html)
-- [Visualization of (spatial) resampling partitions]()
-- [Visualization of hyperparameter optimization paths]()
+- [Benchmark comparison of all pathogens](benchmark-pathogens.html)
+- [Benchmark comparison of _Diplodia sapinea_ only](benchmark-diplodia.html)
+- [Prediction maps of all pathogens](prediction-pathogens.html)
+- [Visualization of (spatial) resampling partitions](vis-partitions.html)
+- [Visualization of hyperparameter optimization paths](vis-opt-paths.html)
+- [Visualization of tuning effects](vis-tuning-effects.html)
 
 # How to use
 
