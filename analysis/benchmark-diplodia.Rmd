@@ -22,7 +22,7 @@ sourceDirectory("R")
 loadd(
   no_extract_bm_sp_sp_diplodia, no_extract_bm_sp_nsp_diplodia,
   no_extract_bm_nsp_nsp_diplodia, no_extract_bm_nsp_non_diplodia,
-  no_extract_bm_sp_non_diplodia
+  no_extract_bm_sp_non_diplodia, diplodia_data
 )
 ```
 
@@ -52,11 +52,19 @@ The inner resampling refers to the hyperparameter tuning level of the nested cro
 
 # Results structure
 
-The structure of the following results presentation is as follows:
+Teh results are structured as follows:
 
-- Table view of all performances for each resampling setting
-- Boxplot comparison for each pathogen and algorithm
-- Aggregated performances for each pathogen and algorithm
+- Results table of all performances for each resampling setting
+- Boxplot comparison across all algorithms
+- Aggregated performances across all algorithms
+
+Even though GBM shows the best performance here, RF was the winning model as long as predictor `pH` was included in the model.
+This predictor was removed after causing block artifacts in the prediction maps.
+The following results do not include predictor `pH`.
+
+```{r echo = FALSE}
+tibble::as_tibble(diplodia_data)
+```
 
 # Performance results {.tabset .tabset-fade}
 
@@ -441,6 +449,22 @@ ggplot(all_diplodia, aes(learner.id, brier, fill = setting)) +
       size = 12
     )
   ))
+```
+
+```{r}
+files_in = list.files(here("docs/figure/benchmark-diplodia.Rmd/"), 
+                     pattern = "cv_boxplots_final_brier", 
+                     full.names = TRUE)
+file_copy(files_in,
+          rep(here("code/07-paper/submission/3/latex-source-files/appendices/"), length(files_in)),
+          overwrite = TRUE)
+```
+
+```{r echo = FALSE}
+file_move(list.files(here("code/07-paper/submission/3/latex-source-files/appendices"), 
+                     pattern = "cv_boxplots_final_brier", 
+                     full.names = TRUE),
+          here("code/07-paper/submission/3/latex-source-files/"))
 ```
 
 # References
