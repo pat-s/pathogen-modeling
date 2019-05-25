@@ -552,10 +552,10 @@ This reproducible <a href="http://rmarkdown.rstudio.com">R Markdown</a> analysis
 <div class="panel panel-default">
 <div class="panel-heading">
 <p class="panel-title">
-<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcompatspathogenmodelingtreef9f121423de6735bbd71262a941c6825755be669targetblankf9f1214a"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Repository version:</strong> <a href="https://github.com/pat-s/pathogen-modeling/tree/f9f121423de6735bbd71262a941c6825755be669" target="_blank">f9f1214</a> </a>
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcompatspathogenmodelingtreea21f3bbe3ee154e03b4512c4cc52e9e7968c63fetargetblanka21f3bba"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Repository version:</strong> <a href="https://github.com/pat-s/pathogen-modeling/tree/a21f3bbe3ee154e03b4512c4cc52e9e7968c63fe" target="_blank">a21f3bb</a> </a>
 </p>
 </div>
-<div id="strongRepositoryversionstrongahrefhttpsgithubcompatspathogenmodelingtreef9f121423de6735bbd71262a941c6825755be669targetblankf9f1214a" class="panel-collapse collapse">
+<div id="strongRepositoryversionstrongahrefhttpsgithubcompatspathogenmodelingtreea21f3bbe3ee154e03b4512c4cc52e9e7968c63fetargetblanka21f3bba" class="panel-collapse collapse">
 <div class="panel-body">
 <p>
 Great! You are using Git for version control. Tracking code development and connecting the code version to the results is critical for reproducibility. The version displayed above was the version of the Git repository at the time these results were generated. <br><br> Note that you need to be careful to ensure that all relevant files for the analysis have been committed to Git prior to generating the results (you can use <code>wflow_publish</code> or <code>wflow_git_commit</code>). workflowr only checks the R Markdown file, but you know if there are other scripts or data files that it depends on. Below is the status of the Git repository when the results were generated:
@@ -574,20 +574,12 @@ Ignored files:
     Ignored:    tests/testthat/
 
 Untracked files:
-    Untracked:  analysis/bibliography.bib
-    Untracked:  code/07-paper/submission/3/latex-source-files/appendices
     Untracked:  packrat/src/here/
 
 Unstaged changes:
     Modified:   _drake.R
-    Modified:   analysis/about.Rmd
-    Modified:   analysis/benchmark-pathogens.Rmd
-    Modified:   analysis/index.Rmd
-    Modified:   analysis/pathogen-maps-debugging.Rmd
-    Modified:   analysis/prediction-pathogens.Rmd
-    Modified:   code/06-reports.R
     Modified:   code/07-paper/submission/3/latex-source-files/cv_boxplots_final_brier-1.pdf
-    Modified:   code/99-packages.R
+    Deleted:    docs/figure/vis-tuning-effects.Rmd/tuning_effects_all_models_mbo-1.pdf
     Modified:   inst/rsync-jupiter.sh
     Modified:   packrat/packrat.lock
 
@@ -628,6 +620,40 @@ Message
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+Rmd
+</td>
+<td>
+<a href="https://github.com/pat-s/pathogen-modeling/blob/dac5d6a832ccde6783dc6c5285fe3acfbbf3cf7b/analysis/vis-tuning-effects.Rmd" target="_blank">dac5d6a</a>
+</td>
+<td>
+pat-s
+</td>
+<td>
+2019-05-25
+</td>
+<td>
+upd reports
+</td>
+</tr>
+<tr>
+<td>
+html
+</td>
+<td>
+<a href="https://rawcdn.githack.com/pat-s/pathogen-modeling/137adf4ef72c8711c29a4bcee6f0f38756f6811b/docs/vis-tuning-effects.html" target="_blank">137adf4</a>
+</td>
+<td>
+pat-s
+</td>
+<td>
+2019-05-25
+</td>
+<td>
+Build site.
+</td>
+</tr>
 <tr>
 <td>
 Rmd
@@ -696,18 +722,166 @@ Start workflowr project.
 <h3><span class="header-section-number">1.1.1</span> KKNN</h3>
 <p>Here something seems to have gone wrong - when looking at the <a href="vis-opt-paths.html#112_kknn">optimization path results</a> of this combination, only around 25 of 100 MBO iterations completed successfully.</p>
 <p><img src="figure/vis-tuning-effects.Rmd/tuning-effects-knn-sp-sp-1.png" width="100%" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-tuning-effects-knn-sp-sp-1">
+Past versions of tuning-effects-knn-sp-sp-1.png
+</button>
+</p>
+<div id="fig-tuning-effects-knn-sp-sp-1" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/pat-s/pathogen-modeling/blob/137adf4ef72c8711c29a4bcee6f0f38756f6811b/docs/figure/vis-tuning-effects.Rmd/tuning-effects-knn-sp-sp-1.png" target="_blank">137adf4</a>
+</td>
+<td>
+pat-s
+</td>
+<td>
+2019-05-25
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
 </div>
 <div id="rf" class="section level3">
 <h3><span class="header-section-number">1.1.2</span> RF</h3>
 <p><img src="figure/vis-tuning-effects.Rmd/tuning-effects-rf-sp-sp-1.png" width="100%" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-tuning-effects-rf-sp-sp-1">
+Past versions of tuning-effects-rf-sp-sp-1.png
+</button>
+</p>
+<div id="fig-tuning-effects-rf-sp-sp-1" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/pat-s/pathogen-modeling/blob/137adf4ef72c8711c29a4bcee6f0f38756f6811b/docs/figure/vis-tuning-effects.Rmd/tuning-effects-rf-sp-sp-1.png" target="_blank">137adf4</a>
+</td>
+<td>
+pat-s
+</td>
+<td>
+2019-05-25
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
 </div>
 <div id="svm" class="section level3">
 <h3><span class="header-section-number">1.1.3</span> SVM</h3>
 <p><img src="figure/vis-tuning-effects.Rmd/tuning-effects-svm-sp-sp-1.png" width="100%" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-tuning-effects-svm-sp-sp-1">
+Past versions of tuning-effects-svm-sp-sp-1.png
+</button>
+</p>
+<div id="fig-tuning-effects-svm-sp-sp-1" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/pat-s/pathogen-modeling/blob/137adf4ef72c8711c29a4bcee6f0f38756f6811b/docs/figure/vis-tuning-effects.Rmd/tuning-effects-svm-sp-sp-1.png" target="_blank">137adf4</a>
+</td>
+<td>
+pat-s
+</td>
+<td>
+2019-05-25
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
 </div>
 <div id="brt" class="section level3">
 <h3><span class="header-section-number">1.1.4</span> BRT</h3>
 <p><img src="figure/vis-tuning-effects.Rmd/tuning-effects-brt-sp-sp-1.png" width="100%" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-tuning-effects-brt-sp-sp-1">
+Past versions of tuning-effects-brt-sp-sp-1.png
+</button>
+</p>
+<div id="fig-tuning-effects-brt-sp-sp-1" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/pat-s/pathogen-modeling/blob/137adf4ef72c8711c29a4bcee6f0f38756f6811b/docs/figure/vis-tuning-effects.Rmd/tuning-effects-brt-sp-sp-1.png" target="_blank">137adf4</a>
+</td>
+<td>
+pat-s
+</td>
+<td>
+2019-05-25
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
 </div>
 </div>
 <div id="spatialnon-spatial" class="section level2">
@@ -715,18 +889,166 @@ Start workflowr project.
 <div id="kknn-1" class="section level3">
 <h3><span class="header-section-number">1.2.1</span> KKNN</h3>
 <p><img src="figure/vis-tuning-effects.Rmd/tuning-effects-knn-sp-nsp-1.png" width="100%" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-tuning-effects-knn-sp-nsp-1">
+Past versions of tuning-effects-knn-sp-nsp-1.png
+</button>
+</p>
+<div id="fig-tuning-effects-knn-sp-nsp-1" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/pat-s/pathogen-modeling/blob/137adf4ef72c8711c29a4bcee6f0f38756f6811b/docs/figure/vis-tuning-effects.Rmd/tuning-effects-knn-sp-nsp-1.png" target="_blank">137adf4</a>
+</td>
+<td>
+pat-s
+</td>
+<td>
+2019-05-25
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
 </div>
 <div id="rf-1" class="section level3">
 <h3><span class="header-section-number">1.2.2</span> RF</h3>
 <p><img src="figure/vis-tuning-effects.Rmd/tuning-effects-rf-sp-nsp-1.png" width="100%" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-tuning-effects-rf-sp-nsp-1">
+Past versions of tuning-effects-rf-sp-nsp-1.png
+</button>
+</p>
+<div id="fig-tuning-effects-rf-sp-nsp-1" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/pat-s/pathogen-modeling/blob/137adf4ef72c8711c29a4bcee6f0f38756f6811b/docs/figure/vis-tuning-effects.Rmd/tuning-effects-rf-sp-nsp-1.png" target="_blank">137adf4</a>
+</td>
+<td>
+pat-s
+</td>
+<td>
+2019-05-25
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
 </div>
 <div id="svm-1" class="section level3">
 <h3><span class="header-section-number">1.2.3</span> SVM</h3>
 <p><img src="figure/vis-tuning-effects.Rmd/tuning-effects-svm-sp-nsp-1.png" width="100%" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-tuning-effects-svm-sp-nsp-1">
+Past versions of tuning-effects-svm-sp-nsp-1.png
+</button>
+</p>
+<div id="fig-tuning-effects-svm-sp-nsp-1" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/pat-s/pathogen-modeling/blob/137adf4ef72c8711c29a4bcee6f0f38756f6811b/docs/figure/vis-tuning-effects.Rmd/tuning-effects-svm-sp-nsp-1.png" target="_blank">137adf4</a>
+</td>
+<td>
+pat-s
+</td>
+<td>
+2019-05-25
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
 </div>
 <div id="brt-1" class="section level3">
 <h3><span class="header-section-number">1.2.4</span> BRT</h3>
 <p><img src="figure/vis-tuning-effects.Rmd/tuning-effects-brt-sp-nsp-1.png" width="100%" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-tuning-effects-brt-sp-nsp-1">
+Past versions of tuning-effects-brt-sp-nsp-1.png
+</button>
+</p>
+<div id="fig-tuning-effects-brt-sp-nsp-1" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/pat-s/pathogen-modeling/blob/137adf4ef72c8711c29a4bcee6f0f38756f6811b/docs/figure/vis-tuning-effects.Rmd/tuning-effects-brt-sp-nsp-1.png" target="_blank">137adf4</a>
+</td>
+<td>
+pat-s
+</td>
+<td>
+2019-05-25
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
 </div>
 </div>
 <div id="non-spatialnon-spatial" class="section level2">
@@ -734,24 +1056,209 @@ Start workflowr project.
 <div id="kknn-2" class="section level3">
 <h3><span class="header-section-number">1.3.1</span> KKNN</h3>
 <p><img src="figure/vis-tuning-effects.Rmd/tuning-effects-knn-nsp-nsp-1.png" width="100%" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-tuning-effects-knn-nsp-nsp-1">
+Past versions of tuning-effects-knn-nsp-nsp-1.png
+</button>
+</p>
+<div id="fig-tuning-effects-knn-nsp-nsp-1" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/pat-s/pathogen-modeling/blob/137adf4ef72c8711c29a4bcee6f0f38756f6811b/docs/figure/vis-tuning-effects.Rmd/tuning-effects-knn-nsp-nsp-1.png" target="_blank">137adf4</a>
+</td>
+<td>
+pat-s
+</td>
+<td>
+2019-05-25
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
 </div>
 <div id="rf-2" class="section level3">
 <h3><span class="header-section-number">1.3.2</span> RF</h3>
 <p><img src="figure/vis-tuning-effects.Rmd/tuning-effects-rf-nsp-nsp-1.png" width="100%" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-tuning-effects-rf-nsp-nsp-1">
+Past versions of tuning-effects-rf-nsp-nsp-1.png
+</button>
+</p>
+<div id="fig-tuning-effects-rf-nsp-nsp-1" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/pat-s/pathogen-modeling/blob/137adf4ef72c8711c29a4bcee6f0f38756f6811b/docs/figure/vis-tuning-effects.Rmd/tuning-effects-rf-nsp-nsp-1.png" target="_blank">137adf4</a>
+</td>
+<td>
+pat-s
+</td>
+<td>
+2019-05-25
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
 </div>
 <div id="svm-2" class="section level3">
 <h3><span class="header-section-number">1.3.3</span> SVM</h3>
 <p><img src="figure/vis-tuning-effects.Rmd/tuning-effects-svm-nsp-nsp-1.png" width="100%" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-tuning-effects-svm-nsp-nsp-1">
+Past versions of tuning-effects-svm-nsp-nsp-1.png
+</button>
+</p>
+<div id="fig-tuning-effects-svm-nsp-nsp-1" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/pat-s/pathogen-modeling/blob/137adf4ef72c8711c29a4bcee6f0f38756f6811b/docs/figure/vis-tuning-effects.Rmd/tuning-effects-svm-nsp-nsp-1.png" target="_blank">137adf4</a>
+</td>
+<td>
+pat-s
+</td>
+<td>
+2019-05-25
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
 </div>
 <div id="brt-2" class="section level3">
 <h3><span class="header-section-number">1.3.4</span> BRT</h3>
 <p><img src="figure/vis-tuning-effects.Rmd/tuning-effects-brt-nsp-nsp-1.png" width="100%" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-tuning-effects-brt-nsp-nsp-1">
+Past versions of tuning-effects-brt-nsp-nsp-1.png
+</button>
+</p>
+<div id="fig-tuning-effects-brt-nsp-nsp-1" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/pat-s/pathogen-modeling/blob/137adf4ef72c8711c29a4bcee6f0f38756f6811b/docs/figure/vis-tuning-effects.Rmd/tuning-effects-brt-nsp-nsp-1.png" target="_blank">137adf4</a>
+</td>
+<td>
+pat-s
+</td>
+<td>
+2019-05-25
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
 </div>
 </div>
 </div>
 <div id="grid-of-most-settings" class="section level1">
 <h1><span class="header-section-number">2</span> Grid of most settings</h1>
 <p><img src="figure/vis-tuning-effects.Rmd/tuning_effects_all_models_mbo-1.png" width="100%" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-tuning_effects_all_models_mbo-1">
+Past versions of tuning_effects_all_models_mbo-1.png
+</button>
+</p>
+<div id="fig-tuning_effects_all_models_mbo-1" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/pat-s/pathogen-modeling/blob/137adf4ef72c8711c29a4bcee6f0f38756f6811b/docs/figure/vis-tuning-effects.Rmd/tuning_effects_all_models_mbo-1.png" target="_blank">137adf4</a>
+</td>
+<td>
+pat-s
+</td>
+<td>
+2019-05-25
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
 <br>
 <p>
 <button type="button" class="btn btn-default btn-workflowr btn-workflowr-sessioninfo" data-toggle="collapse" data-target="#workflowr-sessioninfo" style="display: block;">
