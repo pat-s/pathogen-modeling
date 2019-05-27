@@ -7,17 +7,17 @@
 # `pathogen-prediction-maps` --------------- copy pathogen infection prediction PNG maps to LIFE
 rsync -rlptDvzog --chown=www-data:www-data --fake-super \
   /mnt/cluster/home/patrick/papers/2018-model-comparison/analysis/paper/submission/3/appendices/prediction-map* \
-  -e ssh patrick@jupiter.geogr.uni-jena.de:/home/www/life-healthy-forest/action-B1-pathogen-infection/maps/
+  -e ssh patrick@jupiter.geogr.uni-jena.de:/home/www/life-healthy-forest/action-B1-spatial-mapping/pathogen-infection-maps/
 
 # `pathogen_prediction_report` ------------ copy pathogen infection report to LIFE
 rsync -rlptDvzog --chown=www-data:www-data --fake-super \
-  /mnt/cluster/home/patrick/papers/2018-model-comparison/analysis/rmd/pathogen-prediction-report.html \
-  -e ssh patrick@jupiter.geogr.uni-jena.de:/home/www/life-healthy-forest/action-B1-pathogen-infection/
+  /mnt/cluster/home/patrick/papers/2018-model-comparison/analysis/rmd/pathogens-prediction.html \
+  -e ssh patrick@jupiter.geogr.uni-jena.de:/home/www/life-healthy-forest/action-B1-spatial-mapping/
 
 # `benchmark_all_pathogens`-------- copy benchmark report all pathogens to LIFE
 rsync -rlptDvzog --chown=www-data:www-data --fake-super \
-  /mnt/cluster/home/patrick/papers/2018-model-comparison/analysis/rmd/benchmark-all-pathogens.html \
-  -e ssh patrick@jupiter.geogr.uni-jena.de:/home/www/life-healthy-forest/action-B1-pathogen-infection/
+  /mnt/cluster/home/patrick/papers/2018-model-comparison/analysis/rmd/pathogens-performance.html \
+  -e ssh patrick@jupiter.geogr.uni-jena.de:/home/www/life-healthy-forest/action-B1-spatial-mapping/
 
 ########
 # paper "2018-model-comparison"
@@ -25,7 +25,7 @@ rsync -rlptDvzog --chown=www-data:www-data --fake-super \
 
 # `benchmark_diplodia` ----------- copy benchmark report DIPLODIA to patrick
 rsync -rlptDvzog --chown=www-data:www-data --fake-super \
-  /mnt/cluster/home/patrick/papers/2018-model-comparison/analysis/rmd/benchmark-diplodia.html \
+  /mnt/cluster/home/patrick/papers/2018-model-comparison/analysis/rmd/pathogens-performance-diplodia.html \
   -e ssh patrick@jupiter.geogr.uni-jena.de:/home/patrick/2018-model-comparison/
 
 # `visualize_partitions` -------------- copy visualization of partitions to patrick
