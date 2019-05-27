@@ -2,7 +2,7 @@
 title: "Evaluating classifier performance on pathogens"
 output: workflowr::wflow_html
 author: "Patrick Schratz, Friedrich-Schiller-University Jena"
-bibliography: ../bibliography.bib
+bibliography: bibliography.bib
 link-citations: yes
 ---
 
@@ -22,9 +22,7 @@ sourceDirectory("R")
 loadd(
   bm_all_pathogens_sp_sp, bm_all_pathogens_sp_nsp,
   bm_all_pathogens_nsp_nsp, bm_all_pathogens_sp_non,
-  bm_all_pathogens_nsp_non,
-
-  no_extract_bm_sp_sp_armillaria
+  bm_all_pathogens_nsp_non
 )
 ```
 
@@ -46,28 +44,6 @@ The following algorithms were benchmarked:
 - Random Forests (RF)
 - Support Vector Machine (SVM)
 - Extreme Gradient Boosting (XGBOOST)
-
-The following "algorithm-pathogen-resampling" settings did not return a performance result during performance evaluation.
-Due to the missing performance result for these combinations no prediction maps were created.
-
-```{r}
-my_tbl <- tibble::tribble(
-  ~Pathogen, ~Algorithm, ~Resampling,
-  "Armillaria", "XGBOOST", "spatial/spatial",
-  "Armillaria", "GAM", "spatial/spatial"
-)
-
-kable_styling(
-  kable(my_tbl,
-    digits = 3, row.names = FALSE, align = "c",
-    caption = NULL, format = "html"
-  ),
-  bootstrap_options = c("striped", "hover", "condensed"),
-  position = "center", full_width = FALSE
-)
-```
-
-Due to two missing results for the pathogen _Armillaria mellea_, this pathogen could not be included in the plots comparing all pathogens against each other.
 
 # Resampling Strategies
 
@@ -199,9 +175,11 @@ bm_all_pathogens_nsp_nsp %>%
 plt <- plotBMRBoxplots(bm_all_pathogens_nsp_nsp,
   measure = brier, pretty.names = F,
   order.lrn = c(
-    "classif.gam.tuned", "classif.kknn.tuned",
+    "classif.gam.tuned", 
+    "classif.kknn.tuned",
     "classif.ranger.tuned",
-    "classif.svm.tuned", "classif.gbm.tuned",
+    "classif.svm.tuned", 
+    "classif.gbm.tuned",
     "classif.xgboost.tuned"
   )
 ) +
@@ -330,9 +308,7 @@ plt2
 ```
 
 ```{r echo = FALSE}
-system("rsync -rlptDvzog --chown=www-data:www-data --fake-super \
-  /home/patrick/papers/2018-model-comparison/docs/figure/benchmark-pathogens.Rmd/prediction-map* \
-  -e ssh patrick@jupiter.geogr.uni-jena.de:/home/www/life-healthy-forest/action-B1-spatial-mapping/pathogen-infection-maps/"
+system("rsync -rlptDvzog --chown=www-data:www-data --fake-super /home/patrick/papers/2018-model-comparison/docs/figure/benchmark-pathogens.Rmd/prediction-map* -e ssh patrick@jupiter.geogr.uni-jena.de:/home/www/life-healthy-forest/action-B1-spatial-mapping/pathogen-infection-maps/"
 )
 ```
 
