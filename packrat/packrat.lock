@@ -713,6 +713,12 @@ Version: 2.1.0
 Hash: 59e7a7f8304285e0e9f9691b34a82a33
 Requires: Rcpp, forcats, hms, readr, tibble
 
+Package: here
+Source: CRAN
+Version: 0.1
+Hash: 90e1a97508a0d7383b0eeb11e397e763
+Requires: rprojroot
+
 Package: hexbin
 Source: CRAN
 Version: 1.27.2
