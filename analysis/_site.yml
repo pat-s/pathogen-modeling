@@ -9,8 +9,6 @@ navbar:
     href: about.html
   - text: License
     href: license.html
-  - text: "Benchmark results"
-    href: benchmark-pathogens.html
   - text: Project
     menu:
     - text: "Benchmark results"
