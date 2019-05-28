@@ -12,7 +12,6 @@ reports_plan = drake_plan(
 
   vis_opt_paths = wflow_publish(knitr_in("analysis/vis-opt-paths.Rmd"), view = FALSE),
 
-  vis_tuning_effects = wflow_publish(knitr_in("analysis/vis-tuning-effects.Rmd"), view = FALSE),
+  vis_tuning_effects = wflow_publish(knitr_in("analysis/vis-tuning-effects.Rmd"), view = FALSE)
 
-  strings_in_dots = "literals"
 )
