@@ -292,6 +292,9 @@ $(document).ready(function () {
 <li>
   <a href="license.html">License</a>
 </li>
+<li>
+  <a href="benchmark-pathogens.html">Benchmark results</a>
+</li>
 <li class="dropdown">
   <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
     Project
@@ -304,6 +307,9 @@ $(document).ready(function () {
     </li>
     <li>
       <a href="prediction-pathogens.html">Prediction results and maps</a>
+    </li>
+    <li>
+      <a href="pathogen-maps-debugging.html">Debugging of pathogen prediction maps</a>
     </li>
   </ul>
 </li>
@@ -372,7 +378,7 @@ div.section {
 <div class="tab-content">
 <div id="summary" class="tab-pane fade in active">
 <p>
-<strong>Last updated:</strong> 2019-05-25
+<strong>Last updated:</strong> 2019-05-28
 </p>
 <p>
 <strong>Checks:</strong> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> 6 <span class="glyphicon glyphicon-exclamation-sign text-danger" aria-hidden="true"></span> 0
@@ -451,10 +457,10 @@ This reproducible <a href="http://rmarkdown.rstudio.com">R Markdown</a> analysis
 <div class="panel panel-default">
 <div class="panel-heading">
 <p class="panel-title">
-<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcompatspathogenmodelingtreec24f6fe592460c094f7e6bb7408ea6dc872752e0targetblankc24f6fea"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Repository version:</strong> <a href="https://github.com/pat-s/pathogen-modeling/tree/c24f6fe592460c094f7e6bb7408ea6dc872752e0" target="_blank">c24f6fe</a> </a>
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcompatspathogenmodelingtree1e73e138148c40c9d3ee6ce3aed482970b5c0863targetblank1e73e13a"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Repository version:</strong> <a href="https://github.com/pat-s/pathogen-modeling/tree/1e73e138148c40c9d3ee6ce3aed482970b5c0863" target="_blank">1e73e13</a> </a>
 </p>
 </div>
-<div id="strongRepositoryversionstrongahrefhttpsgithubcompatspathogenmodelingtreec24f6fe592460c094f7e6bb7408ea6dc872752e0targetblankc24f6fea" class="panel-collapse collapse">
+<div id="strongRepositoryversionstrongahrefhttpsgithubcompatspathogenmodelingtree1e73e138148c40c9d3ee6ce3aed482970b5c0863targetblank1e73e13a" class="panel-collapse collapse">
 <div class="panel-body">
 <p>
 Great! You are using Git for version control. Tracking code development and connecting the code version to the results is critical for reproducibility. The version displayed above was the version of the Git repository at the time these results were generated. <br><br> Note that you need to be careful to ensure that all relevant files for the analysis have been committed to Git prior to generating the results (you can use <code>wflow_publish</code> or <code>wflow_git_commit</code>). workflowr only checks the R Markdown file, but you know if there are other scripts or data files that it depends on. Below is the status of the Git repository when the results were generated:
@@ -473,12 +479,20 @@ Ignored files:
     Ignored:    tests/testthat/
 
 Untracked files:
-    Untracked:  packrat/src/here/
+    Untracked:  packrat/src/drake/40af919c816b5ddd61b5280dda72d35dfa54cf73.tar.gz
+    Untracked:  packrat/src/drake/drake_7.3.0.tar.gz
 
 Unstaged changes:
+    Modified:   .Rhistory
     Modified:   _drake.R
+    Modified:   analysis/_site.yml
+    Modified:   analysis/benchmark-pathogens.Rmd
+    Modified:   analysis/index.Rmd
+    Modified:   analysis/prediction-pathogens.Rmd
+    Modified:   code/01-data/task.R
+    Modified:   code/04-prediction/prediction.R
+    Modified:   code/06-reports.R
     Modified:   code/07-paper/submission/3/latex-source-files/cv_boxplots_final_brier-1.pdf
-    Modified:   inst/rsync-jupiter.sh
     Modified:   packrat/packrat.lock
 
 </code></pre>
@@ -518,6 +532,23 @@ Message
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+html
+</td>
+<td>
+<a href="https://rawcdn.githack.com/pat-s/pathogen-modeling/188497cbae27ec0e67e57510b82da59874a26c0b/docs/about.html" target="_blank">188497c</a>
+</td>
+<td>
+pat-s
+</td>
+<td>
+2019-05-25
+</td>
+<td>
+Build site.
+</td>
+</tr>
 <tr>
 <td>
 html
@@ -595,7 +626,7 @@ Start workflowr project.
 </div>
 <p><strong>Hyperparameter tuning and performance assessment of statistical and machine-learning models using spatial data.</strong></p>
 <div id="authors" class="section level1">
-<h1><span class="header-section-number">1</span> Authors</h1>
+<h1>Authors</h1>
 <p><strong>Patrick Schratz</strong> (<a href="mailto:patrick.schratz@gmail.com" class="email">patrick.schratz@gmail.com</a>) <a href="http://orcid.org/0000-0003-0748-6624"><img src="https://orcid.org/sites/default/files/images/orcid_16x16.png" /></a><br />
 Jannes Muenchow <a href="http://orcid.org/0000-0001-7834-4717"><img src="https://orcid.org/sites/default/files/images/orcid_16x16.png" /></a><br />
 Eugenia Iturritxa <a href="http://orcid.org/0000-0002-0577-3315"><img src="https://orcid.org/sites/default/files/images/orcid_16x16.png" /></a><br />
@@ -603,7 +634,7 @@ Jakob Richter <a href="http://orcid.org/0000-0003-4481-5554"><img src="https://o
 Alexander Brenning <a href="http://orcid.org/0000-0001-6640-679X"><img src="https://orcid.org/sites/default/files/images/orcid_16x16.png" /></a></p>
 </div>
 <div id="contents" class="section level1">
-<h1><span class="header-section-number">2</span> Contents</h1>
+<h1>Contents</h1>
 <p>This repository contains the research compendium of the above mentioned paper.</p>
 <ul>
 <li><a href="https://github.com/pat-s/pathogen-modeling/tree/master/code/07-paper/submission/3">Paper</a><br />
@@ -621,13 +652,13 @@ Alexander Brenning <a href="http://orcid.org/0000-0001-6640-679X"><img src="http
 </ul>
 </div>
 <div id="how-to-use" class="section level1">
-<h1><span class="header-section-number">3</span> How to use</h1>
+<h1>How to use</h1>
 <div id="read-the-code-access-the-data" class="section level2">
-<h2><span class="header-section-number">3.1</span> Read the code, access the data</h2>
+<h2>Read the code, access the data</h2>
 <p>See the <a href="https://github.com/pat-s/pathogen-modeling/tree/master/analysis"><code>code</code></a> directory on GitHub for the source code that generated the figures and statistical results contained in the manuscript. The raw data is stored on <a href="https://doi.org/10.5281/zenodo.2582970">Zenodo</a> and will be downloaded when starting the analysis.</p>
 </div>
 <div id="install-the-r-package" class="section level2">
-<h2><span class="header-section-number">3.2</span> Install the R package</h2>
+<h2>Install the R package</h2>
 <p><a href="https://travis-ci.org/pat-s/pathogen-modeling"><img src="https://travis-ci.org/pat-s/pathogen-modeling.svg?branch=master" alt="Build Status" /></a></p>
 <p>This repository is organized as an R package, providing functions and raw data to reproduce and extend the analysis reported in the publication. Note that this package has been written explicitly for this project and may not be suitable for general use.</p>
 <p>This project is setup with a <a href="https://github.com/ropensci/drake">drake workflow</a>, ensuring reproducibility. Intermediate targets/objects will be stored in a hidden <code>.drake</code> directory.</p>
@@ -641,7 +672,7 @@ r_make() # recreates the analysis</code></pre>
 </div>
 </div>
 <div id="structure-of-the-analysis" class="section level1">
-<h1><span class="header-section-number">4</span> Structure of the analysis</h1>
+<h1>Structure of the analysis</h1>
 <p>In the <code>drake</code> philosophy, every R object is a “target” with dependencies. This repository contains more targets than actually needed to replicate the associated publication.</p>
 <p>If you want to replicate the publication, you need to build the following targets:</p>
 <ul>
@@ -652,12 +683,12 @@ r_make() # recreates the analysis</code></pre>
 </ul>
 <p>Please note that the attached runtime of these targets are derived from a parallel execution on a HPC with 16 cores (AMD Threadripper 2950X) and 126 GB RAM (DDR4) per node. Reproducing these targets sequentially on a local machine might take weeks.</p>
 <div id="other-practical-notes" class="section level4">
-<h4><span class="header-section-number">4.0.0.1</span> Other practical notes</h4>
+<h4>Other practical notes</h4>
 <p>All “diplodia” targets (<code>bm_sp_sp_diplodia</code>, <code>bm_sp_nsp_diplodia</code> and <code>bm_nsp_nsp_diplodia</code>) are built with <code>mlr::benchmark(keep.extract = TRUE)</code> in <a href="https://github.com/pat-s/pathogen-modeling/blob/335ca2c5bd92f04b6eba78f1b414fa61b1d6fb5c/R/benchmark-functions.R">benchmark_custom</a>. This slot is needed to perform analysis on the tuning results. All other pathogens are built with <code>mlr::benchmark(keep.extract = FALSE)</code> to save disk space of the resulting R objects. BMR + tuning results = ~ 3 GB, BMR - tuning results = xx MB.</p>
 </div>
 </div>
 <div id="notes-and-resources" class="section level1">
-<h1><span class="header-section-number">5</span> Notes and resources</h1>
+<h1>Notes and resources</h1>
 <ul>
 <li><p>The <a href="https://github.com/pat-s/pathogen-modeling/issues">issues tracker</a> is the place to report problems or ask questions</p></li>
 <li><p>See the repository <a href="https://github.com/pat-s/pathogen-modeling/commits/master">history</a> for a fine-grained view of progress and changes.</p></li>
@@ -676,7 +707,8 @@ Platform: x86_64-pc-linux-gnu (64-bit)
 Running under: CentOS Linux 7 (Core)
 
 Matrix products: default
-BLAS/LAPACK: /opt/spack/opt/spack/linux-centos7-x86_64/gcc-7.3.0/openblas-0.3.5-zncvk4jccaqyfl4z3vszaboeps6hyzta/lib/libopenblas_zen-r0.3.5.so
+BLAS: /opt/spack/opt/spack/linux-centos7-x86_64/gcc-7.3.0/r-3.5.1-b4xhm3pook4yl4olk6ttnovnyttdpkhe/rlib/R/lib/libRblas.so
+LAPACK: /opt/spack/opt/spack/linux-centos7-x86_64/gcc-7.3.0/r-3.5.1-b4xhm3pook4yl4olk6ttnovnyttdpkhe/rlib/R/lib/libRlapack.so
 
 locale:
  [1] LC_CTYPE=en_GB.UTF-8       LC_NUMERIC=C              

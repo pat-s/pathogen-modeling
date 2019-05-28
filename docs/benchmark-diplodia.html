@@ -392,6 +392,9 @@ div.tocify {
 <li>
   <a href="license.html">License</a>
 </li>
+<li>
+  <a href="benchmark-pathogens.html">Benchmark results</a>
+</li>
 <li class="dropdown">
   <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
     Project
@@ -404,6 +407,9 @@ div.tocify {
     </li>
     <li>
       <a href="prediction-pathogens.html">Prediction results and maps</a>
+    </li>
+    <li>
+      <a href="pathogen-maps-debugging.html">Debugging of pathogen prediction maps</a>
     </li>
   </ul>
 </li>
@@ -473,7 +479,7 @@ div.section {
 <div class="tab-content">
 <div id="summary" class="tab-pane fade in active">
 <p>
-<strong>Last updated:</strong> 2019-05-25
+<strong>Last updated:</strong> 2019-05-28
 </p>
 <p>
 <strong>Checks:</strong> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> 6 <span class="glyphicon glyphicon-exclamation-sign text-danger" aria-hidden="true"></span> 0
@@ -552,10 +558,10 @@ This reproducible <a href="http://rmarkdown.rstudio.com">R Markdown</a> analysis
 <div class="panel panel-default">
 <div class="panel-heading">
 <p class="panel-title">
-<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcompatspathogenmodelingtree44fa41dfd0ebece97a699461173822e76149a3cbtargetblank44fa41da"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Repository version:</strong> <a href="https://github.com/pat-s/pathogen-modeling/tree/44fa41dfd0ebece97a699461173822e76149a3cb" target="_blank">44fa41d</a> </a>
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcompatspathogenmodelingtree1e73e138148c40c9d3ee6ce3aed482970b5c0863targetblank1e73e13a"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Repository version:</strong> <a href="https://github.com/pat-s/pathogen-modeling/tree/1e73e138148c40c9d3ee6ce3aed482970b5c0863" target="_blank">1e73e13</a> </a>
 </p>
 </div>
-<div id="strongRepositoryversionstrongahrefhttpsgithubcompatspathogenmodelingtree44fa41dfd0ebece97a699461173822e76149a3cbtargetblank44fa41da" class="panel-collapse collapse">
+<div id="strongRepositoryversionstrongahrefhttpsgithubcompatspathogenmodelingtree1e73e138148c40c9d3ee6ce3aed482970b5c0863targetblank1e73e13a" class="panel-collapse collapse">
 <div class="panel-body">
 <p>
 Great! You are using Git for version control. Tracking code development and connecting the code version to the results is critical for reproducibility. The version displayed above was the version of the Git repository at the time these results were generated. <br><br> Note that you need to be careful to ensure that all relevant files for the analysis have been committed to Git prior to generating the results (you can use <code>wflow_publish</code> or <code>wflow_git_commit</code>). workflowr only checks the R Markdown file, but you know if there are other scripts or data files that it depends on. Below is the status of the Git repository when the results were generated:
@@ -574,13 +580,21 @@ Ignored files:
     Ignored:    tests/testthat/
 
 Untracked files:
-    Untracked:  packrat/src/here/
+    Untracked:  packrat/src/drake/40af919c816b5ddd61b5280dda72d35dfa54cf73.tar.gz
+    Untracked:  packrat/src/drake/drake_7.3.0.tar.gz
 
 Unstaged changes:
+    Modified:   .Rhistory
     Modified:   _drake.R
+    Modified:   analysis/_site.yml
+    Modified:   analysis/benchmark-pathogens.Rmd
+    Modified:   analysis/index.Rmd
+    Modified:   analysis/prediction-pathogens.Rmd
+    Modified:   code/01-data/task.R
+    Modified:   code/04-prediction/prediction.R
+    Modified:   code/06-reports.R
     Modified:   code/07-paper/submission/3/latex-source-files/cv_boxplots_final_brier-1.pdf
     Deleted:    docs/figure/benchmark-diplodia.Rmd/cv_boxplots_final_brier-1.pdf
-    Modified:   inst/rsync-jupiter.sh
     Modified:   packrat/packrat.lock
 
 </code></pre>
@@ -620,6 +634,23 @@ Message
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+html
+</td>
+<td>
+<a href="https://rawcdn.githack.com/pat-s/pathogen-modeling/8ff8ad962f43aa868099096720c7cf2e03a15e28/docs/benchmark-diplodia.html" target="_blank">8ff8ad9</a>
+</td>
+<td>
+pat-s
+</td>
+<td>
+2019-05-25
+</td>
+<td>
+Build site.
+</td>
+</tr>
 <tr>
 <td>
 Rmd
@@ -798,7 +829,7 @@ Start workflowr project.
 </div>
 </div>
 <div id="introduction" class="section level1">
-<h1><span class="header-section-number">1</span> Introduction</h1>
+<h1>Introduction</h1>
 <p>This document shows the predictive performances for the possible infection risk of trees in the Basque Country by the pathogen <em>Diplodia sapinea</em>.</p>
 <p>The following algorithms were benchmarked:</p>
 <ul>
@@ -812,14 +843,14 @@ Start workflowr project.
 </ul>
 </div>
 <div id="resampling-strategies" class="section level1">
-<h1><span class="header-section-number">2</span> Resampling Strategies</h1>
+<h1>Resampling Strategies</h1>
 <p>The abbreviations of the tabbed resampling strategies follow the scheme:</p>
 <p><code>&lt;outer resampling&gt; / &lt;inner resampling&gt;</code></p>
 <p>For example, setting “Spatial-Spatial” means that in both levels a “spatial cross-validation” (<span class="citation">Brenning (<a href="#ref-Brenning2012">2012</a>)</span>) has been applied.</p>
 <p>The inner resampling refers to the hyperparameter tuning level of the nested cross-validation that was applied.</p>
 </div>
 <div id="results-structure" class="section level1">
-<h1><span class="header-section-number">3</span> Results structure</h1>
+<h1>Results structure</h1>
 <p>Teh results are structured as follows:</p>
 <ul>
 <li>Results table of all performances for each resampling setting</li>
@@ -844,9 +875,9 @@ Start workflowr project.
 #   pisr &lt;dbl&gt;, x &lt;dbl&gt;, y &lt;dbl&gt;, year &lt;fct&gt;, age &lt;dbl&gt;</code></pre>
 </div>
 <div id="performance-results" class="section level1 tabset tabset-fade">
-<h1><span class="header-section-number">4</span> Performance results</h1>
+<h1>Performance results</h1>
 <div id="spatial-spatial" class="section level2">
-<h2><span class="header-section-number">4.1</span> Spatial-Spatial</h2>
+<h2>Spatial-Spatial</h2>
 <pre><code>   task.id           learner.id brier.test.mean timetrain.test.mean
 1 diplodia    classif.svm.tuned       0.2000721            194.6988
 2 diplodia    classif.gam.tuned       0.1899124            230.0244
@@ -854,7 +885,7 @@ Start workflowr project.
 4 diplodia classif.ranger.tuned       0.1594762            240.8807
 5 diplodia    classif.gbm.tuned       0.1590360           1820.5990</code></pre>
 <div id="boxplot-comparison" class="section level3">
-<h3><span class="header-section-number">4.1.1</span> Boxplot comparison</h3>
+<h3>Boxplot comparison</h3>
 <p><img src="figure/benchmark-diplodia.Rmd/benchmark-eval-diplodia-3-1.png" width="100%" style="display: block; margin: auto;" /></p>
 <p>
 <button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-benchmark-eval-diplodia-3-1">
@@ -895,7 +926,7 @@ pat-s
 </div>
 </div>
 <div id="aggregated-performances" class="section level3">
-<h3><span class="header-section-number">4.1.2</span> Aggregated performances</h3>
+<h3>Aggregated performances</h3>
 <p><img src="figure/benchmark-diplodia.Rmd/benchmark-eval-diplodia-4-1.png" width="100%" style="display: block; margin: auto;" /></p>
 <p>
 <button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-benchmark-eval-diplodia-4-1">
@@ -937,7 +968,7 @@ pat-s
 </div>
 </div>
 <div id="spatial-non-spatial" class="section level2">
-<h2><span class="header-section-number">4.2</span> Spatial-Non-Spatial</h2>
+<h2>Spatial-Non-Spatial</h2>
 <pre><code>   task.id           learner.id brier.test.mean timetrain.test.mean
 1 diplodia    classif.svm.tuned       0.2125015            389.3593
 2 diplodia    classif.gam.tuned       0.1922458            294.0095
@@ -945,7 +976,7 @@ pat-s
 4 diplodia    classif.gbm.tuned       0.1637896           2095.5327
 5 diplodia classif.ranger.tuned       0.1528584            445.1206</code></pre>
 <div id="boxplot-comparison-1" class="section level3">
-<h3><span class="header-section-number">4.2.1</span> Boxplot comparison</h3>
+<h3>Boxplot comparison</h3>
 <p><img src="figure/benchmark-diplodia.Rmd/benchmark-eval-diplodia-6-1.png" width="100%" style="display: block; margin: auto;" /></p>
 <p>
 <button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-benchmark-eval-diplodia-6-1">
@@ -986,7 +1017,7 @@ pat-s
 </div>
 </div>
 <div id="aggregated-performances-1" class="section level3">
-<h3><span class="header-section-number">4.2.2</span> Aggregated performances</h3>
+<h3>Aggregated performances</h3>
 <p><img src="figure/benchmark-diplodia.Rmd/benchmark-eval-diplodia-7-1.png" width="100%" style="display: block; margin: auto;" /></p>
 <p>
 <button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-benchmark-eval-diplodia-7-1">
@@ -1028,7 +1059,7 @@ pat-s
 </div>
 </div>
 <div id="non-spatial-non-spatial" class="section level2">
-<h2><span class="header-section-number">4.3</span> Non-Spatial-Non-Spatial</h2>
+<h2>Non-Spatial-Non-Spatial</h2>
 <pre><code>   task.id           learner.id brier.test.mean timetrain.test.mean
 1 diplodia    classif.gam.tuned       0.1395204            290.8944
 2 diplodia    classif.svm.tuned       0.1229645            406.3464
@@ -1036,7 +1067,7 @@ pat-s
 4 diplodia    classif.gbm.tuned       0.1118638           1999.3005
 5 diplodia classif.ranger.tuned       0.0995260            440.4030</code></pre>
 <div id="boxplot-comparison-2" class="section level3">
-<h3><span class="header-section-number">4.3.1</span> Boxplot comparison</h3>
+<h3>Boxplot comparison</h3>
 <p><img src="figure/benchmark-diplodia.Rmd/benchmark-eval-diplodia-9-1.png" width="100%" style="display: block; margin: auto;" /></p>
 <p>
 <button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-benchmark-eval-diplodia-9-1">
@@ -1077,7 +1108,7 @@ pat-s
 </div>
 </div>
 <div id="aggregated-performances-2" class="section level3">
-<h3><span class="header-section-number">4.3.2</span> Aggregated performances</h3>
+<h3>Aggregated performances</h3>
 <p><img src="figure/benchmark-diplodia.Rmd/benchmark-eval-diplodia-10-1.png" width="100%" style="display: block; margin: auto;" /></p>
 <p>
 <button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-benchmark-eval-diplodia-10-1">
@@ -1119,7 +1150,7 @@ pat-s
 </div>
 </div>
 <div id="non-spatial-no-tuning" class="section level2">
-<h2><span class="header-section-number">4.4</span> Non-Spatial-No Tuning</h2>
+<h2>Non-Spatial-No Tuning</h2>
 <pre><code>   task.id       learner.id brier.test.mean timetrain.test.mean
 1 diplodia      classif.svm       0.1603230            0.638496
 2 diplodia      classif.gam       0.1467264            0.615932
@@ -1128,7 +1159,7 @@ pat-s
 5 diplodia      classif.gbm       0.1137512            0.060954
 6 diplodia   classif.ranger       0.1017046            0.667556</code></pre>
 <div id="boxplot-comparison-3" class="section level3">
-<h3><span class="header-section-number">4.4.1</span> Boxplot comparison</h3>
+<h3>Boxplot comparison</h3>
 <p><img src="figure/benchmark-diplodia.Rmd/benchmark-eval-diplodia-12-1.png" width="100%" style="display: block; margin: auto;" /></p>
 <p>
 <button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-benchmark-eval-diplodia-12-1">
@@ -1169,7 +1200,7 @@ pat-s
 </div>
 </div>
 <div id="aggregated-performances-3" class="section level3">
-<h3><span class="header-section-number">4.4.2</span> Aggregated performances</h3>
+<h3>Aggregated performances</h3>
 <p><img src="figure/benchmark-diplodia.Rmd/benchmark-eval-diplodia-13-1.png" width="100%" style="display: block; margin: auto;" /></p>
 <p>
 <button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-benchmark-eval-diplodia-13-1">
@@ -1211,7 +1242,7 @@ pat-s
 </div>
 </div>
 <div id="spatial-no-tuning" class="section level2">
-<h2><span class="header-section-number">4.5</span> Spatial-No Tuning</h2>
+<h2>Spatial-No Tuning</h2>
 <pre><code>   task.id       learner.id brier.test.mean timetrain.test.mean
 1 diplodia      classif.gam       0.2505253            0.569212
 2 diplodia      classif.svm       0.2009484            0.627202
@@ -1220,7 +1251,7 @@ pat-s
 5 diplodia      classif.gbm       0.1598117            0.062854
 6 diplodia   classif.ranger       0.1499009            0.651948</code></pre>
 <div id="boxplot-comparison-4" class="section level3">
-<h3><span class="header-section-number">4.5.1</span> Boxplot comparison</h3>
+<h3>Boxplot comparison</h3>
 <p><img src="figure/benchmark-diplodia.Rmd/benchmark-eval-diplodia-15-1.png" width="100%" style="display: block; margin: auto;" /></p>
 <p>
 <button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-benchmark-eval-diplodia-15-1">
@@ -1261,7 +1292,7 @@ pat-s
 </div>
 </div>
 <div id="aggregated-performances-4" class="section level3">
-<h3><span class="header-section-number">4.5.2</span> Aggregated performances</h3>
+<h3>Aggregated performances</h3>
 <p><img src="figure/benchmark-diplodia.Rmd/benchmark-eval-diplodia-16-1.png" width="100%" style="display: block; margin: auto;" /></p>
 <p>
 <button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-benchmark-eval-diplodia-16-1">
@@ -1304,7 +1335,7 @@ pat-s
 </div>
 </div>
 <div id="boxplot-comparison-of-all-algorithmtuning-settings" class="section level1">
-<h1><span class="header-section-number">5</span> Boxplot comparison of all algorithm/tuning settings</h1>
+<h1>Boxplot comparison of all algorithm/tuning settings</h1>
 <p><img src="figure/benchmark-diplodia.Rmd/cv_boxplots_final_brier-1.png" width="100%" style="display: block; margin: auto;" /></p>
 <p>
 <button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-cv_boxplots_final_brier-1">
@@ -1345,7 +1376,7 @@ pat-s
 </div>
 </div>
 <div id="references" class="section level1">
-<h1><span class="header-section-number">6</span> References</h1>
+<h1>References</h1>
 <div id="refs">
 <div id="ref-Brenning2012">
 <p>Brenning, A. 2012. “Spatial Cross-Validation and Bootstrap for the Assessment of Prediction Rules in Remote Sensing: The R Package Sperrorest.” In <em>2012 Ieee International Geoscience and Remote Sensing Symposium</em>, 5372–5. <a href="https://doi.org/10.1109/IGARSS.2012.6352393">https://doi.org/10.1109/IGARSS.2012.6352393</a>.</p>
@@ -1363,7 +1394,8 @@ Platform: x86_64-pc-linux-gnu (64-bit)
 Running under: CentOS Linux 7 (Core)
 
 Matrix products: default
-BLAS/LAPACK: /opt/spack/opt/spack/linux-centos7-x86_64/gcc-7.3.0/openblas-0.3.5-zncvk4jccaqyfl4z3vszaboeps6hyzta/lib/libopenblas_zen-r0.3.5.so
+BLAS: /opt/spack/opt/spack/linux-centos7-x86_64/gcc-7.3.0/r-3.5.1-b4xhm3pook4yl4olk6ttnovnyttdpkhe/rlib/R/lib/libRblas.so
+LAPACK: /opt/spack/opt/spack/linux-centos7-x86_64/gcc-7.3.0/r-3.5.1-b4xhm3pook4yl4olk6ttnovnyttdpkhe/rlib/R/lib/libRlapack.so
 
 locale:
  [1] LC_CTYPE=en_GB.UTF-8       LC_NUMERIC=C              
@@ -1395,7 +1427,7 @@ other attached packages:
 [46] sf_0.7-4            parallelMap_1.3     purrr_0.2.5        
 [49] mlrMBO_1.1.2        smoof_1.5.1         checkmate_1.8.5    
 [52] BBmisc_1.11         magrittr_1.5        mlr_2.13.9000      
-[55] ParamHelpers_1.11   drake_7.2.0        
+[55] ParamHelpers_1.11   drake_7.3.0.9000   
 
 loaded via a namespace (and not attached):
   [1] backports_1.1.2   Hmisc_4.2-0       fastmatch_1.1-0  
@@ -1403,7 +1435,7 @@ loaded via a namespace (and not attached):
   [7] storr_1.2.1       listenv_0.7.0     digest_0.6.15    
  [10] htmltools_0.3.6   fansi_0.4.0       base64url_1.4    
  [13] cluster_2.0.7-1   readr_1.3.1       globals_0.12.4   
- [16] extrafont_0.17    xts_0.11-0        extrafontdb_1.0  
+ [16] extrafont_0.17    extrafontdb_1.0   xts_0.11-0       
  [19] colorspace_1.3-2  rvest_0.3.2       pixmap_0.4-11    
  [22] xfun_0.7          callr_3.1.0       crayon_1.3.4     
  [25] jsonlite_1.5      hexbin_1.27.2     survival_2.42-3  

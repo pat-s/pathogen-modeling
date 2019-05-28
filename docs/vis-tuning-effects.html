@@ -392,6 +392,9 @@ div.tocify {
 <li>
   <a href="license.html">License</a>
 </li>
+<li>
+  <a href="benchmark-pathogens.html">Benchmark results</a>
+</li>
 <li class="dropdown">
   <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
     Project
@@ -404,6 +407,9 @@ div.tocify {
     </li>
     <li>
       <a href="prediction-pathogens.html">Prediction results and maps</a>
+    </li>
+    <li>
+      <a href="pathogen-maps-debugging.html">Debugging of pathogen prediction maps</a>
     </li>
   </ul>
 </li>
@@ -473,7 +479,7 @@ div.section {
 <div class="tab-content">
 <div id="summary" class="tab-pane fade in active">
 <p>
-<strong>Last updated:</strong> 2019-05-25
+<strong>Last updated:</strong> 2019-05-28
 </p>
 <p>
 <strong>Checks:</strong> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> 6 <span class="glyphicon glyphicon-exclamation-sign text-danger" aria-hidden="true"></span> 0
@@ -552,10 +558,10 @@ This reproducible <a href="http://rmarkdown.rstudio.com">R Markdown</a> analysis
 <div class="panel panel-default">
 <div class="panel-heading">
 <p class="panel-title">
-<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcompatspathogenmodelingtreea21f3bbe3ee154e03b4512c4cc52e9e7968c63fetargetblanka21f3bba"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Repository version:</strong> <a href="https://github.com/pat-s/pathogen-modeling/tree/a21f3bbe3ee154e03b4512c4cc52e9e7968c63fe" target="_blank">a21f3bb</a> </a>
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcompatspathogenmodelingtree1e73e138148c40c9d3ee6ce3aed482970b5c0863targetblank1e73e13a"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Repository version:</strong> <a href="https://github.com/pat-s/pathogen-modeling/tree/1e73e138148c40c9d3ee6ce3aed482970b5c0863" target="_blank">1e73e13</a> </a>
 </p>
 </div>
-<div id="strongRepositoryversionstrongahrefhttpsgithubcompatspathogenmodelingtreea21f3bbe3ee154e03b4512c4cc52e9e7968c63fetargetblanka21f3bba" class="panel-collapse collapse">
+<div id="strongRepositoryversionstrongahrefhttpsgithubcompatspathogenmodelingtree1e73e138148c40c9d3ee6ce3aed482970b5c0863targetblank1e73e13a" class="panel-collapse collapse">
 <div class="panel-body">
 <p>
 Great! You are using Git for version control. Tracking code development and connecting the code version to the results is critical for reproducibility. The version displayed above was the version of the Git repository at the time these results were generated. <br><br> Note that you need to be careful to ensure that all relevant files for the analysis have been committed to Git prior to generating the results (you can use <code>wflow_publish</code> or <code>wflow_git_commit</code>). workflowr only checks the R Markdown file, but you know if there are other scripts or data files that it depends on. Below is the status of the Git repository when the results were generated:
@@ -574,13 +580,24 @@ Ignored files:
     Ignored:    tests/testthat/
 
 Untracked files:
-    Untracked:  packrat/src/here/
+    Untracked:  packrat/src/drake/40af919c816b5ddd61b5280dda72d35dfa54cf73.tar.gz
+    Untracked:  packrat/src/drake/drake_7.3.0.tar.gz
 
 Unstaged changes:
+    Modified:   .Rhistory
     Modified:   _drake.R
+    Modified:   analysis/_site.yml
+    Modified:   analysis/benchmark-pathogens.Rmd
+    Modified:   analysis/index.Rmd
+    Modified:   analysis/prediction-pathogens.Rmd
+    Modified:   code/01-data/task.R
+    Modified:   code/04-prediction/prediction.R
+    Modified:   code/06-reports.R
     Modified:   code/07-paper/submission/3/latex-source-files/cv_boxplots_final_brier-1.pdf
+    Modified:   docs/figure/benchmark-diplodia.Rmd/cv_boxplots_final_brier-1.pdf
+    Modified:   docs/figure/vis-opt-paths.Rmd/opt-paths-RF-sp-vs-nsp-1.pdf
+    Modified:   docs/figure/vis-partitions.Rmd/spcv_nspcv_folds-1.pdf
     Deleted:    docs/figure/vis-tuning-effects.Rmd/tuning_effects_all_models_mbo-1.pdf
-    Modified:   inst/rsync-jupiter.sh
     Modified:   packrat/packrat.lock
 
 </code></pre>
@@ -620,6 +637,23 @@ Message
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+html
+</td>
+<td>
+<a href="https://rawcdn.githack.com/pat-s/pathogen-modeling/c24f6fe592460c094f7e6bb7408ea6dc872752e0/docs/vis-tuning-effects.html" target="_blank">c24f6fe</a>
+</td>
+<td>
+pat-s
+</td>
+<td>
+2019-05-25
+</td>
+<td>
+Build site.
+</td>
+</tr>
 <tr>
 <td>
 Rmd
@@ -715,11 +749,11 @@ Start workflowr project.
 <p>Hyperparameter tuning results are plotted in a 2D space. Each dot represents the optimal setting for a specific fold during cross-validation. The red cross denotes the default setting for the respective hyperparameter combination of the algorithm.</p>
 <p>The numbers 1-5 show the selected settings for the first five folds of the cross-valdiation (= the first repetition).</p>
 <div id="resampling-strategies" class="section level1 tabset tabset-fade">
-<h1><span class="header-section-number">1</span> Resampling strategies</h1>
+<h1>Resampling strategies</h1>
 <div id="spatialspatial" class="section level2">
-<h2><span class="header-section-number">1.1</span> Spatial/Spatial</h2>
+<h2>Spatial/Spatial</h2>
 <div id="kknn" class="section level3">
-<h3><span class="header-section-number">1.1.1</span> KKNN</h3>
+<h3>KKNN</h3>
 <p>Here something seems to have gone wrong - when looking at the <a href="vis-opt-paths.html#112_kknn">optimization path results</a> of this combination, only around 25 of 100 MBO iterations completed successfully.</p>
 <p><img src="figure/vis-tuning-effects.Rmd/tuning-effects-knn-sp-sp-1.png" width="100%" style="display: block; margin: auto;" /></p>
 <p>
@@ -761,7 +795,7 @@ pat-s
 </div>
 </div>
 <div id="rf" class="section level3">
-<h3><span class="header-section-number">1.1.2</span> RF</h3>
+<h3>RF</h3>
 <p><img src="figure/vis-tuning-effects.Rmd/tuning-effects-rf-sp-sp-1.png" width="100%" style="display: block; margin: auto;" /></p>
 <p>
 <button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-tuning-effects-rf-sp-sp-1">
@@ -802,7 +836,7 @@ pat-s
 </div>
 </div>
 <div id="svm" class="section level3">
-<h3><span class="header-section-number">1.1.3</span> SVM</h3>
+<h3>SVM</h3>
 <p><img src="figure/vis-tuning-effects.Rmd/tuning-effects-svm-sp-sp-1.png" width="100%" style="display: block; margin: auto;" /></p>
 <p>
 <button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-tuning-effects-svm-sp-sp-1">
@@ -843,7 +877,7 @@ pat-s
 </div>
 </div>
 <div id="brt" class="section level3">
-<h3><span class="header-section-number">1.1.4</span> BRT</h3>
+<h3>BRT</h3>
 <p><img src="figure/vis-tuning-effects.Rmd/tuning-effects-brt-sp-sp-1.png" width="100%" style="display: block; margin: auto;" /></p>
 <p>
 <button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-tuning-effects-brt-sp-sp-1">
@@ -885,9 +919,9 @@ pat-s
 </div>
 </div>
 <div id="spatialnon-spatial" class="section level2">
-<h2><span class="header-section-number">1.2</span> Spatial/Non-Spatial</h2>
+<h2>Spatial/Non-Spatial</h2>
 <div id="kknn-1" class="section level3">
-<h3><span class="header-section-number">1.2.1</span> KKNN</h3>
+<h3>KKNN</h3>
 <p><img src="figure/vis-tuning-effects.Rmd/tuning-effects-knn-sp-nsp-1.png" width="100%" style="display: block; margin: auto;" /></p>
 <p>
 <button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-tuning-effects-knn-sp-nsp-1">
@@ -928,7 +962,7 @@ pat-s
 </div>
 </div>
 <div id="rf-1" class="section level3">
-<h3><span class="header-section-number">1.2.2</span> RF</h3>
+<h3>RF</h3>
 <p><img src="figure/vis-tuning-effects.Rmd/tuning-effects-rf-sp-nsp-1.png" width="100%" style="display: block; margin: auto;" /></p>
 <p>
 <button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-tuning-effects-rf-sp-nsp-1">
@@ -969,7 +1003,7 @@ pat-s
 </div>
 </div>
 <div id="svm-1" class="section level3">
-<h3><span class="header-section-number">1.2.3</span> SVM</h3>
+<h3>SVM</h3>
 <p><img src="figure/vis-tuning-effects.Rmd/tuning-effects-svm-sp-nsp-1.png" width="100%" style="display: block; margin: auto;" /></p>
 <p>
 <button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-tuning-effects-svm-sp-nsp-1">
@@ -1010,7 +1044,7 @@ pat-s
 </div>
 </div>
 <div id="brt-1" class="section level3">
-<h3><span class="header-section-number">1.2.4</span> BRT</h3>
+<h3>BRT</h3>
 <p><img src="figure/vis-tuning-effects.Rmd/tuning-effects-brt-sp-nsp-1.png" width="100%" style="display: block; margin: auto;" /></p>
 <p>
 <button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-tuning-effects-brt-sp-nsp-1">
@@ -1052,9 +1086,9 @@ pat-s
 </div>
 </div>
 <div id="non-spatialnon-spatial" class="section level2">
-<h2><span class="header-section-number">1.3</span> Non-Spatial/Non-Spatial</h2>
+<h2>Non-Spatial/Non-Spatial</h2>
 <div id="kknn-2" class="section level3">
-<h3><span class="header-section-number">1.3.1</span> KKNN</h3>
+<h3>KKNN</h3>
 <p><img src="figure/vis-tuning-effects.Rmd/tuning-effects-knn-nsp-nsp-1.png" width="100%" style="display: block; margin: auto;" /></p>
 <p>
 <button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-tuning-effects-knn-nsp-nsp-1">
@@ -1095,7 +1129,7 @@ pat-s
 </div>
 </div>
 <div id="rf-2" class="section level3">
-<h3><span class="header-section-number">1.3.2</span> RF</h3>
+<h3>RF</h3>
 <p><img src="figure/vis-tuning-effects.Rmd/tuning-effects-rf-nsp-nsp-1.png" width="100%" style="display: block; margin: auto;" /></p>
 <p>
 <button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-tuning-effects-rf-nsp-nsp-1">
@@ -1136,7 +1170,7 @@ pat-s
 </div>
 </div>
 <div id="svm-2" class="section level3">
-<h3><span class="header-section-number">1.3.3</span> SVM</h3>
+<h3>SVM</h3>
 <p><img src="figure/vis-tuning-effects.Rmd/tuning-effects-svm-nsp-nsp-1.png" width="100%" style="display: block; margin: auto;" /></p>
 <p>
 <button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-tuning-effects-svm-nsp-nsp-1">
@@ -1177,7 +1211,7 @@ pat-s
 </div>
 </div>
 <div id="brt-2" class="section level3">
-<h3><span class="header-section-number">1.3.4</span> BRT</h3>
+<h3>BRT</h3>
 <p><img src="figure/vis-tuning-effects.Rmd/tuning-effects-brt-nsp-nsp-1.png" width="100%" style="display: block; margin: auto;" /></p>
 <p>
 <button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-tuning-effects-brt-nsp-nsp-1">
@@ -1220,7 +1254,7 @@ pat-s
 </div>
 </div>
 <div id="grid-of-most-settings" class="section level1">
-<h1><span class="header-section-number">2</span> Grid of most settings</h1>
+<h1>Grid of most settings</h1>
 <p><img src="figure/vis-tuning-effects.Rmd/tuning_effects_all_models_mbo-1.png" width="100%" style="display: block; margin: auto;" /></p>
 <p>
 <button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-tuning_effects_all_models_mbo-1">
@@ -1271,7 +1305,8 @@ Platform: x86_64-pc-linux-gnu (64-bit)
 Running under: CentOS Linux 7 (Core)
 
 Matrix products: default
-BLAS/LAPACK: /opt/spack/opt/spack/linux-centos7-x86_64/gcc-7.3.0/openblas-0.3.5-zncvk4jccaqyfl4z3vszaboeps6hyzta/lib/libopenblas_zen-r0.3.5.so
+BLAS: /opt/spack/opt/spack/linux-centos7-x86_64/gcc-7.3.0/r-3.5.1-b4xhm3pook4yl4olk6ttnovnyttdpkhe/rlib/R/lib/libRblas.so
+LAPACK: /opt/spack/opt/spack/linux-centos7-x86_64/gcc-7.3.0/r-3.5.1-b4xhm3pook4yl4olk6ttnovnyttdpkhe/rlib/R/lib/libRlapack.so
 
 locale:
  [1] LC_CTYPE=en_GB.UTF-8       LC_NUMERIC=C              
@@ -1303,7 +1338,7 @@ other attached packages:
 [46] sf_0.7-4            parallelMap_1.3     purrr_0.2.5        
 [49] mlrMBO_1.1.2        smoof_1.5.1         checkmate_1.8.5    
 [52] BBmisc_1.11         magrittr_1.5        mlr_2.13.9000      
-[55] ParamHelpers_1.11   drake_7.2.0        
+[55] ParamHelpers_1.11   drake_7.3.0.9000   
 
 loaded via a namespace (and not attached):
   [1] backports_1.1.2   Hmisc_4.2-0       fastmatch_1.1-0  
@@ -1311,7 +1346,7 @@ loaded via a namespace (and not attached):
   [7] storr_1.2.1       listenv_0.7.0     digest_0.6.15    
  [10] htmltools_0.3.6   base64url_1.4     cluster_2.0.7-1  
  [13] readr_1.3.1       globals_0.12.4    extrafont_0.17   
- [16] xts_0.11-0        extrafontdb_1.0   colorspace_1.3-2 
+ [16] extrafontdb_1.0   xts_0.11-0        colorspace_1.3-2 
  [19] rvest_0.3.2       pixmap_0.4-11     xfun_0.7         
  [22] DiceKriging_1.5.6 callr_3.1.0       crayon_1.3.4     
  [25] jsonlite_1.5      hexbin_1.27.2     survival_2.42-3  
@@ -1325,21 +1360,21 @@ loaded via a namespace (and not attached):
  [49] reshape_0.8.8     XML_3.98-1.16     nnet_7.3-12      
  [52] RJSONIO_1.3-1.1   labeling_0.3      later_0.7.5      
  [55] rlang_0.3.1       munsell_0.5.0     tools_3.5.1      
- [58] evaluate_0.13     yaml_2.2.0        processx_3.2.1   
- [61] knitr_1.23        mime_0.5          whisker_0.3-2    
- [64] xml2_1.2.0        compiler_3.5.1    rstudioapi_0.10  
- [67] plotly_4.8.0      e1071_1.7-0       spacetime_1.2-2  
- [70] lhs_0.16          stringi_1.2.4     ps_1.2.1         
- [73] gdtools_0.1.7     plot3D_1.1.1      Matrix_1.2-14    
- [76] classInt_0.2-3    pillar_1.3.1      plotKML_0.5-9    
- [79] data.table_1.11.8 httpuv_1.4.5      colorRamps_2.3   
- [82] R6_2.2.2          promises_1.0.1    gridExtra_2.3    
- [85] codetools_0.2-15  MASS_7.3-50       assertthat_0.2.0 
- [88] rprojroot_1.3-2   withr_2.1.2       hms_0.4.2        
- [91] parallel_3.5.1    grid_3.5.1        rpart_4.1-13     
- [94] tidyr_0.8.2       class_7.3-14      rmarkdown_1.12   
- [97] misc3d_0.8-4      mco_1.0-15.1      git2r_0.23.0     
-[100] shiny_1.2.0       base64enc_0.1-3  </code></pre>
+ [58] cli_1.1.0         evaluate_0.13     yaml_2.2.0       
+ [61] processx_3.2.1    knitr_1.23        mime_0.5         
+ [64] whisker_0.3-2     xml2_1.2.0        compiler_3.5.1   
+ [67] rstudioapi_0.10   plotly_4.8.0      e1071_1.7-0      
+ [70] spacetime_1.2-2   lhs_0.16          stringi_1.2.4    
+ [73] ps_1.2.1          gdtools_0.1.7     plot3D_1.1.1     
+ [76] Matrix_1.2-14     classInt_0.2-3    pillar_1.3.1     
+ [79] plotKML_0.5-9     data.table_1.11.8 httpuv_1.4.5     
+ [82] colorRamps_2.3    R6_2.2.2          promises_1.0.1   
+ [85] gridExtra_2.3     codetools_0.2-15  MASS_7.3-50      
+ [88] assertthat_0.2.0  rprojroot_1.3-2   withr_2.1.2      
+ [91] hms_0.4.2         parallel_3.5.1    grid_3.5.1       
+ [94] rpart_4.1-13      tidyr_0.8.2       class_7.3-14     
+ [97] rmarkdown_1.12    misc3d_0.8-4      mco_1.0-15.1     
+[100] git2r_0.23.0      shiny_1.2.0       base64enc_0.1-3  </code></pre>
 </div>
 </div>
 
