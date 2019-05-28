@@ -161,9 +161,9 @@ tasks_pred <- list(
   fusarium_task_dummy_prediction
 )
 
-tasks_no_ph <- list(
+tasks_pred_no_ph <- list(
   armillaria_task_dummy_no_ph,
   heterobasidion_task_dummy_no_ph,
-  diplodia_task_dummy_no_ph,
-  fusarium_task_dummy_no_ph
+  diplodia_task_dummy_prediction_no_ph,
+  fusarium_task_dummy_prediction_no_ph
 )

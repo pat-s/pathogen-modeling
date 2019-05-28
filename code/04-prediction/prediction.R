@@ -1,8 +1,8 @@
-args_pred = tibble(task = rlang::syms(c("tasks_pred",
-                                        "tasks_pred",
-                                        "tasks_pred",
-                                        "tasks_pred",
-                                        "tasks_pred",
+args_pred = tibble(task = rlang::syms(c("tasks_pred_no_ph",
+                                        "tasks_pred_no_ph",
+                                        "tasks_pred_no_ph",
+                                        "tasks_pred_no_ph",
+                                        "tasks_pred_no_ph",
 
                                         "diplodia_task_dummy_prediction_no_temp",
                                         "diplodia_task_dummy_prediction_no_precip",
@@ -13,11 +13,11 @@ args_pred = tibble(task = rlang::syms(c("tasks_pred",
                                         "diplodia_task_dummy_prediction_no_slope",
                                         "diplodia_task_dummy_prediction_no_pisr",
 
-                                        "diplodia_task_dummy_prediction",
-                                        "fusarium_task_dummy_prediction",
-                                        "armillaria_task_dummy",
-                                        "heterobasidion_task_dummy",
-                                        "tasks_pred")),
+                                        "diplodia_task_dummy_prediction_no_ph",
+                                        "fusarium_task_dummy_prediction_no_ph",
+                                        "armillaria_task_dummy_no_ph",
+                                        "heterobasidion_task_dummy_no_ph",
+                                        "tasks_pred_no_ph")),
                    learner = c("lrn_rf",
                                "lrn_svm",
                                "lrn_xgboost",
@@ -33,10 +33,10 @@ args_pred = tibble(task = rlang::syms(c("tasks_pred",
                                "lrn_rf", # debugging tasks
                                "lrn_rf", # debugging tasks
 
-                               "lrn_gam_diplodia_pred",
-                               "lrn_gam_fusarium_pred",
-                               "lrn_gam_armillaria_pred",
-                               "lrn_gam_heterobasidion_pred",
+                               "lrn_gam_diplodia_pred_no_ph",
+                               "lrn_gam_fusarium_pred_no_ph",
+                               "lrn_gam_armillaria_pred_no_ph",
+                               "lrn_gam_heterobasidion_pred_no_ph",
                                "lrn_brt"),
                    resampling = rlang::syms(rep("spcv_inner_fiveF", 18)),
                    param_set = rlang::syms(c("ps_rf",
@@ -79,7 +79,7 @@ args_pred = tibble(task = rlang::syms(c("tasks_pred",
                                              "tune_ctrl_gam_100_armillaria_heterobasidion",
                                              "tune_ctrl_gam_100_armillaria_heterobasidion",
                                              "tune_ctrl_brt_100")),
-                   prediction_data = c(rep(rlang::syms("pred_data"), 5),
+                   prediction_data = c(rep(rlang::syms("pred_data_no_ph"), 5),
 
                                        rlang::syms("pred_data_no_temp"),
                                        rlang::syms("pred_data_no_precip"),
@@ -90,7 +90,7 @@ args_pred = tibble(task = rlang::syms(c("tasks_pred",
                                        rlang::syms("pred_data_no_slope"),
                                        rlang::syms("pred_data_no_pisr"),
 
-                                       rep(rlang::syms("pred_data"), 5)),
+                                       rep(rlang::syms("pred_data_no_ph"), 5)),
                    prediction_grid = rep(rlang::syms("temperature_mean"), 18),
                    desc_resampling = c("spatial/spatial",
                                        "spatial/spatial",
@@ -125,10 +125,10 @@ args_pred[11, "id"] = "prediction_debugging_diplodia_no_lithology"
 args_pred[12, "id"] = "prediction_debugging_diplodia_no_slope"
 args_pred[13, "id"] = "prediction_debugging_diplodia_no_pisr"
 
-args_pred[14, "id"] = "prediction_gam_diplodia"
-args_pred[15, "id"] = "prediction_gam_fusarium"
-args_pred[16, "id"] = "prediction_gam_armillaria"
-args_pred[17, "id"] = "prediction_gam_heterobasidion"
+args_pred[14, "id"] = "prediction_gam_diplodia_no_ph"
+args_pred[15, "id"] = "prediction_gam_fusarium_no_ph"
+args_pred[16, "id"] = "prediction_gam_armillaria_no_ph"
+args_pred[17, "id"] = "prediction_gam_heterobasidion_no_ph"
 
 prediction_prob_plan = map_plan(args_pred, prediction_custom, trace = FALSE)
 
@@ -137,10 +137,10 @@ prediction_prob_plan = map_plan(args_pred, prediction_custom, trace = FALSE)
 
 args_pred = tibble(prediction_raster = c("prediction_glm",
 
-                                         "prediction_gam_diplodia",
-                                         "prediction_gam_fusarium",
-                                         # "prediction_gam_armillaria",
-                                         "prediction_gam_heterobasidion",
+                                         "prediction_gam_diplodia_no_ph",
+                                         "prediction_gam_fusarium_no_ph",
+                                         "prediction_gam_armillaria_no_ph",
+                                         "prediction_gam_heterobasidion_no_ph",
 
                                          "prediction_svm",
 
@@ -165,7 +165,7 @@ model_name = c("glm",
 
                "gam",
                "gam",
-               # "gam",
+               "gam",
                "gam",
 
                "svm",
@@ -191,7 +191,7 @@ benchmark_object = c("bm_sp_non_glm",
 
                      "bm_sp_sp_diplodia_gam",
                      "bm_sp_sp_fusarium_gam",
-                     # "bm_sp_sp_armillaria_gam",
+                     "bm_sp_sp_armillaria_gam",
                      "bm_sp_sp_heterobasidion_gam",
 
                      "no_extract_bm_sp_sp_svm",
@@ -215,7 +215,7 @@ resampling = c(# glm
   # gam
   "spatial/spatial",
   "spatial/spatial",
-  # "spatial/spatial",
+  "spatial/spatial",
   "spatial/spatial",
 
   "spatial/spatial",
