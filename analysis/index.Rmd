@@ -16,10 +16,13 @@ This [workflowr]() site contains all information and results about this research
 
 Project details can be found in the [About](about.html) page.
 
-### Result shortcuts
+**Result shortcuts**
 
 1. [Evaluating classifier performance on _Diplodia sapinea_](benchmark-diplodia.html)
 1. [Visualization of optimization paths during hyperparameter tuning](vis-opt-paths.html)
 1. [Visualization of (spatial) resampling partitions](vis-partitions.html)
 1. [Visualization of hyperparameter tuning effects](vis-tuning-effects.html)
 
+# Acknowledgements
+
+This work has been supported by the the European Union "Healthy Forest" Project LIFE14 ENV/ES/000179.
