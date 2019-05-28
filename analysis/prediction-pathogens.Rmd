@@ -245,6 +245,5 @@ NA
 ```
 
 ```{r echo = FALSE}
-system("rsync -rlptDvzog --chown=www-data:www-data --fake-super /home/patrick/papers/2018-model-comparison/docs/figure/prediction-pathogens.Rmd/prediction-map* -e ssh patrick@jupiter.geogr.uni-jena.de:/home/www/life-healthy-forest/action-B1-spatial-mapping/pathogen-infection-maps/"
-)
+system("rsync -rlptDvzog --chown=www-data:www-data --fake-super /home/patrick/papers/2018-model-comparison/docs/figure/prediction-pathogens.Rmd/prediction-map* -e ssh patrick@jupiter.geogr.uni-jena.de:/home/www/life-healthy-forest/action-B1-spatial-mapping/pathogen-infection-maps/")
 ```

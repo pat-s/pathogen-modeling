@@ -1,6 +1,9 @@
 ---
 title: "Evaluating classifier performance on pathogens"
-output: workflowr::wflow_html
+output: 
+  workflowr::wflow_html:
+    includes:
+      in_header: header.html
 author: "Patrick Schratz, Friedrich-Schiller-University Jena"
 bibliography: bibliography.bib
 link-citations: yes

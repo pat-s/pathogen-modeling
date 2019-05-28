@@ -17,6 +17,8 @@ navbar:
       href: benchmark-pathogens.html
     - text: "Prediction results and maps"
       href: prediction-pathogens.html
+    - text: "Debugging of pathogen prediction maps"
+      href: pathogen-maps-debugging.html
   - text: Paper
     menu:
     - text: "Benchmark results Diplodia"
