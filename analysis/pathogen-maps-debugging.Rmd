@@ -1,6 +1,9 @@
 ---
 title: "Prediction maps of pathogens from various algorithms"
-output: workflowr::wflow_html
+output: 
+  workflowr::wflow_html:
+    includes:
+      in_header: header.html
 author: "Patrick Schratz, Friedrich-Schiller-University Jena"
 ---
 
