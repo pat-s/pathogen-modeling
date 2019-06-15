@@ -6,7 +6,7 @@
 
 # `pathogen-prediction-maps` --------------- copy pathogen infection prediction PNG maps to LIFE
 rsync -rlptDvzog --chown=www-data:www-data --fake-super \
-  /mnt/cluster/home/patrick/papers/2018-model-comparison/analysis/paper/submission/3/appendices/prediction-map* \
+  /mnt/cluster/home/patrick/papers/2018-model-comparison/docs/figure/prediction-pathogens.Rmd/prediction-map* \
   -e ssh patrick@jupiter.geogr.uni-jena.de:/home/www/life-healthy-forest/action-B1-spatial-mapping/pathogen-infection-maps/
 
 # `pathogen_prediction_report` ------------ copy pathogen infection report to LIFE
@@ -34,6 +34,7 @@ rsync -rlptDvzog --chown=www-data:www-data --fake-super \
   -e ssh patrick@jupiter.geogr.uni-jena.de:/home/patrick/2018-model-comparison/
 
 # `vis_opt_paths` -------------- copy visualization of optimization paths to patrick
+
 rsync -rlptDvzog --chown=www-data:www-data --fake-super \
   /mnt/cluster/home/patrick/papers/2018-model-comparison/analysis/rmd/vis-opt-paths.html \
   -e ssh patrick@jupiter.geogr.uni-jena.de:/home/patrick/2018-model-comparison/

@@ -64,10 +64,13 @@ options(clustermq.scheduler = "slurm",
 # watch -n .1 tail -n 40 ~/git/pathogen-modeling/drake.log
 
 drake_config(plan,
-             verbose = 2, targets = c("bm_sp_nsp_diplodia", "bm_nsp_nsp_diplodia", "bm_sp_sp_diplodia", "pathogens_performance"), lazy_load = "promise",
+             verbose = 2,
+             targets = c("pathogen_maps_debugging", "prediction_pathogens"),
+             lazy_load = "promise",
              console_log_file = "log/drake.log", cache_log_file = "log/cache3.log",
              caching = "worker",
-             template = list(log_file = "log/worker%a.log", n_cpus = 16, memory = 120001),
-             prework = quote(future::plan(future::multisession, workers = 16)),
-             garbage_collection = TRUE, jobs = 3, parallelism = "clustermq"
+             template = list(log_file = "log/worker%a.log", n_cpus = 10, memory = 60000),
+             prework = quote(future::plan(future::multisession, workers = 10)),
+             garbage_collection = TRUE, jobs = 1, parallelism = "clustermq",
+             lock_envir = FALSE
 )
