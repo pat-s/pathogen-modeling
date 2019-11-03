@@ -472,8 +472,8 @@ Requires: BH, R6, Rcpp, assertthat, glue, magrittr, pkgconfig, plogr,
 
 Package: drake
 Source: CRAN
-Version: 7.2.0
-Hash: 63bc67f508f01bdcc0be5e9b7926ee45
+Version: 7.4.0
+Hash: 8d4b450c23d36fd811fffbdcff5aa767
 Requires: base64url, digest, igraph, rlang, storr
 
 Package: e1071
