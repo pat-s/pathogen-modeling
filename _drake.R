@@ -67,10 +67,16 @@ drake_config(plan,
              verbose = 2,
              targets = c("pathogen_maps_debugging", "prediction_pathogens"),
              lazy_load = "promise",
-             console_log_file = "log/drake.log", cache_log_file = "log/cache3.log",
+             console_log_file = "log/drake.log",
              caching = "worker",
-             template = list(log_file = "log/worker%a.log", n_cpus = 10, memory = 60000),
-             prework = quote(future::plan(future::multisession, workers = 10)),
-             garbage_collection = TRUE, jobs = 1, parallelism = "clustermq",
-             lock_envir = FALSE
+             template = list(log_file = "log/worker%a.log", n_cpus = 16, memory = 60000,
+                             job_name = "paper1"),
+             prework = list(quote(set.seed(1, "L'Ecuyer-CMRG")),
+                            quote(future::plan(future.callr::callr, workers = 10)),
+                            quote(parallelStart(
+                              mode = "multicore", cpus = ignore(16), level = "mlr.resample"
+                            ))
+             ),
+             garbage_collection = TRUE, jobs = 3, parallelism = "clustermq",
+             lock_envir = FALSE, keep_going = TRUE
 )
