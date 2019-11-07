@@ -348,9 +348,9 @@ Hash: a76a309884277a4fd8a5d741965fbef5
 
 Package: clustermq
 Source: CRAN
-Version: 0.8.6
-Hash: 7b360aca21ade21067406db9d0fc89b8
-Requires: R6, infuser, narray, progress, purrr, rzmq
+Version: 0.8.8
+Hash: 587c81256ffbac54f547b2df55d95001
+Requires: R6, narray, progress, purrr, rzmq
 
 Package: coda
 Source: CRAN
@@ -472,9 +472,9 @@ Requires: BH, R6, Rcpp, assertthat, glue, magrittr, pkgconfig, plogr,
 
 Package: drake
 Source: CRAN
-Version: 7.4.0
-Hash: 8d4b450c23d36fd811fffbdcff5aa767
-Requires: base64url, digest, igraph, rlang, storr
+Version: 7.7.0
+Hash: 5fc46e40b4557ad3b0e8986a60db0199
+Requires: base64url, digest, igraph, rlang, storr, txtq
 
 Package: e1071
 Source: CRAN
@@ -517,6 +517,11 @@ Package: fastmatch
 Source: CRAN
 Version: 1.1-0
 Hash: 932691e01f5e2d6de914fd4b847f37c8
+
+Package: filelock
+Source: CRAN
+Version: 1.0.2
+Hash: 97adcbe3b816f81113e84168d06746d8
 
 Package: forcats
 Source: CRAN
@@ -1600,6 +1605,12 @@ RemoteRepo: travis
 RemoteUsername: ropenscilabs
 RemoteRef: master
 RemoteSha: 6719bd06e2153b3ef348c4f977e53dcdef774697
+
+Package: txtq
+Source: CRAN
+Version: 0.2.0
+Hash: cb72ff6101b4eced6a6f317412b57766
+Requires: R6, base64url, filelock
 
 Package: units
 Source: CRAN
