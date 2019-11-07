@@ -18,7 +18,8 @@ tuning_wrapper_custom <- function(lrn, param_set, resampling, tune_ctrl) {
 #' @template param_set
 tune_ctrl_mbo_30n_20it = function(param_set) {
   makeTuneControlMBO(
-    mbo.control = makeMBOControl(propose.points = 1L) %>%
+    mbo.control = makeMBOControl(propose.points = 1L,
+                                 on.surrogate.error = "warn") %>%
       setMBOControlTermination(iters = 20L) %>%
       setMBOControlInfill(crit = crit.ei),
     mbo.design = generateDesign(n = 30, par.set = param_set)
@@ -29,7 +30,8 @@ tune_ctrl_mbo_30n_20it = function(param_set) {
 #' @template param_set
 tune_ctrl_mbo_30n_70it = function(param_set) {
   makeTuneControlMBO(
-    mbo.control = makeMBOControl(propose.points = 1L) %>%
+    mbo.control = makeMBOControl(propose.points = 1L,
+                                 on.surrogate.error = "warn") %>%
       setMBOControlTermination(iters = 70L) %>%
       setMBOControlInfill(crit = crit.ei),
     mbo.design = generateDesign(n = 30, par.set = param_set)
