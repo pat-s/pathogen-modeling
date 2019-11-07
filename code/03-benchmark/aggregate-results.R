@@ -196,8 +196,6 @@ no_extract_plan = drake_plan(
 
 # Aggregate by pathogen + model + resampling --------------------------------------
 
-# armi xgboost and armi gam are missing so we cannot merge them here
-
 bm_all_pathogens_plan = drake_plan(
   bm_all_pathogens_sp_sp = mergeBenchmarkResults(list(no_extract_bm_sp_sp_diplodia2,
                                                       no_extract_bm_sp_sp_armillaria,
