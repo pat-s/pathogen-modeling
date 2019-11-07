@@ -7,17 +7,7 @@
 
 benchmark_custom_no_extract_no_pred_no_models <- function(task, learner, resampling) {
 
-  if (grepl("kknn", learner$id)) {
-    cores = ignore(16)
-  } else {
-    cores = ignore(32)
-  }
-
-  parallelStart(
-    mode = "multicore", cpus = cores, level = "mlr.resample",
-    mc.set.seed = FALSE
-  )
-  set.seed(12345)
+  set.seed(12345, "L'Ecuyer-CMRG")
 
   bmr <- benchmark(learner, task,
                    models = FALSE,
@@ -41,17 +31,7 @@ benchmark_custom_no_extract_no_pred_no_models <- function(task, learner, resampl
 
 benchmark_custom_no_pred_no_models <- function(task, learner, resampling) {
 
-  if (grepl("kknn", learner$id)) {
-    cores = ignore(16)
-  } else {
-    cores = ignore(32)
-  }
-
-  parallelStart(
-    mode = "multicore", cpus = cores, level = "mlr.resample",
-    mc.set.seed = FALSE
-  )
-  set.seed(12345)
+  set.seed(12345, "L'Ecuyer-CMRG")
 
   bmr <- benchmark(learner, task,
                    models = FALSE,
